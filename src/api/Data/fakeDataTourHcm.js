@@ -1,0 +1,236 @@
+export const FAKE_CITY_TOUR_HCM = [
+  {
+    experienceId: 1,
+    experienceName: "Ăn tối trên Sông Sài Gòn - Tour Đêm",
+    score: "8.0",
+    shortGeoName: "Phường Bến Nghé, Quận 1",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/2001798092415/Dinner%2520Cruise%2520on%2520Saigon%2520River%2520-%2520Night%2520Tour-429b876c-9a30-466a-8482-13b6ba51a57d.jpeg?_src=imagekit&tr=c-at_max,h-200,q-60,w-300",
+    originalPrice: "3772350",
+    discountedPrice: "3772350",
+    totalReview: "11",
+    idCity: 1,
+  },
+  {
+    experienceId: 2,
+    experienceName: "B'Lao Trekking - Tour 2D1N",
+    score: "5.0",
+    shortGeoName: "Toshima",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/7555826908359/Vam%2520Sat%2520Eco%2520Park%2520-%2520Can%2520Gio%2520Tour%2520with%2520Canoe%2520Transfer%2520-%2520Day%2520Tour%2520-341d170e-7e3a-4055-b1c5-5fdb498c3eed.jpeg?_src=imagekit&tr=c-at_max,h-200,q-60,w-300",
+    originalPrice: "308963",
+    discountedPrice: "2929600",
+    totalReview: "0",
+    idCity: 1,
+  },
+  {
+    experienceId: 3,
+    experienceName:
+      "Công viên Sinh thái Vàm Sát - Cần Giờ với Ca nô đưa đón - Tour trong ngày",
+    score: "3.0",
+    shortGeoName: "Nakagyo",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/1000097609045/Professional%2520Photo%2520Shoot%2520in%2520Osaka-a12945d5-0527-4852-97d7-e4ecdba8cbc3.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit",
+    originalPrice: "432350",
+    discountedPrice: "337234",
+    totalReview: "6",
+    idCity: 1,
+  },
+  {
+    experienceId: 4,
+    experienceName:
+      "Tham quan Nhà máy Bia và Trải nghiệm Nếm Bia Thủ công tại East West Brewing Co.",
+    score: "2.0",
+    shortGeoName: "Kita",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/1002122792647/Professional%2520Photo%2520Shoot%2520in%2520Kyoto-8ac393e1-0520-45cc-a4ba-7267821e17c0.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit",
+    originalPrice: "3772350",
+    discountedPrice: "3272350",
+    totalReview: "12",
+    idCity: 2,
+  },
+  {
+    experienceId: 5,
+    experienceName: "Tour Bến Đình - Địa Đạo Củ Chi bằng Ca-nô - Tour Nửa Ngày",
+    score: "2.0",
+    shortGeoName: "Kita",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/1002122792647/Professional%2520Photo%2520Shoot%2520in%2520Kyoto-8ac393e1-0520-45cc-a4ba-7267821e17c0.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit",
+    originalPrice: "3772350",
+    discountedPrice: "3272350",
+    totalReview: "12",
+    idCity: 2,
+  },
+  {
+    experienceId: 6,
+    experienceName: "Du ngoạn địa đạo Củ Chi - Tour trong ngày",
+    score: "2.0",
+    shortGeoName: "Kita",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/1002122792647/Professional%2520Photo%2520Shoot%2520in%2520Kyoto-8ac393e1-0520-45cc-a4ba-7267821e17c0.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit",
+    originalPrice: "3772350",
+    discountedPrice: "3272350",
+    totalReview: "12",
+    idCity: 2,
+  },
+  {
+    experienceId: 7,
+    experienceName: "Tour Xích lô Sài Gòn - Tour 1 Giờ",
+    score: "2.0",
+    shortGeoName: "Kita",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/1002122792647/Professional%2520Photo%2520Shoot%2520in%2520Kyoto-8ac393e1-0520-45cc-a4ba-7267821e17c0.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit",
+    originalPrice: "3772350",
+    discountedPrice: "3272350",
+    totalReview: "12",
+    idCity: 2,
+  },
+  {
+    experienceId: 1,
+    experienceName: "Ăn tối trên Sông Sài Gòn - Tour Đêm",
+    score: "8.0",
+    shortGeoName: "Phường Bến Nghé, Quận 1",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/2001798092415/Dinner%2520Cruise%2520on%2520Saigon%2520River%2520-%2520Night%2520Tour-429b876c-9a30-466a-8482-13b6ba51a57d.jpeg?_src=imagekit&tr=c-at_max,h-200,q-60,w-300",
+    originalPrice: "3772350",
+    discountedPrice: "3772350",
+    totalReview: "11",
+    idCity: 3,
+  },
+  {
+    experienceId: 2,
+    experienceName: "B'Lao Trekking - Tour 2D1N",
+    score: "5.0",
+    shortGeoName: "Toshima",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/7555826908359/Vam%2520Sat%2520Eco%2520Park%2520-%2520Can%2520Gio%2520Tour%2520with%2520Canoe%2520Transfer%2520-%2520Day%2520Tour%2520-341d170e-7e3a-4055-b1c5-5fdb498c3eed.jpeg?_src=imagekit&tr=c-at_max,h-200,q-60,w-300",
+    originalPrice: "308963",
+    discountedPrice: "2929600",
+    totalReview: "0",
+    idCity: 3,
+  },
+  {
+    experienceId: 3,
+    experienceName:
+      "Công viên Sinh thái Vàm Sát - Cần Giờ với Ca nô đưa đón - Tour trong ngày",
+    score: "3.0",
+    shortGeoName: "Nakagyo",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/1000097609045/Professional%2520Photo%2520Shoot%2520in%2520Osaka-a12945d5-0527-4852-97d7-e4ecdba8cbc3.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit",
+    originalPrice: "432350",
+    discountedPrice: "337234",
+    totalReview: "6",
+    idCity: 3,
+  },
+  {
+    experienceId: 1,
+    experienceName: "Ăn tối trên Sông Sài Gòn - Tour Đêm",
+    score: "8.0",
+    shortGeoName: "Phường Bến Nghé, Quận 1",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/2001798092415/Dinner%2520Cruise%2520on%2520Saigon%2520River%2520-%2520Night%2520Tour-429b876c-9a30-466a-8482-13b6ba51a57d.jpeg?_src=imagekit&tr=c-at_max,h-200,q-60,w-300",
+    originalPrice: "3772350",
+    discountedPrice: "3772350",
+    totalReview: "11",
+    idCity: 3,
+  },
+  {
+    experienceId: 2,
+    experienceName: "B'Lao Trekking - Tour 2D1N",
+    score: "5.0",
+    shortGeoName: "Toshima",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/7555826908359/Vam%2520Sat%2520Eco%2520Park%2520-%2520Can%2520Gio%2520Tour%2520with%2520Canoe%2520Transfer%2520-%2520Day%2520Tour%2520-341d170e-7e3a-4055-b1c5-5fdb498c3eed.jpeg?_src=imagekit&tr=c-at_max,h-200,q-60,w-300",
+    originalPrice: "308963",
+    discountedPrice: "2929600",
+    totalReview: "0",
+    idCity: 3,
+  },
+  {
+    experienceId: 3,
+    experienceName:
+      "Công viên Sinh thái Vàm Sát - Cần Giờ với Ca nô đưa đón - Tour trong ngày",
+    score: "3.0",
+    shortGeoName: "Nakagyo",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/1000097609045/Professional%2520Photo%2520Shoot%2520in%2520Osaka-a12945d5-0527-4852-97d7-e4ecdba8cbc3.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit",
+    originalPrice: "432350",
+    discountedPrice: "337234",
+    totalReview: "6",
+    idCity: 3,
+  },
+  {
+    experienceId: 1,
+    experienceName: "Ăn tối trên Sông Sài Gòn - Tour Đêm",
+    score: "8.0",
+    shortGeoName: "Phường Bến Nghé, Quận 1",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/2001798092415/Dinner%2520Cruise%2520on%2520Saigon%2520River%2520-%2520Night%2520Tour-429b876c-9a30-466a-8482-13b6ba51a57d.jpeg?_src=imagekit&tr=c-at_max,h-200,q-60,w-300",
+    originalPrice: "3772350",
+    discountedPrice: "3772350",
+    totalReview: "11",
+    idCity: 4,
+  },
+  {
+    experienceId: 2,
+    experienceName: "B'Lao Trekking - Tour 2D1N",
+    score: "5.0",
+    shortGeoName: "Toshima",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/7555826908359/Vam%2520Sat%2520Eco%2520Park%2520-%2520Can%2520Gio%2520Tour%2520with%2520Canoe%2520Transfer%2520-%2520Day%2520Tour%2520-341d170e-7e3a-4055-b1c5-5fdb498c3eed.jpeg?_src=imagekit&tr=c-at_max,h-200,q-60,w-300",
+    originalPrice: "308963",
+    discountedPrice: "2929600",
+    totalReview: "0",
+    idCity: 4,
+  },
+  {
+    experienceId: 3,
+    experienceName:
+      "Công viên Sinh thái Vàm Sát - Cần Giờ với Ca nô đưa đón - Tour trong ngày",
+    score: "3.0",
+    shortGeoName: "Nakagyo",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/1000097609045/Professional%2520Photo%2520Shoot%2520in%2520Osaka-a12945d5-0527-4852-97d7-e4ecdba8cbc3.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit",
+    originalPrice: "432350",
+    discountedPrice: "337234",
+    totalReview: "6",
+    idCity: 4,
+  },
+  {
+    experienceId: 1,
+    experienceName: "Ăn tối trên Sông Sài Gòn - Tour Đêm",
+    score: "8.0",
+    shortGeoName: "Phường Bến Nghé, Quận 1",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/2001798092415/Dinner%2520Cruise%2520on%2520Saigon%2520River%2520-%2520Night%2520Tour-429b876c-9a30-466a-8482-13b6ba51a57d.jpeg?_src=imagekit&tr=c-at_max,h-200,q-60,w-300",
+    originalPrice: "3772350",
+    discountedPrice: "3772350",
+    totalReview: "11",
+    idCity: 4,
+  },
+  {
+    experienceId: 2,
+    experienceName: "B'Lao Trekking - Tour 2D1N",
+    score: "5.0",
+    shortGeoName: "Toshima",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/7555826908359/Vam%2520Sat%2520Eco%2520Park%2520-%2520Can%2520Gio%2520Tour%2520with%2520Canoe%2520Transfer%2520-%2520Day%2520Tour%2520-341d170e-7e3a-4055-b1c5-5fdb498c3eed.jpeg?_src=imagekit&tr=c-at_max,h-200,q-60,w-300",
+    originalPrice: "308963",
+    discountedPrice: "2929600",
+    totalReview: "0",
+    idCity: 4,
+  },
+  {
+    experienceId: 3,
+    experienceName:
+      "Công viên Sinh thái Vàm Sát - Cần Giờ với Ca nô đưa đón - Tour trong ngày",
+    score: "3.0",
+    shortGeoName: "Nakagyo",
+    imageUrl:
+      "https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/1000097609045/Professional%2520Photo%2520Shoot%2520in%2520Osaka-a12945d5-0527-4852-97d7-e4ecdba8cbc3.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit",
+    originalPrice: "432350",
+    discountedPrice: "337234",
+    totalReview: "6",
+    idCity: 4,
+  },
+];
