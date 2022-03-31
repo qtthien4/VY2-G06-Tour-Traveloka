@@ -1,110 +1,18 @@
-import { Box, Button, Grid } from '@material-ui/core';
+import { Box, Button, Grid, Modal } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { ArrowRightAltOutlined, ArrowRightOutlined, PlaceOutlined } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/styles';
+import ModelRecentSearches from 'components/ModelRecentSearches';
+import RecentSearch from 'components/RecentSearch';
 import Slide from 'components/Slide';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import "swiper/css/bundle";
 import SearchActivities from '../../components/SearchActivities';
-import ListCityTour from './components/ListCityTour';
 import ListTour from './components/ListTour';
 import { selectListCityTour, selectListCountryTour, selectListMalaysiaTour, selectListSingaporeTour, selectListThailandTour, tourActions } from './tourSlice';
-const useStyles = makeStyles(theme => ({
-    root: {
-        width: '1280px',      
-    },
-    container: {
-        justifyContent: 'center',
-        zIndex: 1,
-        width: '100%',
-        display: 'flex',
-        margin: 'auto',
-        background:"rgba(255,255,255,1.00)",
-    },
-    header: {
-        position: 'relative',
-        width: "100%",
-        marginBottom: "80px"
-    },
-    heading_img: {
-        objectFit: "cover",
-        objectPosition: "center center",
-        width: "100%",
-        height: 242,
-    },
-    searchInput: {
-        marginTop: '-60px',
-        boxShadow: '0px 8px 18px rgb(3 18 26 / 13%)',
-        width: "70%",
-        margin: "auto",
-        borderRadius:"8px"
-    },
-    filterWithPlace: {
-        display: 'flex',
-        justifyContent: 'flex-start',
-        maxWidth: '40%',
-        alignItems: 'center',
-        marginBottom: '1%',
-        marginTop: '35px'
-    },
-    iconPlaceAndText: {
-        display: 'flex',
-        
-    },
-    btnPlace: {
-        borderRadius: "15px 0px 0px 15px",
-
-    },
-    btnPlaceFilter: {
-        borderRadius: "0px 15px 15px 0px"
-    },
-    btnDiscovery: {
-        backgroundColor: "rgb(192, 76, 54)",
-        color: "white",
-        borderRadius: "20px",
-        margin: '15px 0px 15px',
-        textTransform: 'capitalize'
-    },
-    title: {
-        fontSize: '24px',
-        textAlign: 'left',
-        fontWeight: 700,
-        color: 'rgba(67,67,67,1.00)',
-    },
-    titleDescription: {
-        fontSize: '16px',
-        color: 'rgb(143, 143, 143)',
-    },
-    content: {
-        marginTop: "10px"
-    },
-    contentCity: {
-        marginBottom: '50px',
-
-    },
-    listTourCity: {
-        marginLeft: '-15px',
-        marginRight: '-15px',
-
-    },
-    boxlinkBottomToTour: {
-        display: 'flex',
-        justifyContent: 'right',
-        alignItems: 'center',
-        textAlign: 'right'
-    },
-    linkBottomToTour:{
-        fontWeight:700,
-    },
-    fontWeight:{
-        fontWeight: 700,
-    },
-    footer: {}
-})
-)
-
+import { useStyles } from './useStylesTour';
+import './index.css';
 
 export default function Tours() {
     const slideNumber = 5;
@@ -127,9 +35,37 @@ export default function Tours() {
     const handleOnclickListCountry = (id) =>{
         console.log("ok", id)
     }
+    const style = {
+        position: 'absolute',
+        top: '70%',
+        left: '0%',
+        width:"100%",      
+        bgcolor: 'background.paper',
+        boxShadow: "0px 8px 18px rgb(3 18 26 / 13%)",
+        zIndex:10,
+      };
+    const inputRef = useRef();
+    const recentSearchesRef = useRef();
+    const layoutRef = useRef();
+
+      
+    const handleOpenModel = () =>{
+        
+        //inputRef.current.focus();
+
+        recentSearchesRef.current.style.display = 'block';
+        console.log("ok1",recentSearchesRef.current);
+    }
+    const handleCloseModel = () =>{
+        
+        //inputRef.current.blur();
+         recentSearchesRef.current.style.display = 'none';
+        console.log("ok2",recentSearchesRef.current);
+    }
     return (
-        <Grid className={classes.container} item xs={12} >
-            <Grid className={classes.root}>
+        <Grid ref={layoutRef} className={classes.container} item xs={12} >
+            <Grid className={classes.root} onFocus={handleCloseModel} >
+                <div className={classes.backgoundark}>
                 <NavLink to="/activities">Xperience</NavLink>/
                 <NavLink to="/activities/category/daytour">tour</NavLink>
                 <Typography variant='h3'>Tour</Typography>
@@ -137,9 +73,31 @@ export default function Tours() {
                     <Box>
                         <img className={classes.heading_img} src="https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430518767-1fc642d45c0ab4008c1eba72a17a2780.jpeg?tr=h-242,q-75"></img>
                     </Box>
-                    <Box className={classes.searchInput}>
-                        <SearchActivities />
+                    <Box className={classes.boxSearchandRecentSearch}>
+                        <Box className={`${classes.searchInput} searchInput`}>
+                            <SearchActivities handleOpen={handleOpenModel} inputRef={inputRef}/>                            
+                        </Box>
+                        <Box ref = {recentSearchesRef}  sx={style} className={`${classes.recentSearchBox} recentSearches`}>
+                            <RecentSearch  /> 
+                        </Box>
+                        
+                        <ModelRecentSearches/>  
+                        {/* <Modal
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                            >
+                                
+                                <Box className={classes.recentSearches} mt={4} sx={style}>
+                                    <RecentSearch/> 
+                                </Box>                              
+                        </Modal> */}
+                        
+                          
+                                                                 
                     </Box>
+                
                     <Box>
                         <Box className={classes.filterWithPlace} >
                             <Box className={classes.iconPlaceAndText} mr={4}>
@@ -225,7 +183,7 @@ export default function Tours() {
                         </Box>
                     </Box>
                 </Box>
-
+                </div>
             </Grid>
         </Grid >
     );
