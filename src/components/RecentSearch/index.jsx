@@ -5,12 +5,14 @@ import {
   Card,
   CardHeader,
   IconButton,
+  ListItem,
   Typography,
 } from "@material-ui/core";
 import { PlaceOutlined } from "@material-ui/icons";
 import React from "react";
 import { useStyles } from "./useStyleRecentSearch";
-
+import './index.css';
+import { List } from "reactstrap";
 export default function RecentSearch() {
   const classes = useStyles();
   return (
@@ -19,79 +21,59 @@ export default function RecentSearch() {
         <Typography variant="h4" className={classes.title}>
           Recent Searches
         </Typography>
-        <Box className={classes.listRecentSearches}>
-          <Card className={classes.card}>
-            <CardHeader
-              avatar={
-                <Avatar aria-label="Recipe" className={classes.avatar}>
-                  R
-                </Avatar>
-              }
-              action={<IconButton></IconButton>}
-              title="Da nang"
-              subheader="Region * VietNam"
-            />
-          </Card>
-
-          <Card className={classes.card}>
-            <CardHeader
-              avatar={
-                <Avatar aria-label="Recipe" className={classes.avatar}>
-                  R
-                </Avatar>
-              }
-              action={<IconButton></IconButton>}
-              title="Da nang"
-              subheader="Region * VietNam"
-            />
-          </Card>
-
-          <Card className={classes.card}>
-            <CardHeader
-              avatar={
-                <Avatar aria-label="Recipe" className={classes.avatar}>
-                  R
-                </Avatar>
-              }
-              action={<IconButton></IconButton>}
-              title="Da nang"
-              subheader="Region * VietNam"
-            />
-          </Card>
-
-          <Card className={classes.card}>
-            <CardHeader
-              avatar={
-                <Avatar aria-label="Recipe" className={classes.avatar}>
-                  R
-                </Avatar>
-              }
-              action={<IconButton></IconButton>}
-              title="Da nang"
-              subheader="Region * VietNam"
-            />
-          </Card>
+        <Box >
+        <List className={classes.rootList} disablePadding={false}>
+                <ListItem className={classes.list}  >
+                    <Button variant="outlined" color="primary" className={classes.button}>
+                      <img className = "imgRecentSearches" src="https://scontent.fsgn5-14.fna.fbcdn.net/v/t39.30808-6/275067098_1407044986394206_2635471231387814510_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=bBX8_c39rQoAX_HoQr6&_nc_ht=scontent.fsgn5-14.fna&oh=00_AT9AdEs3pX3CiAPi42AaTJsXJhZi_IRlL98C-qtgIPeokg&oe=624C472A" alt="Avatar"/>
+                      <Box textAlign="left" className ="boxNameRecentSearch">
+                        <span className="nameRecentSearch">Da Nang</span> <br/>
+                        <Typography variant="caption" >Region * VietNam</Typography>
+                      </Box>
+                    </Button>
+                    <Button variant="outlined" color="primary" className={classes.button}>
+                      <img className = "imgRecentSearches" src="https://scontent.fsgn5-14.fna.fbcdn.net/v/t39.30808-6/275067098_1407044986394206_2635471231387814510_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=bBX8_c39rQoAX_HoQr6&_nc_ht=scontent.fsgn5-14.fna&oh=00_AT9AdEs3pX3CiAPi42AaTJsXJhZi_IRlL98C-qtgIPeokg&oe=624C472A" alt="Avatar"/>
+                      <Box textAlign="left" className ="boxNameRecentSearch">
+                        <span className="nameRecentSearch">Da Nang</span> <br/>
+                        <Typography variant="caption" >Region * VietNam</Typography>
+                      </Box>
+                    </Button>
+                    <Button variant="outlined" color="primary" className={classes.button}>
+                      <img className = "imgRecentSearches" src="https://scontent.fsgn5-14.fna.fbcdn.net/v/t39.30808-6/275067098_1407044986394206_2635471231387814510_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=bBX8_c39rQoAX_HoQr6&_nc_ht=scontent.fsgn5-14.fna&oh=00_AT9AdEs3pX3CiAPi42AaTJsXJhZi_IRlL98C-qtgIPeokg&oe=624C472A" alt="Avatar"/>
+                      <Box textAlign="left" className ="boxNameRecentSearch">
+                        <span className="nameRecentSearch">Da Nang</span> <br/>
+                        <Typography variant="caption" >Region * VietNam</Typography>
+                      </Box>
+                    </Button>
+                    <Button variant="outlined" color="primary" className={classes.button}>
+                      <img className = "imgRecentSearches" src="https://scontent.fsgn5-14.fna.fbcdn.net/v/t39.30808-6/275067098_1407044986394206_2635471231387814510_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=bBX8_c39rQoAX_HoQr6&_nc_ht=scontent.fsgn5-14.fna&oh=00_AT9AdEs3pX3CiAPi42AaTJsXJhZi_IRlL98C-qtgIPeokg&oe=624C472A" alt="Avatar"/>
+                      <Box textAlign="left" className ="boxNameRecentSearch">
+                        <span className="nameRecentSearch">Da Nang</span> <br/>
+                        <Typography variant="caption" >Region * VietNam</Typography>
+                      </Box>
+                    </Button>
+   
+                </ListItem>
+            </List>
+         
+          
+        
+            
         </Box>
       </Box>
 
       <Box className={classes.boxTrendingNow}>
         <Typography className={classes.title}>Treading Now</Typography>
-        <Box className={classes.boxBtn}>
-          <Button variant="default" size="small">
+        <Box className={classes.boxBtn} mt={2}>
+          <Button variant="outlined" size="small" className={classes.trenddingBtn}>
             Ho Chi Minh City
           </Button>
-          <Button variant="default" size="small">
-            Nha Trang
+          <Button variant="outlined" size="small" className={classes.trenddingBtn}>
+            Ho Chi Minh City
+          </Button><Button variant="outlined" size="small" className={classes.trenddingBtn}>
+            Ho Chi Minh City
           </Button>
-          <Button variant="default" size="small">
-            Da nang
-          </Button>
-          <Button variant="default" size="small">
-            Ha Noi
-          </Button>
-          <Button variant="default" size="small">
-            Thai Lan
-          </Button>
+        
         </Box>
       </Box>
     </Box>

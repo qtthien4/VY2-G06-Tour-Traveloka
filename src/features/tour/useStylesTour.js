@@ -49,7 +49,7 @@ export const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   recentSearchBox: {
-    display: "none",
+    display: "block",
   },
   recentSearchBox1: {
     display: "block",

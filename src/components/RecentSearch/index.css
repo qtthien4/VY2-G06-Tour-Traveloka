@@ -1,0 +1,16 @@
+.imgRecentSearches {
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right:10px;
+    margin-left:10px;
+  }
+  .nameRecentSearch{
+    color:rgb(192, 76, 54);
+    
+  }
+  .boxNameRecentSearch{
+    line-height: 1.3;
+  }
+  

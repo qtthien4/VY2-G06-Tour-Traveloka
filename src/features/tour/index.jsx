@@ -54,15 +54,19 @@ export default function Tours() {
       
     const handleOpenModel = () =>{  
         recentSearchesRef.current.style.display = 'block';
+        console.log('ok')
+        
             
     }
     const handleCloseModel = () =>{
-      
+        console.log("no ok");
             recentSearchesRef.current.style.display = 'none' ;           
             
     }
     return (
+        
         <Grid ref={layoutRef} className={classes.container} item xs={12}  >
+            
             <Grid className={classes.root}  >
                 <div className={classes.backgoundark}>
                 <NavLink to="/activities">Xperience</NavLink>/
@@ -185,5 +189,7 @@ export default function Tours() {
                 </div>
             </Grid>
         </Grid>
+        
+       
     );
 }
