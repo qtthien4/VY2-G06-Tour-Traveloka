@@ -34,10 +34,11 @@ const useStyles = makeStyles(theme => ({
     margin: '1%'
   },
   btn:{
+    color:"white",
     backgroundColor:"rgb(1, 148, 243)",
     minWidth: "140px",
-    '&hover':{
-      backgroundColor: "red",
+    '&:hover':{
+      backgroundColor: "rgb(1, 148, 243)",
     }
   },
 

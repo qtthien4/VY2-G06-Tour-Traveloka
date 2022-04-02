@@ -35,6 +35,9 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "90%",
     maxHeight: "90%",
     borderRadius: "8px",
+    "&:hover": {
+      cursor: "pointer",
+    },
   },
   boxItem: {},
 }));

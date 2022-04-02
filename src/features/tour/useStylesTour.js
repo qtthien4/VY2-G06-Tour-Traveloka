@@ -49,18 +49,11 @@ export const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   recentSearchBox: {
-    display: "block",
+    display: "none",
   },
   recentSearchBox1: {
     display: "block",
   },
-  //   recentSearches: {
-  //     display: "block",
-  //     position: "absolutely",
-  //     boxShadow: "0px 8px 18px rgb(3 18 26 / 13%)",
-  //     width: "100%",
-  //     borderRadius: "8px",
-  //   },
   filterWithPlace: {
     display: "flex",
     justifyContent: "flex-start",
@@ -83,7 +76,11 @@ export const useStyles = makeStyles((theme) => ({
     color: "white",
     borderRadius: "20px",
     margin: "15px 0px 15px",
-    textTransform: "capitalize",
+    textTransform: "none",
+    "&:hover": {
+      background: "rgb(192, 76, 54)",
+
+    },
   },
   title: {
     fontSize: "24px",

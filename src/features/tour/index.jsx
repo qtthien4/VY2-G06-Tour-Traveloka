@@ -46,151 +46,132 @@ export default function Tours() {
         zIndex:10,
         borderRadius:"5px"
       };
+      
     const inputRef = useRef();
     const recentSearchesRef = useRef();
     const layoutRef = useRef();
-    const a =false
-
       
     const handleOpenModel = () =>{  
         recentSearchesRef.current.style.display = 'block';
-        window.scroll(0,256)
-        
-        layoutRef.current.style.background ='#333'
-        
-            
+        window.scroll(0,256) 
+        // var btn = document.createElement("button");  
+        //     btn.innerHTML = "Click me"; 
+        //     btn.className="boxContainerTour" 
+        //     console.log(document.body.appendChild(btn) );          
     }
     const handleCloseModel = () =>{
         console.log("no ok");
             recentSearchesRef.current.style.display = 'none' ;           
-            layoutRef.current.style.background ='#FFF'
+            // layoutRef.current.style.background ='#FFF'
+            
+            // layoutRef.current.style.position = "relative"
     }
     return (
-        
-        <Grid ref={layoutRef} className={classes.container} item xs={12}  >
-            
-            <Grid className={classes.root}  >
-                <div className={classes.backgoundark}>
-                <NavLink to="/activities">Xperience</NavLink>/
-                <NavLink to="/activities/category/daytour">tour</NavLink>
-                <Typography variant='h3'>Tour</Typography>
-                <Box className="header">
-                    <Box>
-                        <img className={classes.heading_img} src="https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430518767-1fc642d45c0ab4008c1eba72a17a2780.jpeg?tr=h-242,q-75"></img>
-                    </Box>
-                    <Box className={classes.boxSearchandRecentSearch}>
-                        <Box className={`${classes.searchInput} searchInput`}>
-                            <SearchActivities  handleOpen={handleOpenModel} handleOnBlur={handleCloseModel} inputRef={inputRef}/>                            
-                        </Box>
-                        <Box ref = {recentSearchesRef}  sx={style} className={`${classes.recentSearchBox} recentSearches`}>
-                            <RecentSearch  /> 
-                        </Box>
-                        
-                        {/* <ModelRecentSearches/>   */}
-                        {/* <Modal
-                            open={open}
-                            onClose={handleClose}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-                            >
-                                
-                                <Box className={classes.recentSearches} mt={4} sx={style}>
-                                    <RecentSearch/> 
-                                </Box>                              
-                        </Modal> */}
-                        
-                          
-                                                                 
-                    </Box>
+        <div className="boxContainerTour">
+            <Grid ref={layoutRef} className={classes.container} item xs={12}  >
+           
+           <Grid className={classes.root}  >
+               <div className={classes.backgoundark}>
+               <NavLink to="/activities">Xperience</NavLink>/
+               <NavLink to="/activities/category/daytour">tour</NavLink>
+               <Typography variant='h3'>Tour</Typography>
+               <Box className="header">
                 
-                    <Box>
-                        <Box className={classes.filterWithPlace} >
-                            <Box className={classes.iconPlaceAndText} mr={4}>
-                                <PlaceOutlined className={classes.fontWeight}/>
-                                <Typography variant='subtitle1' className={classes.fontWeight}>Vị trí hiện tại của bạn</Typography>
-                            </Box>
-                            <Box >
-                                <Button size="small" className={classes.btnPlace} variant='outlined'>
-                                    <Typography variant='subtitle2' className={classes.fontWeight} >Việt Nam</Typography>
-                                </Button>
-                                <Button size="small" variant='outlined' className={classes.btnPlaceFilter}>
-                                    <Typography variant='subtitle2'>Thay đổi</Typography>
-                                </Button>
-                            </Box>
-                        </Box>
-                        <Button className={classes.btnDiscovery} size="small" variant='contained' >
-                            <Typography variant="caption" className={classes.fontWeight}>
-                                Khám phá các hoạt động ở vị trí của bạn
-                            </Typography>
-                            <ArrowRightAltOutlined />
-                        </Button>
-                    </Box>
+                       <img className={classes.heading_img} src="https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430518767-1fc642d45c0ab4008c1eba72a17a2780.jpeg?tr=h-242,q-75"></img>
+                   
+                   <Box className={classes.boxSearchandRecentSearch} >
+                       <Box className={`${classes.searchInput} searchInput`}>
+                           <SearchActivities  handleOpen={handleOpenModel} handleOnBlur={handleCloseModel} inputRef={inputRef}/>                            
+                       </Box>
+                       <Box ref = {recentSearchesRef}  sx={style} className={`${classes.recentSearchBox} recentSearches`}>
+                           <RecentSearch  /> 
+                       </Box>                                         
+                   </Box>
+               
+                   <Box>
+                       <Box className={classes.filterWithPlace} >
+                           <Box className={classes.iconPlaceAndText} mr={4}>
+                               <PlaceOutlined className={classes.fontWeight}/>
+                               <Typography variant='subtitle1' className={classes.fontWeight}>Vị trí hiện tại của bạn</Typography>
+                           </Box>
+                           <Box >
+                               <Button size="small" className={classes.btnPlace} variant='outlined'>
+                                   <Typography variant='subtitle2' className={classes.fontWeight} >Việt Nam</Typography>
+                               </Button>
+                               <Button size="small" variant='outlined' className={classes.btnPlaceFilter}>
+                                   <Typography variant='subtitle2'>Thay đổi</Typography>
+                               </Button>
+                           </Box>
+                       </Box>
+                       <Button className={classes.btnDiscovery} size="small" variant='contained' >
+                           <Typography variant="caption" className={classes.fontWeight}>
+                               Khám phá các hoạt động ở vị trí của bạn
+                           </Typography>
+                           <ArrowRightAltOutlined />
+                       </Button>
+                   </Box>
 
-                </Box>
+               </Box>
 
-                <Box className={classes.content}>
+               <Box className={classes.content}>
+                   <Box className={classes.contentCity}>
+                       <Typography className={classes.title} >Các điểm đến nổi bật của địa phương</Typography>
+                       <Typography className={classes.titleDescription}>Những nơi đáng tham quan và khám phá trong nước</Typography>
+                       <Box mt={4} className={classes.listTourCity}>
+                   <Slide listCityVietNam = {listCityTourVietName} slideNumber = {slideNumber} handleOnclickListTourVN={handleOnclickListTourVN}/>
+                       </Box>
+                   </Box>
 
-                    {/* ListCityTOur */}
-                    <Box className={classes.contentCity}>
-                        <Typography className={classes.title} >Các điểm đến nổi bật của địa phương</Typography>
-                        <Typography className={classes.titleDescription}>Những nơi đáng tham quan và khám phá trong nước</Typography>
-                        <Box mt={4} className={classes.listTourCity}>
-                    <Slide listCityVietNam = {listCityTourVietName} slideNumber = {slideNumber} handleOnclickListTourVN={handleOnclickListTourVN}/>
-                        </Box>
-                    </Box>
+                   <Box className={classes.contentCity}>
+                       <Typography className={classes.title} >Các điểm đến nổi bật của địa phương</Typography>
+                       <Typography className={classes.titleDescription}>Những nơi đáng tham quan và khám phá trong nước</Typography>
+                       <Box mt={4} className={classes.listTourCity}>                         
+                           <Slide listCityVietNam = {ListCountry} slideNumber = {slideNumber} handleOnclickListTourVN={handleOnclickListCountry} />
+                       </Box>
+                   </Box>
 
-                    <Box className={classes.contentCity}>
-                        <Typography className={classes.title} >Các điểm đến nổi bật của địa phương</Typography>
-                        <Typography className={classes.titleDescription}>Những nơi đáng tham quan và khám phá trong nước</Typography>
-                        <Box mt={4} className={classes.listTourCity}>
-                            {/* <Slide listCityVietNam = {ListCountry} slideNumber = {slideNumber} handleOnclickListTourVN={handleOnclickListTourVN}/>
-                            <Slide listCityVietNam = {listCityTourVietName} slideNumber = {slideNumber} handleOnclickListTourVN={handleOnclickListTourVN}/> */}
-                            
-                            <Slide listCityVietNam = {ListCountry} slideNumber = {slideNumber} handleOnclickListTourVN={handleOnclickListCountry} />
-                            {/* <ListCityTour  listCityVietNam = {ListCountry} slideNumber = {slideNumber}/> */}
-                        </Box>
-                    </Box>
+                   {/* ListTour */}
+                   <Box className={classes.contentCity}>
+                       <Typography className={classes.title} >Singapore đầy nắng</Typography>
+                       <Typography className={classes.titleDescription}>Khám phá các tour du lịch phổ biến nhất mà Thành phố Sư tử cung cấp</Typography>
+                       <Box mt={4} className={classes.listTourCity}>
+                           <ListTour  listTour = {ListSingaporeTour} slideNumber = {slideNumberCountry}/>
+                       </Box>
+                       <Box className={classes.boxlinkBottomToTour}>
+                           <Typography className={classes.linkBottomToTour} color='primary' align="right">Xem tất cả các hoạt động  </Typography>
+                           <ArrowRightOutlined />
+                       </Box>
+                   </Box>
 
-                    {/* ListTour */}
-                    <Box className={classes.contentCity}>
-                        <Typography className={classes.title} >Singapore đầy nắng</Typography>
-                        <Typography className={classes.titleDescription}>Khám phá các tour du lịch phổ biến nhất mà Thành phố Sư tử cung cấp</Typography>
-                        <Box mt={4} className={classes.listTourCity}>
-                            <ListTour  listTour = {ListSingaporeTour} slideNumber = {slideNumberCountry}/>
-                        </Box>
-                        <Box className={classes.boxlinkBottomToTour}>
-                            <Typography className={classes.linkBottomToTour} color='primary' align="right">Xem tất cả các hoạt động  </Typography>
-                            <ArrowRightOutlined />
-                        </Box>
-                    </Box>
+                   <Box className={classes.contentCity}>
+                       <Typography className={classes.title} >Singapore đầy nắng</Typography>
+                       <Typography className={classes.titleDescription}>Khám phá các tour du lịch phổ biến nhất mà Thành phố Sư tử cung cấp</Typography>
+                       <Box mt={4} className={classes.listTourCity}>
+                           <ListTour  listTour = {ListThailandTour} slideNumber = {slideNumberCountry}/>
+                       </Box>
+                       <Box className={classes.boxlinkBottomToTour}>
+                           <Typography color='primary' align="right">Xem tất cả các hoạt động  </Typography>
+                           <ArrowRightOutlined />
+                       </Box>
+                   </Box>
 
-                    <Box className={classes.contentCity}>
-                        <Typography className={classes.title} >Singapore đầy nắng</Typography>
-                        <Typography className={classes.titleDescription}>Khám phá các tour du lịch phổ biến nhất mà Thành phố Sư tử cung cấp</Typography>
-                        <Box mt={4} className={classes.listTourCity}>
-                            <ListTour  listTour = {ListThailandTour} slideNumber = {slideNumberCountry}/>
-                        </Box>
-                        <Box className={classes.boxlinkBottomToTour}>
-                            <Typography color='primary' align="right">Xem tất cả các hoạt động  </Typography>
-                            <ArrowRightOutlined />
-                        </Box>
-                    </Box>
-
-                    <Box className={classes.contentCity}>
-                        <Typography className={classes.title} >Singapore đầy nắng</Typography>
-                        <Typography className={classes.titleDescription}>Khám phá các tour du lịch phổ biến nhất mà Thành phố Sư tử cung cấp</Typography>
-                        <Box mt={4} className={classes.listTourCity}>
-                            <ListTour  listTour = {ListMalaysiaTour} slideNumber = {slideNumberCountry}/>
-                        </Box>
-                        <Box className={classes.boxlinkBottomToTour}>
-                            <Typography color='primary' align="right">Xem tất cả các hoạt động  </Typography>
-                            <ArrowRightOutlined />
-                        </Box>
-                    </Box>
-                </Box>
-                </div>
-            </Grid>
-        </Grid>
+                   <Box className={classes.contentCity}>
+                       <Typography className={classes.title} >Singapore đầy nắng</Typography>
+                       <Typography className={classes.titleDescription}>Khám phá các tour du lịch phổ biến nhất mà Thành phố Sư tử cung cấp</Typography>
+                       <Box mt={4} className={classes.listTourCity}>
+                           <ListTour  listTour = {ListMalaysiaTour} slideNumber = {slideNumberCountry}/>
+                       </Box>
+                       <Box className={classes.boxlinkBottomToTour}>
+                           <Typography color='primary' align="right">Xem tất cả các hoạt động  </Typography>
+                           <ArrowRightOutlined />
+                       </Box>
+                   </Box>
+               </Box>
+               </div>
+           </Grid>
+       </Grid>
+        </div>
+        
         
        
     );

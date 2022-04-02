@@ -29,7 +29,6 @@ const useStyles = makeStyles(theme => ({
     centerImage: {
         height: "200px",
         width:"300px",
-
     },
     img: {
         width:"100%",
@@ -37,6 +36,9 @@ const useStyles = makeStyles(theme => ({
         objectFit: "cover",
         maxWidth: "100%",
         borderRadius: "8px",
+        "&:hover": {
+          cursor: "pointer",
+        },
        
     },
     boxItem: {
