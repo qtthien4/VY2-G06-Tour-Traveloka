@@ -4,7 +4,7 @@ export const useStyles = makeStyles((theme) => ({
   container: {
     width: "100%",
     backgroundColor: "rgba(242,243,243,1.00)",
-    padding: "1px",
+    paddingTop: "103px",
   },
   headerSearch: {
     padding: "1px",

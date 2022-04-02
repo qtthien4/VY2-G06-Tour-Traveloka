@@ -76,7 +76,7 @@ export default function Tours() {
                    
                    <Box className={classes.boxSearchandRecentSearch} >
                        <Box className={`${classes.searchInput} searchInput`}>
-                           <SearchActivities  />                            
+                           <SearchActivities style={style} />                            
                        </Box>
                        <Box ref = {recentSearchesRef}  sx={style} className={`${classes.recentSearchBox} recentSearches`}>
                            <RecentSearch  /> 

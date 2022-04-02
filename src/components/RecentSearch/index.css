@@ -13,4 +13,7 @@
   .boxNameRecentSearch{
     line-height: 1.3;
   }
+  .MuiListItem-gutters{
+        padding-left: -16px !important ;
+  }
   

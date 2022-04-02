@@ -4,7 +4,7 @@ import './index.css'
 
 function Header() {
   return (
-    <div>
+    <div className="navLayout" style={{boxShadow: "0px 4px 5px rgb(3 18 26 / 13%)"}}>
         <div className="header1">
           <div className="header1-left">
             <div id="icon-menu-header">

@@ -5,6 +5,7 @@ export const useStyles = makeStyles((theme) => ({
     width: "1280px",
   },
   container: {
+    marginTop: "120px",
     justifyContent: "center",
     zIndex: 1,
     width: "100%",
@@ -31,7 +32,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   searchInput: {
     marginTop: "-60px",
-    boxShadow: "0px 8px 18px rgb(3 18 26 / 13%)",
+    boxShadow: "0px 4px 18px rgb(3 18 26 / 13%)",
     width: "100%",
     margin: "auto",
     borderRadius: "8px",

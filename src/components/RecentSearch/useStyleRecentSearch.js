@@ -57,7 +57,10 @@ export const useStyles = makeStyles((theme) => ({
   },
   rootList: {
     width: "100%",
-    marginLeft: "-60px",
+    marginLeft: "-40px",
+  },
+  btnItemFirst: {
+    marginLeft: "-10px",
   },
 
   list: {
