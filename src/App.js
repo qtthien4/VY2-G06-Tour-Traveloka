@@ -29,6 +29,7 @@ import Tours from "features/tour";
 import Product from "features/product";
 import Search from "features/search";
 import Booking from "features/booking";
+import Payment from "features/Payment";
 //const Photo = React.lazy(()=>import('./features/Photo'))
 
 // Import FirebaseAuth and firebase.
@@ -104,6 +105,7 @@ export default function App() {
       <div>{element}</div>
       <Routes>
         <Route path="/activities" element={<Xperience />}></Route>
+        
         <Route path="/activities/category/daytour" element={<Tours />}></Route>
         <Route path="/activities/search" element={<Search />}>
           <Route path=":id" element={<Search />}></Route>
@@ -111,6 +113,7 @@ export default function App() {
         <Route path="/activities/vietnam/product" element={<Product />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/booking" element={<Booking />} />
+        <Route path="/booking/payment" element={<Payment />} />
       </Routes>
     </div>
   );

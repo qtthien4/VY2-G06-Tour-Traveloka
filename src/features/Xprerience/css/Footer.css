@@ -1,0 +1,67 @@
+.footer {
+    margin-top: 100px;
+    background-color: rgb(27 27 27);
+    color: white;
+    padding-left: 100px;
+}
+
+.certification {
+    display: flex;
+    flex-wrap: wrap;
+    width: 370px;
+}
+
+.certification>img {
+    margin: 7px;
+    width: auto;
+    height: 41px;
+}
+
+.cooperate {
+    display: flex;
+    width: 240px;
+    height: 70px;
+    border: 2px white solid;
+    border-radius: 15px;
+    margin: 30px 0;
+    align-items: center;
+}
+
+.cooperate>img {
+    width: 36px;
+    height: auto;
+    margin-right: 16px;
+    margin-left: 5px;
+}
+
+.icon-pay {
+    display: flex;
+    flex-wrap: wrap;
+    width: 400px;
+}
+
+.icon-pay>div {
+    width: 75px;
+    height: 48px;
+    background-color: white;
+    border-radius: 5px;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-pay>div>img {
+    width: 51px;
+    height: 19px;
+}
+
+.handleul>li {
+    list-style: none;
+    margin-top: 10px;
+}
+
+.handleul {
+    padding: 0;
+    width: 200px
+}
