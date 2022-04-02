@@ -52,16 +52,18 @@ export default function Tours() {
       
     const handleOpenModel = () =>{  
         recentSearchesRef.current.style.display = 'block';
-            
+        window.scroll(0,256)
+        
+        layoutRef.current.style.background ='#333'
     }
-    const handleCloseModel = () =>{
-      
+    const handleCloseModel = () =>{      
             recentSearchesRef.current.style.display = 'none' ;           
-            
+            layoutRef.current.style.background ='#FFF'
     }
     return (
+        <Grid >        
         <Grid ref={layoutRef} className={classes.container} item xs={12}  >
-            <Grid className={classes.root}  >
+            <Grid  className={classes.root}  >
                 <div className={classes.backgoundark}>
                 <NavLink to="/activities">Xperience</NavLink>/
                 <NavLink to="/activities/category/daytour">tour</NavLink>
@@ -182,6 +184,7 @@ export default function Tours() {
                 </Box>
                 </div>
             </Grid>
+        </Grid>        
         </Grid>
     );
 }
