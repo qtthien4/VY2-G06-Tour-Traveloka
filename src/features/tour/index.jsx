@@ -13,6 +13,8 @@ import ListTour from './components/ListTour';
 import { selectListCityTour, selectListCountryTour, selectListMalaysiaTour, selectListSingaporeTour, selectListThailandTour, tourActions } from './tourSlice';
 import { useStyles } from './useStylesTour';
 import './index.css';
+import Footer from 'components/Footer';
+import Header from 'components/Header';
 
 export default function Tours() {
     const slideNumber = 5;
@@ -51,23 +53,17 @@ export default function Tours() {
     const recentSearchesRef = useRef();
     const layoutRef = useRef();
       
-    const handleOpenModel = () =>{  
-        recentSearchesRef.current.style.display = 'block';
-        window.scroll(0,256) 
-        // var btn = document.createElement("button");  
-        //     btn.innerHTML = "Click me"; 
-        //     btn.className="boxContainerTour" 
-        //     console.log(document.body.appendChild(btn) );          
-    }
-    const handleCloseModel = () =>{
-        console.log("no ok");
-            recentSearchesRef.current.style.display = 'none' ;           
-            // layoutRef.current.style.background ='#FFF'
-            
-            // layoutRef.current.style.position = "relative"
-    }
+    // const handleOpenModel = () =>{  
+    //     recentSearchesRef.current.style.display = 'block';
+    //     window.scroll(0,256)           
+    // }
+    // const handleCloseModel = () =>{
+    //         recentSearchesRef.current.style.display = 'none' ;           
+    // }
     return (
-        <div className="boxContainerTour">
+        <div>
+            <Header/>
+            <div className="boxContainerTour">
             <Grid ref={layoutRef} className={classes.container} item xs={12}  >
            
            <Grid className={classes.root}  >
@@ -75,13 +71,12 @@ export default function Tours() {
                <NavLink to="/activities">Xperience</NavLink>/
                <NavLink to="/activities/category/daytour">tour</NavLink>
                <Typography variant='h3'>Tour</Typography>
-               <Box className="header">
-                
+               <Box className="header">             
                        <img className={classes.heading_img} src="https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430518767-1fc642d45c0ab4008c1eba72a17a2780.jpeg?tr=h-242,q-75"></img>
                    
                    <Box className={classes.boxSearchandRecentSearch} >
                        <Box className={`${classes.searchInput} searchInput`}>
-                           <SearchActivities  handleOpen={handleOpenModel} handleOnBlur={handleCloseModel} inputRef={inputRef}/>                            
+                           <SearchActivities  />                            
                        </Box>
                        <Box ref = {recentSearchesRef}  sx={style} className={`${classes.recentSearchBox} recentSearches`}>
                            <RecentSearch  /> 
@@ -170,7 +165,11 @@ export default function Tours() {
                </div>
            </Grid>
        </Grid>
+       <Footer/>
         </div>
+      
+        </div>
+        
         
         
        

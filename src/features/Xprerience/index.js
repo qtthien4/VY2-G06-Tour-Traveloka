@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 
-import Banner from './Banner';
-import Footer from './Footer';
-import Navbar from './NavBar';
-import Slide from './Slide';
-import {listTour,listPromotion,listPlace} from './Containers/ListHome.js'
+import Banner from "./Banner";
+import Navbar from "./NavBar";
+import Slide from "./Slide";
+import { listTour, listPromotion, listPlace } from "./Containers/ListHome.js";
+import Footer from "components/Footer";
 
 export default function Xperience() {
   return (
@@ -16,27 +16,27 @@ export default function Xperience() {
     // </div>
 
     <>
-      <Navbar/>
-      <Banner/>
+      <Navbar />
+      <Banner />
 
-      <div style={{"marginLeft" : "100px", "marginTop" : "50px"}}>
+      <div style={{ marginLeft: "100px", marginTop: "50px" }}>
         <h3>Khám phá các danh mục Xperience</h3>
-      <p>Xem thật kỹ các hoạt động và trải nghiệm độc đáo nhé</p>
-      </div>      
-      <Slide list={listTour}/>
+        <p>Xem thật kỹ các hoạt động và trải nghiệm độc đáo nhé</p>
+      </div>
+      <Slide list={listTour} />
 
-      <div style={{"marginLeft" : "100px","marginTop" : "50px"}}>
+      <div style={{ marginLeft: "100px", marginTop: "50px" }}>
         <h3>Khuyến mãi Xperience hiện hành</h3>
-      <p>Tiết kiệm lớn với những ưu đãi đặc biệt giới hạn của chúng tôi</p>
+        <p>Tiết kiệm lớn với những ưu đãi đặc biệt giới hạn của chúng tôi</p>
       </div>
-      <Slide list = {listPromotion}/>
+      <Slide list={listPromotion} />
 
-      <div style={{"marginLeft" : "100px","marginTop" : "50px"}}>
-        <h3>Bí kíp du lịch an toàn hậu Covid</h3>      
+      <div style={{ marginLeft: "100px", marginTop: "50px" }}>
+        <h3>Bí kíp du lịch an toàn hậu Covid</h3>
       </div>
-      <Slide list = {listPlace}/>
+      <Slide list={listPlace} />
 
-      <Footer/>
+      <Footer />
     </>
   );
 }

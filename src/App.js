@@ -1,35 +1,23 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
-import {
-  Link,
-  matchRoutes,
-  useLocation,
-  useRoutes,
-  Route,
-  Routes,
-  useResolvedPath,
-} from "react-router-dom";
-import Dashboard from "./features/Photo/pages/DashBoard";
-import Team from "./features/Photo/pages/Team";
-import AddEditPage from "features/Photo/pages/AddEditPage";
-import MainPage from "features/Photo/pages/MainPage";
-import productApi from "api/productApi";
-import SignIn from "features/Auth/pages/SignIn";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import firebase from "firebase/compat/app";
-import "firebase/compat/auth";
-import "firebase/auth";
-import { Button } from "reactstrap";
-import { useDispatch } from "react-redux";
-import { getMe } from "app/userSlice";
 import { unwrapResult } from "@reduxjs/toolkit";
-import DashBoard from "./features/Photo/pages/DashBoard";
-import Xperience from "features/Xprerience";
-import Tours from "features/tour";
-import Product from "features/product";
-import Search from "features/search";
+import { getMe } from "app/userSlice";
+import SignIn from "features/Auth/pages/SignIn";
 import Booking from "features/booking";
 import Payment from "features/Payment";
+import AddEditPage from "features/Photo/pages/AddEditPage";
+import MainPage from "features/Photo/pages/MainPage";
+import Product from "features/product";
+import Search from "features/search";
+import Tours from "features/tour";
+import Xperience from "features/Xprerience";
+import "firebase/auth";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Route, Routes, useRoutes } from "react-router-dom";
+import "./App.css";
+import Dashboard from "./features/Photo/pages/DashBoard";
+import Team from "./features/Photo/pages/Team";
 //const Photo = React.lazy(()=>import('./features/Photo'))
 
 // Import FirebaseAuth and firebase.
@@ -105,7 +93,7 @@ export default function App() {
       <div>{element}</div>
       <Routes>
         <Route path="/activities" element={<Xperience />}></Route>
-        
+
         <Route path="/activities/category/daytour" element={<Tours />}></Route>
         <Route path="/activities/search" element={<Search />}>
           <Route path=":id" element={<Search />}></Route>

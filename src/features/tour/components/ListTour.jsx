@@ -73,7 +73,8 @@ function ListTour({listTour, slideNumber}) {
   return (
     <>
       <Swiper 
-      style={{background:"none",marginTop:"",marginBottom:"", height:"350px"}}
+       className='swiper2'
+      style={{background:"none",marginTop:"",marginBottom:"", height:"350px",width:"100%"}}
       // install Swiper modules
       modules={[Navigation, Pagination, Scrollbar, A11y]}
       spaceBetween={20}
@@ -83,7 +84,7 @@ function ListTour({listTour, slideNumber}) {
     >
       {
         listTour.map((list,index)=>(       
-          <SwiperSlide key={index} style={{background:"none", display:"flex",flexDirection:"column",height:"330px",justifyContent:"flex-start", textAlign:"left"}}>
+          <SwiperSlide  key={index} style={{background:"none", display:"flex",flexDirection:"column",height:"330px",justifyContent:"flex-start", textAlign:"left"}}>
           <Box className={classes.boxItem}>
               <Box className={classes.centerImage}>
                   <img className={classes.img} src={list.imageUrl} />

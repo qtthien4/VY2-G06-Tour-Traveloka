@@ -79,7 +79,6 @@ export const useStyles = makeStyles((theme) => ({
     textTransform: "none",
     "&:hover": {
       background: "rgb(192, 76, 54)",
-
     },
   },
   title: {
@@ -115,4 +114,8 @@ export const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
   },
   footer: {},
+
+  swiper1: {
+    width: "100% !important",
+  },
 }));

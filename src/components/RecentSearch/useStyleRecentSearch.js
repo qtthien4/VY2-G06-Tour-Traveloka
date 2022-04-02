@@ -12,6 +12,7 @@ export const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: "22px",
     fontWeight: 700,
+    color: "black",
   },
   listRecentSearches: {
     display: "inline-flex",

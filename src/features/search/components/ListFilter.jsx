@@ -12,13 +12,15 @@ import { Button, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     root: {
-
+        padding:"10px",
         width: '100%',
         maxWidth: 360,
         backgroundColor: theme.palette.background.paper,
     },
     button: {
-        margin: "5px",
+        fontWeight:600,
+        textTransform:"none",
+        margin: "10px",
         boxShadow: "rgb(3 18 26 / 15%) 0px 4px 10px",
         border: "none",
         backgroundColor: "rgb(247, 249, 250)",
@@ -39,9 +41,10 @@ const useStyles = makeStyles(theme => ({
         width: "100%",
     },
     title: {
-        marginBottom: "20px",
-        fontWeight: 600,
-        paddingTop: "15px",
+        marginBottom: "10px",
+        fontWeight: 570,
+        paddingTop: "5px",
+        color:"black",
     },
 
 }
@@ -53,9 +56,9 @@ function ListFilter() {
         <div className={classes.root}>
             <Typography className={classes.title}>Xperience Exclusive</Typography>
             <List className={classes.rootList} disablePadding={false}>
-                <ListItem className={classes.list}  >
+                <ListItem className={classes.list} style={{margin:"-15px"}} >
                     <Button variant="outlined" color="primary" className={classes.button}>
-                        <Typography variant="body1">Điểm Đến mới</Typography>
+                        Điểm Đến mới
                     </Button>
                     <Button variant="outlined" color="primary" className={classes.button}>
                         Kiểm tra Covid-19

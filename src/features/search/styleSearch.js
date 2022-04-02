@@ -7,6 +7,7 @@ export const useStyles = makeStyles((theme) => ({
     padding: "1px",
   },
   headerSearch: {
+    padding: "1px",
     width: "70%",
     margin: "auto",
   },
@@ -32,6 +33,7 @@ export const useStyles = makeStyles((theme) => ({
     gridArea: "header",
   },
   linkActivities: {
+    lineHeight: 1,
     textDecoration: "underline",
     color: "rgb(28, 41, 48)",
   },
@@ -41,6 +43,7 @@ export const useStyles = makeStyles((theme) => ({
   headerExprience: {
     height: "0px",
     display: "flex",
+    alignItems: "center",
     flexDirection: "row",
   },
   nameCity: {
@@ -57,13 +60,22 @@ export const useStyles = makeStyles((theme) => ({
     marginLeft: "5%",
   },
   mainFilter: {
+    borderRadius: "10px",
     boxShadow: "0px 8px 16px rgb(3 18 26 / 20%)",
     backgroundColor: "rgba(255,255,255,1.00)",
-    marginBottom: "30px",
+    marginBottom: "20px",
   },
   listTourOfCity: {},
   resetFilter: {
     fontWeight: 700,
     paddingBottom: "35px",
+    color: "rgba(1,148,243,1.00)",
+  },
+  linkCity: {
+    fontSize: "14px",
+    fontWeight: 500,
+    paddingtop: "10px",
+    height: "17px",
+    color: "rgb(1, 148, 243)",
   },
 }));

@@ -34,22 +34,20 @@ const useStyles = makeStyles(theme => ({
     img: {
         maxWidth: "90%",
         maxHeight: "90%",
-        borderRadius: "8px"
+        borderRadius: "8px",
+        
     },
     boxItem: {
 
     },
-   
-
 }))
-
-
 
 function ListCityTour({listCityVietNam, slideNumber,handleOnclickListTourVN}) {
   const classes = useStyles()
   return (
     <>
       <Swiper 
+      className="swiper2"
       style={{background:"none",marginTop:"-50px",marginBottom:"-50px"}}
       // install Swiper modules
       modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -62,10 +60,10 @@ function ListCityTour({listCityVietNam, slideNumber,handleOnclickListTourVN}) {
     >
       {
         listCityVietNam.map((list)=>(       
-          <SwiperSlide key={list.id} style={{background:"none"}} onClick={()=>handleOnclickListTourVN(list.id)}>
+          <SwiperSlide className='.swiper-slide1' key={list.id} style={{background:"none"}} onClick={()=>handleOnclickListTourVN(list.id)}>
             <Box className={classes.boxItem}>
                 <Box className={classes.centerImage}>
-                    <img className={classes.img} src={list.image} />
+                    <img  className={classes.img} src={list.image} />
                 </Box>
             </Box>
         </SwiperSlide>

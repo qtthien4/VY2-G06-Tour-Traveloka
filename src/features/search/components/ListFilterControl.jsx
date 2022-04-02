@@ -12,11 +12,20 @@ import React, { MouseEventHandler, useState } from 'react';
 
 const useStyles = makeStyles(theme => ({
     root: {
-
+        padding:"10px",
         marginTop: "30px",
         width: '100%',
         maxWidth: 360,
         backgroundColor: "white"
+    },
+    list:{
+        margin:"-15px"
+    },
+    title:{
+        marginBottom: "10px",
+        fontWeight: 570,
+        paddingTop: "5px",
+        color:"black",
     },
 }))
 
@@ -37,29 +46,42 @@ export default function ListFilterControl() {
 
         setState(newChecked)
     }
+     const arr = [
+         {
+             id:0,
+             nameCheckFilter: "Khuyễn mãi đặc biệt",
+         },
+         {
+            id:1,
+            nameCheckFilter: "Dễ dàng truy cập",
+        },
+        {
+            id:2,
+            nameCheckFilter: "ok",
+        }
+     ]
     return (
 
         <div className={classes.root}>
-            <Typography>Xperience Exclusive</Typography>
-            <List>
-                {[0, 1, 2, 3].map(value => (
-                    <ListItem
-                        key={value}
+            <Typography className= {classes.title} >Bộ lọc khác</Typography>
+            
+            <List className ={classes.list}>
+                {arr.map(value => (
+                    <ListItem className={classes.listItem}
+                        key={value.id}
                         role={undefined}
                         dense
                         button
+                        onChange={handleToggle}
                     >
                         <Checkbox
-                            checked={state.indexOf(value) !== -1}
+                        
+                            checked={state.indexOf(value.id) !== -1}
                             tabIndex={-1}
                             disableRipple
                         />
-                        <ListItemText primary={`Line item ${value + 1}`} />
-                        <ListItemSecondaryAction>
-                            <IconButton aria-label="Comments">
-                                <CommentIcon />
-                            </IconButton>
-                        </ListItemSecondaryAction>
+                        <ListItemText primary={value.nameCheckFilter} />
+
                     </ListItem>
                 ))}
             </List>

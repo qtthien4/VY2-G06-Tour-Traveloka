@@ -3,10 +3,11 @@ import * as React from 'react';
 
 const useStyles = makeStyles(theme => ({
     root: {
+        borderRadius:"10px",
         display: 'flex',
         flexWrap: 'nowrap',
         justifyContent: "space-between",
-        padding: "8px",
+        padding: "5px",
         backgroundColor: "white",
         alignItems: "center"
     },
@@ -22,17 +23,29 @@ const useStyles = makeStyles(theme => ({
 
     },
     select: {
-        border: "1px solid #ccc",
-        paddingTop: "10px",
+        border: "1px solid #ccc",   
         borderRadius: "10px",
+        margin:"5px",
+        padding:"5px",
+        minWidth: "150px",
+        "&:not(.Mui-disabled):before":{
+            border:"none"
+        },
+        "&:hover:not(.Mui-disabled):before":{
+            border:"none"
+        },
+        "&:forcus:not(.Mui-disabled):before":{
+            border:"none"
+        }
+
     }
 }))
 
 export function SelectPriceAndCommon() {
     const classes = useStyles();
     return (
-        <div>
-            <Box className={classes.root}>
+        <div className={classes.root}>
+          
                 <FormControl className={classes.formControl}>
                     <Select
                         className={classes.select}
@@ -42,6 +55,7 @@ export function SelectPriceAndCommon() {
                             id: 'age-native-simple',
                         }}
                     >
+                        <option value="">VND 0 - VND 4,000,000+</option>
                         <option value={10}>Ten</option>
                         <option value={20}>Twenty</option>
                         <option value={30}>Thirty</option>
@@ -59,7 +73,7 @@ export function SelectPriceAndCommon() {
                                 id: 'age-native-simple',
                             }}
                         >
-
+                            <option value="">Phổ biến nhất</option>
                             <option value={10}>Ten</option>
                             <option value={20}>Twenty</option>
                             <option value={30}>Thirty</option>
@@ -67,7 +81,7 @@ export function SelectPriceAndCommon() {
                     </FormControl>
                 </Box>
 
-            </Box>
+       
         </div >
     );
 }

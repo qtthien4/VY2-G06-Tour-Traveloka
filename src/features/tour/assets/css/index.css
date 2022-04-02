@@ -1,25 +1,11 @@
-#app { height: 100% }
-html,
-body {
-  position: relative;
-  height: 100%;
-}
 
-body {
-  background: #eee;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #000;
-  margin: 0;
-  padding: 0;
-}
  
-.swiper {
+.swiper1{
   width: 100%;
   height: 100%;
 }
 
-.swiper-slide {
+.swiper-slide1{
   text-align: center;
   font-size: 18px;
   background: #fff;
@@ -38,15 +24,20 @@ body {
   -webkit-align-items: center;
   align-items: center;
 }
-
-.swiper-slide img {
+.swiper1{
+  width: 100% !important;
+}
+.swiper2{
+  width: 100% !important;
+}
+.swiper-slide1 img {
   display: block;
-  width: 100%;
+  width: 100% !important;
   height: 100%;
   object-fit: cover;
 }
 
-.swiper {
+.swiper1 {
   width: 100%;
   height: 300px;
   margin: 20px auto;
