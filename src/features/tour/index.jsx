@@ -47,24 +47,21 @@ export default function Tours() {
     const inputRef = useRef();
     const recentSearchesRef = useRef();
     const layoutRef = useRef();
+    const a =false
 
       
-    const handleOpenModel = () =>{
-        
-        //inputRef.current.focus();
-
+    const handleOpenModel = () =>{  
         recentSearchesRef.current.style.display = 'block';
-        console.log("ok1",recentSearchesRef.current);
+            
     }
     const handleCloseModel = () =>{
-        
-        //inputRef.current.blur();
-         recentSearchesRef.current.style.display = 'none';
-        console.log("ok2",recentSearchesRef.current);
+      
+            recentSearchesRef.current.style.display = 'none' ;           
+            
     }
     return (
-        <Grid ref={layoutRef} className={classes.container} item xs={12} >
-            <Grid className={classes.root} onFocus={handleCloseModel} >
+        <Grid ref={layoutRef} className={classes.container} item xs={12}  >
+            <Grid className={classes.root}  >
                 <div className={classes.backgoundark}>
                 <NavLink to="/activities">Xperience</NavLink>/
                 <NavLink to="/activities/category/daytour">tour</NavLink>
@@ -75,7 +72,7 @@ export default function Tours() {
                     </Box>
                     <Box className={classes.boxSearchandRecentSearch}>
                         <Box className={`${classes.searchInput} searchInput`}>
-                            <SearchActivities handleOpen={handleOpenModel} inputRef={inputRef}/>                            
+                            <SearchActivities  handleOpen={handleOpenModel} handleOnBlur={handleCloseModel} inputRef={inputRef}/>                            
                         </Box>
                         <Box ref = {recentSearchesRef}  sx={style} className={`${classes.recentSearchBox} recentSearches`}>
                             <RecentSearch  /> 
@@ -185,6 +182,6 @@ export default function Tours() {
                 </Box>
                 </div>
             </Grid>
-        </Grid >
+        </Grid>
     );
 }

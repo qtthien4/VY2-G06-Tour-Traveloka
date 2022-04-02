@@ -42,14 +42,14 @@ const useStyles = makeStyles(theme => ({
   },
 
 }))
-export default function SearchActivities({handleOpen, inputRef}) {
+export default function SearchActivities({handleOpen, inputRef, handleOnBlur}) {
   const classes = useStyles()
   return (
     <Box className={classes.root}> 
       <Box className={classes.contained}>
         <Box className={classes.inputBox}>
           <SearchOutlined className={classes.icon} />
-          <Input inputRef={inputRef} onClick={handleOpen} className={classes.input} autoFocus disableUnderline fullWidth placeholder='Mời nhập tìm kiếm'></Input>
+          <Input inputRef={inputRef} onFocus={handleOpen} onBlur={handleOnBlur} className={classes.input}  disableUnderline fullWidth placeholder='Mời nhập tìm kiếm'></Input>
         </Box>
         <Button className={classes.btn} size='large' variant="contained">
           Search
