@@ -36,13 +36,15 @@ export default function Tours() {
         console.log("ok", id)
     }
     const style = {
+        marginTop:"10px",
         position: 'absolute',
-        top: '70%',
+        top: '100%',
         left: '0%',
         width:"100%",      
         bgcolor: 'background.paper',
         boxShadow: "0px 8px 18px rgb(3 18 26 / 13%)",
         zIndex:10,
+        borderRadius:"5px"
       };
     const inputRef = useRef();
     const recentSearchesRef = useRef();
@@ -81,7 +83,7 @@ export default function Tours() {
                             <RecentSearch  /> 
                         </Box>
                         
-                        <ModelRecentSearches/>  
+                        {/* <ModelRecentSearches/>   */}
                         {/* <Modal
                             open={open}
                             onClose={handleClose}
