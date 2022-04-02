@@ -54,14 +54,16 @@ export default function Tours() {
       
     const handleOpenModel = () =>{  
         recentSearchesRef.current.style.display = 'block';
-        console.log('ok')
+        window.scroll(0,256)
+        
+        layoutRef.current.style.background ='#333'
         
             
     }
     const handleCloseModel = () =>{
         console.log("no ok");
             recentSearchesRef.current.style.display = 'none' ;           
-            
+            layoutRef.current.style.background ='#FFF'
     }
     return (
         
