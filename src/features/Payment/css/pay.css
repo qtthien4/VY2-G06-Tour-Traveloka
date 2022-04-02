@@ -1,0 +1,95 @@
+.pay {
+    width: 450px;
+    height: auto;
+    padding: 25px;
+}
+
+.title {
+    font-size: 18px;
+    line-height: 27px;
+}
+
+h4 {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: black;
+    line-height: 25px;
+}
+
+.ulhandle {
+    border: 1px solid #dadada;
+}
+
+.ulhandle li {
+    padding: -1px 8px;
+}
+
+h5,
+div {
+    font-size: 14px;
+    color: #727272;
+    line-height: 25px;
+}
+
+.inputhandle>div {
+    border: 1px solid #dadada;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.inputhandle>div>input {
+    margin-right: 8px;
+}
+
+.inputhandle {
+    margin-bottom: 10px;
+}
+
+#flexSwitchCheckDefault {
+    margin-right: 8px;
+}
+
+.detail-price {
+    background-color: #e7e7e7;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+.detail-price>h4 {
+    font-size: 18px;
+    line-height: 27px;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.accept-pay {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.accept-pay>div {
+    width: 350px;
+}
+
+.accept-pay>button {
+    background-color: #f96d01;
+    border: none;
+    color: white;
+    padding: 5px 15px;
+}
+
+.inputhandle input {
+    margin-bottom: 15px;
+}
+
+.lableleft {
+    font-size: 14px;
+    line-height: 16px;
+    color: #fff;
+}
+
+.lableleft:visited {
+    color: #fff;
+}

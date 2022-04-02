@@ -1,0 +1,103 @@
+.header1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 65px;
+}
+
+#font-header {
+    font-size: 16px;
+    color: rgba(3, 18, 26, 1.00);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.header1-left {
+    display: flex;
+    padding-right: 200px;
+    flex-direction: row;
+    align-items: center;
+}
+
+#icon-menu-header {
+    padding-right: 15px;
+}
+
+.header1-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#icon-right {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+}
+
+.header1-right>div {
+    margin-right: 16px;
+}
+
+.header1-right-item1 {
+    display: flex;
+    align-items: center;
+}
+
+.header1-right-item2 {
+    display: flex;
+}
+
+.header1-right-item2>a {
+    display: flex;
+    margin-right: 16px;
+    text-decoration: none;
+}
+
+.header1-right-item3 {
+    display: flex;
+}
+
+.header1-right-item4 {
+    display: flex;
+}
+
+.header1-right-item3>div {
+    display: flex;
+    align-items: center;
+}
+
+.header1-right-item4>div {
+    display: flex;
+    align-items: center;
+}
+
+.header1-right-item5 {
+    display: flex;
+}
+
+.header2 {
+    display: flex;
+    justify-content: center;
+    justify-content: flex-start;
+    padding-left: 170px;
+    background-color: rgba(242, 243, 243, 1.00);
+}
+
+.header2>div {
+    display: flex;
+    margin-right: 40px;
+}
+
+.header2>div>img {
+    width: 12;
+    height: 12;
+    padding-left: 4px;
+}
+
+.header2>div>div {
+    font-size: 16px;
+    color: rgba(3, 18, 26, 1.00);
+    font-weight: 500;
+}
