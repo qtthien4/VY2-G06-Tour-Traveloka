@@ -24,8 +24,14 @@
 .main-text-color-orange{
     color:var(--main-color-orange) !important
 }
+.main-text-color-primary{
+    color:var(--main-color-secondary) !important
+}
 .main-font-weight{
     font-weight: 700 !important;
+}
+.main-font-weight-500{
+    font-weight: 550 !important;
 }
 
 .main-text-link{

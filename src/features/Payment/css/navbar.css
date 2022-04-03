@@ -1,17 +1,26 @@
 .handleulpay {
     display: flex;
+    height: 100%;
     list-style: none;
+    align-items: center;
 }
 
 .handleulpay li {
     display: flex;
     padding: 5px
 }
-
-.hearder-topbar {
+.hearder-topbar-inline{
     display: flex;
+    margin: auto;
     width: 960px;
-    margin: 0 auto;
+ 
+}
+.hearder-topbar {
+    z-index: 10;
+    width: 100%;
+    background-color: white;
+    box-shadow: rgb(3 18 26 / 20%) 0px 1px 2px;
+    position: fixed;
 }
 
 .line {

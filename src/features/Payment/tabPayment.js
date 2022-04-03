@@ -55,6 +55,7 @@ function VerticalTabs() {
       }}
     >
       <Tabs
+        TabIndicatorProps={{ style: { backgroundColor: "white" } }}
         orientation="vertical"
         variant="scrollable"
         value={value}
