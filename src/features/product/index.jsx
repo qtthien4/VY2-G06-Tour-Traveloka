@@ -26,11 +26,11 @@ function Product() {
 
         <Box className={classes.header}>
           <Box>
-            <NavLink to="/activities">Xperience</NavLink>/
-            <NavLink to="/activities/category/daytour">tour</NavLink> /
+            <NavLink to="/activities" className={`main-text-link`}>Xperience</NavLink>/
+            <NavLink className={`main-text-link`} to="/activities/category/daytour">tour</NavLink> /
           </Box>
           <Box>
-            <Button variant="contained" color="primary">Thay đổi tìm kiếm</Button>
+            <Button className={`main-bg-button-color-primary main-text-transform`} size="small" variant="contained" color="primary">Thay đổi tìm kiếm</Button>
           </Box>
 
         </Box>
@@ -38,10 +38,10 @@ function Product() {
           <Grid container className={classes.container}>
             <Box>
               <Typography variant="h5" className={classes.tilteProduct}>Ăn tối trên Sông Sài Gòn - Tour Đêm</Typography>
-              <Typography variant="body2">Chuyến tham quan</Typography>
-              <Box>
+              <Button variant="outlined" disableTouchRipple className={ `${classes.btnDisable} main-text-transform`}>Chuyến tham quan</Button>
+              <Box className={`main-d-flex main-align-item-center `}>
                 <img height="12" width="12" src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/0/0629a9ae0d41e994ff5043f52cbb1b2e.svg" alt="" />
-                <Typography variant="body2">Quận 1</Typography>
+                <Typography variant="body2" className={`main-padding-4px`}>Quận 1</Typography>
               </Box>
             </Box>
 
@@ -71,21 +71,21 @@ function Product() {
 
             <Grid item xs={12} sm container className={classes.descriptionTour}>
               <Box >
-                <Typography variant="h6">
+                <Typography className={`main-text-color-black `} variant="h6">
                   Traveloka
                 </Typography>
-                <Box>
+                <Box className={`main-d-flex`} >
                   <img height="30" width="30" src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/9/986bcf0f5b0c898a34fd75a917ceefad.svg" alt="" />
-                  <span color="primary">8.0 Good</span>
+                  <Typography className={`main-padding-4px`} color="primary">8.0 Good</Typography>
                 </Box>
-                <Typography>
+                <Typography className={`main-text-color-black  `} >
                   Từ 33 nhận xét
                 </Typography>
               </Box>
               <Box className={classes.findSlects}>
-                <Typography>Bắt đầu từ</Typography>
-                <Typography variant='h5'>500.000 VND</Typography>
-                <Button fullWidth variant="contained" color="secondary">TÌm các tùy chọn</Button>
+                <Typography className={`main-font-size-text main-text-color-black`}>Bắt đầu từ</Typography>
+                <Typography className={`main-text-color-orange main-font-weight`} variant='h5'>500.000 VND</Typography>
+                <Button fullWidth variant="contained" className={`main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`} >Tìm các tùy chọn</Button>
               </Box>
             </Grid>
           </Grid>
@@ -94,7 +94,7 @@ function Product() {
 
         <Box mt={4}>
           <Box >
-            <Typography variant='h5'>Thông tin chi tiết sản phẩm</Typography>
+            <Typography  className={`main-font-weight main-font-size-title main-text-color-black`} variant='h5'>Thông tin chi tiết sản phẩm</Typography>
             <Box mt={3}>
               <TourDesDetail />
             </Box>

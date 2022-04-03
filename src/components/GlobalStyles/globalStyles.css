@@ -1,0 +1,60 @@
+:root{
+    --main-color-secondary: rgba(1,148,243,1.00);
+    --background-color: rgba(255,255,255,1.00);
+    --box-shawdow-main: 0px 1px 2px rgb(3 18 26 / 20%);
+    --main-color-orange: rgb(255, 94, 31);
+    --main-color-white: white;
+    --main-color-text: rgba(104,113,118,1.00);
+    --main-color-text-secondary: rgba(2,100,200,1.00);
+    --main-color-black:rgba(3,18,26,1.00);
+    --main-bg-color-blue: rgba(236,248,255,1.00)
+}
+.main-bg-button-color-orange{
+    background-color: var(--main-color-orange) !important;
+}
+.main-bg-button-color-primary{
+    background-color: var(--main-color-secondary) !important;
+}
+.main-text-color-white{
+    color:var(--main-color-white) !important
+}
+.main-text-color-black{
+    color:var(--main-color-black) !important
+}
+.main-text-color-orange{
+    color:var(--main-color-orange) !important
+}
+.main-font-weight{
+    font-weight: 700 !important;
+}
+.main-text-link{
+    color:var(--main-color-text)
+}
+.main-d-flex{
+    display: flex;
+}
+.main-align-item-center{
+    align-items: center;
+}
+.main-padding{
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.main-padding-4px{
+    padding-left: 4px;
+    padding-right: 4px;
+}
+.main-margin{
+    margin-left: 16px;
+    margin-right: 16px;
+}
+.main-font-size-title{
+    font-size: 24px;
+}
+.main-font-size-text{
+    font-size: 14px !important;
+}
+
+.main-text-transform{
+    text-transform: none !important;
+}

@@ -1,20 +1,19 @@
-import { Box, Button, Grid, Modal } from '@material-ui/core';
+import { Box, Button, Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { ArrowRightAltOutlined, ArrowRightOutlined, PlaceOutlined } from '@material-ui/icons';
-import ModelRecentSearches from 'components/ModelRecentSearches';
+import Footer from 'components/Footer';
+import Header from 'components/Header';
 import RecentSearch from 'components/RecentSearch';
 import Slide from 'components/Slide';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import "swiper/css/bundle";
 import SearchActivities from '../../components/SearchActivities';
 import ListTour from './components/ListTour';
+import './index.css';
 import { selectListCityTour, selectListCountryTour, selectListMalaysiaTour, selectListSingaporeTour, selectListThailandTour, tourActions } from './tourSlice';
 import { useStyles } from './useStylesTour';
-import './index.css';
-import Footer from 'components/Footer';
-import Header from 'components/Header';
 
 export default function Tours() {
     const slideNumber = 5;
@@ -53,13 +52,6 @@ export default function Tours() {
     const recentSearchesRef = useRef();
     const layoutRef = useRef();
       
-    // const handleOpenModel = () =>{  
-    //     recentSearchesRef.current.style.display = 'block';
-    //     window.scroll(0,256)           
-    // }
-    // const handleCloseModel = () =>{
-    //         recentSearchesRef.current.style.display = 'none' ;           
-    // }
     return (
         <div>
             <Header/>

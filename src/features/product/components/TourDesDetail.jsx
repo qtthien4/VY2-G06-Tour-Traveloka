@@ -7,13 +7,13 @@ import PlaceMap from './PlaceMap';
 
 const useStyles = makeStyles(theme => ({
   root: {
-
+   
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between"
   },
   left: {
-
+    
     width: "644px",
   },
   right: {

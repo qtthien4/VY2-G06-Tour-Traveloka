@@ -25,13 +25,27 @@ export const useStyles = makeStyles((theme) => ({
     paddingBottom: "20px",
     paddingTop: "20px",
   },
-
+  btnDisable: {
+    fontWeight: 400,
+    marginTop: "5px",
+    fontSize: "12px",
+    marginBottom: "5px",
+    borderRadius: "14px",
+    color: "var(--main-color-text-secondary) !important",
+    border: "none !important",
+    backgroundColor: "var(--main-bg-color-blue)",
+    "&:hover": {
+      cursor: "text",
+      backgroundColor: "var(--main-bg-color-blue)",
+    },
+  },
   image: {
     width: 128,
     height: 128,
   },
   tilteProduct: {
     fontWeight: 700,
+    color: "var(--main-color-black)",
   },
   img: {
     margin: "auto",
