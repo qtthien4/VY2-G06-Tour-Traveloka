@@ -70,7 +70,7 @@ export default function Tours() {
                <div className={classes.backgoundark}>
                <NavLink to="/activities">Xperience</NavLink>/
                <NavLink to="/activities/category/daytour">tour</NavLink>
-               <Typography variant='h3'>Tour</Typography>
+               <Typography variant='h3' className={classes.titleTour}>Tour</Typography>
                <Box className="header">             
                        <img className={classes.heading_img} src="https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430518767-1fc642d45c0ab4008c1eba72a17a2780.jpeg?tr=h-242,q-75"></img>
                    
