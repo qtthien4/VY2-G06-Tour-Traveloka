@@ -27,6 +27,7 @@
 .main-font-weight{
     font-weight: 700 !important;
 }
+
 .main-text-link{
     color:var(--main-color-text)
 }

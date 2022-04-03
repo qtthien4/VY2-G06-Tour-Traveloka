@@ -55,7 +55,6 @@ export const useStyles = makeStyles((theme) => ({
   },
   imageBox: {
     width: "100%",
-
     paddingTop: "15px",
     display: "flex",
     flexFlow: "row nowrap",
@@ -99,4 +98,5 @@ export const useStyles = makeStyles((theme) => ({
     width: "264px",
     height: "108px",
   },
+ 
 }));

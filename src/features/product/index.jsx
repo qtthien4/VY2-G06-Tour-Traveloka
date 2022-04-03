@@ -9,8 +9,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import ExperianceCustomer from './components/ExperianceCustomer';
 import SelectTour from './components/SelectTour';
-import TourDesDetail from './components/TourDesDetail';
-import { useStyles } from './productStyles';
+import TourDesDetail from './components/DesTourDetail';
+import { useStyles } from './indexStyles';
+import Footer from 'components/Footer';
 
 function Product() {
   const classes = useStyles();
@@ -101,10 +102,10 @@ function Product() {
           </Box>
 
           <Box mt={4}>
-            <Typography>Có sẵn vào các ngày khác</Typography>
-            <SelectTour />
-            <br />
-            <SelectTour />
+            <Typography variant="h5" className={`main-font-weight main-font-size-title main-text-color-black`}>Có sẵn vào các ngày khác</Typography>
+            <Box mt={4}>
+              <SelectTour  />
+            </Box>
           </Box>
         </Box>
       </Box>
@@ -118,7 +119,7 @@ function Product() {
         <ExperianceCustomer />
         <Pagination color="primary" count={9} page={1} />
       </Box> */}
-
+    <Footer/>
     </Box>
     </Box>
    
