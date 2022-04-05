@@ -32,7 +32,9 @@ import { Pagination, Navigation } from "swiper";
           item.src.map((src,id) => (
            <SwiperSlide >
             <div style={{"display": "flex", "flexDirection": "column", "justifyContent": "center", "alignItems": "center"}}>                        
-            <Link to={src.link}><img src={src.img} alt="" style={{width: `${list[0].width}`}} />  </Link>              
+            <Link to={src.link}>
+              <img src={src.img} alt="" style={{width: `${list[0].width}`}} /> 
+               </Link>              
             <a style={{"marginTop": "15px"}}>{src.name}</a>
             </div>           
             </SwiperSlide>

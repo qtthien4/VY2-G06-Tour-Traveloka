@@ -31,7 +31,9 @@ const useStyles = makeStyles(theme => ({
         width:"300px",
     },
     img: {
-        width:"100%",
+        height:"90%",
+        width:"90%",
+       
         objectPosition:"center center",
         objectFit: "cover",
         maxWidth: "100%",
@@ -87,7 +89,7 @@ function ListTour({listTour, slideNumber}) {
           <SwiperSlide  key={index} style={{background:"none", display:"flex",flexDirection:"column",height:"330px",justifyContent:"flex-start", textAlign:"left"}}>
           <Box className={classes.boxItem}>
               <Box className={classes.centerImage}>
-                  <img className={classes.img} src={list.imageUrl} />
+                  <img style={{width: "100%"}} className={classes.img} src={list.imageUrl} />
                  
               </Box>
             

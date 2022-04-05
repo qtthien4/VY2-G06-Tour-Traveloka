@@ -18,15 +18,10 @@ import { Route, Routes, useRoutes } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./features/Photo/pages/DashBoard";
 import Team from "./features/Photo/pages/Team";
-//const Photo = React.lazy(()=>import('./features/Photo'))
 
-// Import FirebaseAuth and firebase.
-
-// Configure Firebase.
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  // ...
 };
 firebase.initializeApp(config);
 const routes = [

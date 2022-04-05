@@ -32,8 +32,7 @@ const useStyles = makeStyles(theme => ({
         
     },
     img: {
-        maxWidth: "90%",
-        maxHeight: "90%",
+      width:"100% !important",      
         borderRadius: "8px",
         
     },
@@ -63,7 +62,7 @@ function ListCityTour({listCityVietNam, slideNumber,handleOnclickListTourVN}) {
           <SwiperSlide className='.swiper-slide1' key={list.id} style={{background:"none"}} onClick={()=>handleOnclickListTourVN(list.id)}>
             <Box className={classes.boxItem}>
                 <Box className={classes.centerImage}>
-                    <img  className={classes.img} src={list.image} />
+                    <img style={{width: "100%"}}  className={classes.img} src={list.image} />
                 </Box>
             </Box>
         </SwiperSlide>
