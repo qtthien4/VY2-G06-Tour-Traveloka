@@ -88,9 +88,10 @@ function ListTour({listTour, slideNumber}) {
           <Box className={classes.boxItem}>
               <Box className={classes.centerImage}>
                   <img className={classes.img} src={list.imageUrl} />
+                 
               </Box>
             
-          </Box >
+          </Box>
           <Box className={classes.img} mt={1} alignItems="flex-start">
                 <Typography variant="h6" className={classes.nameTour} >
                   {list.experienceName}

@@ -1,4 +1,4 @@
-import * as React from "react";
+import  React, {useRef} from "react";
 import { Link } from "react-router-dom";
 
 import Banner from "./Banner";
@@ -15,7 +15,7 @@ export default function Xperience() {
     //   <Link to="/booking">Booking</Link>
     // </div>
 
-    <>
+    <div className="background_change">
       <Navbar />
       <Banner />
 
@@ -36,7 +36,10 @@ export default function Xperience() {
       </div>
       <Slide list={listPlace} />
 
+      <div style={{marginTop : '100px'}}>
       <Footer />
-    </>
+      </div>
+      
+    </div>
   );
 }

@@ -65,7 +65,8 @@ function Slide({ listCityVietNam, slideNumber, handleOnclickListTourVN }) {
           <SwiperSlide key={list.id} style={{ background: "none" }}>
             <Box className={classes.boxItem}>
               <Box className={classes.centerImage}>
-                <img
+                <img 
+                  // style={{opacity : 0.3}}
                   onClick={() => handleOnclickListTourVN(list.id)}
                   className={classes.img}
                   src={list.image}

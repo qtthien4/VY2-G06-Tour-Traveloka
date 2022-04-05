@@ -1,5 +1,5 @@
 import SearchActivities from "components/SearchActivities";
-import React from "react";
+import React, {useRef} from "react";
 import "./css/Banner.css";
 const style = {
   marginTop: "0px",
@@ -10,9 +10,10 @@ const style = {
   zIndex: 10,
   borderRadius: "5px",
 };
+
 function Banner() {
   return (
-    <div>
+    <div >
       <div style={{ position: "relative" }}>
         <div>
           <img

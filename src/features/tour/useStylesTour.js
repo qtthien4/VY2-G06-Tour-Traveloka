@@ -85,7 +85,7 @@ export const useStyles = makeStyles((theme) => ({
       background: "rgb(192, 76, 54)",
     },
   },
-  title: {
+  title: {    
     fontSize: "24px",
     textAlign: "left",
     fontWeight: 700,
@@ -93,6 +93,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   titleDescription: {
     fontSize: "16px",
+    marginBottom: "75px",
     color: "rgb(143, 143, 143)",
   },
   content: {

@@ -57,7 +57,7 @@ export const listTour =[{
         img: "https://ik.imagekit.io/tvlk/image/imageResource/2021/07/31/1627736438919-03f36230955f3d8b23fea257e879a846.jpeg?tr=q-100,w-452"
     } 
     ],
-    width : "100%",    
+    width : "90%",    
     slideWiew: 3,
     spaceView: 10
   }   

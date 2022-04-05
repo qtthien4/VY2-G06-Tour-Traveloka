@@ -46,18 +46,42 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function SearchActivities({style}) {
+export default function SearchActivities({style,layoutRef}) {
   const classes = useStyles()
   const inputRef = useRef()
-  const inputSearchRef = useRef();
   const recentSearchesRef = useRef();
+
 
   const handleOpenModel = () => {
     recentSearchesRef.current.style.display = 'block';
-    //window.scroll(0,256)           
-  }
+    window.scroll(0,256)    
+   
+    if(layoutRef === undefined){
+      document.querySelector(".background_change").style.background = "#333"
+      for(var i= 0; i<=document.querySelectorAll("img").length;i++){        
+       document.querySelectorAll("img")[i].style.opacity = "0.05"
+    }  
+    }else{
+      layoutRef.current.style.background = "#333"    
+      for(var i= 0; i<=document.querySelectorAll("img").length;i++){
+        document.querySelectorAll("img")[i].style.opacity = "0.05"
+      }  
+    }    
+}
   const handleCloseModel = () => {
     recentSearchesRef.current.style.display = 'none';
+    
+    if(layoutRef === undefined){
+      document.querySelector(".background_change").style.background = "#fff"
+      for(var i= 0; i<=document.querySelectorAll("img").length;i++){
+        document.querySelectorAll("img")[i].style.opacity = "1"
+    }  
+    }else{
+      layoutRef.current.style.background = "#FFF"  
+      for(var i= 0; i<=document.querySelectorAll("img").length;i++){
+        document.querySelectorAll("img")[i].style.opacity = "1"
+      }  
+    }    
   }
   return (
     <>
@@ -65,7 +89,7 @@ export default function SearchActivities({style}) {
         <Box className={classes.contained}>
           <Box className={classes.inputBox}>
             <SearchOutlined className={classes.icon} />
-            <Input inputRef={inputRef} onFocus={handleOpenModel} onBlur={handleCloseModel} className={classes.input} disableUnderline fullWidth placeholder='Mời nhập tìm kiếm'></Input>
+            <Input  inputRef={inputRef}  onFocus={handleOpenModel} onBlur={handleCloseModel} className={classes.input} disableUnderline fullWidth placeholder='Mời nhập tìm kiếm'></Input>
           </Box>
           <Button className={classes.btn} size='large' variant="contained">
             Search
