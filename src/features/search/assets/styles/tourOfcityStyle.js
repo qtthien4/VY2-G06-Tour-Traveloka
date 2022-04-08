@@ -18,6 +18,12 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     backgroundColor: "rgba(255,255,255,1.00)",
     boxShadow: "0px 2px 5px rgb(3 18 26 / 15%)",
+    height: "200px",
+    width: "100%",
+    "&:hover": {
+      cursor: "pointer",
+    },
+
     // justifyContent: 'left',
   },
   content: {

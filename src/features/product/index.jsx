@@ -1,20 +1,31 @@
 import { Box, Button } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { Pagination } from '@material-ui/lab';
-import Header from 'components/Header';
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import ExperianceCustomer from './components/ExperianceCustomer';
-import SelectTour from './components/SelectTour';
-import TourDesDetail from './components/DesTourDetail';
-import { useStyles } from './indexStyles';
 import Footer from 'components/Footer';
+import Header from 'components/Header';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useLocation } from 'react-router-dom';
+import TourDesDetail from './components/DesTourDetail';
+import SelectTour from './components/SelectTour';
+import { useStyles } from './indexStyles';
+import { productActions, selectTour } from './productSlice';
 
 function Product() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const tour = useSelector(selectTour)
+  const location = useLocation()
+  const idTour = Number(location.pathname.split("/")[4])
+ 
+  useEffect(()=>{
+    dispatch(productActions.fetchProduct(idTour))
+  },[dispatch,idTour])
+
+  console.log(idTour)
+  
+  console.log(tour)
   return (
     <Box>
       <Box className={classes.navProduct}>
@@ -38,17 +49,17 @@ function Product() {
         <Paper className={classes.root}>
           <Grid container className={classes.container}>
             <Box>
-              <Typography variant="h5" className={classes.tilteProduct}>Ăn tối trên Sông Sài Gòn - Tour Đêm</Typography>
+              <Typography variant="h5" className={classes.tilteProduct}>{tour.experienceName}</Typography>
               <Button variant="outlined" disableTouchRipple className={ `${classes.btnDisable} main-text-transform`}>Chuyến tham quan</Button>
               <Box className={`main-d-flex main-align-item-center `}>
                 <img height="12" width="12" src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/0/0629a9ae0d41e994ff5043f52cbb1b2e.svg" alt="" />
-                <Typography variant="body2" className={`main-padding-4px`}>Quận 1</Typography>
+                <Typography variant="body2" className={`main-padding-4px`}>{tour.shortGeoName}</Typography>
               </Box>
             </Box>
 
             <Grid item className={classes.imageBox}>
               <Box className={classes.imageLeft}>
-                <img className={classes.imageItem} height="512" width="768" src="https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/2001798092415/Dinner%2520Cruise%2520on%2520Saigon%2520River%2520-%2520Night%2520Tour-429b876c-9a30-466a-8482-13b6ba51a57d.jpeg?_src=imagekit&tr=c-at_max,h-512,q-60,w-720" />
+                <img className={classes.imageItem} height="512" width="768" src={tour.imageUrl}/>
               </Box>
               <Box className={classes.imageRight}>
                 <Box >
@@ -77,15 +88,15 @@ function Product() {
                 </Typography>
                 <Box className={`main-d-flex`} >
                   <img height="30" width="30" src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/9/986bcf0f5b0c898a34fd75a917ceefad.svg" alt="" />
-                  <Typography className={`main-padding-4px`} color="primary">8.0 Good</Typography>
+                  <Typography className={`main-padding-4px`} color="primary">{tour.score} Good</Typography>
                 </Box>
                 <Typography className={`main-text-color-black  `} >
-                  Từ 33 nhận xét
+                  Từ {tour.totalReview} nhận xét
                 </Typography>
               </Box>
               <Box className={classes.findSlects}>
                 <Typography className={`main-font-size-text main-text-color-black`}>Bắt đầu từ</Typography>
-                <Typography className={`main-text-color-orange main-font-weight`} variant='h5'>500.000 VND</Typography>
+                <Typography className={`main-text-color-orange main-font-weight`} variant='h5'>{tour.discountedPrice} VND</Typography>
                 <Button fullWidth variant="contained" className={`main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`} >Tìm các tùy chọn</Button>
               </Box>
             </Grid>

@@ -1,6 +1,6 @@
 export const FAKE_CITY_TOUR_SINGAPORE = [
   {
-    experienceId: "1000238512765",
+    experienceId: 1,
     experienceName:
       "Chuyến tham quan riêng với nhiếp ảnh gia chuyên nghiệp tại Singapore",
     score: "8.0",
@@ -14,7 +14,7 @@ export const FAKE_CITY_TOUR_SINGAPORE = [
     idCountry: 2,
   },
   {
-    experienceId: "1000572561752",
+    experienceId: 2,
     experienceName: "Cáp treo Sky Dining",
     score: "5.0",
     shortGeoName: "Toshima",
@@ -27,7 +27,7 @@ export const FAKE_CITY_TOUR_SINGAPORE = [
     idCountry: 2,
   },
   {
-    experienceId: "1000097609045",
+    experienceId: 3,
     experienceName: "Singapore DUCKtours",
     score: "3.0",
     shortGeoName: "Nakagyo",

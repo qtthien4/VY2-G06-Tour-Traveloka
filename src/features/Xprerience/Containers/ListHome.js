@@ -11,7 +11,7 @@ export const listTour = [
       },
       {
         link: "/activities/category/daytour",
-        img: "https://ik.imagekit.io/tvlk/image/imageResource/2022/01/10/1641801665068-0b30ac83d5ffffb79ca3143e670f0d19.png?tr=q-75,w-183",
+        img: "https://ik.imagekit.io/tvlk/image/imageResource/2022/01/10/1641801641399-5ce3a1f8fe7066bfde543ef02f666175.png?tr=q-75,w-183",
       },
       {
         link: "/activities/category/daytour",

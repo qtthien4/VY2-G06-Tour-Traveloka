@@ -86,7 +86,7 @@ export const FAKE_CITY_TOUR_HCM = [
     idCity: 2,
   },
   {
-    experienceId: 1,
+    experienceId: 8,
     experienceName: "Ăn tối trên Sông Sài Gòn - Tour Đêm",
     score: "8.0",
     shortGeoName: "Phường Bến Nghé, Quận 1",
@@ -98,7 +98,7 @@ export const FAKE_CITY_TOUR_HCM = [
     idCity: 3,
   },
   {
-    experienceId: 2,
+    experienceId: 9,
     experienceName: "B'Lao Trekking - Tour 2D1N",
     score: "5.0",
     shortGeoName: "Toshima",
@@ -110,7 +110,7 @@ export const FAKE_CITY_TOUR_HCM = [
     idCity: 3,
   },
   {
-    experienceId: 3,
+    experienceId: 10,
     experienceName:
       "Công viên Sinh thái Vàm Sát - Cần Giờ với Ca nô đưa đón - Tour trong ngày",
     score: "3.0",
@@ -123,7 +123,7 @@ export const FAKE_CITY_TOUR_HCM = [
     idCity: 3,
   },
   {
-    experienceId: 1,
+    experienceId: 11,
     experienceName: "Ăn tối trên Sông Sài Gòn - Tour Đêm",
     score: "8.0",
     shortGeoName: "Phường Bến Nghé, Quận 1",
@@ -135,7 +135,7 @@ export const FAKE_CITY_TOUR_HCM = [
     idCity: 3,
   },
   {
-    experienceId: 2,
+    experienceId: 12,
     experienceName: "B'Lao Trekking - Tour 2D1N",
     score: "5.0",
     shortGeoName: "Toshima",
@@ -147,7 +147,7 @@ export const FAKE_CITY_TOUR_HCM = [
     idCity: 3,
   },
   {
-    experienceId: 3,
+    experienceId: 13,
     experienceName:
       "Công viên Sinh thái Vàm Sát - Cần Giờ với Ca nô đưa đón - Tour trong ngày",
     score: "3.0",
@@ -160,7 +160,7 @@ export const FAKE_CITY_TOUR_HCM = [
     idCity: 3,
   },
   {
-    experienceId: 1,
+    experienceId: 14,
     experienceName: "Ăn tối trên Sông Sài Gòn - Tour Đêm",
     score: "8.0",
     shortGeoName: "Phường Bến Nghé, Quận 1",
@@ -172,7 +172,7 @@ export const FAKE_CITY_TOUR_HCM = [
     idCity: 4,
   },
   {
-    experienceId: 2,
+    experienceId: 15,
     experienceName: "B'Lao Trekking - Tour 2D1N",
     score: "5.0",
     shortGeoName: "Toshima",
@@ -184,7 +184,7 @@ export const FAKE_CITY_TOUR_HCM = [
     idCity: 4,
   },
   {
-    experienceId: 3,
+    experienceId: 16,
     experienceName:
       "Công viên Sinh thái Vàm Sát - Cần Giờ với Ca nô đưa đón - Tour trong ngày",
     score: "3.0",
@@ -197,7 +197,7 @@ export const FAKE_CITY_TOUR_HCM = [
     idCity: 4,
   },
   {
-    experienceId: 1,
+    experienceId: 17,
     experienceName: "Ăn tối trên Sông Sài Gòn - Tour Đêm",
     score: "8.0",
     shortGeoName: "Phường Bến Nghé, Quận 1",
@@ -209,7 +209,7 @@ export const FAKE_CITY_TOUR_HCM = [
     idCity: 4,
   },
   {
-    experienceId: 2,
+    experienceId: 18,
     experienceName: "B'Lao Trekking - Tour 2D1N",
     score: "5.0",
     shortGeoName: "Toshima",
@@ -221,7 +221,7 @@ export const FAKE_CITY_TOUR_HCM = [
     idCity: 4,
   },
   {
-    experienceId: 3,
+    experienceId: 19,
     experienceName:
       "Công viên Sinh thái Vàm Sát - Cần Giờ với Ca nô đưa đón - Tour trong ngày",
     score: "3.0",

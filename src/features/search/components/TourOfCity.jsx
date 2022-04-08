@@ -2,14 +2,14 @@ import { Box, Typography } from '@material-ui/core';
 import React from 'react';
 import { useStyles } from '../assets/styles/tourOfcityStyle';
 
-export default function TourOfCity({listCityofTour}) {
+export default function TourOfCity({listCityofTour, handleOnclickTourSearch}) {
     const classes = useStyles();
-
     return (
         <>
             {
-            listCityofTour.map( (a) => (              
-            <Box className={classes.boxItem} mb={3}>             
+            listCityofTour.map( (a,index) => (   
+                       
+            <Box className={classes.boxItem} key={index} mb={3} onClick={()=>handleOnclickTourSearch(a.experienceId)}>             
                 <img className={classes.img} src={a.imageUrl} />
                 <Box className={classes.content}>
                     <Typography className={classes.title} variant="h6">{a.experienceName}</Typography>

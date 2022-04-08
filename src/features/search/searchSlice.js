@@ -21,7 +21,6 @@ const searchSlice = createSlice({
     },
     SetTourListOfCity(state, action) {
       state.listTour = action.payload;
-      console.log("test", state.listTour);
     },
   },
 });

@@ -42,8 +42,10 @@ const useStyles = makeStyles((theme) => ({
   boxItem: {},
 }));
 
-function Slide({ listCityVietNam, slideNumber, handleOnclickListTourVN }) {
+function Slide({ listCityVietNam, slideNumber, handleOnclickListTour }) {
   const classes = useStyles();
+
+  console.log("tesst123", listCityVietNam);
   return (
     <>
       <Swiper
@@ -65,9 +67,11 @@ function Slide({ listCityVietNam, slideNumber, handleOnclickListTourVN }) {
           <SwiperSlide key={list.id} style={{ background: "none" }}>
             <Box className={classes.boxItem}>
               <Box className={classes.centerImage}>
-                <img 
+                <img
                   // style={{opacity : 0.3}}
-                  onClick={() => handleOnclickListTourVN(list.id)}
+                  onClick={() =>
+                    handleOnclickListTour(list.experienceId, list.idCountry)
+                  }
                   className={classes.img}
                   src={list.image}
                 />

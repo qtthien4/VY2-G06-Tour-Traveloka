@@ -4,7 +4,7 @@ import Header from 'components/Header';
 import RecentSearch from 'components/RecentSearch';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import SearchActivities from '../../components/SearchActivities';
 import { searchActions, SelectListTourOfCity } from '../search/searchSlice';
 import ListFilter from './components/ListFilter';
@@ -24,15 +24,21 @@ const style = {
 };
 
 export default function Search() {
+  const navigate = useNavigate()
   const classes = useStyles()
   const listCityofTour = useSelector(SelectListTourOfCity);
   const dispatch = useDispatch();
   let location = useLocation();
-  const idTour = Number(location.pathname.split("/")[3])
+  const idTour = Number(location.search.split("&")[3].split("=")[1]) ;
+
+  const handleOnclickTourSearch = (idTour) =>{
+    console.log(location)
+    navigate(`/activities/vietnam/product/${idTour}`)
+  }
   useEffect(() => {
     dispatch(searchActions.fetchTourList(idTour));
-    console.log("ok");
-  }, [dispatch, idTour])
+  }, [dispatch,idTour])
+  
 
   return (
     <>
@@ -68,7 +74,7 @@ export default function Search() {
               <SelectPriceAndCommon />
             </Box>
             <Box className={classes.listTourOfCity}>
-              <TourOfCity listCityofTour={listCityofTour} />
+              <TourOfCity listCityofTour={listCityofTour}  handleOnclickTourSearch={handleOnclickTourSearch}/>
             </Box>
           </Box>
         </Box>

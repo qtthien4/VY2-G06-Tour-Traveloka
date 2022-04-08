@@ -7,6 +7,7 @@ import { combineReducers } from "redux";
 import userReducer from "./userSlice";
 import rootSaga from "./rootSaga";
 import searchReducer from "features/search/searchSlice";
+import productReducer from "features/product/productSlice";
 const { configureStore } = require("@reduxjs/toolkit");
 
 const rootReducer = combineReducers({
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   country: countryReducer,
   city: cityReducer,
   search: searchReducer,
+  product: productReducer,
 });
 const sagaMiddleware = createSagaMiddleware();
 const store = configureStore({

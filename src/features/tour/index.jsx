@@ -7,7 +7,7 @@ import RecentSearch from 'components/RecentSearch';
 import Slide from 'components/Slide';
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import "swiper/css/bundle";
 import SearchActivities from '../../components/SearchActivities';
 import ListTour from './components/ListTour';
@@ -29,12 +29,17 @@ export default function Tours() {
     useEffect(()=>{
         dispatch(tourActions.fetchApiTour())
     },[dispatch])
-    
-    const handleOnclickListTourVN = (idTourVN)=>{
-        navigation(`/activities/search/${idTourVN}`)
+    // let {id} = useParams();
+    // console.log("use param",id)
+    //search?
+    //st=GEO&eid=10009794&theme=DAY_TOUR&id=5428955&funnel_source=Merchandising.AA.Category-DAY_TOUR-web-VN-LandingPage&funnel_id=M_0_97edfa1060c0f7e392577c587e1ccd61ddb40eb7_0_967d51296ca772ce31c50e94de6e5d899cae6a51&internal_source=true
+    //st=GEO&eid=107493&theme=DAY_TOUR&id=5428955&funnel_source=Merchandising.AA.Category-DAY_TOUR-web-VN-LandingPage&funnel_id=M_1_91923a026768297ff4af754a50d783c49eafe2c1_1_fb20b6b52cbf824f00dd0ec757cb22c4b2d284dd&internal_source=true
+    //get /activities/search?country=vietnam&idTour=123456789
+    const handleOnclickListTourVN = (idTourVN, idCountry)=>{
+        navigation(`/activities/search/?st=GEO&eid=${idCountry}&theme=DAY_TOUR&id=${idTourVN}`)
     }
-    const handleOnclickListCountry = (id) =>{
-        console.log("ok", id)
+    const handleOnclickListCountry = ( idTourVN, idCountry) =>{
+        navigation(`/activities/search/?st=GEO&eid=${idCountry}&theme=DAY_TOUR&id=${idTourVN}`)
     }
     const style = {
         marginTop:"10px",
@@ -51,7 +56,6 @@ export default function Tours() {
     const imgBanner = useRef();
     const recentSearchesRef = useRef();
     const layoutRef = useRef(null);
-    const listTour = useRef();
       
     return (
         <div>
@@ -106,7 +110,7 @@ export default function Tours() {
                        <Typography className={classes.title} >Các điểm đến nổi bật của địa phương</Typography>
                        <Typography className={classes.titleDescription}>Những nơi đáng tham quan và khám phá trong nước</Typography>
                        <Box mt={4} className={classes.listTourCity}>
-                   <Slide listCityVietNam = {listCityTourVietName} slideNumber = {slideNumber} handleOnclickListTourVN={handleOnclickListTourVN}/>
+                   <Slide listCityVietNam = {listCityTourVietName} slideNumber = {slideNumber} handleOnclickListTour={handleOnclickListTourVN}/>
                        </Box>
                    </Box>
 
@@ -114,7 +118,7 @@ export default function Tours() {
                        <Typography className={classes.title} style={{marginTop : "100px"}} >Các điểm đến nổi bật của địa phương</Typography>
                        <Typography className={classes.titleDescription}>Những nơi đáng tham quan và khám phá trong nước</Typography>
                        <Box mt={4} className={classes.listTourCity}>                         
-                           <Slide listCityVietNam = {ListCountry} slideNumber = {slideNumber} handleOnclickListTourVN={handleOnclickListCountry} />
+                           <Slide listCityVietNam = {ListCountry} slideNumber = {slideNumber} handleOnclickListTour={handleOnclickListCountry} />
                        </Box>
                    </Box>
 
