@@ -923,7 +923,7 @@
 									"font": "Arial;13;1",
 									"left": 800,
 									"top": 125,
-									"width": 111.38330078125,
+									"width": 130.42626953125,
 									"height": 13,
 									"text": "activity"
 								},
@@ -949,7 +949,7 @@
 											"font": "Arial;13;0",
 											"left": 805,
 											"top": 148,
-											"width": 101.38330078125,
+											"width": 120.42626953125,
 											"height": 13
 										},
 										{
@@ -964,7 +964,7 @@
 											"font": "Arial;13;0",
 											"left": 805,
 											"top": 163,
-											"width": 101.38330078125,
+											"width": 120.42626953125,
 											"height": 13
 										},
 										{
@@ -979,7 +979,7 @@
 											"font": "Arial;13;0",
 											"left": 805,
 											"top": 178,
-											"width": 101.38330078125,
+											"width": 120.42626953125,
 											"height": 13
 										},
 										{
@@ -994,7 +994,7 @@
 											"font": "Arial;13;0",
 											"left": 805,
 											"top": 193,
-											"width": 101.38330078125,
+											"width": 120.42626953125,
 											"height": 13
 										},
 										{
@@ -1009,7 +1009,7 @@
 											"font": "Arial;13;0",
 											"left": 805,
 											"top": 208,
-											"width": 101.38330078125,
+											"width": 120.42626953125,
 											"height": 13
 										},
 										{
@@ -1024,7 +1024,7 @@
 											"font": "Arial;13;0",
 											"left": 805,
 											"top": 223,
-											"width": 101.38330078125,
+											"width": 120.42626953125,
 											"height": 13
 										},
 										{
@@ -1040,7 +1040,7 @@
 											"font": "Arial;13;0",
 											"left": 1357,
 											"top": 150,
-											"width": 101.38330078125,
+											"width": 120.42626953125,
 											"height": 13
 										},
 										{
@@ -1056,7 +1056,7 @@
 											"font": "Arial;13;0",
 											"left": 1357,
 											"top": 135,
-											"width": 101.38330078125,
+											"width": 120.42626953125,
 											"height": 13
 										},
 										{
@@ -1072,7 +1072,7 @@
 											"font": "Arial;13;0",
 											"left": 1357,
 											"top": 135,
-											"width": 101.38330078125,
+											"width": 120.42626953125,
 											"height": 13
 										},
 										{
@@ -1087,21 +1087,21 @@
 											"font": "Arial;13;0",
 											"left": 805,
 											"top": 238,
-											"width": 101.38330078125,
+											"width": 120.42626953125,
 											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 800,
 									"top": 143,
-									"width": 111.38330078125,
+									"width": 130.42626953125,
 									"height": 113
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 800,
 							"top": 120,
-							"width": 111.38330078125,
+							"width": 130.42626953125,
 							"height": 136,
 							"nameLabel": {
 								"$ref": "AAAAAAF/2npAMjVtm3o="
@@ -1405,7 +1405,7 @@
 										"$ref": "AAAAAAF/2oeH4Tb2dHQ="
 									},
 									"font": "Arial;13;0",
-									"left": 935,
+									"left": 954,
 									"top": 184,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -1423,7 +1423,7 @@
 								"$ref": "AAAAAAF/2no89jVgNRY="
 							},
 							"lineStyle": 2,
-							"points": "1023:104;1023:176;910:176",
+							"points": "1023:104;1023:176;929:176",
 							"nameLabel": {
 								"$ref": "AAAAAAF/2oeH4Tb37Os="
 							},
@@ -1486,7 +1486,7 @@
 										"$ref": "AAAAAAF/2oePbTcKUPA="
 									},
 									"font": "Arial;13;0",
-									"left": 935,
+									"left": 954,
 									"top": 211,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -1504,7 +1504,7 @@
 								"$ref": "AAAAAAF/2no5YDVUEE4="
 							},
 							"lineStyle": 2,
-							"points": "1048:328;1048:203;910:203",
+							"points": "1048:328;1048:203;929:203",
 							"nameLabel": {
 								"$ref": "AAAAAAF/2oePbTcLSH8="
 							},
@@ -3101,7 +3101,11 @@
 							"_parent": {
 								"$ref": "AAAAAAF/2no5YDVS5Oc="
 							},
+<<<<<<< HEAD:DB/ERD.mdj
 							"name": "Idactivity",
+=======
+							"name": "IdActivity",
+>>>>>>> 73c041d617d1e5e74a59d3c8c4ec9ae9984f7758:ERD.mdj
 							"tags": [
 								{
 									"_type": "Tag",
@@ -3257,7 +3261,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF/2npAMjVqp4I="
 							},
-							"name": "TourName",
+							"name": "ActivityName",
 							"length": 0
 						},
 						{
