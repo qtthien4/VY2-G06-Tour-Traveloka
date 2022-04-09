@@ -17,7 +17,7 @@ function Product() {
   const dispatch = useDispatch();
   const tour = useSelector(selectTour)
   const location = useLocation()
-  const idTour = Number(location.pathname.split("/")[4])
+  const idTour = location.pathname.split("/")[4]
  
   useEffect(()=>{
     dispatch(productActions.fetchProduct(idTour))

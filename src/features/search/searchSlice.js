@@ -13,6 +13,9 @@ const searchSlice = createSlice({
     fetchTourList(state) {
       state.loadding = true;
     },
+    fetchTourCountryList(state) {
+      state.loadding = true;
+    },
     fetchTourListSuccess(state, action) {
       state.loadding = false;
     },

@@ -35,11 +35,11 @@ export default function Tours() {
     //st=GEO&eid=10009794&theme=DAY_TOUR&id=5428955&funnel_source=Merchandising.AA.Category-DAY_TOUR-web-VN-LandingPage&funnel_id=M_0_97edfa1060c0f7e392577c587e1ccd61ddb40eb7_0_967d51296ca772ce31c50e94de6e5d899cae6a51&internal_source=true
     //st=GEO&eid=107493&theme=DAY_TOUR&id=5428955&funnel_source=Merchandising.AA.Category-DAY_TOUR-web-VN-LandingPage&funnel_id=M_1_91923a026768297ff4af754a50d783c49eafe2c1_1_fb20b6b52cbf824f00dd0ec757cb22c4b2d284dd&internal_source=true
     //get /activities/search?country=vietnam&idTour=123456789
-    const handleOnclickListTourVN = (idTourVN, idCountry)=>{
-        navigation(`/activities/search/?st=GEO&eid=${idCountry}&theme=DAY_TOUR&id=${idTourVN}`)
+    const handleOnclickListTourVN = (idCity, idCountry)=>{
+        navigation(`/activities/search/daytour?idCountry=${idCountry}&idCity=${idCity}`)
     }
     const handleOnclickListCountry = ( idTourVN, idCountry) =>{
-        navigation(`/activities/search/?st=GEO&eid=${idCountry}&theme=DAY_TOUR&id=${idTourVN}`)
+        navigation(`/activities/search/daytour?idCountry=${idCountry}`)
     }
     const style = {
         marginTop:"10px",
@@ -58,18 +58,18 @@ export default function Tours() {
     const layoutRef = useRef(null);
       
     return (
-        <div>
+        <div id="tour_root">
             <Header/>
-            <div  className="boxContainerTour">
-            <Grid ref={layoutRef} style={{padding : 0}} className={classes.container} item xs={12}  >
+            <div id="box_container_tour"  className="boxContainerTour" >
+            <Grid  ref={layoutRef} style={{padding : 0}} className={classes.container} item xs={12}  >
            {/* {console.log(layoutRef)} */}
            <Grid className={classes.root}  >
                <div className={classes.backgoundark}>
                <NavLink to="/activities">Xperience</NavLink>/
                <NavLink to="/activities/category/daytour">tour</NavLink>
                <Typography variant='h3' className={classes.titleTour}>Tour</Typography>
-               <Box className="header">             
-                       <img ref={imgBanner}  className={`${classes.heading_img}`} src="https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430518767-1fc642d45c0ab4008c1eba72a17a2780.jpeg?tr=h-242,q-75"></img>
+               <Box className="header" >             
+                    <img id="hidden" ref={imgBanner}  className={`${classes.heading_img}`} src="https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430518767-1fc642d45c0ab4008c1eba72a17a2780.jpeg?tr=h-242,q-75"></img>
                    
                    <Box className={classes.boxSearchandRecentSearch} >
                        <Box className={`${classes.searchInput} searchInput`}>
@@ -80,7 +80,7 @@ export default function Tours() {
                        </Box>                                         
                    </Box>
                
-                   <Box>
+                   <Box id="hidden">
                        <Box className={classes.filterWithPlace} >
                            <Box className={classes.iconPlaceAndText} mr={4}>
                                <PlaceOutlined className={classes.fontWeight}/>
@@ -105,7 +105,7 @@ export default function Tours() {
 
                </Box>
 
-               <Box className={classes.content}>
+               <Box className={classes.content} id="hidden">
                    <Box className={classes.contentCity}>
                        <Typography className={classes.title} >Các điểm đến nổi bật của địa phương</Typography>
                        <Typography className={classes.titleDescription}>Những nơi đáng tham quan và khám phá trong nước</Typography>

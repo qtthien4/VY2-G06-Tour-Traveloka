@@ -45,7 +45,6 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-
 export default function SearchActivities({style,layoutRef}) {
   const classes = useStyles()
   const inputRef = useRef()
@@ -53,33 +52,38 @@ export default function SearchActivities({style,layoutRef}) {
 
 
   const handleOpenModel = () => {
+    window.scroll(0,256)  
     recentSearchesRef.current.style.display = 'block';
-    window.scroll(0,256)    
-   
+    document.querySelector("body").style.overflow="hidden"
     if(layoutRef === undefined){
-      document.querySelector(".background_change").style.background = "#333"
-      for(var i= 0; i<=document.querySelectorAll("img").length;i++){        
-       document.querySelectorAll("img")[i].style.opacity = "0.05"
-    }  
+      document.querySelector(".background_change").style.background = "rgba(3, 18, 26, 0.8)"
+     
+    //   for(var i= 0; i<=document.querySelectorAll("img").length;i++){        
+    //    document.querySelectorAll("img")[i].style.opacity = "0.05"
+    // }  
     }else{
-      layoutRef.current.style.background = "#333"    
-      for(var i= 0; i<=document.querySelectorAll("img").length;i++){
-        document.querySelectorAll("img")[i].style.opacity = "0.05"
+      layoutRef.current.style.background = "rgba(3, 18, 26, 0.8)";
+       layoutRef.current.style.zIndex = 10;
+
+      for(var i= 0; i<=document.querySelectorAll("#hidden").length;i++){
+        document.querySelectorAll("#hidden")[i].style.opacity = "0.3"
+     
+
       }  
     }    
 }
   const handleCloseModel = () => {
     recentSearchesRef.current.style.display = 'none';
-    
+    document.querySelector("body").style.overflowY="scroll"
     if(layoutRef === undefined){
       document.querySelector(".background_change").style.background = "#fff"
       for(var i= 0; i<=document.querySelectorAll("img").length;i++){
-        document.querySelectorAll("img")[i].style.opacity = "1"
+        document.querySelectorAll("hidden")[i].style.opacity = "1"
     }  
     }else{
       layoutRef.current.style.background = "#FFF"  
-      for(var i= 0; i<=document.querySelectorAll("img").length;i++){
-        document.querySelectorAll("img")[i].style.opacity = "1"
+      for(var i= 0; i<=document.querySelectorAll("#hidden").length;i++){
+        document.querySelectorAll("#hidden")[i].style.opacity = "1"
       }  
     }    
   }

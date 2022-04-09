@@ -1,13 +1,15 @@
+import fakeAllTourApi from "api/fakeAllTourApi";
 import fakeTourHcmApi from "api/fakeTourHcmApi";
 import { call, put, takeLatest } from "redux-saga/effects";
 import { productActions } from "./productSlice";
 
 function* fetchDataProduct(idTour) {
-  const responsive = yield call(fakeTourHcmApi.getAll);
+  const responsive = yield call(fakeAllTourApi.getAll);
   const product = responsive.filter((product) => {
-    return product.experienceId === idTour.payload;
+    return Number(product.experienceId) === Number(idTour.payload);
   });
-  yield put(productActions.fetchProductSuccess(product));
+  console.log("product", product);
+  yield put(productActions.fetchProductSuccess(product[0]));
 }
 function* productSaga() {
   yield takeLatest(productActions.fetchProduct.type, fetchDataProduct);

@@ -11,7 +11,7 @@ export const FAKE_CITY_TOUR_SINGAPORE = [
     discountedPrice: "5.893.300",
     totalReview: "11",
     cityName: "Chuo",
-    idCountry: 2,
+    idCountry: 4,
   },
   {
     experienceId: 2,
@@ -24,7 +24,7 @@ export const FAKE_CITY_TOUR_SINGAPORE = [
     discountedPrice: "1.198.000",
     totalReview: "0",
     cityName: "Toshima",
-    idCountry: 2,
+    idCountry: 4,
   },
   {
     experienceId: 3,
@@ -37,7 +37,7 @@ export const FAKE_CITY_TOUR_SINGAPORE = [
     discountedPrice: "218,894",
     totalReview: "6",
     cityName: "Osaka",
-    idCountry: 2,
+    idCountry: 4,
   },
   {
     experienceId: "1002122792647",
@@ -51,7 +51,7 @@ export const FAKE_CITY_TOUR_SINGAPORE = [
     discountedPrice: "5.724,920",
     totalReview: "12",
     cityName: "Kyoto",
-    idCountry: 2,
+    idCountry: 4,
   },
   {
     experienceId: "1002122792647",
@@ -64,7 +64,7 @@ export const FAKE_CITY_TOUR_SINGAPORE = [
     discountedPrice: "3.370.600",
     totalReview: "12",
     cityName: "Kyoto",
-    idCountry: 2,
+    idCountry: 4,
   },
   {
     experienceId: "1002122792647",
@@ -78,7 +78,7 @@ export const FAKE_CITY_TOUR_SINGAPORE = [
     discountedPrice: "3272350",
     totalReview: "12",
     cityName: "Kyoto",
-    idCountry: 2,
+    idCountry: 4,
   },
   {
     experienceId: "1002122792647",
@@ -91,6 +91,6 @@ export const FAKE_CITY_TOUR_SINGAPORE = [
     discountedPrice: "3272350",
     totalReview: "12",
     cityName: "Kyoto",
-    idCountry: 2,
+    idCountry: 4,
   },
 ];

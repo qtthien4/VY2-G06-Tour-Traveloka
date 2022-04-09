@@ -2,7 +2,7 @@ import { Box, Typography } from '@material-ui/core';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
 import RecentSearch from 'components/RecentSearch';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import SearchActivities from '../../components/SearchActivities';
@@ -29,15 +29,37 @@ export default function Search() {
   const listCityofTour = useSelector(SelectListTourOfCity);
   const dispatch = useDispatch();
   let location = useLocation();
-  const idTour = Number(location.search.split("&")[3].split("=")[1]) ;
+  const [idCity,setIdCity] = useState(Number)
+  const [idCountry,setIdCountry] = useState(Number)
 
-  const handleOnclickTourSearch = (idTour) =>{
+  useEffect(()=>{
+    console.log(location.search.split("&").length)
+    if(location.search.split("&").length > 1){
+      setIdCity(Number(location.search.split("&")[1].split("=")[1]) )
+      dispatch(searchActions.fetchTourList(idCity));
+    }
+    else{
+      setIdCountry(Number(location.search.split("=")[1]) )
+      dispatch(searchActions.fetchTourCountryList(idCountry));
+    }
+    console.log("idcity",idCity)
+    console.log("idCoutry",idCountry)
+
+  },[idCity,idCountry,location,dispatch])
+
+  
+
+  function handleOnclickTourSearch(idTour){
     console.log(location)
     navigate(`/activities/vietnam/product/${idTour}`)
   }
-  useEffect(() => {
-    dispatch(searchActions.fetchTourList(idTour));
-  }, [dispatch,idTour])
+
+
+  // useEffect(() => {
+  //   dispatch(searchActions.fetchTourList(idCity));
+  // }, [dispatch,idCity])
+
+  
   
 
   return (

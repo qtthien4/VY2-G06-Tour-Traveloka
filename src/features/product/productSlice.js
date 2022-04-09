@@ -2,7 +2,7 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
   loadding: false,
-  tour: [],
+  tour: {},
 };
 
 const productSlice = createSlice({

@@ -10,7 +10,7 @@ export const FAKE_CITY_TOUR_MALAYSIA = [
     discountedPrice: "217,999",
     totalReview: "11",
     cityName: "Chuo",
-    idCountry: 2,
+    idCountry: 3,
   },
   {
     experienceId: "1000572561752",
@@ -23,7 +23,7 @@ export const FAKE_CITY_TOUR_MALAYSIA = [
     discountedPrice: "598.109",
     totalReview: "0",
     cityName: "Toshima",
-    idCountry: 2,
+    idCountry: 3,
   },
   {
     experienceId: "1000097609045",
@@ -36,7 +36,7 @@ export const FAKE_CITY_TOUR_MALAYSIA = [
     discountedPrice: "434,989",
     totalReview: "6",
     cityName: "Osaka",
-    idCountry: 2,
+    idCountry: 3,
   },
   {
     experienceId: "1002122792647",
@@ -50,7 +50,7 @@ export const FAKE_CITY_TOUR_MALAYSIA = [
     discountedPrice: "326.241",
     totalReview: "12",
     cityName: "Kyoto",
-    idCountry: 2,
+    idCountry: 3,
   },
   {
     experienceId: "1002122792647",
@@ -63,7 +63,7 @@ export const FAKE_CITY_TOUR_MALAYSIA = [
     discountedPrice: "3.370.600",
     totalReview: "12",
     cityName: "Kyoto",
-    idCountry: 2,
+    idCountry: 3,
   },
   {
     experienceId: "1002122792647",
@@ -77,7 +77,7 @@ export const FAKE_CITY_TOUR_MALAYSIA = [
     discountedPrice: "3272350",
     totalReview: "12",
     cityName: "Kyoto",
-    idCountry: 2,
+    idCountry: 3,
   },
   {
     experienceId: "1002122792647",
@@ -90,6 +90,6 @@ export const FAKE_CITY_TOUR_MALAYSIA = [
     discountedPrice: "3272350",
     totalReview: "12",
     cityName: "Kyoto",
-    idCountry: 2,
+    idCountry: 3,
   },
 ];
