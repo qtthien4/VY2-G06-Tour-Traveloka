@@ -1,6 +1,6 @@
 var express = require('express')
 var {engine} = require('express-handlebars')
-
+var route = require('./routers');
 const app = express();
 
 app.use(express.static(__dirname + '/public'));
@@ -9,21 +9,16 @@ app.engine('.hbs', engine({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 app.set('views', './views');
 
+route(app);
+
 
 app.get('/', (req, res) => {
     res.render('getstart');
 });
 
-app.get('/login', (req,res) => {
-  res.render('login')
-})
 
-app.get('/signup', (req,res) => {
-  res.render('signup')
-})
-
-app.get('/home', (req,res) => {
-  res.render('home')
+app.post('/a', (req,res) => {
+  res.send('test a post')
 })
 
 app.get('/xperience', (req,res) => {
