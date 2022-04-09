@@ -1814,20 +1814,35 @@
 											"top": 278,
 											"width": 110.2890625,
 											"height": 13
+										},
+										{
+											"_type": "ERDColumnView",
+											"_id": "AAAAAAGADEjst7IAl/U=",
+											"_parent": {
+												"$ref": "AAAAAAGAAW3E7J6IEfg="
+											},
+											"model": {
+												"$ref": "AAAAAAGADEjsprH9zU8="
+											},
+											"font": "Arial;13;0",
+											"left": 317,
+											"top": 293,
+											"width": 110.2890625,
+											"height": 13
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 312,
 									"top": 183,
 									"width": 120.2890625,
-									"height": 113
+									"height": 128
 								}
 							],
 							"font": "Arial;13;0",
 							"left": 312,
 							"top": 160,
 							"width": 120.2890625,
-							"height": 136,
+							"height": 151,
 							"nameLabel": {
 								"$ref": "AAAAAAGAAW3E7J6Hk3U="
 							},
@@ -2487,7 +2502,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 350,
-									"top": 336,
+									"top": 344,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -2504,7 +2519,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 351,
-									"top": 314,
+									"top": 329,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -2538,7 +2553,7 @@
 								"$ref": "AAAAAAGAAW3E7J6Gi8w="
 							},
 							"lineStyle": 2,
-							"points": "336:295;336:392",
+							"points": "336:310;336:392",
 							"nameLabel": {
 								"$ref": "AAAAAAGAAZYimFdJ+/o="
 							},
@@ -3086,7 +3101,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF/2no5YDVS5Oc="
 							},
-							"name": "Idtour",
+							"name": "Idactivity",
 							"tags": [
 								{
 									"_type": "Tag",
@@ -3440,6 +3455,15 @@
 								"$ref": "AAAAAAGAAW3E6p6Eor8="
 							},
 							"name": "gender",
+							"length": 0
+						},
+						{
+							"_type": "ERDColumn",
+							"_id": "AAAAAAGADEjsprH9zU8=",
+							"_parent": {
+								"$ref": "AAAAAAGAAW3E6p6Eor8="
+							},
+							"name": "point",
 							"length": 0
 						}
 					]
