@@ -83,13 +83,13 @@ export default function App() {
         }
       });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
-  }, []);
+  }, [dispatch]);
 
   let element = useRoutes(routes);
   return (
     <div className="min-h-screen bg-white">
       <div>{element}</div>
-      <Routes history={history}>
+      <Routes>
         <Route path="/activities" element={<Xperience />}></Route>
 
         <Route path="/activities/category/daytour" element={<Tours />}></Route>

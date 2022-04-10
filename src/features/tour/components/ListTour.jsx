@@ -70,7 +70,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function ListTour({listTour, slideNumber}) {
+function ListTour({listTour, slideNumber,handleOnclickTourForeign}) {
   const classes = useStyles()
   return (
     <>
@@ -86,7 +86,7 @@ function ListTour({listTour, slideNumber}) {
     >
       {
         listTour.map((list,index)=>(       
-          <SwiperSlide  key={index} style={{background:"none", display:"flex",flexDirection:"column",height:"330px",justifyContent:"flex-start", textAlign:"left"}}>
+          <SwiperSlide onClick={()=> handleOnclickTourForeign(list.experienceId)}  key={index} style={{background:"none", display:"flex",flexDirection:"column",height:"330px",justifyContent:"flex-start", textAlign:"left"}}>
           <Box className={classes.boxItem}>
               <Box className={classes.centerImage}>
                   <img style={{width: "100%"}} className={classes.img} src={list.imageUrl} />

@@ -29,18 +29,19 @@ export default function Tours() {
     useEffect(()=>{
         dispatch(tourActions.fetchApiTour())
     },[dispatch])
-    // let {id} = useParams();
-    // console.log("use param",id)
-    //search?
-    //st=GEO&eid=10009794&theme=DAY_TOUR&id=5428955&funnel_source=Merchandising.AA.Category-DAY_TOUR-web-VN-LandingPage&funnel_id=M_0_97edfa1060c0f7e392577c587e1ccd61ddb40eb7_0_967d51296ca772ce31c50e94de6e5d899cae6a51&internal_source=true
-    //st=GEO&eid=107493&theme=DAY_TOUR&id=5428955&funnel_source=Merchandising.AA.Category-DAY_TOUR-web-VN-LandingPage&funnel_id=M_1_91923a026768297ff4af754a50d783c49eafe2c1_1_fb20b6b52cbf824f00dd0ec757cb22c4b2d284dd&internal_source=true
-    //get /activities/search?country=vietnam&idTour=123456789
+
     const handleOnclickListTourVN = (idCity, idCountry)=>{
         navigation(`/activities/search/daytour?idCountry=${idCountry}&idCity=${idCity}`)
     }
     const handleOnclickListCountry = ( idTourVN, idCountry) =>{
         navigation(`/activities/search/daytour?idCountry=${idCountry}`)
     }
+
+    function handleOnclickTourForeign(idTour){
+        console.log(idTour);
+        navigation(`/activities/vietnam/product/${idTour}`)
+      }
+
     const style = {
         marginTop:"10px",
         position: 'absolute',
@@ -102,7 +103,6 @@ export default function Tours() {
                            <ArrowRightAltOutlined />
                        </Button>
                    </Box>
-
                </Box>
 
                <Box className={classes.content} id="hidden">
@@ -127,7 +127,7 @@ export default function Tours() {
                        <Typography className={classes.title} style ={{marginTop: '100px'}}>Singapore đầy nắng</Typography>
                        <Typography className={classes.titleDescription} style ={{marginBottom: '-10px'}}>Khám phá các tour du lịch phổ biến nhất mà Thành phố Sư tử cung cấp</Typography>
                        <Box mt={4} className={classes.listTourCity}>
-                           <ListTour  listTour = {ListSingaporeTour} slideNumber = {slideNumberCountry}/>
+                           <ListTour  listTour = {ListSingaporeTour} slideNumber = {slideNumberCountry} handleOnclickTourForeign={handleOnclickTourForeign}/>
                        </Box>
                        <Box className={classes.boxlinkBottomToTour}>
                            <Typography className={classes.linkBottomToTour} color='primary' align="right">Xem tất cả các hoạt động  </Typography>
@@ -139,7 +139,7 @@ export default function Tours() {
                        <Typography className={classes.title} style ={{marginTop: '-10px'}}>Singapore đầy nắng</Typography>
                        <Typography className={classes.titleDescription} style ={{marginBottom: '-10px'}}>Khám phá các tour du lịch phổ biến nhất mà Thành phố Sư tử cung cấp</Typography>
                        <Box mt={4} className={classes.listTourCity}>
-                           <ListTour  listTour = {ListThailandTour} slideNumber = {slideNumberCountry}/>
+                           <ListTour  listTour = {ListThailandTour} slideNumber = {slideNumberCountry} handleOnclickTourForeign={handleOnclickTourForeign}/>
                            
                        </Box>
                        <Box className={classes.boxlinkBottomToTour}>
@@ -152,7 +152,7 @@ export default function Tours() {
                        <Typography className={classes.title} style ={{marginTop: '-10px'}} >Singapore đầy nắng</Typography>
                        <Typography className={classes.titleDescription} style ={{marginBottom: '-10px'}}>Khám phá các tour du lịch phổ biến nhất mà Thành phố Sư tử cung cấp</Typography>
                        <Box mt={4} className={classes.listTourCity}>
-                           <ListTour  listTour = {ListMalaysiaTour} slideNumber = {slideNumberCountry}/>
+                           <ListTour  listTour = {ListMalaysiaTour} slideNumber = {slideNumberCountry} handleOnclickTourForeign={handleOnclickTourForeign}/>
                        </Box>
                        <Box className={classes.boxlinkBottomToTour}>
                            <Typography color='primary' align="right">Xem tất cả các hoạt động  </Typography>

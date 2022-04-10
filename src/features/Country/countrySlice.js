@@ -5,7 +5,7 @@ const initialState = {
   list: [],
 };
 const countrySlice = createSlice({
-  name: "tour",
+  name: "country",
   initialState,
   reducers: {
     fetchApiCountry: (state) => {
@@ -24,7 +24,7 @@ const countrySlice = createSlice({
 export const countryActions = countrySlice.actions;
 
 //selector
-export const selectListCountryLoadding = (state) => state.tour.loadding;
+export const selectListCountryLoadding = (state) => state.country.loadding;
 
 export const selectListCountry = (state) => state.country.list;
 

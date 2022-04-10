@@ -13,6 +13,7 @@ import { useStyles } from './indexStyles';
 import { productActions, selectTour } from './productSlice';
 
 function Product() {
+  window.scroll(0,0);
   const classes = useStyles();
   const dispatch = useDispatch();
   const tour = useSelector(selectTour)
@@ -23,7 +24,7 @@ function Product() {
     dispatch(productActions.fetchProduct(idTour))
   },[dispatch,idTour])
 
-  console.log(idTour)
+  console.log("id",idTour)
   
   console.log(tour)
   return (

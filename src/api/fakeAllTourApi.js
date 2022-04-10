@@ -5,7 +5,7 @@ const fakeAllTourApi = {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(FAKE_All_TOUR);
-      }, 300);
+      }, 0);
     });
   },
 };

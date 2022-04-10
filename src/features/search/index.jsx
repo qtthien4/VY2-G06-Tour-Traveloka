@@ -1,10 +1,12 @@
 import { Box, Typography } from '@material-ui/core';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
-import RecentSearch from 'components/RecentSearch';
-import React, { useEffect, useRef, useState } from 'react';
+import { cityActions, selectListCity, selectListCityLoadding } from 'features/City/citySlice';
+import { countryActions, selectListCountry } from 'features/Country/countrySlice';
+import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { getIdCity } from 'utils/getIdCity';
 import SearchActivities from '../../components/SearchActivities';
 import { searchActions, SelectListTourOfCity } from '../search/searchSlice';
 import ListFilter from './components/ListFilter';
@@ -24,42 +26,43 @@ const style = {
 };
 
 export default function Search() {
+  const city = true;
   const navigate = useNavigate()
   const classes = useStyles()
   const listCityofTour = useSelector(SelectListTourOfCity);
+  const listCity = useSelector(selectListCity);
+  const listCountry = useSelector(selectListCountry);
+
   const dispatch = useDispatch();
   let location = useLocation();
-  const [idCity,setIdCity] = useState(Number)
-  const [idCountry,setIdCountry] = useState(Number)
+  
+  const [nameCity, setNameCity] = useState('');
+  const [nameCountry, setNameCountry] = useState('')
 
+  //handle link export list tour
   useEffect(()=>{
-    console.log(location.search.split("&").length)
     if(location.search.split("&").length > 1){
-      setIdCity(Number(location.search.split("&")[1].split("=")[1]) )
-      dispatch(searchActions.fetchTourList(idCity));
+      let id = Number(location.search.split("&")[1].split("=")[1])
+      dispatch(searchActions.fetchTourList(id));
+      dispatch(cityActions.fetchApiCity())
+      const name = listCity.find((list)=> list.experienceId === String(id))
+      setNameCity(name.name)
     }
     else{
-      setIdCountry(Number(location.search.split("=")[1]) )
-      dispatch(searchActions.fetchTourCountryList(idCountry));
+      let id = Number(location.search.split("=")[1])
+      dispatch(searchActions.fetchTourCountryList(id));
+      dispatch(countryActions.fetchApiCountry())
+      const name = listCountry.find((list)=> String(list.idCountry) === String(id))
+      setNameCountry(name.name)
     }
-    console.log("idcity",idCity)
-    console.log("idCoutry",idCountry)
+  },[dispatch,location,nameCity,nameCountry,listCity,listCountry])
 
-  },[idCity,idCountry,location,dispatch])
-
-  
-
-  function handleOnclickTourSearch(idTour){
-    console.log(location)
+  //onclick navigation product
+  const handleOnclickTourSearch = (idTour) => {  
     navigate(`/activities/vietnam/product/${idTour}`)
   }
 
 
-  // useEffect(() => {
-  //   dispatch(searchActions.fetchTourList(idCity));
-  // }, [dispatch,idCity])
-
-  
   
 
   return (
@@ -82,9 +85,10 @@ export default function Search() {
 
               <NavLink className={classes.linkActivities} to="/activities">Xperience</NavLink>
               <span className={classes.slash}>/</span>
-              <Typography className={classes.linkCity} >Thành phố Hồ Chí Minh</Typography>
+              <Typography className={classes.linkCity} >{`${nameCity} ${nameCountry} `}</Typography>
             </Box>
-            <Typography className={classes.nameCity} variant="h4">Tất cả kết quả cho Thành phố Hồ Chí Minh</Typography>
+            <Typography className={classes.nameCity} variant="h4">{`Tất cả kết quả cho ${nameCity} ${nameCountry} 
+            `}</Typography>
           </Box>
           <Box className={classes.sidebar}>
             <Typography className={classes.resetFilter} color="primary" >Đặt lại bộ lọc</Typography>
