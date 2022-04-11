@@ -9,9 +9,12 @@ app.engine('.hbs', engine({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 app.set('views', './views');
 
+// middleware
+app.use(express.json());
+app.use(express.urlencoded());
+
+
 route(app);
-
-
 app.get('/', (req, res) => {
     res.render('getstart');
 });
