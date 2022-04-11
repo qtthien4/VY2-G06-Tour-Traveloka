@@ -24,9 +24,6 @@ function Product() {
     dispatch(productActions.fetchProduct(idTour))
   },[dispatch,idTour])
 
-  console.log("id",idTour)
-  
-  console.log(tour)
   return (
     <Box>
       <Box className={classes.navProduct}>

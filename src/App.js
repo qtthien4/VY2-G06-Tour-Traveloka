@@ -12,7 +12,6 @@ import Xperience from "features/Xprerience";
 import "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import { createHashHistory } from "history";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes, useRoutes } from "react-router-dom";
@@ -20,43 +19,11 @@ import "./App.css";
 import Dashboard from "./features/Photo/pages/DashBoard";
 import Team from "./features/Photo/pages/Team";
 
-export const history = createHashHistory();
-
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
 };
 firebase.initializeApp(config);
-const routes = [
-  {
-    path: "/new-dashboard",
-    element: <Dashboard />,
-    children: [
-      { path: "", element: <MainPage /> },
-      {
-        path: "add",
-        element: <AddEditPage />,
-        children: [{ path: ":id", element: <AddEditPage /> }],
-      },
-      { path: "sales", element: <p>Sales</p> },
-    ],
-  },
-  {
-    path: "/team",
-    element: <Team />,
-    children: [
-      { path: "", element: <p>Overview</p> },
-      {
-        path: "group",
-        element: <p>group</p>,
-      },
-      { path: "dicuss", element: <p>Sales</p> },
-    ],
-  },
-  { path: "/projects", element: <p>Project</p> },
-  { path: "/calendar", element: <p>Overview</p> },
-  { path: "/sign-in", element: <SignIn /> },
-];
 
 export default function App() {
   const dispatch = useDispatch();
@@ -85,16 +52,14 @@ export default function App() {
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
   }, [dispatch]);
 
-  let element = useRoutes(routes);
   return (
     <div className="min-h-screen bg-white">
-      <div>{element}</div>
       <Routes>
         <Route path="/activities" element={<Xperience />}></Route>
 
         <Route path="/activities/category/daytour" element={<Tours />}></Route>
-        <Route path="/activities/search" element={<Search />}>
-          <Route path=":id" element={<Search />}></Route>
+        <Route path="/activities/search/daytour" element={<Search />}>
+          {/* <Route path=":id" element={<Search />}></Route> */}
         </Route>
         <Route path="/activities/vietnam/product" element={<Product />}>
           <Route path=":id" element={<Product />}></Route>

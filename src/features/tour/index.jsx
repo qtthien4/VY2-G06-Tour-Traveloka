@@ -38,7 +38,6 @@ export default function Tours() {
     }
 
     function handleOnclickTourForeign(idTour){
-        console.log(idTour);
         navigation(`/activities/vietnam/product/${idTour}`)
       }
 

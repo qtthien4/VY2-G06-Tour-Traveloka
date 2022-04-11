@@ -41,13 +41,13 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
-export function SelectPriceAndCommon() {
+export function SelectPriceAndCommon({handleChangeFilterHeader}) {
     const classes = useStyles();
     return (
         <div className={classes.root}>
           
                 <FormControl className={classes.formControl}>
-                    <Select
+                    {/* <Select
                         className={classes.select}
                         native
                         inputProps={{
@@ -59,13 +59,14 @@ export function SelectPriceAndCommon() {
                         <option value={10}>Ten</option>
                         <option value={20}>Twenty</option>
                         <option value={30}>Thirty</option>
-                    </Select>
+                    </Select> */}
                 </FormControl>
 
                 <Box className={classes.filterLeft}>
                     <Typography>Sắp xếp theo: </Typography>
                     <FormControl className={classes.formControl}>
                         <Select
+                            onChange={(e)=>handleChangeFilterHeader(e)}
                             className={classes.select}
                             native
                             inputProps={{
@@ -73,10 +74,9 @@ export function SelectPriceAndCommon() {
                                 id: 'age-native-simple',
                             }}
                         >
-                            <option value="">Phổ biến nhất</option>
-                            <option value={10}>Ten</option>
-                            <option value={20}>Twenty</option>
-                            <option value={30}>Thirty</option>
+                            <option value={1}>Giá cao nhất</option>
+                            <option value={2}>Giá thấp nhất</option>
+                            <option value={3}>Đánh giá cao nhất</option>
                         </Select>
                     </FormControl>
                 </Box>

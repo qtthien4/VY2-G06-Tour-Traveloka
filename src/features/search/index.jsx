@@ -5,15 +5,17 @@ import { cityActions, selectListCity, selectListCityLoadding } from 'features/Ci
 import { countryActions, selectListCountry } from 'features/Country/countrySlice';
 import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate,useParams } from 'react-router-dom';
 import { getIdCity } from 'utils/getIdCity';
+import { InsertionSort, selectionSort, sortMax } from 'utils/InsertionSort';
 import SearchActivities from '../../components/SearchActivities';
-import { searchActions, SelectListTourOfCity } from '../search/searchSlice';
+import { searchActions, SelectFilterPrice, SelectListTourOfCity } from '../search/searchSlice';
 import ListFilter from './components/ListFilter';
 import ListFilterControl from './components/ListFilterControl';
 import { SelectPriceAndCommon } from './components/SelectPriceAndCommon';
 import TourOfCity from './components/TourOfCity';
 import { useStyles } from './styleSearch';
+
 const style = {
   marginLeft:"30px",
   marginTop: "-20px",
@@ -26,12 +28,18 @@ const style = {
 };
 
 export default function Search() {
-  const city = true;
   const navigate = useNavigate()
   const classes = useStyles()
   const listCityofTour = useSelector(SelectListTourOfCity);
   const listCity = useSelector(selectListCity);
   const listCountry = useSelector(selectListCountry);
+  const filterPrice = useSelector(SelectFilterPrice);
+  // console.log(selectionSort([2,3,7,5,4,1]));
+ 
+  const items = [...listCityofTour];
+  console.log(  items.sort(function(a, b){return Number(a.totalReview )- Number(b.totalReview)}))
+    
+
 
   const dispatch = useDispatch();
   let location = useLocation();
@@ -40,20 +48,25 @@ export default function Search() {
   const [nameCountry, setNameCountry] = useState('')
 
   //handle link export list tour
+
+
+  // const name = listCity.find((list)=> String(list.experienceId) === String(idCity))
+  // console.log(name.name);
   useEffect(()=>{
     if(location.search.split("&").length > 1){
       let id = Number(location.search.split("&")[1].split("=")[1])
+      
       dispatch(searchActions.fetchTourList(id));
       dispatch(cityActions.fetchApiCity())
-      const name = listCity.find((list)=> list.experienceId === String(id))
-      setNameCity(name.name)
+      // const name = listCity.find((list)=> String(list.experienceId) === String(id))
+      // setNameCity(name.name)
     }
     else{
       let id = Number(location.search.split("=")[1])
       dispatch(searchActions.fetchTourCountryList(id));
       dispatch(countryActions.fetchApiCountry())
-      const name = listCountry.find((list)=> String(list.idCountry) === String(id))
-      setNameCountry(name.name)
+      // const name = listCountry.find((list)=> String(list.idCountry) === String(id))
+      // setNameCountry(name.name)
     }
   },[dispatch,location,nameCity,nameCountry,listCity,listCountry])
 
@@ -62,9 +75,12 @@ export default function Search() {
     navigate(`/activities/vietnam/product/${idTour}`)
   }
 
-
-  
-
+  //handle filter header
+  const handleChangeFilterHeader = (e) =>{
+    console.log(e.target.value)
+    let idFilter =  e.target.value
+    dispatch(searchActions.setFiterHeader(idFilter))
+  }
   return (
     <>
       <Header />
@@ -97,7 +113,7 @@ export default function Search() {
           </Box>
           <Box className={classes.main}>
             <Box className={classes.mainFilter}>
-              <SelectPriceAndCommon />
+              <SelectPriceAndCommon handleChangeFilterHeader={handleChangeFilterHeader} />
             </Box>
             <Box className={classes.listTourOfCity}>
               <TourOfCity listCityofTour={listCityofTour}  handleOnclickTourSearch={handleOnclickTourSearch}/>
