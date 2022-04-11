@@ -1,69 +1,295 @@
-﻿insert into country (IdCountry, CountryName) values ('10009958', 'Vietnam');
-insert into country (IdCountry, CountryName) values ('10000001', 'Singapore');
-insert into country (IdCountry, CountryName) values ('10000007', 'Thailand');
-insert into country (IdCountry, CountryName) values ('108416', 'Malaysia');
-insert into country (IdCountry, CountryName) values ('20001756', 'Japan');
-insert into country (IdCountry, CountryName) values ('20004311', 'South Korea');
-insert into country (IdCountry, CountryName) values ('100003', 'Indonesia');
-insert into country (IdCountry, CountryName) values ('4001668284', 'Taiwan');
-insert into country (IdCountry, CountryName) values ('10010821', 'Hong Kong');
-insert into country (IdCountry, CountryName) values ('42077456', 'Australia');
+﻿insert into country (IdCountry, CountryName, imageUrl) values ('10009958', N'Vi?t Nam','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1548664341099-2500x1875-FIT_AND_TRIM-d88cfb4064d3b5f443d43fb183309290.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('10000001', N'Singapore','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1507000418433-1200x600-FIT_AND_TRIM-e44d8942679d546b65ca018db89c3bf8.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('10000007', N'Thái Lan','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1506945799964-1200x600-FIT_AND_TRIM-d81040d4204d79dae54942b4d8f80636.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('108416', N'Malaysia','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1506917344554-1200x600-FIT_AND_TRIM-2c2be77679906dc3d0f500f042060cca.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('20001756', N'Nh?t B?n','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1567677818408-2000x1000-FIT_AND_TRIM-14d955d2d4faf858b8b521455866e59b.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('20004311', N'Hàn Qu?c','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1567677895378-2000x1000-FIT_AND_TRIM-e09d4b4f5c331d3dfc3f407c0596c74f.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('100003', N'Indonesia','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1576041040181-2560x1700-FIT_AND_TRIM-2ad197ce2a7247c1a29aa5d69a0af338.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('4001668284', N'Ðài Loan','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1569824078441-1170x781-FIT_AND_TRIM-5f1ba91f05935d7325a861473098aef3.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('10010821', N'H?ng Kông','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1506914563489-1200x600-FIT_AND_TRIM-611935f4b1d9084b3ae7f98b28f803b6.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('4002077456', N'Úc','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1510914891585-1200x600-FIT_AND_TRIM-657669427f46b3a31030521af9efbeda.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('20000491', N'Trung Qu?c','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1510912732906-1200x600-FIT_AND_TRIM-f389f2c907d64dea149f3ea7f1374d2e.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('4002921044', N'Ð?c','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1510914730120-1200x600-FIT_AND_TRIM-03fdbed98d7ece67cb12257de2bb575c.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('10007643', N'Philippines','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1557849335106-4000x3000-FIT_AND_TRIM-adfa119df782732676390751128ac83f.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('4006252001', N'Hoa K?','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1575346962361-1205x799-FIT_AND_TRIM-97b8cbaed23001895b2c707fa4e0aaff.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('20002762', N'Ma Cao','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1510912851956-1200x600-FIT_AND_TRIM-89c75baba87ca3393261fc8260600b9b.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('30005197', N'Ý','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1510913617627-1200x600-FIT_AND_TRIM-8e08c1acb306f41962812b88774609c9.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('30004804', N'Hà Lan','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1510912960408-1200x600-FIT_AND_TRIM-26b73be68cd35c5fa426f2d603a1b141.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('30002564', N'Campuchia','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1571739293125-1045x696-FIT_AND_TRIM-cdaae7d239bb78a1f71f153f5a5f77d0.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('4002186224', N'New Zealand','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1575346927501-1170x780-FIT_AND_TRIM-3b3039ebbf4e65b273075395a539c633.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('4003017382', N'Pháp','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1510913470812-1200x600-FIT_AND_TRIM-5b03b4dabfb86a60b5bf82925689fb1d.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('4002510769', N'Tây Ban Nha','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1510913150581-1200x600-FIT_AND_TRIM-54b3205fd552ab03cedf4eb4f029d3f4.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
+insert into country (IdCountry, CountryName, imageUrl) values ('4002782113', N'Áo','https://ik.imagekit.io/tvlk/loc-asset/gNr3hLh55ZCkPJisyxFK-v9MmzxPu57ZRVI+10VZ2S4b1PNW4T++cbA6yK4gzhAhs9o2HLZ9vs7gy3rpcIU+oKi5EygzQLRjTUv7fRblEVA=/images/1510913950207-1200x600-FIT_AND_TRIM-f17c60b83878be9cb5410ca299a23f2e.jpeg?tr=q-40,c-at_max,w-740,h-500&_src=imagekit')
 
+--City
+--vietnam
+insert into City (IdCity, CityName) values ('10010083', N'Ðà N?ng')
+insert into City (IdCity, CityName) values ('10009794', N'Thành ph? H? Chí Minh')
+insert into City (IdCity, CityName) values ('10009843', N'Hà N?i')
+insert into City (IdCity, CityName) values ('10009866', N'Thành ph? C?n Tho')    
+insert into City (IdCity, CityName) values ('10009889', N'Bà R?a - Vung Tàu')    
+insert into City (IdCity, CityName) values ('10009919', N'T?nh Hòa Bình')        
+insert into City (IdCity, CityName) values ('10009800', N'Thành ph? H?i Phòng')  
+insert into City (IdCity, CityName) values ('10009897', N'T?nh Ninh Bình')       
+insert into City (IdCity, CityName) values ('10010019', N'Ti?nh Bình Duong')     
+insert into City (IdCity, CityName) values ('10009825', N'Bình Thu?n')
+insert into City (IdCity, CityName) values ('10009827', N'T?nh Qu?ng Bình')      
+insert into City (IdCity, CityName) values ('10009904', N'T?nh Qu?ng Ninh')      
+insert into City (IdCity, CityName) values ('10010312', N'T?nh Th?a Thiên Hu?')
+insert into City (IdCity, CityName) values ('10009931', N'T?nh Tây Ninh')
+insert into City (IdCity, CityName) values ('10010000', N'T?nh Lâm Ð?ng')
+insert into City (IdCity, CityName) values ('10010002', N'T?nh Lào Cai')
+insert into City (IdCity, CityName) values ('10010050', N'T?nh Ð?k L?k')
+insert into City (IdCity, CityName) values ('10009860', N'T?nh Ngh? An')
+insert into City (IdCity, CityName) values ('10009790', N'Ð?ng Nai')
+insert into City (IdCity, CityName) values ('10009833', N'T?nh Kiên Giang')
+insert into City (IdCity, CityName) values ('10009974', N'Bình Ð?nh')
+insert into City (IdCity, CityName) values ('10009841', N'Khánh Hòa')
+insert into City (IdCity, CityName) values ('10010108', N'T?nh Ti?n Giang')
+insert into City (IdCity, CityName) values ('10009805', N'T?nh Qu?ng Nam')
+insert into City (IdCity, CityName) values ('10010058', N'T?nh Cà Mau')
+insert into City (IdCity, CityName) values ('10009960', N'T?nh Gia Lai')
+insert into City (IdCity, CityName) values ('10009933', N'T?nh Long An')
+insert into City (IdCity, CityName) values ('10009926', N'Ti?nh Ð?ng Tháp')
 
---CITY
-insert into City (IdCity, CityName) values ('10010083', 'Da Nang');
-insert into City (IdCity, CityName) values ('10009794',  'Ho Chi Minh City');
-insert into City (IdCity, CityName) values ('10009843', 'Hanoi');
-insert into City (IdCity, CityName) values ('10009866',  'Can Tho City');
-insert into City (IdCity, CityName) values ('10009889', 'Ba Ria - Vung Tau');
+--singapo
+insert into City (IdCity, CityName) values ('107531', N'Bugis')
+insert into City (IdCity, CityName) values ('107517', N'Orchard')        
+insert into City (IdCity, CityName) values ('107648', N'Changi')
+insert into City (IdCity, CityName) values ('107548', N'V?nh Marina')    
+insert into City (IdCity, CityName) values ('107509', N'Chinatown')      
+insert into City (IdCity, CityName) values ('107658', N'Geylang')        
+insert into City (IdCity, CityName) values ('107542', N'Little India')   
+insert into City (IdCity, CityName) values ('107866', N'Ð?o Sentosa')    
+insert into City (IdCity, CityName) values ('107662', N'Lavender')       
+insert into City (IdCity, CityName) values ('107510', N'C?u c?ng Clarke')
+insert into City (IdCity, CityName) values ('107659', N'Kallang')        
+insert into City (IdCity, CityName) values ('107497', N'HarbourFront')   
+insert into City (IdCity, CityName) values ('107860', N'Jurong')
+insert into City (IdCity, CityName) values ('107524', N'Tiong Bahru')    
+insert into City (IdCity, CityName) values ('107652', N'Pasir Ris')      
+insert into City (IdCity, CityName) values ('107571', N'Serangoon')      
+insert into City (IdCity, CityName) values ('107673', N'East Coast')     
+insert into City (IdCity, CityName) values ('107690', N'Yishun')
+insert into City (IdCity, CityName) values ('107528', N'Bukit Timah')
+insert into City (IdCity, CityName) values ('107574', N'Sengkang')
+insert into City (IdCity, CityName) values ('107861', N'Pulau Ubin')
+insert into City (IdCity, CityName) values ('107520', N'Tanglin')
+insert into City (IdCity, CityName) values ('107685', N'Woodlands')
+insert into City (IdCity, CityName) values ('107676', N'Bedok')
+insert into City (IdCity, CityName) values ('107616', N'West Coast')
+insert into City (IdCity, CityName) values ('107695', N'Kranji')
+insert into City (IdCity, CityName) values ('107681', N'Tampines')
+insert into City (IdCity, CityName) values ('107590', N'Bukit Panjang')
+insert into City (IdCity, CityName) values ('107592', N'Tuas')
+insert into City (IdCity, CityName) values ('107513', N'Queenstown')
+insert into City (IdCity, CityName) values ('107535', N'Toa Payoh')
+insert into City (IdCity, CityName) values ('107863', N'Khu Thuong m?i Trung tâm')
+insert into City (IdCity, CityName) values ('107617', N'Bukit Batok')
+insert into City (IdCity, CityName) values ('107588', N'Seletar')
+insert into City (IdCity, CityName) values ('107582', N'Ang Mo Kio')
+insert into City (IdCity, CityName) values ('107545', N'Bishan')
 
-insert into City (IdCity, CityName) values ('107531',  'Bugis');
-insert into City (IdCity, CityName) values ('107517',  'Orchard');
-insert into City (IdCity, CityName) values ('107648',  'Changi');
-insert into City (IdCity, CityName) values ('107548',  'Marina Bay');
-insert into City (IdCity, CityName) values ('107509',  'Chinatown');
+--thailand
+insert into City (IdCity, CityName) values ('10000045', N'Bangkok')
+insert into City (IdCity, CityName) values ('10000054', N'Chiang Mai')
+insert into City (IdCity, CityName) values ('10000077', N'Phuket')
+insert into City (IdCity, CityName) values ('10000176', N'Kanchanaburi')
+insert into City (IdCity, CityName) values ('10011104', N'Chiang Rai')
+insert into City (IdCity, CityName) values ('10000188', N'Krabi')
+insert into City (IdCity, CityName) values ('10000882', N'Udon Thani')
+insert into City (IdCity, CityName) values ('10000117', N'Rayong')
+insert into City (IdCity, CityName) values ('10000123', N'Khon Kaen')
+insert into City (IdCity, CityName) values ('10000238', N'Surat Thani')
+insert into City (IdCity, CityName) values ('10000148', N'Nakhon Ratchasima')
+insert into City (IdCity, CityName) values ('10000071', N'Ubon Ratchathani')
+insert into City (IdCity, CityName) values ('10001184', N'Nakhon Nayok')
+insert into City (IdCity, CityName) values ('10000056', N'Chon Buri')
+insert into City (IdCity, CityName) values ('10000903', N'Prachuap Khiri Khan')
+insert into City (IdCity, CityName) values ('10000242', N'Nakhon Si Thammarat')
+insert into City (IdCity, CityName) values ('10000310', N'Lampang')
+insert into City (IdCity, CityName) values ('10000178', N'Trang')
+insert into City (IdCity, CityName) values ('10000899', N'Phitsanulok')
+insert into City (IdCity, CityName) values ('10000032', N'Phetchabun')
+insert into City (IdCity, CityName) values ('10000021', N'Nong Khai')
+insert into City (IdCity, CityName) values ('10000154', N'Buri Ram')
+insert into City (IdCity, CityName) values ('10000153', N'Phetchaburi')
+insert into City (IdCity, CityName) values ('10000023', N'Phang Nga')
+insert into City (IdCity, CityName) values ('10000130', N'Ratchaburi')
+insert into City (IdCity, CityName) values ('10000103', N'Ayutthaya')
+insert into City (IdCity, CityName) values ('10000167', N'Nakhon Sawan')
+insert into City (IdCity, CityName) values ('10000132', N'Nonthaburi')
+insert into City (IdCity, CityName) values ('10000190', N'Nakhon Pathom')
+insert into City (IdCity, CityName) values ('10000229', N'Trat')
+insert into City (IdCity, CityName) values ('10000200', N'Mae Hong Son')
+insert into City (IdCity, CityName) values ('10000172', N'Saraburi')
+insert into City (IdCity, CityName) values ('10000226', N'Satun')
+insert into City (IdCity, CityName) values ('10000074', N'Pathum Thani')
+insert into City (IdCity, CityName) values ('10000006', N'Samut Songkhram')
+insert into City (IdCity, CityName) values ('10000108', N'Tak')
+insert into City (IdCity, CityName) values ('10000231', N'Samut Prakan')
+insert into City (IdCity, CityName) values ('10000157', N'Chachoengsao')
+insert into City (IdCity, CityName) values ('10000121', N'Lopburi')
+insert into City (IdCity, CityName) values ('10000224', N'Prachin Buri')
+--malasya
+insert into City (IdCity, CityName) values ('107984', N'Penang')
+insert into City (IdCity, CityName) values ('107980', N'Melaka')
+insert into City (IdCity, CityName) values ('10011654', N'Johor')
+insert into City (IdCity, CityName) values ('107982', N'Kuala Terengganu') 
+insert into City (IdCity, CityName) values ('108418', N'Selangor')
+insert into City (IdCity, CityName) values ('30012270', N'Kuala Lumpur')   
+insert into City (IdCity, CityName) values ('10011657', N'Pahang')
+insert into City (IdCity, CityName) values ('10011658', N'Perak')
+insert into City (IdCity, CityName) values ('10011656', N'Kelantan')       
+insert into City (IdCity, CityName) values ('10011659', N'Sabah')
+insert into City (IdCity, CityName) values ('10011655', N'Kedah')
+insert into City (IdCity, CityName) values ('10011661', N'Negeri Sembilan')
+insert into City (IdCity, CityName) values ('108033', N'Kuala Perlis')     
+insert into City (IdCity, CityName) values ('10011660', N'Sarawak')      
 
-insert into City (IdCity, CityName) values ('10000045',  'Bangkok');
-insert into City (IdCity, CityName) values ('10000054',  'Chiang Mai');
-insert into City (IdCity, CityName) values ('10000077',  'Phuket');
-insert into City (IdCity, CityName) values ('10000176',  'Kanchanaburi');
-insert into City (IdCity, CityName) values ('10011104', 'Chiang Rai');
+--nhatban
+insert into City (IdCity, CityName) values ('20003483', N'Okinawa')
+insert into City (IdCity, CityName) values ('20001450', N'Hokkaido')
+insert into City (IdCity, CityName) values ('20004599', N'Tohoku')
+insert into City (IdCity, CityName) values ('20002454', N'Kyushu')
+insert into City (IdCity, CityName) values ('20004117', N'Shikoku')
+insert into City (IdCity, CityName) values ('20002126', N'Kansai')
+insert into City (IdCity, CityName) values ('20002127', N'Kanto')
+insert into City (IdCity, CityName) values ('20000523', N'Chubu')
+insert into City (IdCity, CityName) values ('20000524', N'Chugoku')
 
-insert into City (IdCity, CityName) values ('107984',  'Penang');
-insert into City (IdCity, CityName) values ('107980', 'Melaka');
-insert into City (IdCity, CityName) values ('10011654',  'Johor');
-insert into City (IdCity, CityName) values ('107982', 'Terengganu');
-insert into City (IdCity, CityName) values ('108418',  'Selangor');
+--hanquoc
 
-insert into City (IdCity, CityName) values ('20003483',  'Okinawa Prefecture');
-insert into City (IdCity, CityName) values ('20001450',  'Hokkaido');
-insert into City (IdCity, CityName) values ('20004599',  'Tohoku');
-insert into City (IdCity, CityName) values ('20002454',  'Kyushu');
-insert into City (IdCity, CityName) values ('20004117',  'Shikoku');
+insert into City (IdCity, CityName) values ('20003986', N'Seoul')
+insert into City (IdCity, CityName) values ('20000337', N'Busan')
+insert into City (IdCity, CityName) values ('20001759', N'Ð?o Jeju')
+insert into City (IdCity, CityName) values ('20001674', N'Incheon')
+insert into City (IdCity, CityName) values ('20000566', N'Daegu')
+insert into City (IdCity, CityName) values ('20001760', N'Jeonbuk')
+insert into City (IdCity, CityName) values ('20000977', N'Gangwon')
+insert into City (IdCity, CityName) values ('20001157', N'Gyeonggi')
+insert into City (IdCity, CityName) values ('20001156', N'Gyeongbuk')
 
-insert into City (IdCity, CityName) values ('20003986',  'Seoul');
-insert into City (IdCity, CityName) values ('20000337', 'Busan');
-insert into City (IdCity, CityName) values ('20001759',  'Jeju Island');
-insert into City (IdCity, CityName) values ('20001674', 'Incheon');
-insert into City (IdCity, CityName) values ('20000566',  'Daegu');
+--indo
+insert into City (IdCity, CityName) values ('102813', N'Jakarta')
+insert into City (IdCity, CityName) values ('102746', N'Bali')
+insert into City (IdCity, CityName) values ('107409', N'T?nh Yogyakarta')
+insert into City (IdCity, CityName) values ('100004', N'T?nh Lampung')
+insert into City (IdCity, CityName) values ('105319', N'Kepulauan Bangka Belitung')
+insert into City (IdCity, CityName) values ('104896', N'Jambi Province')
+insert into City (IdCity, CityName) values ('105602', N'Bengkulu Province')
+insert into City (IdCity, CityName) values ('103831', N'Tây Java')
+insert into City (IdCity, CityName) values ('103130', N'Ðông Java')
+insert into City (IdCity, CityName) values ('106447', N'Trung Java')
+insert into City (IdCity, CityName) values ('105889', N'B?c Sumatra')
+insert into City (IdCity, CityName) values ('100900', N'Gorontalo')
+insert into City (IdCity, CityName) values ('100196', N'Banten')
+insert into City (IdCity, CityName) values ('104768', N'Tây Nusa Tenggara')
+insert into City (IdCity, CityName) values ('101586', N'Tây Sumatra')
+insert into City (IdCity, CityName) values ('100970', N'B?c Sulawesi')
+insert into City (IdCity, CityName) values ('100595', N'Nam Sulawesi')
+insert into City (IdCity, CityName) values ('101786', N'Ðông Kalimantan')
+insert into City (IdCity, CityName) values ('101115', N'Aceh')
+insert into City (IdCity, CityName) values ('105728', N'Riau')
+insert into City (IdCity, CityName) values ('100360', N'Qu?n d?o Riau')
+insert into City (IdCity, CityName) values ('107242', N'Kalimantan Selatan')
+insert into City (IdCity, CityName) values ('105041', N'Nusa Tenggara Timur')
+insert into City (IdCity, CityName) values ('102361', N'Papua')
+insert into City (IdCity, CityName) values ('101946', N'Nam Sumatra')
+insert into City (IdCity, CityName) values ('105524', N'Maluku')
+insert into City (IdCity, CityName) values ('102173', N'Kalimantan Barat')
+insert into City (IdCity, CityName) values ('100425', N'Sulawesi Tengah')
+insert into City (IdCity, CityName) values ('105373', N'Kalimantan Tengah')
+insert into City (IdCity, CityName) values ('101405', N'Sulawesi Tenggara')
+insert into City (IdCity, CityName) values ('107121', N'Papua Barat')
+insert into City (IdCity, CityName) values ('106338', N'Maluku Utara')
+insert into City (IdCity, CityName) values ('30010184', N'Kalimantan Utara')
+insert into City (IdCity, CityName) values ('106282', N'Sulawesi Barat')
 
-insert into City (IdCity, CityName) values ('102813', 'Jakarta');
-insert into City (IdCity, CityName) values ('102746', 'Bali');
-insert into City (IdCity, CityName) values ('107409', 'Yogyakarta Province');
-insert into City (IdCity, CityName) values ('100004', 'Lampung Province');
-insert into City (IdCity, CityName) values ('105319',  'Bangka Belitung Islands');
+--dailoan
+insert into City (IdCity, CityName) values ('30016984', N'Southern Taiwan')
+insert into City (IdCity, CityName) values ('30016985', N'Eastern Taiwan')
+insert into City (IdCity, CityName) values ('30016982', N'Northern Taiwan')
+insert into City (IdCity, CityName) values ('30016983', N'Central Taiwan')
 
-insert into City (IdCity, CityName) values ('30016984',  'Southern Taiwan');
-insert into City (IdCity, CityName) values ('30016985',  'Eastern Taiwan');
-insert into City (IdCity, CityName) values ('30016982',  'Northern Taiwan');
-insert into City (IdCity, CityName) values ('30016983',  'Central Taiwan');
-insert into City (IdCity, CityName) values ('10011651', 'Hong Kong');
+--hongcong
+insert into City (IdCity, CityName) values ('10011651', N'H?ng Kông')
 
-insert into City (IdCity, CityName) values ('4002155400',  'State of New South Wales');
-insert into City (IdCity, CityName) values ('4002058645',  'tate of Western Australia');
-insert into City (IdCity, CityName) values ('4002177478',  'Australian Capital Territory');
-insert into City (IdCity, CityName) values ('4002152274',  'State of Queensland');
-insert into City (IdCity, CityName) values ('4002145234',  'State of Victoria');
+--uc
+insert into City (IdCity, CityName) values ('4002155400', N'State of New South Wales')
+insert into City (IdCity, CityName) values ('4002058645', N'Tây Úc')
+insert into City (IdCity, CityName) values ('4002177478', N'Australian Capital Territory')
+insert into City (IdCity, CityName) values ('4002152274', N'State of Queensland')
+insert into City (IdCity, CityName) values ('4002145234', N'State of Victoria')
+insert into City (IdCity, CityName) values ('4002061327', N'Nam Úc')
+insert into City (IdCity, CityName) values ('4002147291', N'State of Tasmania')
+insert into City (IdCity, CityName) values ('4002064513', N'Lãnh th? phía B?c')
+
+--trungquopc
+insert into City (IdCity, CityName) values ('20004015', N'Thu?ng H?i')
+insert into City (IdCity, CityName) values ('20000270', N'B?c Kinh')
+insert into City (IdCity, CityName) values ('20001084', N'Qu?ng Ðông')
+insert into City (IdCity, CityName) values ('20005679', N'Chi?t Giang')
+insert into City (IdCity, CityName) values ('20001584', N'H? Nam')
+insert into City (IdCity, CityName) values ('20001809', N'Giang Tô')
+insert into City (IdCity, CityName) values ('20001279', N'Hà B?c')
+insert into City (IdCity, CityName) values ('20000984', N'Cam Túc')
+insert into City (IdCity, CityName) values ('20003715', N'Thanh H?i')
+
+--duc
+insert into City (IdCity, CityName) values ('4006547539', N'Berlin')
+insert into City (IdCity, CityName) values ('4002951839', N'Bavaria')
+insert into City (IdCity, CityName) values ('4002905330', N'Hessen')
+insert into City (IdCity, CityName) values ('4002872567', N'Mecklenburg-Western Pomerania')
+
+--philippin
+insert into City (IdCity, CityName) values ('10008029', N'Batangas')
+insert into City (IdCity, CityName) values ('10008473', N'Cebu')
+insert into City (IdCity, CityName) values ('10008716', N'Zambales')
+insert into City (IdCity, CityName) values ('30011417', N'Metro Manila')
+insert into City (IdCity, CityName) values ('10008020', N'Laguna')
+insert into City (IdCity, CityName) values ('10008655', N'Bataan')
+insert into City (IdCity, CityName) values ('10009214', N'Bohol')
+insert into City (IdCity, CityName) values ('10008303', N'Pampanga')
+insert into City (IdCity, CityName) values ('10008702', N'Cavite')
+insert into City (IdCity, CityName) values ('10008032', N'La Union')
+insert into City (IdCity, CityName) values ('10008462', N'Pangasinan')
+insert into City (IdCity, CityName) values ('10008223', N'Iloilo')
+insert into City (IdCity, CityName) values ('10009143', N'Rizal')
+insert into City (IdCity, CityName) values ('10008272', N'Palawan')
+insert into City (IdCity, CityName) values ('10009096', N'Guimaras')
+insert into City (IdCity, CityName) values ('10008341', N'Siquijor')
+insert into City (IdCity, CityName) values ('10008210', N'Batanes')
+insert into City (IdCity, CityName) values ('10008147', N'Albay')
+insert into City (IdCity, CityName) values ('10008144', N'Nueva Ecija')
+insert into City (IdCity, CityName) values ('10008742', N'Ilocos Norte')
+insert into City (IdCity, CityName) values ('10008094', N'Quezon')
+insert into City (IdCity, CityName) values ('10008797', N'Bukidnon')
+insert into City (IdCity, CityName) values ('10008773', N'Ilocos Sur')
+insert into City (IdCity, CityName) values ('10008228', N'Isabela')
+insert into City (IdCity, CityName) values ('10008024', N'Camarines Sur')
+insert into City (IdCity, CityName) values ('10009331', N'Negros Oriental')
+insert into City (IdCity, CityName) values ('10009255', N'Benguet')
+insert into City (IdCity, CityName) values ('10009180', N'Negros Occidental')
+insert into City (IdCity, CityName) values ('10008065', N'Bulacan')
+insert into City (IdCity, CityName) values ('10009054', N'Misamis Oriental')
+insert into City (IdCity, CityName) values ('10008856', N'Oriental Mindoro')
+insert into City (IdCity, CityName) values ('10009320', N'Surigao del Norte')
+insert into City (IdCity, CityName) values ('10008172', N'Sorsogon')
+insert into City (IdCity, CityName) values ('10008926', N'Tarlac')
+insert into City (IdCity, CityName) values ('10008869', N'Capiz')
+insert into City (IdCity, CityName) values ('10008447', N'Catanduanes')
+insert into City (IdCity, CityName) values ('10008900', N'Aklan')
+insert into City (IdCity, CityName) values ('10008450', N'Antique')
+insert into City (IdCity, CityName) values ('10008190', N'Romblon')
+insert into City (IdCity, CityName) values ('10009111', N'Compostela Valley')
+insert into City (IdCity, CityName) values ('10008562', N'Lanao del Norte')
+insert into City (IdCity, CityName) values ('30016963', N'Davao')
+
+--campuchia
+insert into City (IdCity, CityName) values ('30002585', N'Siem Reap')
+insert into City (IdCity, CityName) values ('30002565', N'Phnom Penh')
+insert into City (IdCity, CityName) values ('30002571', N'Kampong Thom')
 
 --PARTNER
 insert into partner (IdPartner, Partnername) values (54, 'Terocin');

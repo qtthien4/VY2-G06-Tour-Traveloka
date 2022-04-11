@@ -5,14 +5,14 @@
  create table country
 (
 	IdCountry char(20),
-	CountryName nvarchar(50)
+	CountryName ntext,
+	imageUrl ntext
 	PRIMARY KEY (IdCountry)
 )
 
 create table City
 (
-	IdCity char(20),
-	IdCountry char(20),
+	IdCity char(20),	
 	CityName nvarchar(50)
 	PRIMARY KEY (IdCity)
 )
@@ -28,13 +28,15 @@ create table Activity
 (
 	IdActivity char(20),
 	IdCountry char(20),
+	IdCity char(20),
 	IdPartner char(20),
-	TourName nvarchar(500),	
+	idtype char(20),
+	ActivityName nvarchar(500),	
 	Location ntext,	
-	Price int,	
-	type nvarchar(50),
+	Price int,
 	PRIMARY KEY (IdActivity)
 )
+
 
 create table Schedule
 (
@@ -115,12 +117,22 @@ create table Image(
 	Link ntext
 	PRIMARY KEY (IdImage)
 )
+create table type(
+	idtype char(20),
+	type char(20),	
+	PRIMARY KEY (idtype)
+)
 
 
-alter table City 
-add constraint FK_country_city
-foreign key(IdCountry)
-references country(IdCountry)
+alter table Activity 
+add constraint FK_Activity_type
+foreign key(Idtype)
+references type(Idtype)
+
+alter table Activity 
+add constraint FK_Activity_city
+foreign key(IdCity)
+references city(IdCity)
 
 alter table Activity 
 add constraint FK_Activity_country
