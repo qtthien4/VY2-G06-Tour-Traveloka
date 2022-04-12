@@ -17,10 +17,10 @@ import TourOfCity from './components/TourOfCity';
 import { useStyles } from './styleSearch';
 
 const style = {
-  marginLeft:"30px",
-  marginTop: "-20px",
+  marginLeft:"0px",
+  marginTop: "0px",
   position: 'absolute',
-  width: "66%",
+  width: "60%",
   bgcolor: 'background.paper',
   boxShadow: "0px 8px 18px rgb(3 18 26 / 13%)",
   zIndex: 10,
@@ -36,8 +36,8 @@ export default function Search() {
   const filterPrice = useSelector(SelectFilterPrice);
   // console.log(selectionSort([2,3,7,5,4,1]));
  
-  const items = [...listCityofTour];
-  console.log(  items.sort(function(a, b){return Number(a.totalReview )- Number(b.totalReview)}))
+  // const items = [...listCityofTour];
+  // console.log(  items.sort(function(a, b){return Number(a.totalReview )- Number(b.totalReview)}))
     
 
 
@@ -46,7 +46,7 @@ export default function Search() {
   
   const [nameCity, setNameCity] = useState('');
   const [nameCountry, setNameCountry] = useState('')
-
+  const scroll = 0;
   //handle link export list tour
 
 
@@ -81,6 +81,7 @@ export default function Search() {
     let idFilter =  e.target.value
     dispatch(searchActions.setFiterHeader(idFilter))
   }
+
   return (
     <>
       <Header />
@@ -89,7 +90,7 @@ export default function Search() {
           <Box className={classes.headerBoxSearch} mb={3}>
             <Box className={classes.headerSearch}>
               <Box className={classes.searchInput}>
-                <SearchActivities style={style}/>
+                <SearchActivities style={style} scroll={scroll}/>
               </Box>
             </Box>
 

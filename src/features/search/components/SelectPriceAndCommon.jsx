@@ -74,9 +74,9 @@ export function SelectPriceAndCommon({handleChangeFilterHeader}) {
                                 id: 'age-native-simple',
                             }}
                         >
+                            <option>Lọc</option>
                             <option value={1}>Giá cao nhất</option>
-                            <option value={2}>Giá thấp nhất</option>
-                            <option value={3}>Đánh giá cao nhất</option>
+                            <option value={2}>Giá thấp nhất</option>                       
                         </Select>
                     </FormControl>
                 </Box>

@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core";
+import { red } from "@material-ui/core/colors";
 
 export const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +35,8 @@ export const useStyles = makeStyles((theme) => ({
     zIndex: 100,
   },
   searchInput: {
+    position: "absolutely",
+    zIndex: 100,
     marginTop: "-60px",
     boxShadow: "0px 4px 18px rgb(3 18 26 / 13%)",
     width: "100%",
@@ -48,6 +51,7 @@ export const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  
   backgoundark: {
     height: "100%",
     width: "100%",
@@ -85,7 +89,7 @@ export const useStyles = makeStyles((theme) => ({
       background: "rgb(192, 76, 54)",
     },
   },
-  title: {    
+  title: {
     fontSize: "24px",
     textAlign: "left",
     fontWeight: 700,
@@ -122,5 +126,9 @@ export const useStyles = makeStyles((theme) => ({
 
   swiper1: {
     width: "100% !important",
+  },
+  boxContainerTour: {
+    height: "1000px",
+    zIndex: 1,
   },
 }));

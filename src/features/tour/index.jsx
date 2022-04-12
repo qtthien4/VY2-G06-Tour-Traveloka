@@ -1,3 +1,4 @@
+import { async } from '@firebase/util';
 import { Box, Button, Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { ArrowRightAltOutlined, ArrowRightOutlined, PlaceOutlined } from '@material-ui/icons';
@@ -14,6 +15,7 @@ import ListTour from './components/ListTour';
 import './index.css';
 import { selectListCityTour, selectListCountryTour, selectListMalaysiaTour, selectListSingaporeTour, selectListThailandTour, tourActions } from './tourSlice';
 import { useStyles } from './useStylesTour';
+import tourApi from '../../api/ApiReal/tourApi'
 
 export default function Tours() {
     const slideNumber = 5;
@@ -26,7 +28,8 @@ export default function Tours() {
     const ListMalaysiaTour = useSelector(selectListMalaysiaTour);
     const ListSingaporeTour = useSelector(selectListSingaporeTour);
     const ListThailandTour = useSelector(selectListThailandTour);
-    useEffect(()=>{
+   
+    useEffect(()=>{       
         dispatch(tourActions.fetchApiTour())
     },[dispatch])
 
@@ -54,14 +57,17 @@ export default function Tours() {
       };
       
     const imgBanner = useRef();
-    const recentSearchesRef = useRef();
     const layoutRef = useRef(null);
-      
+    const scroll = 256;
+    
+
+    
+ 
     return (
         <div id="tour_root">
             <Header/>
-            <div id="box_container_tour"  className="boxContainerTour" >
-            <Grid  ref={layoutRef} style={{padding : 0}} className={classes.container} item xs={12}  >
+            <div   id="box_container_tour"  className="boxContainerTour" >
+            <Grid   ref={layoutRef} style={{padding : 0}} className={classes.container} item xs={12}  >
            {/* {console.log(layoutRef)} */}
            <Grid className={classes.root}  >
                <div className={classes.backgoundark}>
@@ -70,14 +76,15 @@ export default function Tours() {
                <Typography variant='h3' className={classes.titleTour}>Tour</Typography>
                <Box className="header" >             
                     <img id="hidden" ref={imgBanner}  className={`${classes.heading_img}`} src="https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430518767-1fc642d45c0ab4008c1eba72a17a2780.jpeg?tr=h-242,q-75"></img>
-                   
+                    
                    <Box className={classes.boxSearchandRecentSearch} >
                        <Box className={`${classes.searchInput} searchInput`}>
-                           <SearchActivities layoutRef={layoutRef} style={style} />                            
+                           <SearchActivities layoutRef={layoutRef} style={style} scroll={scroll} />                            
                        </Box>
-                       <Box ref = {recentSearchesRef}  sx={style} className={`${classes.recentSearchBox} recentSearches`}>
+                       
+                       {/* <Box ref = {recentSearchesRef}  sx={style} className={`${classes.recentSearchBox} recentSearches`}>
                            <RecentSearch  /> 
-                       </Box>                                         
+                       </Box>                                          */}
                    </Box>
                
                    <Box id="hidden">
@@ -109,7 +116,7 @@ export default function Tours() {
                        <Typography className={classes.title} >Các điểm đến nổi bật của địa phương</Typography>
                        <Typography className={classes.titleDescription}>Những nơi đáng tham quan và khám phá trong nước</Typography>
                        <Box mt={4} className={classes.listTourCity}>
-                   <Slide listCityVietNam = {listCityTourVietName} slideNumber = {slideNumber} handleOnclickListTour={handleOnclickListTourVN}/>
+                   <Slide listCityofCountry = {listCityTourVietName} slideNumber = {slideNumber} handleOnclickListTour={handleOnclickListTourVN}/>
                        </Box>
                    </Box>
 
@@ -117,7 +124,7 @@ export default function Tours() {
                        <Typography className={classes.title} style={{marginTop : "100px"}} >Các điểm đến nổi bật của địa phương</Typography>
                        <Typography className={classes.titleDescription}>Những nơi đáng tham quan và khám phá trong nước</Typography>
                        <Box mt={4} className={classes.listTourCity}>                         
-                           <Slide listCityVietNam = {ListCountry} slideNumber = {slideNumber} handleOnclickListTour={handleOnclickListCountry} />
+                           <Slide listCityofCountry = {ListCountry} slideNumber = {slideNumber} handleOnclickListTour={handleOnclickListCountry} />
                        </Box>
                    </Box>
 

@@ -5,3 +5,7 @@ export const handleOpenModel = (inputRef) => {
 export const handleCloseModel = (inputRef) => {
   inputRef.current.style.display = "none";
 };
+
+// export const handleInputSearch = (e) => {
+//   console.log(e.target.value);
+// };

@@ -27,13 +27,14 @@ const useStyles = makeStyles((theme) => ({
   centerImage: {
     display: "flex",
     justifyContent: "center" /* horizontally center */,
-    alignItems: "center" /* vertically center */,
+    alignItems: "top" /* vertically center */,
     // height: '200px',
-    width: "100%",
+    height: "227px",
+    width: "236px",
   },
   img: {
-    maxWidth: "90%",
-    maxHeight: "90%",
+    height: "176px",
+    width: "236px",
     borderRadius: "8px",
     "&:hover": {
       cursor: "pointer",
@@ -42,10 +43,10 @@ const useStyles = makeStyles((theme) => ({
   boxItem: {},
 }));
 
-function Slide({ listCityVietNam, slideNumber, handleOnclickListTour }) {
+function Slide({ listCityofCountry, slideNumber, handleOnclickListTour }) {
   const classes = useStyles();
 
-  console.log("tesst123", listCityVietNam);
+  console.log("tesst123", listCityofCountry);
   return (
     <>
       <Swiper
@@ -63,17 +64,19 @@ function Slide({ listCityVietNam, slideNumber, handleOnclickListTour }) {
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log("slide change")}
       >
-        {listCityVietNam.map((list) => (
-          <SwiperSlide key={list.id} style={{ background: "none" }}>
+        {listCityofCountry.map((list) => (
+          <SwiperSlide key={list.IdCountry} style={{ background: "none" }}>
             <Box className={classes.boxItem}>
               <Box className={classes.centerImage}>
                 <img
                   // style={{opacity : 0.3}}
                   onClick={() =>
-                    handleOnclickListTour(list.experienceId, list.idCountry)
+                    handleOnclickListTour(list.experienceId, list.IdCountry)
                   }
                   className={classes.img}
-                  src={list.image}
+                  src={
+                    listCityofCountry.length < 7 ? list.image : list.imageUrl
+                  }
                 />
               </Box>
             </Box>

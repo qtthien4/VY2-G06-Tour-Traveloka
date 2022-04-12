@@ -45,17 +45,15 @@ export function swap(a, b) {
 }
 //selector
 export const SelectListTourOfCity = (state) => {
+  const lists = [...state.search.listTour];
   if (state.search.filters.Price === "1") {
-    // console.log(state.search.listTour);
-    // console.log(
-    //   state.search.listTour.sort(function (a, b, c, d, e,g,h,i,k) {
-    //     return a.experienceId - b.experienceId;
-    //   })
-    // );
-    return state.search.listTour;
+    return lists.sort(function (a, b) {
+      return Number(b.Price) - Number(a.Price);
+    });
   } else {
-    //console.log(state.search.listTour);
-    return state.search.listTour;
+    return lists.sort(function (a, b) {
+      return Number(a.Price) - Number(b.Price);
+    });
   }
 };
 

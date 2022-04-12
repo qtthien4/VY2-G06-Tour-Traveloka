@@ -1,3 +1,4 @@
+import tourApi from "api/ApiReal/tourApi";
 import fakeAllTourApi from "api/fakeAllTourApi";
 import fakeTourHcmApi from "api/fakeTourHcmApi";
 import { call, put, take, takeEvery, takeLatest } from "redux-saga/effects";
@@ -16,13 +17,27 @@ function* fetchTourList(id) {
   }
 }
 
+// function* fetchCountryTour(id) {
+//   try {
+//     const responsive = yield call(fakeAllTourApi.getAll);
+//     const listTour = responsive.filter((listArrTour) => {
+//       return listArrTour.idCountry === id.payload;
+//     });
+//     yield put(searchActions.SetTourListOfCity(listTour));
+//   } catch (error) {
+//     console.log("loi", error);
+//   }
+// }
+
+//api real
 function* fetchCountryTour(id) {
   try {
-    const responsive = yield call(fakeAllTourApi.getAll);
+    const responsive = yield call(tourApi.getAll);
     const listTour = responsive.filter((listArrTour) => {
-      return listArrTour.idCountry === id.payload;
+      return String(listArrTour.IdCountry.trim()) === String(id.payload);
     });
     yield put(searchActions.SetTourListOfCity(listTour));
+    console.log(listTour);
   } catch (error) {
     console.log("loi", error);
   }

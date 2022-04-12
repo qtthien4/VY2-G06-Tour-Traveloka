@@ -1,4 +1,4 @@
-const { default: axiosClient } = require("./axiosClien.");
+const { default: axiosClient } = require("./axiosClient");
 
 const productApi = {
     getAll: (params) =>{

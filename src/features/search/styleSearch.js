@@ -8,7 +8,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   headerSearch: {
     padding: "1px",
-    width: "70%",
+    width: "60%",
     margin: "auto",
   },
   headerBoxSearch: {

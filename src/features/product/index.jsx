@@ -20,9 +20,12 @@ function Product() {
   const location = useLocation()
   const idTour = location.pathname.split("/")[4]
  
+  console.log(idTour);
   useEffect(()=>{
     dispatch(productActions.fetchProduct(idTour))
   },[dispatch,idTour])
+
+
 
   return (
     <Box>
@@ -47,11 +50,11 @@ function Product() {
         <Paper className={classes.root}>
           <Grid container className={classes.container}>
             <Box>
-              <Typography variant="h5" className={classes.tilteProduct}>{tour.experienceName}</Typography>
+              <Typography variant="h5" className={classes.tilteProduct}>{tour.ActivityName}</Typography>
               <Button variant="outlined" disableTouchRipple className={ `${classes.btnDisable} main-text-transform`}>Chuyến tham quan</Button>
               <Box className={`main-d-flex main-align-item-center `}>
                 <img height="12" width="12" src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/0/0629a9ae0d41e994ff5043f52cbb1b2e.svg" alt="" />
-                <Typography variant="body2" className={`main-padding-4px`}>{tour.shortGeoName}</Typography>
+                <Typography variant="body2" className={`main-padding-4px`}>{tour.Location}</Typography>
               </Box>
             </Box>
 
@@ -94,7 +97,7 @@ function Product() {
               </Box>
               <Box className={classes.findSlects}>
                 <Typography className={`main-font-size-text main-text-color-black`}>Bắt đầu từ</Typography>
-                <Typography className={`main-text-color-orange main-font-weight`} variant='h5'>{tour.discountedPrice} VND</Typography>
+                <Typography className={`main-text-color-orange main-font-weight`} variant='h5'>{tour.Price} VND</Typography>
                 <Button fullWidth variant="contained" className={`main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`} >Tìm các tùy chọn</Button>
               </Box>
             </Grid>

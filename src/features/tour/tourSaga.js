@@ -1,3 +1,4 @@
+import countryApi from "api/ApiReal/country";
 import fakeCityApi from "api/fakeCityApi";
 import fakeCountryApi from "api/fakeCountryApi";
 import fakeTourApiMalaysia from "api/fakeTourApiMalaysia";
@@ -22,8 +23,15 @@ function* fetchTourSingaporeList() {
   yield put(tourActions.setTourSingaporeList(response));
 }
 
+// function* fetchApiListCountry() {
+//   const response = yield call(fakeCountryApi.getAll);
+//   console.log("Country:", response);
+//   yield put(tourActions.setCountryList(response));
+// }
+
+//api real
 function* fetchApiListCountry() {
-  const response = yield call(fakeCountryApi.getAll);
+  const response = yield call(countryApi.getAll);
   console.log("Country:", response);
   yield put(tourActions.setCountryList(response));
 }
