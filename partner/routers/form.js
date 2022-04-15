@@ -4,6 +4,6 @@ var router = express.Router();
 var formController = require('../controller/FormController')
 
 router.get('/', formController.index);
-router.post('/a', formController.testpost);
+router.post('', formController.testpost);
 
 module.exports = router;

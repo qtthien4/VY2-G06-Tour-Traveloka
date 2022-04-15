@@ -28,7 +28,7 @@ class FormController{
     }
 
     testpost(req,res){
-        res.send('a')
+        
         const idpartner = 30;
         const nuoc = req.body.nuoc;
         const thanhpho = req.body.thanhpho;
@@ -72,7 +72,18 @@ class FormController{
             })
                  }
     })
-    }
+    
+    sql.connect(sqlConfig, function (err) {
+        if (err) console.log(err);
+
+        var re = new sql.Request();
+        re.query('select * from activity', function (err, result) {
+            if (err) console.log(err)
+            var activity = result.recordset                    
+            res.render('tables', { activity: activity })
+        })
+    })
+}
 }
 
 module.exports = new FormController
