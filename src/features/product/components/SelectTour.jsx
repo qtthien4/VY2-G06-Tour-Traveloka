@@ -33,8 +33,9 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-export default function SelectTour() {
+export default function SelectTour({idTour,tour,handleClickButonBuy}) {
   const classes = useStyles();
+
   return (
     <div>
 
@@ -68,7 +69,7 @@ export default function SelectTour() {
         <Box className={classes.btnBoxSeeDetailAndSelect}>
           <Button variant="outlined" >Xem chi tiết</Button>
           
-          <Button color="secondary" variant="contained" className={`main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`} >Lựa chọn</Button>
+          <Button onClick={handleClickButonBuy} color="secondary" variant="contained" className={`main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`} >Lựa chọn</Button>
         </Box>
       </Box>
     </div>
