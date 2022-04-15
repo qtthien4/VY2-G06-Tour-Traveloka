@@ -1,7 +1,7 @@
 
 class ChartController{
     index(req, res) {
-        res.render('charts');
+        res.render('chart');
     }
 }
 
