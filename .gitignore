@@ -2,6 +2,8 @@
 
 # dependencies
 /node_modules
+partner/node_modules
+
 /.pnp
 .pnp.js
 

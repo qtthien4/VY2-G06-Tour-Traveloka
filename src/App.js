@@ -61,12 +61,16 @@ export default function App() {
         <Route path="/activities/search/daytour" element={<Search />}>
           {/* <Route path=":id" element={<Search />}></Route> */}
         </Route>
+        <Route path="/asd">
+          {/* <Route path=":id" element={<Search />}></Route> */}
+        </Route>
         <Route path="/activities/vietnam/product" element={<Product />}>
           <Route path=":id" element={<Product />}></Route>
         </Route>
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/booking/payment" element={<Payment />} />
+
       </Routes>
     </div>
   );

@@ -1,5 +1,5 @@
 import { PHOTO_CATEGORY_OPTIONS } from "constants/global";
-import InputField from "custom-fields/InputField";
+import InputField from "custom-fields/InputFieldTest";
 import RandomPhotoField from "custom-fields/RandomPhotoField";
 import SelectField from "custom-fields/SelectField";
 import { Formik, Form, FastField } from "formik";

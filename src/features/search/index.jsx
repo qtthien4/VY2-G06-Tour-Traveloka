@@ -28,6 +28,7 @@ const style = {
 };
 
 export default function Search() {
+  window.scroll(0,0)
   const navigate = useNavigate()
   const classes = useStyles()
   const listCityofTour = useSelector(SelectListTourOfCity);

@@ -54,11 +54,7 @@ export default function RecentSearch() {
                     </Button>
    
                 </ListItem>
-            </List>
-         
-          
-        
-            
+            </List> 
         </Box>
       </Box>
 

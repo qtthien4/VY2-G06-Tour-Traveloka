@@ -1,11 +1,30 @@
 import { Box, Button, FormControl, FormControlLabel, InputLabel, List, ListItem, ListItemIcon, ListItemText, Radio, TextField, Typography } from '@material-ui/core';
 import { CalendarViewDayOutlined, PaymentOutlined, PhoneAndroidOutlined } from '@material-ui/icons';
 import Footer from 'components/Footer';
+import InputField from '../../components/FormFields/InputField';
 import Navbar from 'features/Payment/navbar';
 import * as React from 'react';
+import { useController, useForm } from 'react-hook-form';
 import { useStyles } from './indexStyle';
+import RadioGroupField from 'components/FormFields/RadioGroupField';
+import SelectFiled from 'components/FormFields/SelectFiled';
 
 export default function Booking() {
+    const {control, handleSubmit } = useForm();
+    const onSubmit = async(data) =>{
+        var obj = {
+            "form1": data,
+            "form2": {
+                "prop_11": "val_11",
+                "prop_12": "val_12"
+              },
+           
+          };     
+           console.log(JSON.stringify(obj))
+    };
+
+    
+    const fullWidth = true;
     const classes = useStyles();
     return (
         <Box >
@@ -16,210 +35,157 @@ export default function Booking() {
                 <Typography variant="body1" className={classes.header_des}>Điền thông tin chi tiết của bạn và xem xét đặt phòng của bạn.</Typography>
             </Box>
             <Box className={classes.main} >
-                <Box className={classes.left} >
-                    <Box className={classes.loginOrRegister}>
-                        <img height="100" width="100" src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/6/6019da794c10a8a7b0357f9ed46f1d6f.png" alt="" />
-                        <Box ml={2}>
-                            <Typography className={classes.textTitleBox} variant="body1" color="inherit">Đăng nhập hoặc đăng ký để tận hưởng lợi ích chỉ dành cho thành viên này</Typography>
-                            <Box mt={1} mb={1}>
-                                <img height="24" width="24" src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/33fcc4e9daaeafc158c1a2542399ac66.svg"></img>
-                                <span className={`main-padding-4px`}>Đặt chỗ nhanh hơn và dễ dàng hơn với Chọn Nhanh Hành Khách</span>
+
+                <form  onSubmit={handleSubmit(onSubmit)}>
+                    <Box className={classes.left} >
+                        <Box className={classes.loginOrRegister}>
+                            <img height="100" width="100" src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/6/6019da794c10a8a7b0357f9ed46f1d6f.png" alt="" />
+                            <Box ml={2}>
+                                <Typography className={classes.textTitleBox} variant="body1" color="inherit">Đăng nhập hoặc đăng ký để tận hưởng lợi ích chỉ dành cho thành viên này</Typography>
+                                <Box mt={1} mb={1}>
+                                    <img height="24" width="24" src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/33fcc4e9daaeafc158c1a2542399ac66.svg"></img>
+                                    <span className={`main-padding-4px`}>Đặt chỗ nhanh hơn và dễ dàng hơn với Chọn Nhanh Hành Khách</span>
+                                </Box>
+                                <Button className={`main-text-transform main-font-weight main-text-color-primary main-font-size-title`}  color="primary" size='small'>Đăng nhập hay đăng kí</Button>
                             </Box>
-                            <Button className={`main-text-transform main-font-weight main-text-color-primary main-font-size-title`}  color="primary" size='small'>Đăng nhập hay đăng kí</Button>
                         </Box>
-                    </Box>
 
-                    <Box mt={3} className="Chi tiet lien he">
-                        <Typography variant="h4" className={classes.header_title}>Chi tiết liên hệ</Typography>
+                        <Box mt={3} className="Chi tiet lien he">
+                            <Typography variant="h4" className={classes.header_title}>Chi tiết liên hệ</Typography>
 
-                        <Box mt={2} className={classes.contactDetailBox}>
-                            <Box className={classes.contactDetailHeader}>
-                                <Typography className={classes.textTitleBox} variant="body1" >Chi tiết liên hệ (đối với Voucher)</Typography>
-                                <Button color="primary" size='small' className={`main-text-transform main-text-color-primary main-font-weight`} >Tiết kiệm</Button>
-                            </Box>
-                            <Box>
-                                <Typography color="inherit" variant="subtitle2" className={`main-text-color-black main-font-weight`}>Họ và tên</Typography>
-                                <TextField
-                                    margin='normal'
-                                    variant="outlined"
-                                    size='small'
-                                    fullWidth></TextField>
-                                <Typography variant="caption">Như trên CMND / hộ chiếu / giấy phép lái xe (không bằng cấp hoặc các ký tự đặc biệt)</Typography>
-                            </Box>
-
-                            <Box mt={3}>
+                            <Box mt={2} className={classes.contactDetailBox}>
+                                <Box className={classes.contactDetailHeader}>
+                                    <Typography className={classes.textTitleBox} variant="body1" >Chi tiết liên hệ (đối với Voucher)</Typography>
+                                    <Button color="primary" size='small' className={`main-text-transform main-text-color-primary main-font-weight`} >Tiết kiệm</Button>
+                                </Box>
                                 <Box>
+                                    <Typography color="inherit" variant="subtitle2" className={`main-text-color-black main-font-weight`}>Họ và tên</Typography>
+                                    <InputField name="name" control={control} label="full" fullWidthCustom = {fullWidth}/>
+                                    <Typography variant="caption">Như trên CMND / hộ chiếu / giấy phép lái xe (không bằng cấp hoặc các ký tự đặc biệt)</Typography>
+                                </Box>
 
-                                    <Box className={classes.flex}>
-                                        <Box width={300}>
-                                            <InputLabel htmlFor="name-readonly" className={`main-text-color-black main-font-weight`}>Số điện thoại</InputLabel>
-                                            <Box>
-                                                <FormControl >
-                                                    <select style={{width: "75px"}} className={`${classes.areaPhoneNumber}`}>
-                                                        <option value="female">+84</option>
-                                                        <option value="male">male</option>
-                                                        <option value="other">other</option>
-                                                    </select>
-                                                </FormControl>
-                                                <TextField
-                                                    className={`inputPhoneNumber`}
-                                                    maxRows="50"
-                                                    margin='normal'
-                                                    variant="outlined"
-                                                    size='small'
-                                                >
-                                                </TextField>
+                                <Box mt={3}>
+                                    <Box>
+
+                                        <Box className={classes.flex}>
+                                            <Box width={400}>
+                                                <InputLabel htmlFor="name-readonly" className={`main-text-color-black main-font-weight`}>Số điện thoại</InputLabel>
+                                                <Box className="d-flex" height={56}>
+                                                        <SelectFiled name="selectPhoneArea" control={control} label="phone" options={[
+                                                            {label:"+84", value:"+84"},
+                                                            {label:"asdas", value:"ok"}
+                                                        ]}/>
+                                                    <Box >
+                                                        <InputField widthCustom="10px" name="phone" control={control} label="full" fullWidthCustom = {!fullWidth}/>
+                                                    </Box>
+                                                </Box>
+                                                <Typography variant="caption">ví dụ: +62812345678, cho Mã quốc gia (+62) và Số điện thoại di động 0812345678</Typography>
                                             </Box>
-                                            <Typography variant="caption">ví dụ: +62812345678, cho Mã quốc gia (+62) và Số điện thoại di động 0812345678</Typography>
+
+                                            <Box ml={2}>
+                                                <InputLabel htmlFor="name-readonly" className={`main-text-color-black main-font-weight`}>Email</InputLabel>
+                                                <InputField name="email" control={control} label="full" fullWidthCustom ={fullWidth}/>
+                                                <Typography variant="caption">ví dụ: email@example.com</Typography>
+                                            </Box>
                                         </Box>
 
-                                        <Box >
-                                            <InputLabel htmlFor="name-readonly" className={`main-text-color-black main-font-weight`}>Email</InputLabel>
-                                            <TextField
-                                                margin='normal'
-                                                variant="outlined"
-                                                size='small'
-                                            ></TextField> <br />
-                                            <Typography variant="caption">ví dụ: email@example.com</Typography>
-                                        </Box>
+
                                     </Box>
 
+                                    <Box className={`${classes.flex} ${classes.rightTimeLine}`} mt={3}>
+                                        <RadioGroupField name="formRadio1" control={control}  options={[
+                                            {label:"Tôi là khách truy cập", value:'male'},
+                                            {label:"Tôi đang đặt chỗ cho người khác", value:'female'},
+                                        ]}/>
 
-                                </Box>
-
-                                <Box className={`${classes.flex} ${classes.rightTimeLine}`} mt={3}>
-                                    <FormControlLabel
-                                        className={`main-text-transform main-text-color-black main-font-weight`}
-                                        value="Tôi là khách truy cập"
-                                        control={<Radio color="primary" />}
-                                        label="Tôi là khách truy cập"
-                                        labelPlacement="start"
-                                    />
-                                    <FormControlLabel
-                                        className={`main-text-transform  main-text-color-black main-font-weight`}
-                                        value="Tôi đang đặt chỗ cho người khác"
-                                        control={<Radio color="primary" />}
-                                        label="Tôi đang đặt chỗ cho người khác"
-                                        labelPlacement="start"
-                                    />
+                                    </Box>
                                 </Box>
                             </Box>
                         </Box>
-                    </Box>
 
-                    <Box mt={3} className="Chi tiet khach truy cap">
-                        <Typography variant="h4" className={classes.header_title}>Chi tiết về khách truy cập</Typography>
+                        <Box mt={3} className="Chi tiet khach truy cap">
+                            <Typography variant="h4" className={classes.header_title}>Chi tiết về khách truy cập</Typography>
 
-                        <Box mt={2} className={classes.contactDetailBox}>
-                            <Box className={classes.contactDetailHeader}>
-                                <Typography className={classes.textTitleBox} variant="body1" >Người lớn 1</Typography>
-                                <Button color="primary" size='small' className={`main-text-transform main-text-color-primary main-font-weight`} >Tiết kiệm</Button>
-                            </Box>
-                            <Box>
-                                <FormControl >
-                                    <select style={{width: "200px"}} className = {classes.areaPhoneNumber}>
-                                        <option value="female">Ông</option>
-                                        <option value="male">Bà</option>
-                                        <option value="other">Khác</option>
-                                    </select>
-                                </FormControl>
-                            </Box>
-
-                            <Box>
-                                <Typography className={`main-text-color-black main-font-weight`} color="inherit" variant="subtitle2">Họ và tên</Typography>
-                                <TextField
-                                    margin='normal'
-                                    variant="outlined"
-                                    size='small'
-                                    fullWidth
-                                ></TextField> <br />
-                                <Typography variant="caption">(không có tiêu đề và dấu chấm câu)</Typography>
-                            </Box>
-
-                            <Box mt={3}>
+                            <Box mt={2} className={classes.contactDetailBox}>
+                                <Box className={classes.contactDetailHeader}>
+                                    <Typography className={classes.textTitleBox} variant="body1" >Người lớn 1</Typography>
+                                    <Button color="primary" size='small' className={`main-text-transform main-text-color-primary main-font-weight`} >Tiết kiệm</Button>
+                                </Box>
                                 <Box>
+                                <SelectFiled name="selectAdult" control={control} label="phone" options={[
+                                                            {label:"Ông", value:"1"},
+                                                            {label:"Bà", value:"0"}                                                            
+                                                        ]}/>
+                                </Box>
 
-                                    <Box className={classes.flex}>
-                                        <Box width={300}>
-                                            <InputLabel className={`main-text-color-black main-font-weight`} htmlFor="name-readonly">Số điện thoại</InputLabel>
-                                            <Box>
-                                                <FormControl >
-                                                <select style={{width: "75px"}} className={`${classes.areaPhoneNumber}`}>
-                                                        <option value="female">+84</option>
-                                                        <option value="male">male</option>
-                                                        <option value="other">other</option>
-                                                    </select>
-                                                </FormControl>
-                                                <TextField
-                                                    margin='normal'
-                                                    variant="outlined"
-                                                    size='small'
-                                                >
+                                <Box>
+                                    <Typography className={`main-text-color-black main-font-weight`} color="inherit" variant="subtitle2">Họ và tên</Typography>
+                                    <InputField name="nameKhachTruyCap" control={control} label="full" fullWidthCustom = {fullWidth}/> <br />
+                                    <Typography variant="caption">(không có tiêu đề và dấu chấm câu)</Typography>
+                                </Box>
 
-                                                </TextField>
+                                <Box mt={3}>
+                                    <Box>
+
+                                        <Box className={classes.flex}>
+                                            <Box width={300}>
+                                                <InputLabel className={`main-text-color-black main-font-weight`} htmlFor="name-readonly">Số điện thoại</InputLabel>
+                                                <Box>
+                                                
+                                                    <SelectFiled name="selectPhoneAreaForm2" control={control} label="phone" options={[
+                                                            {label:"Ông", value:"1"},
+                                                            {label:"Bà", value:"0"}                                                            
+                                                        ]}/>
+                                                
+                                                <InputField name="phoneForm2" control={control} label="full" fullWidthCustom ={!fullWidth}/> <br />
+                                                </Box>
+                                                <Typography variant="caption">ví dụ: +62812345678, cho Mã quốc gia (+62) và Số điện thoại di động 0812345678</Typography>
                                             </Box>
-                                            <Typography variant="caption">ví dụ: +62812345678, cho Mã quốc gia (+62) và Số điện thoại di động 0812345678</Typography>
+
+                                            <Box >
+                                                <InputLabel className={`main-text-color-black main-font-weight`} htmlFor="name-readonly">Email</InputLabel>
+                                                <InputField name="emailForm2" control={control} label="full" fullWidthCustom ={fullWidth}/> <br />
+                                                <Typography variant="caption">ví dụ: email@example.com</Typography>
+                                            </Box>
                                         </Box>
 
-                                        <Box >
-                                            <InputLabel className={`main-text-color-black main-font-weight`} htmlFor="name-readonly">Email</InputLabel>
-                                            <TextField
-                                                margin='normal'
-                                                variant="outlined"
-                                                size='small'
-                                            ></TextField> <br />
-                                            <Typography variant="caption">ví dụ: email@example.com</Typography>
-                                        </Box>
+
                                     </Box>
 
-
-                                </Box>
-
-                                <Box className={`${classes.flex} ${classes.rightTimeLine}`} mt={3}>
-                                    <FormControlLabel
-                                        className={`main-text-color-black main-font-weight`}
-                                        value="Tôi là khách truy cập"
-                                        control={<Radio color="primary" />}
-                                        label="Tôi là khách truy cập"
-                                        labelPlacement="start"
-                                    />
-                                    <FormControlLabel
-                                        className={`main-text-color-black main-font-weight`}
-                                        value="Tôi đang đặt chỗ cho người khác"
-                                        control={<Radio color="primary" />}
-                                        label="Tôi đang đặt chỗ cho người khác"
-                                        labelPlacement="start"
-                                    />
+                                    <Box className={`${classes.flex} ${classes.rightTimeLine}`} mt={3}>
+                                    <RadioGroupField name="radioForm2" control={control}  options={[
+                                            {label:"Tôi là khách truy cập", value:'male'},
+                                            {label:"Tôi đang đặt chỗ cho người khác", value:'female'},
+                                        ]}/>
+                                    </Box>
                                 </Box>
                             </Box>
                         </Box>
-                    </Box>
 
 
-                    <Box mt={3} className={classes.colorWhite}>
-                        <Typography className={classes.textTitleBox} variant="body1" >Yêu cầu đặc biệt (Tùy chọn)</Typography>
-                        <TextField
-                            placeholder='Yêu cầu đặc biệt'
-                            margin='normal'
-                            variant="outlined"
-                            size='small'
-                            fullWidth
-                        ></TextField> <br />
-                        <Typography variant="caption">Định dạng: bằng tiếng Anh hoặc ngôn ngữ địa phương. Các yêu cầu tùy thuộc vào tính khả dụng của nhà điều hành.</Typography>
-                    </Box>
+                        <Box mt={3} className={classes.colorWhite}>
+                            <Typography className={classes.textTitleBox} variant="body1" >Yêu cầu đặc biệt (Tùy chọn)</Typography>
+                            <InputField name="requireCustomer" control={control} label="full" fullWidthCustom ={fullWidth}/> <br /> <br />
+                            <Typography variant="caption">Định dạng: bằng tiếng Anh hoặc ngôn ngữ địa phương. Các yêu cầu tùy thuộc vào tính khả dụng của nhà điều hành.</Typography>
+                        </Box>
 
-                    <Box mt={3} mb={2}>
-                        <Typography className={classes.textTitleBox} variant="body1" >Chi tiết giá cả</Typography>
-                    </Box>
-                    <Box className={`main-d-flex main-text-color-black ${classes.payBox}`}>
-                        <Typography className={``}>Giá bạn phải trả</Typography>
-                        <Typography style={{fontSize:"20px",lineHeight:"28px"}} className={`maim-font-weight main-text-color-orange`}>1.800.000 VND</Typography>
-                    </Box>
-                    <Box align="right" mt={5}>
-                        <Button style={{padding: "5px 35px 5px 35px", fontSize:"20px"}} variant='contained'  className={` main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`}>Tiếp tục thanh toán</Button>
-                    </Box>
+                        <Box mt={3} mb={2}>
+                            <Typography className={classes.textTitleBox} variant="body1" >Chi tiết giá cả</Typography>
+                        </Box>
+                        <Box className={`main-d-flex main-text-color-black ${classes.payBox}`}>
+                            <Typography className={``}>Giá bạn phải trả</Typography>
+                            <Typography style={{fontSize:"20px",lineHeight:"28px"}} className={`maim-font-weight main-text-color-orange`}>1.800.000 VND</Typography>
+                        </Box>
+                        <Box align="right" mt={5}>
+                            <Button type="submit" style={{padding: "5px 35px 5px 35px", fontSize:"20px"}} variant='contained'  className={` main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`}>Tiếp tục thanh toán</Button>
+                        </Box>
 
-                </Box >
+                    </Box >
+                </form>
+              
+
+
+                
                 <Box className={classes.right} >
                     <Box>
                         <Box className={classes.rightTitle}>

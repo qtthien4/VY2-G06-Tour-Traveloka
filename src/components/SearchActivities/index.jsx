@@ -1,10 +1,15 @@
 import { Box, Button, Input } from '@material-ui/core';
-import zIndex from '@material-ui/core/styles/zIndex';
 import { SearchOutlined } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
+import NotFound from 'components/NotFount';
 import RecentSearch from 'components/RecentSearch';
 import ResultSearch from 'components/ResultSearch';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { listRemainingSelectorTourSearch, searchActivityActions } from './searchActivitySlice';
+import searchApi from '../../api/ApiReal/searchApi'
+import { asd } from 'api/Data/axiosTest';
 
 const useStyles = makeStyles(theme => ({
   contained: {
@@ -65,7 +70,10 @@ export default function SearchActivities({style,layoutRef,scroll}) {
   const searchOverlay= useRef()
   const recentSearchesRef = useRef();
   const recentSearchesRef1 = useRef();
+  const [searchText, setSearchText] = useState('')
+  const listTour = useSelector(listRemainingSelectorTourSearch)
 
+  const dispatch = useDispatch();
 
   const handleOpenModel = () => {
     window.scroll(0,scroll)  
@@ -81,10 +89,17 @@ export default function SearchActivities({style,layoutRef,scroll}) {
     recentSearchesRef1.current.style.display = 'none';
     document.querySelector("body").style.overflowY="scroll"  
   }
-  const [searchText, setSearchText] = useState('')
+  
+  //handle search change
+  useEffect(()=>{
+    dispatch(searchActivityActions.fetchSearchActivity(searchText));
+    dispatch(searchActivityActions.setFilterSearchChangeInput(searchText))
+  },[dispatch,searchText])
 
   const handleInputSearchChange = (e) => {
+    
     const value = e.target.value
+    
     if(value.length >= 1 || value !== ""){
       recentSearchesRef.current.style.display = 'none';
       recentSearchesRef1.current.style.display = 'block';
@@ -95,34 +110,50 @@ export default function SearchActivities({style,layoutRef,scroll}) {
     }
     setSearchText(e.target.value)
   };
-
-  //get full tour
-  //iclu tour => key state => if tra true=> in ra
   
-  console.log(searchText)
+  // const initialValue={
+  //   textSearch:"",
+  //   ...searchText
+  // }
 
+  // const handleSearchFormSubmit = () =>{
+  //     //call api
+  // }
+  const navigate = useNavigate()
+
+  const handleOnButtonSearch = () =>{
+    // asd();
+    //navigate(`/asd?q=${searchText}`)
+
+    //navigate(`/activities/search/daytour?st=allTour&q=${searchText}`)
+    searchApi.postTextSearch(searchText)
+  }
   return (
     <>
     <div  onClick={handleCloseModel} ref={searchOverlay}  className={classes.searchInputOverlay}></div>
       <Box className={classes.root}>
+    
         <Box className={classes.contained}>
+        {/* <SearchForm handleOpenModel={handleOpenModel} handleInputSearchChange={handleInputSearchChange} initialValue={initialValue} onSubmit = {handleSearchFormSubmit}/> */}
           <Box className={classes.inputBox}>
             <SearchOutlined className={classes.icon} />
-            <Input onChange={(e)=>handleInputSearchChange(e)}  inputRef={inputRef}  onFocus={handleOpenModel}  className={classes.input} disableUnderline fullWidth placeholder='Mời nhập tìm kiếm'></Input>
+            <Input name="nameTour" onChange={(e)=>handleInputSearchChange(e)}  inputRef={inputRef}  onFocus={handleOpenModel}  className={classes.input} disableUnderline fullWidth placeholder='Mời nhập tìm kiếm'></Input>
           </Box>
-          <Button className={classes.btn} size='large' variant="contained">
+          <Button onClick={handleOnButtonSearch}  type="submit" className={classes.btn} size='large' variant="contained">
             Search
           </Button>
         </Box>
+      
+       
       </Box> 
       <Box mt={3} ref={recentSearchesRef} sx={style} style={{ display: "none" }}>
-
-        <RecentSearch />
+        <RecentSearch  />
       </Box>
 
       <Box mt={3} ref={recentSearchesRef1} sx={style} style={{ display: "none" }}>
-        <ResultSearch />
+        {listTour.length >=1 ? <ResultSearch listTour={listTour} /> : <NotFound/>}       
       </Box>
+
     </>
 
   );
