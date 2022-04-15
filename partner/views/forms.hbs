@@ -24,7 +24,11 @@
     <link rel="import" href="https://rawgit.com/sitepoint-editors/multiselect-web-component/master/src/multiselect.html">
 
 
-    
+    <style>
+        .hideinput{
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -47,12 +51,8 @@
                     <div class="navbar-holder d-flex align-items-center justify-content-between w-100">
                         <!-- Navbar Header-->
                         <div class="navbar-header">
-                            <!-- Navbar Brand -->
-                            <a class="navbar-brand d-none d-sm-inline-block" href="index.html">
-                                <div class="brand-text d-none d-lg-inline-block"><span>Bootstrap </span><strong>Dashboard</strong></div>
-                                <div class="brand-text d-none d-sm-inline-block d-lg-none"><strong>BD</strong></div>
-                            </a>
-                            <!-- Toggle Button--><a class="menu-btn active" id="toggle-btn" href="#"><span></span><span></span><span></span></a>
+                            <img src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/30bf6c528078ba28d34bc3e37d124bdb.svg" alt="">
+                            
                         </div>
                         <!-- Navbar Menu -->
                         <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
@@ -178,7 +178,7 @@
             <!-- Side Navbar -->
             <nav class="side-navbar z-index-40">
                 <!-- Sidebar Header-->
-                <div class="sidebar-header d-flex align-items-center py-4 px-3"><img class="avatar shadow-0 img-fluid rounded-circle" src="img/avatar-1.jpg" alt="...">
+                <div class="sidebar-header d-flex align-items-center py-4 px-3"><img class="avatar shadow-0 img-fluid rounded-circle" src="images/icon.jpg" alt="...">
                     <div class="ms-3 title">
                         <h1 class="h4 mb-2">Mark Stephen</h1>
                         <p class="text-sm text-gray-500 fw-light mb-0 lh-1">Web Designer</p>
@@ -250,6 +250,42 @@
                                     </div>
                                     <div class="card-body">
                                         <form class="form-horizontal" method="post" action="/form/a">
+                                        <div class="row">
+                                                <div class="col-sm-3">
+                                                    <label class="col-sm-3 form-label">Loại</label>
+                                                    <div class="col-sm-8">
+                                                        <select  name="type" >
+                                                                {{#each type}}
+                                                                <option value='{{{this.idtype}}}'>{{{this.type}}}</option>                                                           
+                                                                {{/each}}
+                                                            </select>
+                                                        <small class="form-text">Tour, Tham quan,.....</small>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <div class="col-sm-12">
+                                                     <label class="col-sm-3 form-label">Tên hoạt động</label>
+                                                     </div>
+                                                    <div class="col-sm-9">
+                                                    <input class="form-control" type="text" name="nameactivity">                                                
+                                                    </div>
+                                                </div>                                                
+                                            </div>     
+                                            <div class="border-bottom my-5 border-gray-200"></div>
+                                            <div class="row">  
+                                                <div class="col-sm-5" style="margin-left: 15px;">
+                                                    <input type="file" id="files" name="file[]" multiple="multiple">
+                                                </div>        
+                                                <div class="col-sm-2">
+                                                    <button style="text-align: center; border: 1px solid black" onclick="upload()">xác nhận</button>    
+                                                </div>      
+                                                <div style="display: none;" class="col-sm-2">
+                                                    <select name="links[]" id="link" multiple>
+                                                
+                                                    </select>
+                                                </div>                                                   
+                                            </div> 
+                                            <div class="border-bottom my-5 border-gray-200"></div>
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <label class="col-sm-3 form-label">Nước</label>
@@ -273,26 +309,8 @@
                                                 </div>                                               
                                             </div>                                 
                                             <div class="border-bottom my-5 border-gray-200"></div>
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <label class="col-sm-3 form-label">Loại</label>
-                                                <div class="col-sm-9">
-                                                    <select  name="type" >
-                                                            {{#each type}}
-                                                            <option value='{{{this.idtype}}}'>{{{this.type}}}</option>                                                           
-                                                             {{/each}}
-                                                        </select>
-                                                    <small class="form-text">Tour, Tham quan,.....</small>
-                                                </div>
-                                                </div>
-                                                <div class="col-sm-8">
-                                                     <label class="col-sm-3 form-label">Tên hoạt động</label>
-                                                <div class="col-sm-9">
-                                                    <input class="form-control" type="text" name="nameactivity">
-                                                </div>
-                                                </div>
-                                            </div>                                            
-                                            <div class="border-bottom my-5 border-gray-200"></div>
+                                                                                   
+                                            
                                             <div class="row">
                                                 <div class="row">
                                                     <div class="col-sm-9">
@@ -332,25 +350,6 @@
                                                 </div>
                                             </div>                                        
                                             <div class="border-bottom my-5 border-gray-200"></div>
-                                            <div class="row" >
-                                                <div class="row" style="margin-left: 15px;">
-                                                    <div class="col-sm-6">
-                                                        <label class="col-sm-12 form-label">Thời gian bắt đầu tour</label>
-                                                    <div class="col-sm-9">
-                                                        <input class="form-control" type="datetime-local" name="starttime">
-                                                    </div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <label class="col-sm-12 form-label">Thời gian kết thúc tour</label>
-                                                    <div class="col-sm-9">
-                                                        <input class="form-control" type="datetime-local" name="endtime">
-                                                    </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="border-bottom my-5 border-gray-200"></div>                                 
-                                            <input type="file" id="files" name="file[]" multiple="multiple">
-                                            <div class="border-bottom my-5 border-gray-200"></div>
                                             <div class="row" style="margin-left: 15px;">
                                                 <label class="col-sm-3 form-label">Mô tả</label>
                                                 <div class="col-sm-9">
@@ -360,9 +359,10 @@
                                             <div style="display: none;">
                                                 <input type="text" name="idactivity" id="idactivity" value="">
                                                 <input type="text" name="idschedule" id="idschedule" value="">
+                                                
                                             </div>
                                             <div class="border-bottom my-5 border-gray-200"></div>
-                                            <div class="row">
+                                            <div class="row" style="margin-bottom: 20px;">
                                                 <div class="col-sm-9 ms-auto">
                                                     <button class="btn btn-secondary" type="reset">Cancel</button>
                                                     <button class="btn btn-primary" type="submit">Save changes</button>
@@ -380,6 +380,66 @@
             </div>
         </div>
     </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyAGKppLdSgv1k8izZY3Nnfdu7QkemOFIDE",
+        authDomain: "traveloka-66925.firebaseapp.com",
+        projectId: "traveloka-66925",
+        storageBucket: "traveloka-66925.appspot.com",
+        messagingSenderId: "1049582102513",
+        appId: "1:1049582102513:web:83b3ccbe4e4ca235330650",
+        measurementId: "G-29C4MB86WP"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+         
+        
+        var a = () => {
+            var storage = firebase.storage();
+            var ref = storage.ref();
+
+            const files = document.querySelectorAll("#files");
+            
+
+            for (let i = 0; i < files[0].files.length; i++) {
+            let file = files[0].files[i];
+
+            const metadata = {
+                contentType: file.type
+            }
+            const task = ref.child(file.name).put(file, metadata);
+
+            task.then(snapshot => snapshot.ref.getDownloadURL())
+                .then(url => {
+                    //console.log(url);
+                    var select = document.querySelector('#link')
+                    var opt = document.createElement('option')
+                    opt.value = url
+                    opt.innerText = i
+                    select.appendChild(opt)
+                })
+            }
+            
+        }
+        
+        var b = () => {
+            setTimeout(()=>{
+            for(var i = 0; i<document.getElementById("link").options.length; i++){
+                document.getElementById("link").options[i].selected =true
+            }            
+            },5000)
+           
+        }   
+
+     function upload() {   
+         a();
+         b();  
+    }
+</script>
+
   <script src="https://unpkg.com/shortid-dist@1.0.5/dist/shortid-2.2.13.min.js"></script>
     <!-- JavaScript files-->
     <script src="/js/bootstrap.bundle.min.js"></script>
@@ -390,7 +450,7 @@
     <script src="js/front.js"></script>
     <script>
         document.querySelector('#idactivity').value = `'${shortid()}'`
-        document.querySelector('#idschedule').value = `'${shortid()}'`
+        document.querySelector('#idschedule').value = `'${shortid()}'`      
 
         function injectSvgSprite(path) {
 

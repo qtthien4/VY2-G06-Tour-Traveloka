@@ -1,7 +1,4 @@
-var starttime = '2022-04-05T22:20';
-var b = starttime.slice(2).split("T");
-var a = b[0].split("-")
-var temp = a[0];
-a[0] = a[2]
-a[2] = temp
-var handletimestart = a.join('-') +" "+  b[1]
+const a = '2022-04-14T11:39'
+const b = '2022-04-14T11:40'
+
+a > b ? console.log('a lon hon b') : console.log('b lon hon a')

@@ -2,10 +2,7 @@ const shortid = require('shortid');
 const sql = require('mssql/msnodesqlv8')
 const sqlConfig = require('../calldb')
 class FormController{
-    index(req, res) {
-        var nuoc, type
-        var thanhpho 
-        
+    index(req, res) {        
         //country
         sql.connect(sqlConfig, function(err){                
             if(err)
@@ -14,23 +11,20 @@ class FormController{
             var re = new sql.Request();
             re.query('select * from country', function(err, result){
                 if(err) console.log(err)                             
-                nuoc = result.recordset
+                var nuoc = result.recordset
                 re.query('select * from city', function(err, result){
                     if(err) console.log(err)                             
-                    thanhpho = result.recordset   
+                    var thanhpho = result.recordset   
                     re.query('select * from type', function(err, result){
                         if(err) console.log(err)                             
-                        type = result.recordset 
+                        var type = result.recordset 
                         
                         res.render('forms', {nuoc: nuoc, thanhpho: thanhpho, type:type})                               
                     })                              
                 })
             })
             
-        })
-
-        
-        
+        }) 
     }
 
     testpost(req,res){
@@ -44,36 +38,17 @@ class FormController{
         const strprice = req.body.price;
         const stramount = req.body.amount;
         const strstt = req.body.stt;
-        //const voucher = req.body.voucher;
-        const starttime = req.body.starttime;
-        const endtime = req.body.endtime;
+       
+
         const desc = req.body.desc;
         const idactivity = req.body.idactivity;
-        const idschedule = req.body.idschedule;
-        console.log(req.body)
 
-        //handle time start
-        var b = starttime.slice(2).split("T");
-        var a = b[0].split("-")
-        var temp = a[0];
-        a[0] = a[2]
-        a[2] = temp
-        var handletimestart = a.join('-') +" "+  b[1]
-
-        //handle time end
-        var b = endtime.slice(2).split("T");
-        var a = b[0].split("-")
-        var temp = a[0];
-        a[0] = a[2]
-        a[2] = temp
-        var handletimeend = a.join('-') +" "+  b[1]
-        console.log(handletimestart);
-        console.log(handletimeend);
+        console.log(req.body.links)      
 
        sql.connect(sqlConfig, function (err) {
             if (err)
             console.log(err);            
-            var insert = `insert into activity (IdActivity, IdCountry,IdCity,IdPartner,idtype,ActivityName,Location,Price) values (${idactivity}, '${nuoc}', '${thanhpho}','${idpartner}','${type}', 'N${name}', '${place}',${strprice})`
+            var insert = `insert into activity (IdActivity, IdCountry,IdCity,IdPartner,idtype,ActivityName,Location,Amount,Stt,Price, Desr ) values (${idactivity}, '${nuoc}', '${thanhpho}','${idpartner}','${type}', N'${name}', '${place}',${stramount},${strstt},${strprice},N'${desc}')`
             var re = new sql.Request();        
                 re.query(insert, function (err, result) {
                 if (err)
@@ -81,18 +56,22 @@ class FormController{
                 console.log(result);
                 });
         })
+    
+    sql.connect(sqlConfig, (err)=>{
+        if(err) console.log(err);
 
-        sql.connect(sqlConfig, function (err) {
-            if (err)
-            console.log(err);            
-            var insert = `insert into schedule (IdSchedule,IdActivity, StartTime,EndTime,Amount,Stt,Desr) values (${idschedule},${idactivity}, convert(date,'${handletimestart}',5), convert(date,'${handletimeend}',5),${stramount},${strstt}, 'N${desc}')`
-            var re = new sql.Request();        
-                re.query(insert, function (err, result) {
-                if (err)
-                    console.log(err);
+        for(var i = 0; i < req.body.links.length; i++){
+            
+            var insert = `insert into Image(IdImage, IdActivity, Link) values ('${shortid.generate()}',${idactivity}, '${req.body.links[i]}')`
+            var re = new sql.Request();
+
+            re.query(insert, (result, err)=> {
+                if(err) console.log(err)
+
                 console.log(result);
-                });
-        })
+            })
+                 }
+    })
     }
 }
 
