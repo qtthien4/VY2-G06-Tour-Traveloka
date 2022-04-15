@@ -10,7 +10,7 @@ router.get("/tour/:slug", apiController.show);
 router.get("/city", apiController.city);
 router.get("/country", apiController.country);
 
-router.post("/test", apiController.test);
+router.post("/test", apiController.getkeysearch);
 
 router.get("/test", apiController.test);
 
