@@ -9,6 +9,7 @@ import rootSaga from "./rootSaga";
 import searchReducer from "features/search/searchSlice";
 import productReducer from "features/product/productSlice";
 import searchActivityReducer from "components/SearchActivities/searchActivitySlice";
+import bookingReducer from "features/booking/bookingSlice";
 const { configureStore } = require("@reduxjs/toolkit");
 
 const rootReducer = combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   search: searchReducer,
   product: productReducer,
   searchActivity: searchActivityReducer,
+  booking: bookingReducer,
 });
 const sagaMiddleware = createSagaMiddleware();
 const store = configureStore({

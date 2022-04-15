@@ -4,29 +4,49 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import TourDesDetail from './components/DesTourDetail';
 import SelectTour from './components/SelectTour';
 import { useStyles } from './indexStyles';
-import { productActions, selectTour } from './productSlice';
+import { productActions, selectScheduleTour, selectTour } from './productSlice';
+const shortid = require('shortid');
 
 function Product() {
   window.scroll(0,0);
   const classes = useStyles();
   const dispatch = useDispatch();
   const tour = useSelector(selectTour)
+  const scheduleTour = useSelector(selectScheduleTour)
+
   const location = useLocation()
   const idTour = location.pathname.split("/")[4]
- 
-  console.log(idTour);
+  const navigate = useNavigate();
   useEffect(()=>{
     dispatch(productActions.fetchProduct(idTour))
   },[dispatch,idTour])
+  const initialValue = {
+    idSchedule:shortid.generate(),
+    idActivity: idTour,
+    starttime:"CN, ngày 27 tháng 3 năm 2022",
+    endTime:"Có thể hoàn lại cho đến ngày 24 tháng 3 năm 2022",
+    Amount:"3",
+    Stt:"Không cần đặt chỗ trước",
+    Desr:""
+  }
+  const [initialState, setInitialState] = useState(initialValue)
+  
+  
+  localStorage.setItem('idTour', JSON.stringify(idTour));
+  localStorage.setItem('schedule', JSON.stringify(initialState));
 
 
-
+  const handleClickBuy = () =>{
+    dispatch(productActions.setSchedule(initialState))
+    navigate(`/booking/v2/${initialState.idSchedule}`)
+    
+  }
   return (
     <Box>
       <Box className={classes.navProduct}>
@@ -116,7 +136,7 @@ function Product() {
           <Box mt={4}>
             <Typography variant="h5" className={`main-font-weight main-font-size-title main-text-color-black`}>Có sẵn vào các ngày khác</Typography>
             <Box mt={4}>
-              <SelectTour  />
+              <SelectTour handleClickBuy={handleClickBuy}  tour={tour} />
             </Box>
           </Box>
         </Box>

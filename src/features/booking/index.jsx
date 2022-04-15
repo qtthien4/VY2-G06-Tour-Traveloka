@@ -3,24 +3,46 @@ import { CalendarViewDayOutlined, PaymentOutlined, PhoneAndroidOutlined } from '
 import Footer from 'components/Footer';
 import InputField from '../../components/FormFields/InputField';
 import Navbar from 'features/Payment/navbar';
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { useStyles } from './indexStyle';
 import RadioGroupField from 'components/FormFields/RadioGroupField';
 import SelectFiled from 'components/FormFields/SelectFiled';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectScheduleTour, selectTour } from 'features/product/productSlice';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { bookingActions } from './bookingSlice';
 
 export default function Booking() {
+    const tour = useSelector(selectTour);
+    //const tour = useSelector(selectTour);
+    const [idTourBooking, setTourBooking] = useState(localStorage.getItem("idTour"))
+    const [scheduleTour, SetScheduleTour] = useState(JSON.parse(localStorage.getItem("schedule")))
+    const dispatch = useDispatch();
+    useEffect(()=>{
+    dispatch(bookingActions.fetchTour(JSON.parse(idTourBooking)))
+   
+  },[dispatch,idTourBooking])
+
     const {control, handleSubmit } = useForm();
-    const onSubmit = async(data) =>{
-        var obj = {
-            "form1": data,
-            "form2": {
-                "prop_11": "val_11",
-                "prop_12": "val_12"
-              },
-           
-          };     
-           console.log(JSON.stringify(obj))
+    const onSubmit = async(data) =>{      
+        const {email,emailForm2,formRadio1,name,nameKhachTruyCap} = data;
+          const arr = {
+                idbooking:"1",
+                idSchedule:scheduleTour.idSchedule,
+               idCustomer:"1",
+               idVoucher:"1",
+               paymentOption:"",
+               bookingTime:"",
+               Total:"",
+               sstBooking:"",
+               AmountPeople: scheduleTour.Amount,
+               tourTimeStart:"",
+               PhoneNumber:"",
+               Reservationist:"",
+               disCount:""
+            }
+           return console.log(arr);
     };
 
     
@@ -35,7 +57,6 @@ export default function Booking() {
                 <Typography variant="body1" className={classes.header_des}>Điền thông tin chi tiết của bạn và xem xét đặt phòng của bạn.</Typography>
             </Box>
             <Box className={classes.main} >
-
                 <form  onSubmit={handleSubmit(onSubmit)}>
                     <Box className={classes.left} >
                         <Box className={classes.loginOrRegister}>
@@ -123,7 +144,6 @@ export default function Booking() {
                                     <InputField name="nameKhachTruyCap" control={control} label="full" fullWidthCustom = {fullWidth}/> <br />
                                     <Typography variant="caption">(không có tiêu đề và dấu chấm câu)</Typography>
                                 </Box>
-
                                 <Box mt={3}>
                                     <Box>
 
@@ -131,7 +151,6 @@ export default function Booking() {
                                             <Box width={300}>
                                                 <InputLabel className={`main-text-color-black main-font-weight`} htmlFor="name-readonly">Số điện thoại</InputLabel>
                                                 <Box>
-                                                
                                                     <SelectFiled name="selectPhoneAreaForm2" control={control} label="phone" options={[
                                                             {label:"Ông", value:"1"},
                                                             {label:"Bà", value:"0"}                                                            
@@ -148,10 +167,7 @@ export default function Booking() {
                                                 <Typography variant="caption">ví dụ: email@example.com</Typography>
                                             </Box>
                                         </Box>
-
-
                                     </Box>
-
                                     <Box className={`${classes.flex} ${classes.rightTimeLine}`} mt={3}>
                                     <RadioGroupField name="radioForm2" control={control}  options={[
                                             {label:"Tôi là khách truy cập", value:'male'},
@@ -161,8 +177,6 @@ export default function Booking() {
                                 </Box>
                             </Box>
                         </Box>
-
-
                         <Box mt={3} className={classes.colorWhite}>
                             <Typography className={classes.textTitleBox} variant="body1" >Yêu cầu đặc biệt (Tùy chọn)</Typography>
                             <InputField name="requireCustomer" control={control} label="full" fullWidthCustom ={fullWidth}/> <br /> <br />
@@ -174,12 +188,11 @@ export default function Booking() {
                         </Box>
                         <Box className={`main-d-flex main-text-color-black ${classes.payBox}`}>
                             <Typography className={``}>Giá bạn phải trả</Typography>
-                            <Typography style={{fontSize:"20px",lineHeight:"28px"}} className={`maim-font-weight main-text-color-orange`}>1.800.000 VND</Typography>
+                            <Typography style={{fontSize:"20px",lineHeight:"28px"}} className={`maim-font-weight main-text-color-orange`}>{tour.Price} VND</Typography>
                         </Box>
                         <Box align="right" mt={5}>
                             <Button type="submit" style={{padding: "5px 35px 5px 35px", fontSize:"20px"}} variant='contained'  className={` main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`}>Tiếp tục thanh toán</Button>
                         </Box>
-
                     </Box >
                 </form>
               
@@ -193,7 +206,7 @@ export default function Booking() {
                             <Typography className={classes.rightTitleText} variant="subtitle1">Tóm tắt đặt chỗ</Typography>
                         </Box>
 
-                        <Typography className={classes.textTitleBox} >Ăn tối trên Sông Sài Gòn - Tour Đêm</Typography>
+                        <Typography className={classes.textTitleBox} >{tour.ActivityName}</Typography>
                         <Box className={classes.rightImageBox} mt={2} mb={2}>
 
                             <img  style={{objectFit:"cover", marginRight:"10px"}} height="100" width="100" src='https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/2001798092415/Dinner%2520Cruise%2520on%2520Saigon%2520River%2520-%2520Night%2520Tour-429b876c-9a30-466a-8482-13b6ba51a57d.jpeg?_src=imagekit&tr=c-at_max,h-100,q-60,w-100'></img>
@@ -206,7 +219,7 @@ export default function Booking() {
                             <Box mt={1} className={classes.flex}>
                                 <Typography>Ngày viếng thăm:</Typography>
                                 <span  className="main-text-color-black main-font-weight-500">
-                                    CN, ngày 27 tháng 3 năm 2022
+                                    {scheduleTour.starttime}
                                 </span>
                             </Box>
                             <Box mt={1} className={classes.flex} >
@@ -218,7 +231,7 @@ export default function Booking() {
                             <Box mt={1} className={classes.flex}>
                                 <Typography>Tổng số khách truy cập:</Typography>
                                 <span className="main-text-color-black main-font-weight-500">
-                                    Người lớn: 2 Trẻ em: 1
+                                {scheduleTour.Amount}
                                 </span>
                             </Box>
                         </Box>
@@ -227,7 +240,7 @@ export default function Booking() {
                             <List >
                                 <ListItem >
                                 <img height="16" width="16" src="https://ik.imagekit.io/tvlk/image/imageResource/2021/02/04/1612455491487-083f2aa1250ed2145b0b41c4e1dba240.png"/>
-                                    <ListItemText style={{fontSize:"12px",marginLeft:"8px",lineHeight:"20px"}} primary="Có hiệu lực vào ngày 27 tháng 3 năm 2022" />
+                                    <ListItemText style={{fontSize:"12px",marginLeft:"8px",lineHeight:"20px"}} primary={scheduleTour.starttime} />
                                 </ListItem>
                                 <ListItem>
                                     <img  height="16" width="16" src="https://ik.imagekit.io/tvlk/image/imageResource/2021/02/04/1612455486715-9f445c68bf929b8ace8e744c568484f9.png"/>
@@ -235,7 +248,7 @@ export default function Booking() {
                                 </ListItem>
                                 <ListItem >
                                 <img height="16" width="16" src="https://ik.imagekit.io/tvlk/image/imageResource/2021/02/04/1612455479726-cb00253dc0267a8fc369760e81dc577c.png"/>
-                                    <ListItemText style={{fontSize:"12px",marginLeft:"8px",lineHeight:"20px"}} primary="Có thể hoàn lại cho đến ngày 24 tháng 3 năm 2022" />
+                                    <ListItemText style={{fontSize:"12px",marginLeft:"8px",lineHeight:"20px"}} primary={scheduleTour.endtime} />
                                 </ListItem>
                             </List>
 

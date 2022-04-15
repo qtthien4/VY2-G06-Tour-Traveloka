@@ -1,6 +1,7 @@
 import { Box, Button, List, ListItem, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import * as React from 'react';
+import { useForm } from 'react-hook-form';
 const useStyles = makeStyles(theme => ({
   root: {
     background: "white",
@@ -33,8 +34,14 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-export default function SelectTour() {
+export default function SelectTour({tour, handleClickBuy}) {
   const classes = useStyles();
+  const {control, handleSubmit } = useForm();
+    const onSubmit = async(data) =>{      
+           console.log(data)
+    };
+
+  
   return (
     <div>
 
@@ -66,9 +73,9 @@ export default function SelectTour() {
         </List>
 
         <Box className={classes.btnBoxSeeDetailAndSelect}>
-          <Button variant="outlined" >Xem chi tiết</Button>
-          
-          <Button color="secondary" variant="contained" className={`main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`} >Lựa chọn</Button>
+        <Button variant="outlined" >Xem chi tiết</Button>
+            <Button onClick={handleClickBuy} type="submit" color="secondary" variant="contained" className={`main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`} >Lựa chọn</Button>
+   
         </Box>
       </Box>
     </div>

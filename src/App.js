@@ -68,9 +68,10 @@ export default function App() {
           <Route path=":id" element={<Product />}></Route>
         </Route>
         <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/booking" element={<Booking />} />
+        <Route path="/booking" element={<Booking />}>
+          <Route path="v2/:id" element={<Booking />} />
+        </Route>
         <Route path="/booking/payment" element={<Payment />} />
-
       </Routes>
     </div>
   );

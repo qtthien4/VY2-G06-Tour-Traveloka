@@ -31,7 +31,7 @@ export default function SelectFiled({options,name,control,disable,...inputProps}
             name={name}
             value={options.value}
             onChange={onChange}
-            onBlur={onBlur}     
+            onBlur={onBlur} 
         >
           {
               options.map(option=>(

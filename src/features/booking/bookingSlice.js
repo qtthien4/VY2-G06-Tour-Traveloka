@@ -6,11 +6,11 @@ const initialState = {
   Schedule: {},
 };
 
-const productSlice = createSlice({
+const bookingSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
-    fetchProduct(state) {
+    fetchTour(state) {
       state.loadding = true;
     },
     fetchProductSuccess(state, action) {
@@ -24,19 +24,15 @@ const productSlice = createSlice({
       state.loadding = true;
       state.tour = action.payload;
     },
-    setSchedule(state, action) {
-      state.loadding = true;
-      state.Schedule = action.payload;
-    },
   },
 });
 
 //action
-export const productActions = productSlice.actions;
+export const bookingActions = bookingSlice.actions;
 //selector
-export const selectTour = (state) => state.product.tour;
-export const selectScheduleTour = (state) => state.product.Schedule;
+export const selectTour = (state) => state.booking.tour;
+export const selectScheduleTour = (state) => state.booking.Schedule;
 
 //reducers
-const productReducer = productSlice.reducer;
-export default productReducer;
+const bookingReducer = bookingSlice.reducer;
+export default bookingReducer;

@@ -1,4 +1,5 @@
 import searchActivitySaga from "components/SearchActivities/searchActivitySaga";
+import bookingSaga from "features/booking/bookingSaga";
 import citySaga from "features/City/citySaga";
 import countrySaga from "features/Country/countrySaga";
 import productSaga from "features/product/productSaga";
@@ -15,5 +16,6 @@ export default function* rootSaga() {
     citySaga(),
     countrySaga(),
     searchActivitySaga(),
+    bookingSaga(),
   ]);
 }
