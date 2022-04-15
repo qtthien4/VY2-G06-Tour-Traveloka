@@ -5,7 +5,7 @@ const sqlConfig = {
   driver: 'msnodesqlv8',
   post: 12345,
   options: {
-    trustedConnection: true
+    trustedConnection: true,
   }
 }
 
