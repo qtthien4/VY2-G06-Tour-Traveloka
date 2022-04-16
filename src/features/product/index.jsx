@@ -23,7 +23,6 @@ function Product() {
 
   const location = useLocation()
   const idTour = location.pathname.split("/")[4]
-<<<<<<< HEAD
   const navigate = useNavigate();
   useEffect(()=>{
     dispatch(productActions.fetchProduct(idTour))
@@ -49,21 +48,6 @@ function Product() {
     navigate(`/booking/v2/${initialState.idSchedule}`)
     
   }
-=======
-  const navigate = useNavigate()
- 
-  useEffect(()=>{
-    dispatch(productActions.fetchProduct(idTour))
-  },[dispatch,idTour])
-
-  const handleClickButonBuy = () =>{    
-    var rates = [.12, .47, .52, .97]
-    var names = ['John', 'Alexa', 'Jimmy', 'Kate']
-
-
-  }
-
->>>>>>> 9bc7d6e1cf5a9f468e2ddece911f98a48e83b466
   return (
     <Box>
       <Box className={classes.navProduct}>
@@ -153,11 +137,7 @@ function Product() {
           <Box mt={4}>
             <Typography variant="h5" className={`main-font-weight main-font-size-title main-text-color-black`}>Có sẵn vào các ngày khác</Typography>
             <Box mt={4}>
-<<<<<<< HEAD
               <SelectTour handleClickBuy={handleClickBuy}  tour={tour} />
-=======
-              <SelectTour idTour={idTour} tour={tour} handleClickButonBuy={handleClickButonBuy}  />
->>>>>>> 9bc7d6e1cf5a9f468e2ddece911f98a48e83b466
             </Box>
           </Box>
         </Box>
