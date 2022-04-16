@@ -3,7 +3,7 @@ import { useStyles } from 'components/NotFount/styles'
 import React from 'react'
 import { useController } from 'react-hook-form'
 
-export default function InputField({name,control,label,fullWidthCustom,widthCustom,...inputProps}) {
+export default function InputField({valueUser,name,control,label,fullWidthCustom,widthCustom,...inputProps}) {
     const classes = useStyles()
     const {
         field:{value,onChange,onBlur,ref},

@@ -7,13 +7,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "app/store";
 import GlobalStyles from "components/GlobalStyles";
+import AuthProvider from "./context/AuthProvider";
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Provider store={store}>
         <GlobalStyles>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </GlobalStyles>
       </Provider>
     </Router>

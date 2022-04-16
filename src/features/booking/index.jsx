@@ -3,7 +3,7 @@ import { CalendarViewDayOutlined, PaymentOutlined, PhoneAndroidOutlined } from '
 import Footer from 'components/Footer';
 import InputField from '../../components/FormFields/InputField';
 import Navbar from 'features/Payment/navbar';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { useStyles } from './indexStyle';
 import RadioGroupField from 'components/FormFields/RadioGroupField';
@@ -12,8 +12,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectScheduleTour, selectTour } from 'features/product/productSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { bookingActions } from './bookingSlice';
+import AuthProvider, { AuthContext } from 'context/AuthProvider';
+import shortid from 'shortid';
+import bookingApi from 'api/ApiReal/bookingApi';
 
 export default function Booking() {
+    const user = useContext(AuthContext);
     const tour = useSelector(selectTour);
     //const tour = useSelector(selectTour);
     const [idTourBooking, setTourBooking] = useState(localStorage.getItem("idTour"))
@@ -23,29 +27,118 @@ export default function Booking() {
     dispatch(bookingActions.fetchTour(JSON.parse(idTourBooking)))
    
   },[dispatch,idTourBooking])
-
+    console.log(user);
     const {control, handleSubmit } = useForm();
-    const onSubmit = async(data) =>{      
-        const {email,emailForm2,formRadio1,name,nameKhachTruyCap} = data;
-          const arr = {
-                idbooking:"1",
-                idSchedule:scheduleTour.idSchedule,
-               idCustomer:"1",
-               idVoucher:"1",
-               paymentOption:"",
-               bookingTime:"",
-               Total:"",
-               sstBooking:"",
-               AmountPeople: scheduleTour.Amount,
-               tourTimeStart:"",
-               PhoneNumber:"",
-               Reservationist:"",
-               disCount:""
-            }
-           return console.log(arr);
-    };
 
+    const initCustomer = {
+        idCustomer:shortid.generate(),
+        name:user.name,
+        phone:"",
+        email:user.email,
+        address:"",
+        point:"",
+        gender:"",
+    }
+    const initCustomerDetail = {
+        idDetail:shortid.generate(),
+        idBooking:"",
+        customerName:"",
+        cusPhoneNum:"",
+        emailCus:"",
+        gender:""
+    }
+    const initBooking = {
+        idBooking:shortid.generate(),
+        idSchedule:scheduleTour.idSchedule,
+       idCustomer:"",
+       idVoucher:shortid.generate(),
+       paymentOption:"",
+       bookingTime:"",
+       total:tour.Price,
+       sstBooking:false,
+       amountPeople: scheduleTour.Amount,
+       tourTimeStart:scheduleTour.StartTime,
+       reservationist:"",
+       disCount:""
+    }
+
+//     emailBooking: "2"
+// emailVisitor: "levanhieu2k1.dz@gmail.com"
+// nameBooking: "2"
+// nameVisitor: undefined
+// phoneBooking: "2"
+// phoneVisitor: "1"
+// radioVisitor: "booking for someone else"
+// requireCustomer: "ok"
+// selectAdult: "1"
+// selectBooking: "1"
+// selectVisitor: "+84"
+    const [customer,setCustomer] = useState(initCustomer)
+    const [booking,setBooking] = useState(initBooking)
+    const [ customerDetail, setCustomerDetail] = useState(initCustomerDetail);
     
+    const onSubmit = async(data) =>{    
+        console.log("data form", data)  
+       
+        const {nameVisitor,phoneBooking,requireCustomer,emailBooking,nameBooking,selectGender,phoneVisitor, emailVisitor,radioVisitor} = data;
+
+        if(String(radioVisitor) === "1"){
+         
+            setCustomer( (customerVisitor) => ({         
+                ...customerVisitor,  
+                phone:phoneVisitor,
+                email:emailVisitor,
+                name: nameVisitor
+            }))
+            setBooking((booking)=>({ 
+                ...booking,               
+                paymentOption:"",
+                reservationist:requireCustomer,
+                disCount:"",
+                idCustomer:customer.idCustomer,
+            }))
+            return bookingApi.post([
+                {"schedule":scheduleTour},
+                {"customer":customer},
+                {"booking":booking}
+            ]);
+        }    
+        else if (String(radioVisitor) === "2")
+        {           
+            setCustomer( (customerVisitor) => ({         
+                ...customerVisitor,  
+                phone:phoneVisitor,
+                email:emailVisitor,
+                name: nameVisitor,
+            }))
+            setBooking((booking)=>({ 
+                ...booking,               
+                paymentOption:"",
+                reservationist:requireCustomer,
+                disCount:"",
+                idCustomer:customer.idCustomer,
+            }))
+            setCustomerDetail( (customerDetail) => ({         
+                ...customerDetail,  
+                idBooking:booking.idBooking,
+                cusPhoneNum:phoneBooking,
+                emailCus:emailBooking,
+                customerName: nameBooking,
+                gender:selectGender,             
+            }))
+
+            
+            return bookingApi.post([
+                {"schedule":scheduleTour},                               
+                {"customerVisitor": customer},
+                {"customerDetail": customerDetail},           
+                {"booking":booking}
+            ]);
+        }  
+        else{
+            console.log("ban chua chon radio button")
+        }                 
+    };
     const fullWidth = true;
     const classes = useStyles();
     return (
@@ -81,7 +174,7 @@ export default function Booking() {
                                 </Box>
                                 <Box>
                                     <Typography color="inherit" variant="subtitle2" className={`main-text-color-black main-font-weight`}>Họ và tên</Typography>
-                                    <InputField name="name" control={control} label="full" fullWidthCustom = {fullWidth}/>
+                                    <InputField   name="nameVisitor" control={control} label="full" fullWidthCustom = {fullWidth}/>
                                     <Typography variant="caption">Như trên CMND / hộ chiếu / giấy phép lái xe (không bằng cấp hoặc các ký tự đặc biệt)</Typography>
                                 </Box>
 
@@ -92,12 +185,12 @@ export default function Booking() {
                                             <Box width={400}>
                                                 <InputLabel htmlFor="name-readonly" className={`main-text-color-black main-font-weight`}>Số điện thoại</InputLabel>
                                                 <Box className="d-flex" height={56}>
-                                                        <SelectFiled name="selectPhoneArea" control={control} label="phone" options={[
+                                                        <SelectFiled name="selectVisitor" control={control} label="phone" options={[
                                                             {label:"+84", value:"+84"},
-                                                            {label:"asdas", value:"ok"}
+                                                            
                                                         ]}/>
                                                     <Box >
-                                                        <InputField widthCustom="10px" name="phone" control={control} label="full" fullWidthCustom = {!fullWidth}/>
+                                                        <InputField widthCustom="10px" name="phoneVisitor" control={control} label="full" fullWidthCustom = {!fullWidth}/>
                                                     </Box>
                                                 </Box>
                                                 <Typography variant="caption">ví dụ: +62812345678, cho Mã quốc gia (+62) và Số điện thoại di động 0812345678</Typography>
@@ -105,20 +198,19 @@ export default function Booking() {
 
                                             <Box ml={2}>
                                                 <InputLabel htmlFor="name-readonly" className={`main-text-color-black main-font-weight`}>Email</InputLabel>
-                                                <InputField name="email" control={control} label="full" fullWidthCustom ={fullWidth}/>
+                                                <InputField name="emailVisitor" control={control} label="full" fullWidthCustom ={fullWidth}/>
                                                 <Typography variant="caption">ví dụ: email@example.com</Typography>
                                             </Box>
                                         </Box>
 
 
                                     </Box>
-
                                     <Box className={`${classes.flex} ${classes.rightTimeLine}`} mt={3}>
-                                        <RadioGroupField name="formRadio1" control={control}  options={[
-                                            {label:"Tôi là khách truy cập", value:'male'},
-                                            {label:"Tôi đang đặt chỗ cho người khác", value:'female'},
+                                        <RadioGroupField name="radioVisitor" control={control}  options={[
+                                            {label:"Tôi là khách truy cập", value:"1"},
+                                            {label:"Tôi đang đặt chỗ cho người khác", value:"2"},
                                         ]}/>
-
+ 
                                     </Box>
                                 </Box>
                             </Box>
@@ -133,7 +225,7 @@ export default function Booking() {
                                     <Button color="primary" size='small' className={`main-text-transform main-text-color-primary main-font-weight`} >Tiết kiệm</Button>
                                 </Box>
                                 <Box>
-                                <SelectFiled name="selectAdult" control={control} label="phone" options={[
+                                <SelectFiled name="selectGender" control={control} label="phone" options={[
                                                             {label:"Ông", value:"1"},
                                                             {label:"Bà", value:"0"}                                                            
                                                         ]}/>
@@ -141,7 +233,7 @@ export default function Booking() {
 
                                 <Box>
                                     <Typography className={`main-text-color-black main-font-weight`} color="inherit" variant="subtitle2">Họ và tên</Typography>
-                                    <InputField name="nameKhachTruyCap" control={control} label="full" fullWidthCustom = {fullWidth}/> <br />
+                                    <InputField name="nameBooking" control={control} label="full" fullWidthCustom = {fullWidth}/> <br />
                                     <Typography variant="caption">(không có tiêu đề và dấu chấm câu)</Typography>
                                 </Box>
                                 <Box mt={3}>
@@ -151,29 +243,28 @@ export default function Booking() {
                                             <Box width={300}>
                                                 <InputLabel className={`main-text-color-black main-font-weight`} htmlFor="name-readonly">Số điện thoại</InputLabel>
                                                 <Box>
-                                                    <SelectFiled name="selectPhoneAreaForm2" control={control} label="phone" options={[
-                                                            {label:"Ông", value:"1"},
-                                                            {label:"Bà", value:"0"}                                                            
+                                                    <SelectFiled name="selectBooking" control={control} label="phone" options={[
+                                                            {label:"+84", value:"1"},                                                                                                                   
                                                         ]}/>
                                                 
-                                                <InputField name="phoneForm2" control={control} label="full" fullWidthCustom ={!fullWidth}/> <br />
+                                                <InputField name="phoneBooking" control={control} label="full" fullWidthCustom ={!fullWidth}/> <br />
                                                 </Box>
                                                 <Typography variant="caption">ví dụ: +62812345678, cho Mã quốc gia (+62) và Số điện thoại di động 0812345678</Typography>
                                             </Box>
 
                                             <Box >
                                                 <InputLabel className={`main-text-color-black main-font-weight`} htmlFor="name-readonly">Email</InputLabel>
-                                                <InputField name="emailForm2" control={control} label="full" fullWidthCustom ={fullWidth}/> <br />
+                                                <InputField name="emailBooking" control={control} label="full" fullWidthCustom ={fullWidth}/> <br />
                                                 <Typography variant="caption">ví dụ: email@example.com</Typography>
                                             </Box>
                                         </Box>
                                     </Box>
-                                    <Box className={`${classes.flex} ${classes.rightTimeLine}`} mt={3}>
+                                    {/* <Box className={`${classes.flex} ${classes.rightTimeLine}`} mt={3}>
                                     <RadioGroupField name="radioForm2" control={control}  options={[
                                             {label:"Tôi là khách truy cập", value:'male'},
                                             {label:"Tôi đang đặt chỗ cho người khác", value:'female'},
                                         ]}/>
-                                    </Box>
+                                    </Box> */}
                                 </Box>
                             </Box>
                         </Box>
