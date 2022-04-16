@@ -39,7 +39,11 @@ export default function App({ user }) {
         </Route>
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/booking" element={<Booking />}>
+<<<<<<< HEAD
           <Route path="v2/:id" element={<Booking />} />
+=======
+          <Route path=":id" element={<Booking />} />
+>>>>>>> 9bc7d6e1cf5a9f468e2ddece911f98a48e83b466
         </Route>
         <Route path="/booking/payment" element={<Payment />} />
       </Routes>

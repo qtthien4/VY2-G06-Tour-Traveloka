@@ -34,6 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
+<<<<<<< HEAD
 export default function SelectTour({tour, handleClickBuy}) {
   const classes = useStyles();
   const {control, handleSubmit } = useForm();
@@ -42,6 +43,11 @@ export default function SelectTour({tour, handleClickBuy}) {
     };
 
   
+=======
+export default function SelectTour({idTour,tour,handleClickButonBuy}) {
+  const classes = useStyles();
+
+>>>>>>> 9bc7d6e1cf5a9f468e2ddece911f98a48e83b466
   return (
     <div>
 
@@ -73,9 +79,15 @@ export default function SelectTour({tour, handleClickBuy}) {
         </List>
 
         <Box className={classes.btnBoxSeeDetailAndSelect}>
+<<<<<<< HEAD
         <Button variant="outlined" >Xem chi tiết</Button>
             <Button onClick={handleClickBuy} type="submit" color="secondary" variant="contained" className={`main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`} >Lựa chọn</Button>
    
+=======
+          <Button variant="outlined" >Xem chi tiết</Button>
+          
+          <Button onClick={handleClickButonBuy} color="secondary" variant="contained" className={`main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`} >Lựa chọn</Button>
+>>>>>>> 9bc7d6e1cf5a9f468e2ddece911f98a48e83b466
         </Box>
       </Box>
     </div>
