@@ -6,11 +6,12 @@ import Footer from 'components/Footer';
 import Header from 'components/Header';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import TourDesDetail from './components/DesTourDetail';
 import SelectTour from './components/SelectTour';
 import { useStyles } from './indexStyles';
 import { productActions, selectTour } from './productSlice';
+
 
 function Product() {
   window.scroll(0,0);
@@ -19,13 +20,18 @@ function Product() {
   const tour = useSelector(selectTour)
   const location = useLocation()
   const idTour = location.pathname.split("/")[4]
+  const navigate = useNavigate()
  
-  console.log(idTour);
   useEffect(()=>{
     dispatch(productActions.fetchProduct(idTour))
   },[dispatch,idTour])
 
+  const handleClickButonBuy = () =>{    
+    var rates = [.12, .47, .52, .97]
+    var names = ['John', 'Alexa', 'Jimmy', 'Kate']
 
+
+  }
 
   return (
     <Box>
@@ -116,7 +122,7 @@ function Product() {
           <Box mt={4}>
             <Typography variant="h5" className={`main-font-weight main-font-size-title main-text-color-black`}>Có sẵn vào các ngày khác</Typography>
             <Box mt={4}>
-              <SelectTour  />
+              <SelectTour idTour={idTour} tour={tour} handleClickButonBuy={handleClickButonBuy}  />
             </Box>
           </Box>
         </Box>

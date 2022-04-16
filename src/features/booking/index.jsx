@@ -12,15 +12,8 @@ import SelectFiled from 'components/FormFields/SelectFiled';
 export default function Booking() {
     const {control, handleSubmit } = useForm();
     const onSubmit = async(data) =>{
-        var obj = {
-            "form1": data,
-            "form2": {
-                "prop_11": "val_11",
-                "prop_12": "val_12"
-              },
            
-          };     
-           console.log(JSON.stringify(obj))
+           console.log(data)
     };
 
     
