@@ -128,7 +128,6 @@ class ApiController {
 
   getkeysearch(req, res) {
     console.log(req.query);
-
     sql.connect(sqlConfig, function (err) {
       if (err) console.log(err);
       var re = new sql.Request();
@@ -144,6 +143,11 @@ class ApiController {
 
   schedule(req, res) {
     console.log(req.query);
+  }
+  booking(req, res) {
+    console.log(req.body);
+
+    console.log("--------------------------------");
   }
 }
 

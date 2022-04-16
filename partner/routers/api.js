@@ -13,5 +13,6 @@ router.get("/country", apiController.country);
 router.post("/test", apiController.getkeysearch);
 
 router.post("/schedule", apiController.schedule);
+router.post("/booking", apiController.booking);
 
 module.exports = router;
