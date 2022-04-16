@@ -1,6 +1,7 @@
 var express = require('express')
 var {engine} = require('express-handlebars')
 var route = require('./routers');
+var cookieParser = require('cookie-parser')
 const app = express();
 
 app.use(express.static(__dirname + '/public'));
@@ -9,7 +10,9 @@ app.engine('.hbs', engine({extname: '.hbs'}));
 app.set('view engine', '.hbs');
 app.set('views', './views');
 
+
 // middleware
+app.use(cookieParser('travoloka'))
 app.use(express.json());
 app.use(express.urlencoded());
 
@@ -28,6 +31,6 @@ app.get('/xperience', (req,res) => {
   res.render('xperience')
 })
 
-app.listen(3001, () => {
-  console.log('Node server running @ http://localhost:3001')
+app.listen(3002, () => {
+  console.log('Node server running @ http://localhost:3002')
 })

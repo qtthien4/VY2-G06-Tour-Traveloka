@@ -12,6 +12,7 @@ class FormController{
             re.query('select * from country', function(err, result){
                 if(err) console.log(err)                             
                 var nuoc = result.recordset
+                nuoc[0].IdCountry =  nuoc[0].IdCountry.trim()
                 re.query('select * from city', function(err, result){
                     if(err) console.log(err)                             
                     var thanhpho = result.recordset   

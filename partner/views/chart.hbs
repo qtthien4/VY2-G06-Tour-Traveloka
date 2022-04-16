@@ -47,11 +47,17 @@
                             
                             <!-- Logout    -->
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="login.html"> <span class="d-none d-sm-inline">Logout</span>
+                                <a class="nav-link text-white" href="login" onclick="delcookie()"> <span class="d-none d-sm-inline">Logout</span>
                                     <svg class="svg-icon svg-icon-xs svg-icon-heavy">
                       <use xlink:href="#security-1"> </use>
                     </svg></a>
                             </li>
+                            <script>
+                                function delcookie(){
+                                    console.log("asdasd")
+                                    document.cookie = "Cookie_User=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                                }
+                            </script>
                         </ul>
                     </div>
                 </div>
@@ -363,12 +369,10 @@
                 div.innerHTML = ajax.responseText;
                 document.body.insertBefore(div, document.body.childNodes[0]);
             }
-        }
-        // this is set to BootstrapTemple website as you cannot 
-        // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
-        // while using file:// protocol
-        // pls don't forget to change to your domain :)
+        }       
         injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
+
+        
     </script>
     <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
