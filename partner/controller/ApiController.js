@@ -1,6 +1,6 @@
 const sql = require("mssql/msnodesqlv8");
 const sqlConfig = require("../calldb");
-const shortid = require('shortid');
+const shortid = require("shortid");
 class ApiController {
   index(req, res) {
     var idCountry = req.query.IdCountry;
@@ -102,7 +102,7 @@ class ApiController {
       );
     });
   }
-  
+
   city(req, res) {
     sql.connect(sqlConfig, function (err) {
       if (err) console.log(err);
@@ -128,19 +128,23 @@ class ApiController {
 
   getkeysearch(req, res) {
     console.log(req.query);
-   
+
     sql.connect(sqlConfig, function (err) {
       if (err) console.log(err);
       var re = new sql.Request();
-      var insertkey = `insert into keysearch values ('${shortid.generate()}', '1', '${req.query.q}')`
+      var insertkey = `insert into keysearch values ('${shortid.generate()}', '1', '${
+        req.query.q
+      }')`;
       re.query(insertkey, function (err, result) {
         if (err) console.log(err);
         console.log(result.recordset);
       });
     });
-
   }
-  
+
+  schedule(req, res) {
+    console.log(req.query);
+  }
 }
 
 module.exports = new ApiController();
