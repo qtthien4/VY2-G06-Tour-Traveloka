@@ -37,7 +37,10 @@ create table Activity
 	idtype char(20),
 	ActivityName nvarchar(500),	
 	Location ntext,	
+	Amount int,
+	Stt bit,
 	Price int,
+	Desr ntext null, 
 	PRIMARY KEY (IdActivity)
 )
 
@@ -47,10 +50,7 @@ create table Schedule
 	IdSchedule char(20),
 	IdActivity char(20),
 	StartTime datetime,
-	EndTime dateTime,
-	Amount int,
-	Stt bit,
-	Desr ntext null, 
+	EndTime dateTime,	
 	PRIMARY KEY (IdSchedule)
 )
 
