@@ -9,7 +9,7 @@ router.get("/tour", apiController.tour);
 router.get("/tour/:slug", apiController.show);
 
 router.get("/city", authMiddleware.index, apiController.city);
-router.get("/country", authMiddleware.index, apiController.country);
+router.get("/country", apiController.country);
 
 router.post("/test", authMiddleware.index, apiController.getkeysearch);
 
