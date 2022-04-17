@@ -1,6 +1,7 @@
 var express = require("express");
 var { engine } = require("express-handlebars");
 var route = require("./routers");
+var cookieParser = require("cookie-parser");
 const app = express();
 const cors = require("cors");
 const corsOptions = {
@@ -16,6 +17,7 @@ app.set("view engine", ".hbs");
 app.set("views", "./views");
 
 // middleware
+app.use(cookieParser("travoloka"));
 app.use(express.json());
 app.use(express.urlencoded());
 
