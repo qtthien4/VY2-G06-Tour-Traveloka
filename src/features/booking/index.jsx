@@ -25,6 +25,8 @@ export default function Booking() {
         dispatch(bookingActions.fetchTour(JSON.parse(idTourBooking)))
 
     }, [dispatch, idTourBooking])
+
+    
     console.log(user);
     const { control, handleSubmit } = useForm();
 

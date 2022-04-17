@@ -37,7 +37,7 @@ function Product() {
     Desr:""
   }
   const [initialState, setInitialState] = useState(initialValue)
-  
+
   
   localStorage.setItem('idTour', JSON.stringify(idTour));
   localStorage.setItem('schedule', JSON.stringify(initialState));
