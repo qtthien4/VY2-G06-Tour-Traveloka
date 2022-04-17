@@ -104,7 +104,7 @@ class FormController {
       re.query("select * from activity", function (err, result) {
         if (err) console.log(err);
         var activity = result.recordset;
-        res.render("tables", { activity: activity });
+        res.redirect("tables", { activity: activity });
       });
     });
   }

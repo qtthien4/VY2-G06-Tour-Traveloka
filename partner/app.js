@@ -34,6 +34,6 @@ app.get("/xperience", (req, res) => {
   res.render("xperience");
 });
 
-app.listen(3003, () => {
-  console.log("Node server running @ http://localhost:3003");
+app.listen(3002, () => {
+  console.log("Node server running @ http://localhost:3002");
 });
