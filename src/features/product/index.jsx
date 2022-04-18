@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
+import { imageActions,selectListImage } from 'features/Images/imageSlice';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
@@ -19,13 +20,16 @@ function Product() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const tour = useSelector(selectTour)
-  const scheduleTour = useSelector(selectScheduleTour)
+  const schedule = useSelector(selectScheduleTour)
+  const listImage = useSelector(selectListImage);
 
   const location = useLocation()
   const idTour = location.pathname.split("/")[4]
   const navigate = useNavigate();
   useEffect(()=>{
     dispatch(productActions.fetchProduct(idTour))
+
+    dispatch(imageActions.fetchApiImage(idTour))
   },[dispatch,idTour])
   const initialValue = {
     idSchedule:shortid.generate(),
@@ -39,8 +43,6 @@ function Product() {
   const [initialState, setInitialState] = useState(initialValue)
 
   
-  localStorage.setItem('idTour', JSON.stringify(idTour));
-  localStorage.setItem('schedule', JSON.stringify(initialState));
 
 
   const handleClickBuy = () =>{
@@ -78,21 +80,21 @@ function Product() {
                 <Typography variant="body2" className={`main-padding-4px`}>{tour.Location}</Typography>
               </Box>
             </Box>
-
+           
             <Grid item className={classes.imageBox}>
               <Box className={classes.imageLeft}>
-                <img className={classes.imageItem} height="512" width="768" src={tour.imageUrl}/>
+                <img className={classes.imageItem} height="512" width="768" />
               </Box>
               <Box className={classes.imageRight}>
                 <Box >
-                  <img className={classes.imageItem} height="122" width="148" src="https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/2001798092415/Dinner%2520Cruise%2520on%2520Saigon%2520River%2520-%2520Night%2520Tour-159a44da-8d6a-4194-8520-e6a77c8e2fbc.jpeg?_src=imagekit&tr=dpr-2,c-at_max,h-1280,q-60,w-720" />
+                  <img className={classes.imageItem} height="122" width="148"  />
                 </Box>
                 <Box>
-                  <img className={classes.imageItem} height="122" width="148" src="https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/2001798092415/Dinner%2520Cruise%2520on%2520Saigon%2520River%2520-%2520Night%2520Tour-7ced567f-685d-40c5-b557-b17102d0f88c.jpeg?_src=imagekit&tr=c-at_max,h-1280,q-60,w-720" />
+                  <img className={classes.imageItem} height="122" width="148"  />
 
                 </Box>
                 <Box>
-                  <img className={classes.imageItem} height="122" width="148" src="https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/2001798092415/Dinner%2520Cruise%2520on%2520Saigon%2520River%2520-%2520Night%2520Tour-072463a9-db44-402f-a947-ea7fddb89801.jpeg?_src=imagekit&tr=c-at_max,h-1280,q-60,w-720" />
+                  <img className={classes.imageItem} height="122" width="148"  />
 
                 </Box>
                 <Box className={classes.seeAllBox}>
@@ -123,7 +125,6 @@ function Product() {
               </Box>
             </Grid>
           </Grid>
-
         </Paper>
 
         <Box mt={4}>
@@ -137,21 +138,11 @@ function Product() {
           <Box mt={4}>
             <Typography variant="h5" className={`main-font-weight main-font-size-title main-text-color-black`}>Có sẵn vào các ngày khác</Typography>
             <Box mt={4}>
-              <SelectTour handleClickBuy={handleClickBuy}  tour={tour} />
+            <SelectTour idTour={idTour} schedule = {schedule}   handleClickBuy={handleClickBuy}  tour={tour} />
             </Box>
           </Box>
         </Box>
       </Box>
-
-
-
-      {/* <Box mt={4}>
-        <ExperianceCustomer />
-        <ExperianceCustomer />
-        <ExperianceCustomer />
-        <ExperianceCustomer />
-        <Pagination color="primary" count={9} page={1} />
-      </Box> */}
     <Footer/>
     </Box>
     </Box>

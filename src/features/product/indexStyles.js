@@ -98,5 +98,4 @@ export const useStyles = makeStyles((theme) => ({
     width: "264px",
     height: "108px",
   },
- 
 }));

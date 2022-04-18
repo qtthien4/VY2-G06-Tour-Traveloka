@@ -4,6 +4,8 @@ const initialState = {
   loadding: false,
   tour: {},
   Schedule: {},
+  listImage: [],
+  listSchedule: [],
 };
 
 const productSlice = createSlice({
@@ -12,6 +14,9 @@ const productSlice = createSlice({
   reducers: {
     fetchProduct(state) {
       state.loadding = true;
+    },
+    fetchDataSuccess(state, action) {
+      state.loadding = false;
     },
     fetchProductSuccess(state, action) {
       state.loadding = false;
@@ -28,6 +33,14 @@ const productSlice = createSlice({
       state.loadding = true;
       state.Schedule = action.payload;
     },
+    setImageTourSuccess: (state, action) => {
+      state.loadding = true;
+      state.listImage = action.payload;
+    },
+    setScheduleSuccess: (state, action) => {
+      state.loadding = true;
+      state.listSchedule = action.payload;
+    },
   },
 });
 
@@ -35,7 +48,8 @@ const productSlice = createSlice({
 export const productActions = productSlice.actions;
 //selector
 export const selectTour = (state) => state.product.tour;
-export const selectScheduleTour = (state) => state.product.Schedule;
+export const selectScheduleTour = (state) => state.product.listSchedule;
+export const selectImageTour = (state) => state.product.listImage;
 
 //reducers
 const productReducer = productSlice.reducer;

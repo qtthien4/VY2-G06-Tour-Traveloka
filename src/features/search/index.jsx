@@ -1,13 +1,12 @@
 import { Box, Typography } from '@material-ui/core';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
-import { cityActions, selectListCity, selectListCityLoadding } from 'features/City/citySlice';
+import { cityActions, selectListCity } from 'features/City/citySlice';
 import { countryActions, selectListCountry } from 'features/Country/countrySlice';
-import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { imageActions, selectListImage } from 'features/Images/imageSlice';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useLocation, useNavigate,useParams } from 'react-router-dom';
-import { getIdCity } from 'utils/getIdCity';
-import { InsertionSort, selectionSort, sortMax } from 'utils/InsertionSort';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import SearchActivities from '../../components/SearchActivities';
 import { searchActions, SelectFilterPrice, SelectListTourOfCity } from '../search/searchSlice';
 import ListFilter from './components/ListFilter';
@@ -33,10 +32,11 @@ export default function Search() {
   const classes = useStyles()
   const listCityofTour = useSelector(SelectListTourOfCity);
   const listCity = useSelector(selectListCity);
+  const listImage = useSelector(selectListImage);
+
   const listCountry = useSelector(selectListCountry);
   const filterPrice = useSelector(SelectFilterPrice);
   // console.log(selectionSort([2,3,7,5,4,1]));
- 
   // const items = [...listCityofTour];
   // console.log(  items.sort(function(a, b){return Number(a.totalReview )- Number(b.totalReview)}))
     
@@ -64,8 +64,10 @@ export default function Search() {
     }
     else{
       let id = Number(location.search.split("=")[1])
+      //dispatch(imageActions.fetchApiImage(listCityofTour.IdActivity));
       dispatch(searchActions.fetchTourCountryList(id));
       dispatch(countryActions.fetchApiCountry())
+      
       // const name = listCountry.find((list)=> String(list.idCountry) === String(id))
       // setNameCountry(name.name)
     }

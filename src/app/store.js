@@ -10,6 +10,10 @@ import searchReducer from "features/search/searchSlice";
 import productReducer from "features/product/productSlice";
 import searchActivityReducer from "components/SearchActivities/searchActivitySlice";
 import bookingReducer from "features/booking/bookingSlice";
+import imageReducer from "features/Images/imageSlice";
+import scheduleReducer from "features/schedule/ScheduleSlice";
+
+
 const { configureStore } = require("@reduxjs/toolkit");
 
 const rootReducer = combineReducers({
@@ -22,6 +26,8 @@ const rootReducer = combineReducers({
   product: productReducer,
   searchActivity: searchActivityReducer,
   booking: bookingReducer,
+  image: imageReducer,
+  schedule: scheduleReducer,
 });
 const sagaMiddleware = createSagaMiddleware();
 const store = configureStore({

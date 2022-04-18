@@ -1,4 +1,5 @@
 import { Box, Button, InputLabel, List, ListItem, ListItemText, Typography } from '@material-ui/core';
+import { useSelect } from '@mui/base';
 import bookingApi from 'api/ApiReal/bookingApi';
 import Footer from 'components/Footer';
 import RadioGroupField from 'components/FormFields/RadioGroupField';
@@ -17,7 +18,9 @@ import { useStyles } from './indexStyle';
 export default function Booking() {
     const user = useContext(AuthContext);
     const tour = useSelector(selectTour);
+    
     //const tour = useSelector(selectTour);
+    
     const [idTourBooking, setTourBooking] = useState(localStorage.getItem("idTour"))
     const [scheduleTour, SetScheduleTour] = useState(JSON.parse(localStorage.getItem("schedule")))
     const dispatch = useDispatch();
@@ -26,12 +29,11 @@ export default function Booking() {
 
     }, [dispatch, idTourBooking])
 
-    
-    console.log(user);
+    console.log(idTourBooking, scheduleTour)
     const { control, handleSubmit } = useForm();
 
     const initCustomer = {
-        idCustomer: shortid.generate(),
+        idCustomer: "1",
         name: user.name,
         phone: "",
         email: user.email,
@@ -50,16 +52,14 @@ export default function Booking() {
     const initBooking = {
         idBooking: shortid.generate(),
         idSchedule: scheduleTour.idSchedule,
-        idCustomer: "",
+        idCustomer: "1",
         idVoucher: shortid.generate(),
         paymentOption: "",
         bookingTime: "",
         total: tour.Price,
         sstBooking: false,
         amountPeople: scheduleTour.Amount,
-        tourTimeStart: scheduleTour.StartTime,
-        reservationist: "",
-        disCount: ""
+        
     }
 
     const [customer, setCustomer] = useState(initCustomer)
@@ -73,26 +73,19 @@ export default function Booking() {
 
         if (String(radioVisitor) === "1") {
 
-            setCustomer((customerVisitor) => ({
-                ...customerVisitor,
-                phone: phoneVisitor,
-                email: emailVisitor,
-                name: nameVisitor
-            }))
-            setBooking((booking) => ({
-                ...booking,
-                paymentOption: "",
-                reservationist: requireCustomer,
-                disCount: "",
-                idCustomer: customer.idCustomer,
-            }))
-            return bookingApi.post([
-                { "schedule": scheduleTour },
-                { "customer": customer },
-                { "booking": booking }
-            ]);
-        }
-        else if (String(radioVisitor) === "2") {
+            // setCustomer((customerVisitor) => ({
+            //     ...customerVisitor,
+            //     phone: phoneVisitor,
+            //     email: emailVisitor,
+            //     name: nameVisitor
+            // }))
+            // setBooking((booking) => ({
+            //     ...booking,
+            //     paymentOption: "",
+            //     reservationist: requireCustomer,
+            //     disCount: "",
+            //     idCustomer: customer.idCustomer,
+            // }))
             setCustomer((customerVisitor) => ({
                 ...customerVisitor,
                 phone: phoneVisitor,
@@ -101,7 +94,7 @@ export default function Booking() {
             }))
             setBooking((booking) => ({
                 ...booking,
-                paymentOption: "",
+                paymentOption: String(radioVisitor),
                 reservationist: requireCustomer,
                 disCount: "",
                 idCustomer: customer.idCustomer,
@@ -114,11 +107,35 @@ export default function Booking() {
                 customerName: nameBooking,
                 gender: selectGender,
             }))
-
-
+            
             return bookingApi.post([
-                { "schedule": scheduleTour },
-                { "customerVisitor": customer },
+                { "customerDetail": customerDetail },
+                { "booking": booking }
+            ]);
+        }
+        else if (String(radioVisitor) === "2") {
+            setCustomer((customerVisitor) => ({
+                ...customerVisitor,
+                phone: phoneVisitor,
+                email: emailVisitor,
+                name: nameVisitor,
+            }))
+            setBooking((booking) => ({
+                ...booking,
+                paymentOption: String(radioVisitor),
+                reservationist: requireCustomer,
+                disCount: "",
+                idCustomer: customer.idCustomer,
+            }))
+            setCustomerDetail((customerDetail) => ({
+                ...customerDetail,
+                idBooking: booking.idBooking,
+                cusPhoneNum: phoneBooking,
+                emailCus: emailBooking,
+                customerName: nameBooking,
+                gender: selectGender,
+            }))
+            return bookingApi.post([
                 { "customerDetail": customerDetail },
                 { "booking": booking }
             ]);
@@ -138,6 +155,8 @@ export default function Booking() {
                     <Typography variant="body1" className={classes.header_des}>Điền thông tin chi tiết của bạn và xem xét đặt phòng của bạn.</Typography>
                 </Box>
                 <Box className={classes.main} >
+
+
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Box className={classes.left} >
                             <Box className={classes.loginOrRegister}>
@@ -274,9 +293,6 @@ export default function Booking() {
                             </Box>
                         </Box >
                     </form>
-
-
-
 
                     <Box className={classes.right} >
                         <Box>

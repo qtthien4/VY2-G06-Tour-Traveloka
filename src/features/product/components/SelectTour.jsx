@@ -1,7 +1,13 @@
-import { Box, Button, List, ListItem, Typography } from '@material-ui/core';
+import { Box, Button, FormControl, List, ListItem, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import * as React from 'react';
-import { useForm } from 'react-hook-form';
+import InputField from 'components/FormFields/InputField';
+import React,{ useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { productActions } from '../productSlice';
+import SelectSchedule from './SelectSchedule';
+
+
 const useStyles = makeStyles(theme => ({
   root: {
     background: "white",
@@ -34,12 +40,41 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-export default function SelectTour({tour, handleClickBuy}) {
+export default function SelectTour({schedule,tour,idTour}) {
+
   const classes = useStyles();
-  const {control, handleSubmit } = useForm();
-    const onSubmit = async(data) =>{      
-           console.log(data)
+    const dispatch = useDispatch();
+    const [scheduleTour,setScheduleTour] = useState(schedule)
+    const navigate = useNavigate();
+   
+    const [selectedValue, setSelectedValue] = useState(3);
+
+    const initialValue = {
+      idSchedule:selectedValue,
+      idActivity: idTour,
+      starttime:"",
+      endTime:"",
+      Amount:"3",
+      Stt:"Không cần đặt chỗ trước",
+      Desr:""
+    } 
+
+
+    
+    console.log("init",initialValue)
+    const handleSubmit = () =>{
+      dispatch(productActions.setSchedule(initialValue))
+      navigate(`/booking/v2/${String(selectedValue).trim()}`)     
+    }
+  localStorage.setItem('schedule', JSON.stringify(initialValue));
+
+
+    // handle onChange event of the dropdown
+    const handleChange = (e) => {
+      setSelectedValue(e.value);
     };
+
+
 
   
   return (
@@ -72,11 +107,23 @@ export default function SelectTour({tour, handleClickBuy}) {
           </ListItem>
         </List>
 
-        <Box className={classes.btnBoxSeeDetailAndSelect}>
+        <Box mb={9} className={classes.btnBoxSeeDetailAndSelect}>
         <Button variant="outlined" >Xem chi tiết</Button>
-            <Button onClick={handleClickBuy} type="submit" color="secondary" variant="contained" className={`main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`} >Lựa chọn</Button>
-   
+
+            <Button   type="submit" color="secondary" variant="contained" className={`main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`} >Lựa chọn</Button>
+            
+            
         </Box>
+        <Typography>Chọn ngày đi và ngày kết thúc</Typography>
+   
+         
+              <SelectSchedule selectedValue={selectedValue} handleChange={handleChange}  schedule={schedule} />
+              <Typography name="soluong">Số lượng:</Typography> 
+
+            <input ></input>
+                                      
+            <Button onClick={handleSubmit}  style={{ padding: "5px 35px 5px 35px", fontSize: "20px" }} variant='contained' className={` main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`}>Đặt bây giờ</Button>
+         
       </Box>
     </div>
   );

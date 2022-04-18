@@ -33,6 +33,8 @@ export default function Tours() {
         dispatch(tourActions.fetchApiTour())
     },[dispatch])
 
+    
+
     const handleOnclickListTourVN = (idCity, idCountry)=>{
         navigation(`/activities/search/daytour?idCountry=${idCountry}&idCity=${idCity}`)
     }
