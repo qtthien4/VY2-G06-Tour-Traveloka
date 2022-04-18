@@ -55,10 +55,10 @@ class TableController {
                     console.log(err);
 
                 var re = new sql.Request();
-                var delfavorite = `Delete from favourite where IdActivity = '${stt}'`
-                var delschedule = `Delete from schedule where IdActivity = '${stt}'`
-                var delimg = `Delete from image where IdActivity = '${stt}'`
-                var delactivity = `Delete from Activity where IdActivity = '${stt}'`
+                var delfavorite = `Delete from favourite where IdActivity = '${del}'`
+                var delschedule = `Delete from schedule where IdActivity = '${del}'`
+                var delimg = `Delete from image where IdActivity = '${del}'`
+                var delactivity = `Delete from Activity where IdActivity = '${del}'`
                
                 re.query(delfavorite, function (err, result) {
                     if (err) console.log(err);
