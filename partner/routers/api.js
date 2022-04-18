@@ -6,12 +6,20 @@ var authMiddleware = require("../middlewares/auth.middleware");
 
 router.get("/", apiController.index);
 router.get("/tour", apiController.tour);
+
+router.get("/image", apiController.image);
+router.get("/image/:id", apiController.imageId);
+
+
+router.get("/schedule", apiController.schedule);
+router.get("/schedule/:id", apiController.scheduleID);
+
 router.get("/tour/:slug", apiController.show);
 
-router.get("/city", authMiddleware.index, apiController.city);
+router.get("/city", apiController.city);
 router.get("/country", apiController.country);
 
-router.post("/test", authMiddleware.index, apiController.getkeysearch);
+router.post("/test", apiController.getkeysearch);
 
 router.post("/schedule", apiController.schedule);
 router.post("/booking", apiController.booking);
