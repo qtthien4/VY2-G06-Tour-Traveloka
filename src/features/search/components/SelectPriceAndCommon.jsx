@@ -1,4 +1,4 @@
-import { Box, FormControl, InputLabel, makeStyles, Select, Typography } from '@material-ui/core';
+import { Box, FormControl, makeStyles, Select, Typography } from '@material-ui/core';
 import * as React from 'react';
 
 const useStyles = makeStyles(theme => ({

@@ -1,18 +1,12 @@
 import {
-  Avatar,
   Box,
-  Button,
-  Card,
-  CardHeader,
-  IconButton,
-  ListItem,
-  Typography,
+  Button, ListItem,
+  Typography
 } from "@material-ui/core";
-import { PlaceOutlined } from "@material-ui/icons";
 import React from "react";
-import { useStyles } from "./useStyleRecentSearch";
-import './index.css';
 import { List } from "reactstrap";
+import './index.css';
+import { useStyles } from "./useStyleRecentSearch";
 export default function RecentSearch() {
   const classes = useStyles();
   return (

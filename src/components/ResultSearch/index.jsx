@@ -70,41 +70,6 @@ import { useStyles } from "./styles";
 
                  
             </Box>
-
-          {/* <Box >
-          <List className={classes.rootList} disablePadding={false}>
-                  <ListItem className={classes.list}  >
-                      <Button variant="outlined" color="primary" className= {`${classes.button} ${classes.btnItemFirst}`}>
-                        <Box textAlign="left" className ="boxNameRecentSearch">
-                          <span className="nameRecentSearch">Quận 1</span> <br/>                        
-                        </Box>
-                      </Button>
-                      <Button variant="outlined" color="primary" className={classes.button}>
-                        <Box textAlign="left" className ="boxNameRecentSearch">
-                          <span className="nameRecentSearch">Nhật bản</span> <br/>
-                          
-                        </Box>
-                      </Button>
-                      <Button variant="outlined" color="primary" className={classes.button}>
-                        <Box textAlign="left" className ="boxNameRecentSearch">
-                          <span className="nameRecentSearch">Đà nẵng</span> <br/>
-                                              </Box>
-                      </Button>
-                      <Button variant="outlined" color="primary" className={classes.button}>
-                        <Box textAlign="left" className ="boxNameRecentSearch">
-                          <span className="nameRecentSearch">Kiểm tra covid 19</span> <br/>
-                                                  </Box>
-                      </Button>
-     
-                  </ListItem>
-
-                  
-              </List>
-           
-            
-          
-              
-          </Box> */}
         </Box>
   
        

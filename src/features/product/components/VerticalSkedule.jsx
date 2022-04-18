@@ -1,7 +1,6 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
 import { Box, Step, StepLabel, Stepper, styled } from '@material-ui/core';
 import { Check } from '@material-ui/icons';
+import * as React from 'react';
 
 const QontoStepIconRoot = styled('div')(({ theme, ownerState }) => ({
   color: theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#eaeaf0',

@@ -111,21 +111,10 @@ export default function SearchActivities({style,layoutRef,scroll}) {
     setSearchText(e.target.value)
   };
   
-  // const initialValue={
-  //   textSearch:"",
-  //   ...searchText
-  // }
 
-  // const handleSearchFormSubmit = () =>{
-  //     //call api
-  // }
   const navigate = useNavigate()
 
   const handleOnButtonSearch = () =>{
-    // asd();
-    //navigate(`/asd?q=${searchText}`)
-
-    //navigate(`/activities/search/daytour?st=allTour&q=${searchText}`)
     searchApi.postTextSearch(searchText)
   }
   return (

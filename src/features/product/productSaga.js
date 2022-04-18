@@ -7,15 +7,6 @@ import { imageActions } from "features/Images/imageSlice";
 import { call, all, put, takeLatest } from "redux-saga/effects";
 import { productActions } from "./productSlice";
 
-// function* fetchDataProduct(idTour) {
-//   const responsive = yield call(fakeAllTourApi.getAll);
-//   const product = responsive.filter((product) => {
-//     return Number(product.experienceId) === Number(idTour.payload);
-//   });
-//   console.log("product", product);
-//   yield put(productActions.fetchProductSuccess(product[0]));
-// }
-
 //api thuc te
 function* fetchApiListImage(idTour) {
   const res = yield call(imageApi.getId, idTour.payload);

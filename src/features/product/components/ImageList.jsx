@@ -9,12 +9,6 @@ export default function ImageList({tour,listImage,firstImage}) {
     console.log(firstImage)
     const classes = useStyles();
 
-  
-    // const array = Object.entries(firstImage);
-    // const arr = array[0][1]
-    // const array1 = Object.entries(arr);
-    // console.log(array1)
-
   return (
     <div>
         <Grid container className={classes.container}>

@@ -34,13 +34,8 @@ export default function Search() {
   const listCity = useSelector(selectListCity);
   const listImage = useSelector(selectListImage);
 
-  console.log("listImage",listImage)
   const listCountry = useSelector(selectListCountry);
   const filterPrice = useSelector(SelectFilterPrice);
-  // console.log(selectionSort([2,3,7,5,4,1]));
-  // const items = [...listCityofTour];
-  // console.log(  items.sort(function(a, b){return Number(a.totalReview )- Number(b.totalReview)}))
-    
 
 
   const dispatch = useDispatch();
@@ -49,28 +44,18 @@ export default function Search() {
   const [nameCity, setNameCity] = useState('');
   const [nameCountry, setNameCountry] = useState('')
   const scroll = 0;
-  //handle link export list tour
-
-
-  // const name = listCity.find((list)=> String(list.experienceId) === String(idCity))
-  // console.log(name.name);
+  
   useEffect(()=>{
     if(location.search.split("&").length > 1){
       let id = Number(location.search.split("&")[1].split("=")[1])
-      
       dispatch(searchActions.fetchTourList(id));
       dispatch(cityActions.fetchApiCity())
-      // const name = listCity.find((list)=> String(list.experienceId) === String(id))
-      // setNameCity(name.name)
     }
     else{
       let id = Number(location.search.split("=")[1])
       dispatch(imageActions.fetchApiImage(listCityofTour.IdActivity));
       dispatch(searchActions.fetchTourCountryList(id));
       dispatch(countryActions.fetchApiCountry())
-      
-      // const name = listCountry.find((list)=> String(list.idCountry) === String(id))
-      // setNameCountry(name.name)
     }
   },[dispatch,location,nameCity,nameCountry,listCity,listCountry])
 
