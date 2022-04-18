@@ -1,13 +1,12 @@
-const sql = require('mssql/msnodesqlv8')
-const sqlConfig = {  
+const sql = require("mssql/msnodesqlv8");
+const sqlConfig = {
   database: "traveloka",
-  server: 'LAPTOP-O552NIIB\\SQLEXPRESS',
-  driver: 'msnodesqlv8',
-  post: 12345,
+  server: "DESKTOP-CJS18RE\\MSSQL_EXP_2008R2",
+  driver: "msnodesqlv8",
+  port: 54945,
   options: {
     trustedConnection: true,
-  }
-}
+  },
+};
 
-module.exports =  sqlConfig
-
+module.exports = sqlConfig;

@@ -140,6 +140,29 @@ class ApiController {
       });
     });
   }
+  image(req, res) {
+    sql.connect(sqlConfig, function (err) {
+      if (err) console.log(err);
+      var re = new sql.Request();
+      var getschedule = `select * from Image`;
+      re.query(getschedule, function (err, result) {
+        if (err) console.log(err);
+        res.send(result.recordset);
+      });
+    });
+  }
+  imageId(req, res) {
+    var id = req.params.id;
+    sql.connect(sqlConfig, function (err) {
+      if (err) console.log(err);
+      var re = new sql.Request();
+      var getschedule = `select * from image where IdActivity = '${id}' `;
+      re.query(getschedule, function (err, result) {
+        if (err) console.log(err);
+        res.send(result.recordset);
+      });
+    });
+  }
 
   schedule(req, res) {
     sql.connect(sqlConfig, function (err) {
@@ -153,7 +176,7 @@ class ApiController {
     });
   }
 
-  scheduleID(req,res){
+  scheduleID(req, res) {
     var id = req.params.id;
     sql.connect(sqlConfig, function (err) {
       if (err) console.log(err);
@@ -168,7 +191,6 @@ class ApiController {
 
   booking(req, res) {
     console.log(req.body);
-
     console.log("--------------------------------");
   }
 }
