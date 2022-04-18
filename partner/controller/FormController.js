@@ -91,7 +91,6 @@ class FormController {
 
         re.query(insert, (result, err) => {
           if (err) console.log(err);
-
           console.log(result);
         });
       }
@@ -104,7 +103,7 @@ class FormController {
       re.query("select * from activity", function (err, result) {
         if (err) console.log(err);
         var activity = result.recordset;
-        res.redirect("tables", { activity: activity });
+        res.render("tables", { activity: activity });
       });
     });
   }
