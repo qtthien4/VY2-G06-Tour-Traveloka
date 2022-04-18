@@ -190,8 +190,28 @@ class ApiController {
   }
 
   booking(req, res) {
+    var idDetail = req.body[0].customerDetail.idDetail;
+    var idBooking = req.body[0].customerDetail.idBooking;
+    var customerName = req.body[0].customerDetail.customerName;
+    var cusPhoneNum = req.body[0].customerDetail.cusPhoneNum;
+    var emailCus = req.body[0].customerDetail.emailCus;
+    var idDetail = req.body[0].customerDetail.idDetail;
+
+    var idSchedule = req.body[1].booking.idSchedule;
+    var idCustomer = req.body[1].booking.idCustomer;
+    var idVoucher = req.body[1].booking.idVoucher;
+    var paymentOption = req.body[1].booking.paymentOption;
+    var bookingTime = req.body[1].booking.bookingTime;
+    var sttBooking = req.body[1].booking.sttBooking;
+    var amountPeople = req.body[1].booking.amountPeople;
+    var disCount = req.body[1].booking.disCount;
+    var total = req.body[1].booking.idDetail;
+
     console.log(req.body);
+
     console.log("--------------------------------");
+
+
   }
 }
 
