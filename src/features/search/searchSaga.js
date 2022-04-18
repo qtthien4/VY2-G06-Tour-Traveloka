@@ -37,7 +37,6 @@ function* fetchCountryTour(id) {
       return String(listArrTour.IdCountry.trim()) === String(id.payload);
     });
     yield put(searchActions.SetTourListOfCity(listTour));
-    console.log(listTour);
   } catch (error) {
     console.log("loi", error);
   }

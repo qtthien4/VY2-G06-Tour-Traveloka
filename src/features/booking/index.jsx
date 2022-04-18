@@ -72,20 +72,6 @@ export default function Booking() {
         const { nameVisitor, phoneBooking, requireCustomer, emailBooking, nameBooking, selectGender, phoneVisitor, emailVisitor, radioVisitor } = data;
 
         if (String(radioVisitor) === "1") {
-
-            // setCustomer((customerVisitor) => ({
-            //     ...customerVisitor,
-            //     phone: phoneVisitor,
-            //     email: emailVisitor,
-            //     name: nameVisitor
-            // }))
-            // setBooking((booking) => ({
-            //     ...booking,
-            //     paymentOption: "",
-            //     reservationist: requireCustomer,
-            //     disCount: "",
-            //     idCustomer: customer.idCustomer,
-            // }))
             setCustomer((customerVisitor) => ({
                 ...customerVisitor,
                 phone: phoneVisitor,

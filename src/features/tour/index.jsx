@@ -118,7 +118,7 @@ export default function Tours() {
                        <Typography className={classes.title} >Các điểm đến nổi bật của địa phương</Typography>
                        <Typography className={classes.titleDescription}>Những nơi đáng tham quan và khám phá trong nước</Typography>
                        <Box mt={4} className={classes.listTourCity}>
-                   <Slide listCityofCountry = {listCityTourVietName} slideNumber = {slideNumber} handleOnclickListTour={handleOnclickListTourVN}/>
+                                <Slide listCityofCountry = {listCityTourVietName} slideNumber = {slideNumber} handleOnclickListTour={handleOnclickListTourVN}/>
                        </Box>
                    </Box>
 

@@ -1,4 +1,4 @@
-import { Box, makeStyles } from '@material-ui/core';
+import { Box, makeStyles,Typography } from '@material-ui/core';
 import React, { memo, useRef, useState } from 'react';
 import SwiperCore, { A11y, Navigation, Pagination, Scrollbar, Virtual } from 'swiper';
 // Import Swiper styles
@@ -62,7 +62,9 @@ function ListCityTour({listCityVietNam, slideNumber,handleOnclickListTourVN}) {
           <SwiperSlide className='.swiper-slide1' key={list.id} style={{background:"none"}} onClick={()=>handleOnclickListTourVN(list.id)}>
             <Box className={classes.boxItem}>
                 <Box className={classes.centerImage}>
+                    
                     <img style={{width: "100%"}}  className={classes.img} src={list.image} />
+                    <Typography></Typography>
                 </Box>
             </Box>
         </SwiperSlide>

@@ -1,4 +1,4 @@
-import { Box, makeStyles } from "@material-ui/core";
+import { Box, makeStyles, Typography } from "@material-ui/core";
 import React, { memo, useRef, useState } from "react";
 import SwiperCore, {
   A11y,
@@ -41,12 +41,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   boxItem: {},
+  nameCountry: {
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
 }));
 
 function Slide({ listCityofCountry, slideNumber, handleOnclickListTour }) {
   const classes = useStyles();
-
-  console.log("tesst123", listCityofCountry);
   return (
     <>
       <Swiper
@@ -66,13 +69,30 @@ function Slide({ listCityofCountry, slideNumber, handleOnclickListTour }) {
       >
         {listCityofCountry.map((list) => (
           <SwiperSlide key={list.IdCountry} style={{ background: "none" }}>
-            <Box className={classes.boxItem}>
+            <Box
+              className={classes.boxItem}
+              onClick={() =>
+                handleOnclickListTour(list.experienceId, list.IdCountry)
+              }
+            >
+              <Typography
+                className={classes.nameCountry}
+                variant="h5"
+                style={{
+                  boxShadow: "0px 4px 18px rgb(3 18 26 / 13%)",
+                  color: "white",
+                  fontWeight: 590,
+                  position: "absolute",
+                  transform: "translate(66px, 75px)",
+                  fontFamily: "Segoe UI",
+                }}
+              >
+                {listCityofCountry.length < 7 ? "" : list.CountryName}
+              </Typography>
               <Box className={classes.centerImage}>
                 <img
                   // style={{opacity : 0.3}}
-                  onClick={() =>
-                    handleOnclickListTour(list.experienceId, list.IdCountry)
-                  }
+
                   className={classes.img}
                   src={
                     listCityofCountry.length < 7 ? list.image : list.imageUrl

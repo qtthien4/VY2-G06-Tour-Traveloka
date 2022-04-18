@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import TourDesDetail from './components/DesTourDetail';
+import ImageList from './components/ImageList';
 import SelectTour from './components/SelectTour';
 import { useStyles } from './indexStyles';
 import { productActions, selectScheduleTour, selectTour } from './productSlice';
@@ -23,14 +24,17 @@ function Product() {
   const schedule = useSelector(selectScheduleTour)
   const listImage = useSelector(selectListImage);
 
+  console.log("listimage",listImage);
+
+  const firstImage = listImage
   const location = useLocation()
   const idTour = location.pathname.split("/")[4]
   const navigate = useNavigate();
   useEffect(()=>{
     dispatch(productActions.fetchProduct(idTour))
-
     dispatch(imageActions.fetchApiImage(idTour))
   },[dispatch,idTour])
+
   const initialValue = {
     idSchedule:shortid.generate(),
     idActivity: idTour,
@@ -42,13 +46,9 @@ function Product() {
   }
   const [initialState, setInitialState] = useState(initialValue)
 
-  
-
-
   const handleClickBuy = () =>{
     dispatch(productActions.setSchedule(initialState))
-    navigate(`/booking/v2/${initialState.idSchedule}`)
-    
+    navigate(`/booking/v2/${initialState.idSchedule}`)  
   }
   return (
     <Box>
@@ -71,7 +71,8 @@ function Product() {
 
         </Box>
         <Paper className={classes.root}>
-          <Grid container className={classes.container}>
+          <ImageList tour={tour} listImage={listImage} firstImage={firstImage}/>
+          {/* <Grid container className={classes.container}>
             <Box>
               <Typography variant="h5" className={classes.tilteProduct}>{tour.ActivityName}</Typography>
               <Button variant="outlined" disableTouchRipple className={ `${classes.btnDisable} main-text-transform`}>Chuyến tham quan</Button>
@@ -124,7 +125,7 @@ function Product() {
                 <Button fullWidth variant="contained" className={`main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`} >Tìm các tùy chọn</Button>
               </Box>
             </Grid>
-          </Grid>
+          </Grid> */}
         </Paper>
 
         <Box mt={4}>

@@ -34,6 +34,7 @@ export default function Search() {
   const listCity = useSelector(selectListCity);
   const listImage = useSelector(selectListImage);
 
+  console.log("listImage",listImage)
   const listCountry = useSelector(selectListCountry);
   const filterPrice = useSelector(SelectFilterPrice);
   // console.log(selectionSort([2,3,7,5,4,1]));
@@ -64,7 +65,7 @@ export default function Search() {
     }
     else{
       let id = Number(location.search.split("=")[1])
-      //dispatch(imageActions.fetchApiImage(listCityofTour.IdActivity));
+      dispatch(imageActions.fetchApiImage(listCityofTour.IdActivity));
       dispatch(searchActions.fetchTourCountryList(id));
       dispatch(countryActions.fetchApiCountry())
       

@@ -69,6 +69,7 @@ export const useStyles = makeStyles((theme) => ({
     marginLeft: "15px",
     justifyContent: "space-between",
     height: "512px",
+    overflow: "hidden",
   },
   imageItem: {
     borderRadius: "8px",
