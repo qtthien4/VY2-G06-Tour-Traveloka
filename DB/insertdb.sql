@@ -310,6 +310,8 @@ insert into type(Idtype, type) values
 ('4' , 'The Thao'),
 ('5' , 'Diem Tham Quan')
 
+
+--ACTIVITY
 --VietNam
 insert into Activity (IdActivity, IdCountry, IdCity, IdPartner, idtype , ActivityName, Location, Amount, Stt, Price, Desc, ImageUrl) values ( '2001798092415', '10009958', '10009794', 54, '1', 'Ăn tối trên sông Sài Gòn - Tour đêm', 'District 1', 20, 1, 500000, '', 'https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/2001798092415/Dinner%2520Cruise%2520on%2520Saigon%2520River%2520-%2520Night%2520Tour-429b876c-9a30-466a-8482-13b6ba51a57d.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit');
 insert into Activity (IdActivity, IdCountry, IdCity, IdPartner, idtype , ActivityName, Location, Amount, Stt, Price, Desc, ImageUrl) values ( '2001485599895', '10009958', '10009843', 54, '1', 'Tour khám phá 3 đảo tại Phú Quốc - 1 ngày', 'Phu Quoc', 30, 0, 285000, '', 'https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/2001798092415/Dinner%2520Cruise%2520on%2520Saigon%2520River%2520-%2520Night%2520Tour-429b876c-9a30-466a-8482-13b6ba51a57d.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit');
@@ -344,6 +346,99 @@ insert into Activity (IdActivity, IdCountry, IdCity, IdPartner, idtype , Activit
 insert into Activity (IdActivity, IdCountry, IdCity, IdPartner, idtype , ActivityName, Location, Amount, Stt, Price, Desc, ImageUrl) values ( '1000097609045', '20001756', '20004599', 38, '1', 'Chụp ảnh với nhiếp ảnh gia chuyên nghiệp tại Osaka', 'Osaka', 10, 1, 3791250, '', 'https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/1000238512765/Professional%2520Photo%2520Shoot%2520in%2520Tokyo-cfc4f5c6-63ad-4818-89b6-dff2a10f96a6.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit');
 insert into Activity (IdActivity, IdCountry, IdCity, IdPartner, idtype , ActivityName, Location, Amount, Stt, Price, Desc, ImageUrl) values ( '1002122792647', '20001756', '20002454', 38, '1', 'Chụp ảnh với nhiếp ảnh gia chuyên nghiệp tại Kyoto', 'Kyoto', 10, 0, 3791250, '', 'https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/1000238512765/Professional%2520Photo%2520Shoot%2520in%2520Tokyo-cfc4f5c6-63ad-4818-89b6-dff2a10f96a6.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit');
 insert into Activity (IdActivity, IdCountry, IdCity, IdPartner, idtype , ActivityName, Location, Amount, Stt, Price, Desc, ImageUrl) values ( '1001967379033', '20001756', '20004117', 38, '1', 'Xe Bus Hop-On Hop-Off Tokyo', 'Chiyoda', 15, 1, 262186, '', 'https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/1000238512765/Professional%2520Photo%2520Shoot%2520in%2520Tokyo-cfc4f5c6-63ad-4818-89b6-dff2a10f96a6.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit');
+
+
+--SCHEDULE
+--Vietnam
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche01', '200179809241', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche02', '200179809241', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche03', '2001485599895', convert(date,'18-04-22 10:34',5), convert(date,'26-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche04', '2001485599895', convert(date,'19-04-22 10:34',5), convert(date,'27-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche05', '2001281414916', convert(date,'10-04-22 10:34',5), convert(date,'20-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche06', '2001281414916', convert(date,'11-04-22 10:34',5), convert(date,'19-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche07', '4741925273130', convert(date,'15-04-22 10:34',5), convert(date,'25-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche08', '4741925273130', convert(date,'16-04-22 10:34',5), convert(date,'26-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche09', '2000661012517', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche10', '2000661012517', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+
+--Singapore
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche11', '1000767877110', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche12', '1000767877110', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche13', '2001086258347', convert(date,'18-04-22 10:34',5), convert(date,'26-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche14', '2001086258347', convert(date,'19-04-22 10:34',5), convert(date,'27-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche15', '1001717214853', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche16', '1001717214853', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche17', '1000798145340', convert(date,'15-04-22 10:34',5), convert(date,'25-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche18', '1000798145340', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche19', '1002099418305', convert(date,'16-04-22 10:34',5), convert(date,'25-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche20', '1002099418305', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+
+--Thailand
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche21', '2001404435354', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche22', '2001404435354', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche23', '2002030713046', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche24', '2002030713046', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche25', '8690798864005', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche26', '8690798864005', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche27', '2001099683120', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche28', '2001099683120', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche29', '2001099682314', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche30', '2001099682314', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+
+--Malaysia
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche31', '2001661801973', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche32', '2001661801973', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche33', '2001213304997', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche34', '2001213304997', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche35', '2000834351036', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche36', '2000834351036', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche37', '2000834351717', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche38', '2000834351717', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche39', '2001213304998', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche40', '2001213304998', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+
+--Japan
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche41', '1000238512765', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche42', '1000238512765', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche43', '1000572561752', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche44', '1000572561752', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche45', '1000097609045', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche46', '1000097609045', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche47', '1002122792647', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche48', '1002122792647', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche49', '1001967379033', convert(date,'20-04-22 10:34',5), convert(date,'28-04-22 10:34',5))
+insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('sche50', '1001967379033', convert(date,'21-04-22 10:34',5), convert(date,'29-04-22 10:34',5))
+
+
 --IMAGE
 --Vietnam
 insert into image (IdImage, IdActivity, Link) values ('img01', '2001798092415', 'https://ik.imagekit.io/tvlk/xpe-asset/AyJ40ZAo1DOyPyKLZ9c3RGQHTP2oT4ZXW+QmPVVkFQiXFSv42UaHGzSmaSzQ8DO5QIbWPZuF+VkYVRk6gh-Vg4ECbfuQRQ4pHjWJ5Rmbtkk=/2001798092415/Dinner%2520Cruise%2520on%2520Saigon%2520River%2520-%2520Night%2520Tour-429b876c-9a30-466a-8482-13b6ba51a57d.jpeg?tr=q-60,c-at_max,w-540,h-960&_src=imagekit');
