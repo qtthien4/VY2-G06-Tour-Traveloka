@@ -72,6 +72,7 @@ class FormController {
 
     sql.connect(sqlConfig, function (err) {
       if (err) console.log(err);
+      //var insert = `insert into activity (IdActivity, IdCountry,IdCity,IdPartner,idtype,ActivityName,Location,Amount,Stt,Price, Desr,imageUrl ) values (${idactivity}, '${nuoc}', '${thanhpho}','${idpartner}','${type}', N'${name}', '${place}',${stramount},${strstt},${strprice},N'${desc}', '${req.body.links[0]}')`;
       var insert = `insert into activity (IdActivity, IdCountry,IdCity,IdPartner,idtype,ActivityName,Location,Amount,Stt,Price, Desr ) values (${idactivity}, '${nuoc}', '${thanhpho}','${idpartner}','${type}', N'${name}', '${place}',${stramount},${strstt},${strprice},N'${desc}')`;
       var re = new sql.Request();
       re.query(insert, function (err, result) {
@@ -105,7 +106,7 @@ class FormController {
         var activity = result.recordset;
         res.render("tables", { activity: activity });
       });
-    });
+    }); 
   }
 }
 
