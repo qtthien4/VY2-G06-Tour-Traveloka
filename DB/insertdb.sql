@@ -34,7 +34,7 @@ insert into City (IdCity, IdCountry, CityName) values ('10009897','10009958', N'
 insert into City (IdCity, IdCountry, CityName) values ('10010019','10009958', N'Tinh Bình Duong')     
 insert into City (IdCity, IdCountry, CityName) values ('10009825','10009958', N'Bình Thuậnn')
 insert into City (IdCity, IdCountry, CityName) values ('10009827','10009958', N'Tỉnh Quảng Bình')      
-insert into City (IdCity, IdCountry, CityName) values ('10009904','10009958', N'Tỉnh Qu?ng Ninh')      
+insert into City (IdCity, IdCountry, CityName) values ('10009904','10009958', N'Tỉnh Quảng Ninh')      
 insert into City (IdCity, IdCountry, CityName) values ('10010312','10009958', N'Tỉnh Thừa Thiên Huế')
 insert into City (IdCity, IdCountry, CityName) values ('10009931','10009958', N'Tỉnh Tây Ninh')
 insert into City (IdCity, IdCountry, CityName) values ('10010000','10009958', N'Tỉnh Lâm Ðồng')
