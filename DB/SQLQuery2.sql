@@ -7,7 +7,7 @@
 (
 	IdCountry char(20),
 	CountryName ntext,
-	imageUrl ntext
+	imageUrl ntext,
 	PRIMARY KEY (IdCountry)
 )
 
@@ -15,7 +15,7 @@ create table City
 (
 	IdCity char(20),	
 	IdCountry char(20),
-	CityName nvarchar(50)
+	CityName nvarchar(50),
 	PRIMARY KEY (IdCity)
 )
 
@@ -24,7 +24,7 @@ create table Partner
 (
 	IdPartner char(20),
 	PartnerName nvarchar(50),	
-	password char(200)
+	password char(200),
 	PRIMARY KEY (IdPartner)
 )
 
@@ -40,7 +40,8 @@ create table Activity
 	Amount int,
 	Stt bit,
 	Price int,
-	Desr ntext null, 
+	Desr ntext null,
+	ImageUrl ntext,
 	PRIMARY KEY (IdActivity)
 )
 
@@ -63,16 +64,15 @@ create table customer(
 	email nvarchar(50),
 	gender char(10),
 	point int,
-	password char(200)
+	password char(200),
 	PRIMARY KEY (IdCustomer)
 )
-
 
 
 create table keysearch(
 	IdSearch char(20),
 	IdCustomer char(20),
-	keyword nvarchar(50)
+	keyword nvarchar(50),
 	PRIMARY KEY (IdSearch)
 )
 
@@ -112,7 +112,7 @@ create table CusDetail(
 	--IdVoucher char(20),
 	--voucher nvarchar(500),
 	--Date DateTime,
-	--status bit
+	--status bit,
 	--PRIMARY KEY (IdVoucher)
 --)
 
@@ -128,7 +128,7 @@ create table CusDetail(
 create table Image(
 	IdImage char(20),
 	IdActivity char(20),
-	Link ntext
+	Link ntext,
 	PRIMARY KEY (IdImage)
 )
 create table type(
