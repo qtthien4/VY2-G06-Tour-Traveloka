@@ -43,6 +43,10 @@
 .main-align-item-center{
     align-items: center;
 }
+.main-justify-content{
+    justify-content: space-between;
+
+}
 .main-padding{
     padding-left: 16px;
     padding-right: 16px;

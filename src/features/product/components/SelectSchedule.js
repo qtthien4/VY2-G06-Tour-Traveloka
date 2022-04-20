@@ -11,7 +11,11 @@ export default function SelectSchedule({
   schedule.forEach((element) => {
     data.push({
       value: element.IdSchedule,
-      label: String(element.StartTime) + "-",
+      label:
+        "Từ ngày: " +
+        String(element.StartTime).split("T")[0] +
+        " đến " +
+        String(element.EndTime).split("T")[0],
     });
   });
 

@@ -13,6 +13,9 @@ const bookingSlice = createSlice({
     fetchTour(state) {
       state.loadding = true;
     },
+    fetchProduct(state) {
+      state.loadding = true;
+    },
     fetchProductSuccess(state, action) {
       state.loadding = false;
       state.tour = action.payload;

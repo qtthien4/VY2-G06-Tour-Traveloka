@@ -5,7 +5,6 @@ const { takeLatest, call, put } = require("redux-saga/effects");
 
 function* fetchApiScheduleApi(id) {
   const res = yield call(scheduleApi.getId, id.payload);
-  console.log(res);
   yield put(scheduleActions.fetchApiScheduleSuccess(res));
 }
 

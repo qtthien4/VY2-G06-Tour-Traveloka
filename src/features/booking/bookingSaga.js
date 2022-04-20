@@ -12,7 +12,7 @@ function* fetchDataProduct(idTour) {
 }
 
 function* bookingSaga() {
-  yield takeLatest(bookingActions.fetchTour.type, fetchDataProduct);
+  yield takeLatest(bookingActions.fetchProduct.type, fetchDataProduct);
   console.log("bookingSaga");
 }
 
