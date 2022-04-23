@@ -7,7 +7,7 @@ const shortid = require("shortid");
 
 export default function ImageList({ tour, listImage, firstImage }) {
   const classes = useStyles();
-
+  console.log("listImage", listImage);
   return (
     <div>
       <Grid container className={classes.container}>
@@ -41,6 +41,7 @@ export default function ImageList({ tour, listImage, firstImage }) {
               className={classes.imageItem}
               height="512"
               width="768"
+              // src={listImage[0].Link}
               src={tour.ImageUrl}
             />
           </Box>

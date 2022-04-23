@@ -15,6 +15,8 @@ export const useStyles = makeStyles((theme) => ({
   },
   boxItem: {
     borderRadius: "10px 10px 10px 10px",
+    position: "relative",
+    zIndex: 1,
     display: "flex",
     backgroundColor: "rgba(255,255,255,1.00)",
     boxShadow: "0px 2px 5px rgb(3 18 26 / 15%)",
@@ -23,12 +25,11 @@ export const useStyles = makeStyles((theme) => ({
     "&:hover": {
       cursor: "pointer",
     },
-
-    // justifyContent: 'left',
   },
   content: {
-    padding: "2%",
+    padding: "6% 2% 2% 2%",
     textAlign: "left",
+    width: "100%",
   },
   text: {
     fontSize: "12px",

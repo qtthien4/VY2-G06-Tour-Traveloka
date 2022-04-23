@@ -1,21 +1,14 @@
 import { Box, Typography } from "@material-ui/core";
 import Footer from "components/Footer";
 import Header from "components/Header";
-import { cityActions, selectListCity } from "features/City/citySlice";
-import {
-  countryActions,
-  selectListCountry,
-} from "features/Country/countrySlice";
-import { imageActions, selectListImage } from "features/Images/imageSlice";
-import React, { useEffect, useState } from "react";
+import { selectListCity } from "features/City/citySlice";
+import { selectListCountry } from "features/Country/countrySlice";
+import { favauriteActions } from "features/Favaurite/favauriteSlice";
+import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import SearchActivities from "../../components/SearchActivities";
-import {
-  searchActions,
-  SelectFilterPrice,
-  SelectListTourOfCity,
-} from "../search/searchSlice";
+import { searchActions, SelectListTourOfCity } from "../search/searchSlice";
 import ListFilter from "./components/ListFilter";
 import ListFilterControl from "./components/ListFilterControl";
 import { SelectPriceAndCommon } from "./components/SelectPriceAndCommon";
@@ -35,44 +28,79 @@ const style = {
 
 export default function Search() {
   window.scroll(0, 0);
+  const scroll = 0;
   const navigate = useNavigate();
   const classes = useStyles();
   const listCityofTour = useSelector(SelectListTourOfCity);
   const listCity = useSelector(selectListCity);
-  const listImage = useSelector(selectListImage);
-
   const listCountry = useSelector(selectListCountry);
-  const filterPrice = useSelector(SelectFilterPrice);
+  const listFavaurite = JSON.parse(localStorage.getItem("favaurite"));
+  const listTour = JSON.parse(localStorage.getItem("listTour"));
 
   const dispatch = useDispatch();
   let location = useLocation();
-
-  const [nameCity, setNameCity] = useState("");
-  const [nameCountry, setNameCountry] = useState("");
-  const scroll = 0;
 
   useEffect(() => {
     if (location.search.split("&").length > 1) {
       let id = Number(location.search.split("&")[1].split("=")[1]);
       dispatch(searchActions.fetchTourList(id));
-      dispatch(cityActions.fetchApiCity());
+      // dispatch(cityActions.fetchApiCity());
+      dispatch(favauriteActions.fetchApiFavaurite());
     } else {
       let id = Number(location.search.split("=")[1]);
-      dispatch(imageActions.fetchApiImage(listCityofTour.IdActivity));
+      //dispatch(imageActions.fetchApiImage(listCityofTour.IdActivity));
       dispatch(searchActions.fetchTourCountryList(id));
-      dispatch(countryActions.fetchApiCountry());
+      //dispatch(countryActions.fetchApiCountry());
+      dispatch(favauriteActions.fetchApiFavaurite());
     }
-  }, [dispatch, location, nameCity, nameCountry, listCity, listCountry]);
+  }, [dispatch, location, listCity, listCountry]);
+
   //onclick navigation product
   const handleOnclickTourSearch = (idTour) => {
     navigate(`/activities/vietnam/product/${idTour}`);
   };
   //handle filter header
   const handleChangeFilterHeader = (e) => {
-    console.log(e.target.value);
     let idFilter = e.target.value;
     dispatch(searchActions.setFiterHeader(idFilter));
   };
+
+  //handle favaurite
+  const tours = [];
+
+  const [show, setShow] = useState(true);
+  console.log(listFavaurite.length, listTour);
+  useMemo(() => {
+    for (let i = 0; i < listTour.length; i++) {
+      const tour = { ...listTour[i], isFavaurite: false };
+      for (let j = 0; j < listFavaurite.length; j++) {
+        if (listFavaurite[j].IdActivity == listTour[i].IdActivity) {
+          tour.isFavaurite = true;
+        }
+      }
+      tours.push(tour);
+    }
+  }, [listFavaurite]);
+
+  console.log("tours", tours);
+
+  //handle post favaurite
+
+  // useEffect(() => {
+  //   if (listFavaurite.idFavaurite) setShow(true);
+  //   setShow(false);
+  // }, [listFavaurite.idFavaurite]);
+
+  //post api favaurite
+  // const handleClickFavaurite = async (id) => {
+  //   console.log(id);
+  //   const favaurite = {
+  //     idFavaurite: shortid.generate(),
+  //     idCustomer: "1997",
+  //     IdActivity: id,
+  //   };
+  //   await favauriteApi.post(favaurite);
+  // };
 
   return (
     <>
@@ -94,14 +122,12 @@ export default function Search() {
                 Xperience
               </NavLink>
               <span className={classes.slash}>/</span>
-              <Typography
-                className={classes.linkCity}
-              >{`${nameCity} ${nameCountry} `}</Typography>
+              <Typography className={classes.linkCity}></Typography>
             </Box>
             <Typography
               className={classes.nameCity}
               variant="h4"
-            >{`Tất cả kết quả cho ${nameCity} ${nameCountry} 
+            >{`Tất cả kết quả cho  
             `}</Typography>
           </Box>
           <Box className={classes.sidebar}>
@@ -119,7 +145,7 @@ export default function Search() {
             </Box>
             <Box className={classes.listTourOfCity}>
               <TourOfCity
-                listCityofTour={listCityofTour}
+                tours={tours}
                 handleOnclickTourSearch={handleOnclickTourSearch}
               />
             </Box>

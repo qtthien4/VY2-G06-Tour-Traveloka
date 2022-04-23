@@ -20,6 +20,7 @@ import BookingForm from "./components/BookingForm";
 import { useStyles } from "./indexStyle";
 
 export default function Booking() {
+  window.scroll(0, 0);
   const user = useContext(AuthContext);
   const tour = useSelector(selectTour);
   const schedule = useSelector(selectListSchedule);

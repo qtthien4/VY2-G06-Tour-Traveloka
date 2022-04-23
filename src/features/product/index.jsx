@@ -26,7 +26,6 @@ function Product() {
   console.log("schedule", schedule);
   const listImage = useSelector(selectListImage);
 
-  const firstImage = listImage;
   const location = useLocation();
   const idTour = location.pathname.split("/")[4];
   const navigate = useNavigate();
@@ -69,11 +68,7 @@ function Product() {
             </Box>
           </Box>
           <Paper className={classes.root}>
-            <ImageList
-              tour={tour}
-              listImage={listImage}
-              firstImage={firstImage}
-            />
+            <ImageList tour={tour} listImage={listImage} />
           </Paper>
 
           <Box mt={4}>

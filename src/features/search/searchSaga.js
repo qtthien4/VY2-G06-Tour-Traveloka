@@ -11,8 +11,7 @@ function* fetchTourList(id) {
     const listTour = responsive.filter((listArrTour) => {
       return String(listArrTour.IdCity).trim() === String(id.payload).trim();
     });
-    console.log("saga", listTour);
-
+    localStorage.setItem("listTour", JSON.stringify(listTour));
     yield put(searchActions.SetTourListOfCity(listTour));
   } catch (error) {
     console.log("loi", error);
@@ -26,6 +25,8 @@ function* fetchCountryTour(id) {
     const listTour = responsive.filter((listArrTour) => {
       return String(listArrTour.IdCountry.trim()) === String(id.payload);
     });
+    localStorage.setItem("listTour", JSON.stringify(listTour));
+
     yield put(searchActions.SetTourListOfCity(listTour));
   } catch (error) {
     console.log("loi", error);

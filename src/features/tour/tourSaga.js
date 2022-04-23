@@ -14,31 +14,21 @@ function* fetchTourThaiLandList() {
 }
 function* fetchTourMalaysiaList() {
   const response = yield call(fakeTourApiMalaysia.getAll);
-  console.log("Malaysia:", response);
   yield put(tourActions.setTourMalaysiaList(response));
 }
 function* fetchTourSingaporeList() {
   const response = yield call(fakeTourApiSingapore.getAll);
-  console.log("Singapore:", response);
   yield put(tourActions.setTourSingaporeList(response));
 }
-
-// function* fetchApiListCountry() {
-//   const response = yield call(fakeCountryApi.getAll);
-//   console.log("Country:", response);
-//   yield put(tourActions.setCountryList(response));
-// }
 
 //api real
 function* fetchApiListCountry() {
   const response = yield call(countryApi.getAll);
-  console.log("Country:", response);
   yield put(tourActions.setCountryList(response));
 }
 
 function* fetchApiListCityVietNam() {
   const response = yield call(fakeCityApi.getAll);
-  console.log("CityVietNam:", response);
   yield put(tourActions.setCityList(response));
 }
 
@@ -54,14 +44,11 @@ function* fetchDataTourList() {
     yield put(tourActions.fetchDataSucceess());
   } catch (error) {
     yield put(tourActions.fetchApiTourFailed());
-    console.log("fail to fetch tour city Data", error);
   }
 }
 
 function* tourSaga() {
   yield takeLatest(tourActions.fetchApiTour.type, fetchDataTourList);
-  //yield call(fetchDataTourList)
-  console.log("tourSaga123");
 }
 
 export default tourSaga;

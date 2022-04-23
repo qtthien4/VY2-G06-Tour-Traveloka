@@ -2,6 +2,7 @@ import searchActivitySaga from "components/SearchActivities/searchActivitySaga";
 import bookingSaga from "features/booking/bookingSaga";
 import citySaga from "features/City/citySaga";
 import countrySaga from "features/Country/countrySaga";
+import favauriteSaga from "features/Favaurite/favauriteSaga";
 import imageSaga from "features/Images/imageSaga";
 import productSaga from "features/product/productSaga";
 import scheduleSaga from "features/schedule/scheduleSaga";
@@ -21,5 +22,6 @@ export default function* rootSaga() {
     bookingSaga(),
     imageSaga(),
     scheduleSaga(),
+    favauriteSaga(),
   ]);
 }
