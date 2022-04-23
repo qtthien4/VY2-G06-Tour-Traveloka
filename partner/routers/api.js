@@ -10,7 +10,6 @@ router.get("/tour", apiController.tour);
 router.get("/image", apiController.image);
 router.get("/image/:id", apiController.imageId);
 
-
 router.get("/schedule", apiController.schedule);
 router.get("/schedule/:id", apiController.scheduleID);
 
@@ -18,6 +17,9 @@ router.get("/tour/:slug", apiController.show);
 
 router.get("/city", apiController.city);
 router.get("/country", apiController.country);
+
+router.post("/favaurite", apiController.favourite);
+router.get("/favaurite", apiController.getFavourite);
 
 router.post("/test", apiController.getkeysearch);
 

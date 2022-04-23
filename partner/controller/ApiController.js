@@ -125,6 +125,31 @@ class ApiController {
       });
     });
   }
+  favourite(req, res) {
+    var IdActivity = req.body.IdActivity;
+    var idCustomer = req.body.idCustomer;
+    var idFavaurite = req.body.idFavaurite;
+    console.log(req.body);
+    console.log(IdActivity, idCustomer, idFavaurite);
+
+    var re = new sql.Request();
+    var insertFavaurite = `insert into favaurite (idFavaurite, idCustomer, idActivity) values('${idFavaurite}', '${idCustomer}','${IdActivity}')`;
+    re.query(insertFavaurite, function (err, result) {
+      if (err) console.log(err);
+      console.log(result);
+    });
+  }
+
+  getFavourite(req, res) {
+    sql.connect(sqlConfig, function (err) {
+      if (err) console.log(err);
+      var re = new sql.Request();
+      re.query("select * from favourite", function (err, result) {
+        if (err) console.log(err);
+        res.send(result.recordset);
+      });
+    });
+  }
 
   getkeysearch(req, res) {
     console.log(req.query);
@@ -195,7 +220,6 @@ class ApiController {
     var customerName = req.body[0].customerDetail.customerName;
     var cusPhoneNum = req.body[0].customerDetail.cusPhoneNum;
     var emailCus = req.body[0].customerDetail.emailCus;
-    var idDetail = req.body[0].customerDetail.idDetail;
 
     var idSchedule = req.body[1].booking.idSchedule;
     var idCustomer = req.body[1].booking.idCustomer;
@@ -209,9 +233,21 @@ class ApiController {
 
     console.log(req.body);
 
-    console.log("--------------------------------");
+    // sql.connect(sqlConfig, (err) => {
+    //   if(err) console.log(err)
 
-
+    //   var re = new sql.Request();
+    //   var insertCustomerDetail = `insert into CusDetail (IdDetail, IdBooking, CustomerName, CusPhoneNum, EmailCus) values('${idDetail}', '${idBooking}',N'${customerName}','${cusPhoneNum}',${emailCus})`
+    //   re.query(insertCustomerDetail, function (err, result) {
+    //     if (err) console.log(err);
+    //     console.log(result);
+    //   });
+    //   var inserBooking = `insert into Booking (IdBooking, IdSchedule, IdCustomer, IdVoucher, PaymentOption, BookingTime, Total, SttBooking, AmountPeople,Discount) values ('${idBooking}', '${idSchedule}','${idCustomer}','${idVoucher}' , ${paymentOption}, ${bookingTime}, '${total}',${sttBooking}, ${amountPeople}, '${disCount}')`
+    //   re.query(inserBooking, function (err, result) {
+    //     if (err) console.log(err);
+    //     console.log(result);
+    //   });
+    // })
   }
 }
 

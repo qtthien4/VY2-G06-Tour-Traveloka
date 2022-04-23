@@ -99,14 +99,13 @@ class FormController {
 
     sql.connect(sqlConfig, function (err) {
       if (err) console.log(err);
-
       var re = new sql.Request();
       re.query("select * from activity", function (err, result) {
         if (err) console.log(err);
         var activity = result.recordset;
         res.render("tables", { activity: activity });
       });
-    }); 
+    });
   }
 }
 
