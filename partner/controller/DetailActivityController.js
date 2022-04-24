@@ -96,6 +96,7 @@ class DetailActivityController{
             a[0] = a[2]
             a[2] = temp
             var handletimestart = a.join('-') +" "+  b[1]
+            
     
             //handle time end
             var b = endtime.slice(2).split("T");
@@ -113,6 +114,7 @@ class DetailActivityController{
                 var queryactivity = `select * from activity where IdActivity = '${idActivity}'`
                 var queryimage = `select * from image where IdActivity = '${idActivity}'`
                 var insertschedule = `insert into schedule (IdSchedule, IdActivity, StartTime, EndTime) values('${shortid.generate()}','${idActivity}', convert(date,'${handletimestart}',5), convert(date,'${handletimeend}',5)) `
+                console.log(insertschedule);
                 re.query(queryactivity, function(err, result){
                     if(err) console.log(err)      
                     activity = result.recordset               

@@ -1,6 +1,6 @@
 const sql = require('mssql/msnodesqlv8')
 const sqlConfig = {  
-  database: "traveloka2",
+  database: "traveloka",
   server: 'LAPTOP-O552NIIB\\SQLEXPRESS',
   driver: 'msnodesqlv8',
   post: 12345,
