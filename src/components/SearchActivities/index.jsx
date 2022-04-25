@@ -1,55 +1,62 @@
-import { Box, Button, Input } from '@material-ui/core';
-import { SearchOutlined } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/styles';
-import NotFound from 'components/NotFount';
-import RecentSearch from 'components/RecentSearch';
-import ResultSearch from 'components/ResultSearch';
-import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { listRemainingSelectorTourSearch, searchActivityActions } from './searchActivitySlice';
-import searchApi from '../../api/ApiReal/searchApi'
-import { asd } from 'api/Data/axiosTest';
+import { Box, Button, Input } from "@material-ui/core";
+import { SearchOutlined } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/styles";
+import NotFound from "components/NotFount";
+import RecentSearch from "components/RecentSearch";
+import ResultSearch from "components/ResultSearch";
+import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  listRemainingSelectorTourSearch,
+  searchActivityActions,
+} from "./searchActivitySlice";
+import searchApi from "../../api/ApiReal/searchApi";
+import { asd } from "api/Data/axiosTest";
+import {
+  keysearchActions,
+  selectListKeysearch,
+} from "features/Keysearch/keysearchSlice";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   contained: {
     display: "flex",
     flexFlow: "row nowrap",
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     padding: "16px",
     margin: "16px",
-    width: "97%"
+    width: "97%",
   },
   root: {
-    borderRadius: '8px',
+    borderRadius: "8px",
     width: "100%",
     position: "relative",
-    margin: 'auto',
-    background: 'white',
-    zIndex:5
+    margin: "auto",
+    background: "white",
+    zIndex: 5,
   },
   inputBox: {
-    display: 'flex',
-    flexFlow: 'row nowrap',
-    alignItems: 'center',
+    display: "flex",
+    flexFlow: "row nowrap",
+    alignItems: "center",
     border: `1px solid #ccc`,
     width: "100%",
-    marginRight: '3%',
-    borderRadius: '8px'
+    marginRight: "3%",
+    borderRadius: "8px",
   },
   input: {
-    lineHeight: '24px'
+    lineHeight: "24px",
   },
   icon: {
-    margin: '1%'
+    margin: "1%",
   },
   btn: {
     color: "white",
     backgroundColor: "rgb(1, 148, 243)",
     minWidth: "140px",
-    '&:hover': {
+    "&:hover": {
       backgroundColor: "rgb(1, 148, 243)",
-    }
+    },
   },
   searchInputOverlay: {
     left: 0,
@@ -58,92 +65,126 @@ const useStyles = makeStyles(theme => ({
     right: 0,
     zIndex: 3,
     position: "fixed",
-    display:"none",
-    overflow:"hidden"
+    display: "none",
+    overflow: "hidden",
   },
+}));
 
-}))
-
-export default function SearchActivities({style,layoutRef,scroll}) {
-  const classes = useStyles()
-  const inputRef = useRef()
-  const searchOverlay= useRef()
+export default function SearchActivities({ style, layoutRef, scroll }) {
+  const classes = useStyles();
+  const inputRef = useRef();
+  const searchOverlay = useRef();
   const recentSearchesRef = useRef();
   const recentSearchesRef1 = useRef();
-  const [searchText, setSearchText] = useState('')
-  const listTour = useSelector(listRemainingSelectorTourSearch)
-
+  const [searchText, setSearchText] = useState("");
+  const listTour = useSelector(listRemainingSelectorTourSearch);
+  const listKeySearch = useSelector(selectListKeysearch);
+  // const listKeySearch1 = listKeySearch.reverse();
+  // console.log("listKeySearch", listKeySearch);
   const dispatch = useDispatch();
 
   const handleOpenModel = () => {
-    window.scroll(0,scroll)  
-    recentSearchesRef.current.style.display = 'block';
-    searchOverlay.current.style.display = 'block';
-    searchOverlay.current.style.backgroundColor = 'rgba(3, 18, 26, 0.8)';
-    document.querySelector("body").style.overflow="hidden"   
-}
+    window.scroll(0, scroll);
+    recentSearchesRef.current.style.display = "block";
+    searchOverlay.current.style.display = "block";
+    searchOverlay.current.style.backgroundColor = "rgba(3, 18, 26, 0.8)";
+    document.querySelector("body").style.overflow = "hidden";
+  };
 
   const handleCloseModel = () => {
-    recentSearchesRef.current.style.display = 'none';
-    searchOverlay.current.style.display = 'none';
-    recentSearchesRef1.current.style.display = 'none';
-    document.querySelector("body").style.overflowY="scroll"  
-  }
-  
+    recentSearchesRef.current.style.display = "none";
+    searchOverlay.current.style.display = "none";
+    recentSearchesRef1.current.style.display = "none";
+    document.querySelector("body").style.overflowY = "scroll";
+  };
+
   //handle search change
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(searchActivityActions.fetchSearchActivity(searchText));
-    dispatch(searchActivityActions.setFilterSearchChangeInput(searchText))
-  },[dispatch,searchText])
+    dispatch(searchActivityActions.setFilterSearchChangeInput(searchText));
+    dispatch(keysearchActions.fetchApiKeysearch());
+  }, [dispatch, searchText]);
 
   const handleInputSearchChange = (e) => {
-    
-    const value = e.target.value
-    
-    if(value.length >= 1 || value !== ""){
-      recentSearchesRef.current.style.display = 'none';
-      recentSearchesRef1.current.style.display = 'block';
+    const value = e.target.value;
+    console.log("value", value);
+
+    if (value.length >= 1 || value !== "") {
+      recentSearchesRef.current.style.display = "none";
+      recentSearchesRef1.current.style.display = "block";
+    } else {
+      recentSearchesRef.current.style.display = "block";
+      recentSearchesRef1.current.style.display = "none";
     }
-    else{
-      recentSearchesRef.current.style.display = 'block';
-      recentSearchesRef1.current.style.display = 'none';
-    }
-    setSearchText(e.target.value)
+    setSearchText(e.target.value);
   };
-  
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const handleOnButtonSearch = () =>{
-    searchApi.postTextSearch(searchText)
-  }
+  const handleOnButtonSearch = () => {
+    setSearchText("");
+    searchApi.postTextSearch(searchText);
+  };
+
   return (
     <>
-    <div  onClick={handleCloseModel} ref={searchOverlay}  className={classes.searchInputOverlay}></div>
+      <div
+        onClick={handleCloseModel}
+        ref={searchOverlay}
+        className={classes.searchInputOverlay}
+      ></div>
       <Box className={classes.root}>
-    
         <Box className={classes.contained}>
-        {/* <SearchForm handleOpenModel={handleOpenModel} handleInputSearchChange={handleInputSearchChange} initialValue={initialValue} onSubmit = {handleSearchFormSubmit}/> */}
+          {/* <SearchForm handleOpenModel={handleOpenModel} handleInputSearchChange={handleInputSearchChange} initialValue={initialValue} onSubmit = {handleSearchFormSubmit}/> */}
           <Box className={classes.inputBox}>
             <SearchOutlined className={classes.icon} />
-            <Input name="nameTour" onChange={(e)=>handleInputSearchChange(e)}  inputRef={inputRef}  onFocus={handleOpenModel}  className={classes.input} disableUnderline fullWidth placeholder='Mời nhập tìm kiếm'></Input>
+            <Input
+              name="nameTour"
+              onChange={(e) => handleInputSearchChange(e)}
+              inputRef={inputRef}
+              onFocus={handleOpenModel}
+              className={classes.input}
+              disableUnderline
+              fullWidth
+              placeholder="Mời nhập tìm kiếm"
+              value={searchText}
+            ></Input>
           </Box>
-          <Button onClick={handleOnButtonSearch}  type="submit" className={classes.btn} size='large' variant="contained">
+          <Button
+            onClick={handleOnButtonSearch}
+            type="submit"
+            className={classes.btn}
+            size="large"
+            variant="contained"
+          >
             Search
           </Button>
         </Box>
-      
-       
-      </Box> 
-      <Box mt={3} ref={recentSearchesRef} sx={style} style={{ display: "none" }}>
-        <RecentSearch  />
       </Box>
 
-      <Box mt={3} ref={recentSearchesRef1} sx={style} style={{ display: "none" }}>
-        {listTour.length >=1 ? <ResultSearch listTour={listTour} /> : <NotFound/>}       
+      <Box
+        mt={3}
+        ref={recentSearchesRef}
+        sx={style}
+        style={{ display: "none" }}
+      >
+        {searchText === "" && <RecentSearch listKeySearch={listKeySearch} />}
       </Box>
 
+      <Box
+        mt={3}
+        ref={recentSearchesRef1}
+        sx={style}
+        style={{ display: "none" }}
+      >
+        {listTour.length >= 1 ? (
+          <ResultSearch listTour={listTour} />
+        ) : searchText == "" ? (
+          <RecentSearch listKeySearch={listKeySearch} />
+        ) : (
+          <NotFound />
+        )}
+      </Box>
     </>
-
   );
 }

@@ -47,14 +47,19 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [selectedValue, setSelectedValue] = useState(3);
+  const [selectedValue, setSelectedValue] = useState("");
   const [numberCus, setNumberCus] = useState(0);
+
+  const filterScheduleTour = schedule.find(
+    (schedule) => schedule.IdSchedule === selectedValue
+  );
+  console.log("schedule", filterScheduleTour);
 
   const initialValue = {
     idSchedule: selectedValue,
     idActivity: idTour,
-    starttime: "",
-    endTime: "",
+    // starttime: filterScheduleTour.StartTime || "",
+    // endTime: filterScheduleTour.EndTime || "",
     Amount: Number(numberCus),
     Stt: "",
     Desr: "",

@@ -10,8 +10,9 @@ export const useStyles = makeStyles((theme) => ({
   paper: {},
   img: {
     borderRadius: "10px 0px 0px 10px",
-    height: "200px",
-    width: "300px",
+    minHeight: "100%",
+    minWidth: "300px",
+    maxWidth: "300px",
   },
   boxItem: {
     borderRadius: "10px 10px 10px 10px",
@@ -22,6 +23,7 @@ export const useStyles = makeStyles((theme) => ({
     boxShadow: "0px 2px 5px rgb(3 18 26 / 15%)",
     height: "200px",
     width: "100%",
+
     "&:hover": {
       cursor: "pointer",
     },

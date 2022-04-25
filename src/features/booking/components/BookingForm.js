@@ -13,7 +13,12 @@ import InputField from "components/FormFields/InputField";
 import SelectFiled from "components/FormFields/SelectFiled";
 import { useForm } from "react-hook-form";
 
-export default function BookingForm({ onSubmit, fullWidth, tour }) {
+export default function BookingForm({
+  onSubmit,
+  fullWidth,
+  tour,
+  handleOnclickSubmitPayment,
+}) {
   const classes = useStyles();
   const {
     control,
@@ -27,7 +32,7 @@ export default function BookingForm({ onSubmit, fullWidth, tour }) {
       phoneBooking,
       radioVisitor,
       requireCustomer,
-      selectGender
+      selectGender,
     } = formValue;
     console.log("data form", formValue);
     const dataForm = {

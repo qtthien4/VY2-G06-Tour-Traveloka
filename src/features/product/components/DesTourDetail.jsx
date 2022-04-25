@@ -5,7 +5,7 @@ import VerticalSkedule from "./VerticalSkedule";
 
 var x;
 var y;
-export default function TourDesDetail({ tour }) {
+export default function TourDesDetail({ tour, listImage }) {
   const classes = useStyles();
   const [state, setState] = React.useState(0);
   const handleChange = (e, value) => {
@@ -17,7 +17,7 @@ export default function TourDesDetail({ tour }) {
     <Box className={classes.root}>
       <Box className={classes.left}>
         <Box className={classes.leftDes}>
-          <Typography
+          {/* <Typography
             className={`main-text-color-black main-font-size-title main-font-weight`}
           >
             Điểm nổi bật
@@ -49,9 +49,9 @@ export default function TourDesDetail({ tour }) {
             <Typography className={`main-padding-4px`}>
               Tốt cho: Tham quan
             </Typography>
-          </Box>
+          </Box> */}
 
-          <Box mt={3}>
+          {/* <Box mt={3}>
             <Typography
               className={`main-text-color-black main-font-size-title main-font-weight`}
             >
@@ -65,7 +65,7 @@ export default function TourDesDetail({ tour }) {
             </Button>
             <br />
             <VerticalSkedule />
-          </Box>
+          </Box> */}
 
           <Typography
             variant="h6"
@@ -77,7 +77,8 @@ export default function TourDesDetail({ tour }) {
             className={`${classes.descriptionCaption} main-text-color-black`}
             variant="body2"
           >
-            Du lịch như một người nổi tiếng và sắp xếp buổi chụp ảnh của riêng
+            {tour.Desr}
+            {/* Du lịch như một người nổi tiếng và sắp xếp buổi chụp ảnh của riêng
             bạn ở Tokyo với một nhiếp ảnh gia chuyên nghiệp địa phương. Có quyền
             tự do chọn vị trí ưa thích của bạn, tạo dáng trong bối cảnh đô thị
             sôi động, biểu tượng văn hóa hoặc khung cảnh đường phố sôi động. Bạn
@@ -85,7 +86,7 @@ export default function TourDesDetail({ tour }) {
             một ngày sau khi chụp. Hãy sẵn sàng để thể hiện những tư thế đẹp
             nhất của bạn và làm cho Instagram của bạn tỏa sáng! Lưu ý: Một lượt
             đặt chỗ 'người lớn' tương đương với một buổi chụp ảnh cho tối đa sáu
-            người.
+            người. */}
           </Typography>
 
           <Box mt={3}>
@@ -95,24 +96,15 @@ export default function TourDesDetail({ tour }) {
               width="612"
               src={tour.ImageUrl}
             />
-            <img
-              style={{ marginTop: "10px" }}
-              height="418"
-              width="612"
-              src="https://ik.imagekit.io/tvlk/xpe-asset/dsIfD0QxFcgaDmB6sQchobk5CmBu9PzsWhwFXGFxJ179jzSxIGG5kZNhhHY-p7nw/xxt/experience/image/ne--jpg-1080x720-FIT-2f73567df55bfb9375973badf1f932e1.jpeg?_src=imagekit&tr=c-at_max,h-500,q-60,w-612"
-            />
-            <img
-              style={{ marginTop: "10px" }}
-              height="418"
-              width="612"
-              src="https://ik.imagekit.io/tvlk/xpe-asset/dsIfD0QxFcgaDmB6sQchobk5CmBu9PzsWhwFXGFxJ179jzSxIGG5kZNhhHY-p7nw/xxt/experience/image/ne--jpg-1080x720-FIT-2f73567df55bfb9375973badf1f932e1.jpeg?_src=imagekit&tr=c-at_max,h-500,q-60,w-612"
-            />
-            <img
-              style={{ marginTop: "10px" }}
-              height="418"
-              width="612"
-              src="https://ik.imagekit.io/tvlk/xpe-asset/dsIfD0QxFcgaDmB6sQchobk5CmBu9PzsWhwFXGFxJ179jzSxIGG5kZNhhHY-p7nw/xxt/experience/image/ne--jpg-1080x720-FIT-2f73567df55bfb9375973badf1f932e1.jpeg?_src=imagekit&tr=c-at_max,h-500,q-60,w-612"
-            />
+
+            {listImage.map((list) => (
+              <img
+                style={{ marginTop: "10px" }}
+                height="418"
+                width="612"
+                src={list.Link}
+              />
+            ))}
           </Box>
         </Box>
 

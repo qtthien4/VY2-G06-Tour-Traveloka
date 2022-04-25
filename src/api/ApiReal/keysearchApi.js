@@ -1,18 +1,18 @@
 const { default: axiosClient } = require("../axiosClient");
 
-const favauriteApi = {
+const keysearchApi = {
   post: (data) => {
-    const url = `/favaurite`;
+    const url = `/keysearch`;
     return axiosClient.post(url, data);
   },
   getAll: () => {
-    const url = `/favaurite`;
+    const url = `/keysearch`;
     return axiosClient.get(url);
   },
   delete: (data) => {
-    const url = `/favaurite/${data}`;
+    const url = `/keysearch/${data}`;
     return axiosClient.post(url);
   },
 };
 
-export default favauriteApi;
+export default keysearchApi;

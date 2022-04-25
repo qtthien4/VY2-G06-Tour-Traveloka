@@ -23,7 +23,7 @@ function Product() {
 
   const tour = useSelector(selectTour);
   const schedule = useSelector(selectScheduleTour);
-  console.log("schedule", schedule);
+
   const listImage = useSelector(selectListImage);
 
   const location = useLocation();
@@ -80,7 +80,7 @@ function Product() {
                 Thông tin chi tiết sản phẩm
               </Typography>
               <Box mt={3}>
-                <TourDesDetail tour={tour} />
+                <TourDesDetail  listImage={listImage} tour={tour} />
               </Box>
             </Box>
 

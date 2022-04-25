@@ -1,12 +1,17 @@
 import { Box, Typography } from "@material-ui/core";
+import favauriteApi from "api/ApiReal/favauriteApi";
 import Footer from "components/Footer";
 import Header from "components/Header";
-import { selectListCity } from "features/City/citySlice";
-import { selectListCountry } from "features/Country/countrySlice";
+import { cityActions, selectListCity } from "features/City/citySlice";
+import {
+  countryActions,
+  selectListCountry,
+} from "features/Country/countrySlice";
 import { favauriteActions } from "features/Favaurite/favauriteSlice";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import shortid from "shortid";
 import SearchActivities from "../../components/SearchActivities";
 import { searchActions, SelectListTourOfCity } from "../search/searchSlice";
 import ListFilter from "./components/ListFilter";
@@ -27,7 +32,6 @@ const style = {
 };
 
 export default function Search() {
-  window.scroll(0, 0);
   const scroll = 0;
   const navigate = useNavigate();
   const classes = useStyles();
@@ -36,21 +40,35 @@ export default function Search() {
   const listCountry = useSelector(selectListCountry);
   const listFavaurite = JSON.parse(localStorage.getItem("favaurite"));
   const listTour = JSON.parse(localStorage.getItem("listTour"));
-
   const dispatch = useDispatch();
   let location = useLocation();
+
+  var nameCity = "";
+  var nameCountry = "";
+
+  const [namCity, setNameCity] = useState("");
+  const [namCountry, setNameCountry] = useState("");
 
   useEffect(() => {
     if (location.search.split("&").length > 1) {
       let id = Number(location.search.split("&")[1].split("=")[1]);
+
+      nameCity = JSON.parse(localStorage.getItem("city")).filter(
+        (city) => city.experienceId === String(id)
+      )[0].name;
+      setNameCity(nameCity);
       dispatch(searchActions.fetchTourList(id));
-      // dispatch(cityActions.fetchApiCity());
+      dispatch(cityActions.fetchApiCity());
       dispatch(favauriteActions.fetchApiFavaurite());
     } else {
       let id = Number(location.search.split("=")[1]);
+      nameCountry = JSON.parse(localStorage.getItem("country")).filter(
+        (country) => country.IdCountry.trim() === String(id)
+      )[0].CountryName;
+      setNameCountry(nameCountry);
       //dispatch(imageActions.fetchApiImage(listCityofTour.IdActivity));
       dispatch(searchActions.fetchTourCountryList(id));
-      //dispatch(countryActions.fetchApiCountry());
+      dispatch(countryActions.fetchApiCountry());
       dispatch(favauriteActions.fetchApiFavaurite());
     }
   }, [dispatch, location, listCity, listCountry]);
@@ -67,6 +85,7 @@ export default function Search() {
 
   //handle favaurite
   const tours = [];
+  // const [tours, setTour] = useState([]);
 
   const [show, setShow] = useState(true);
   console.log(listFavaurite.length, listTour);
@@ -82,8 +101,10 @@ export default function Search() {
     }
   }, [listFavaurite]);
 
+  // handle
   console.log("tours", tours);
-
+  // const [tourMain, setTourMain] = useState(tours);
+  // console.log("tourMain", tourMain);
   //handle post favaurite
 
   // useEffect(() => {
@@ -101,6 +122,32 @@ export default function Search() {
   //   };
   //   await favauriteApi.post(favaurite);
   // };
+
+  //handle delete favourite
+  const handleIsFavaurite = async (idActivity) => {
+    console.log("isFavaurite", idActivity);
+    await favauriteApi.delete(idActivity);
+  };
+
+  //handle post favourite
+  const [tourFinal, setTourFinal] = useState(tours);
+  const handleNoFavaurite = async (idActivity, flag) => {
+    console.log("flag", flag, idActivity);
+    const arr = tourFinal.find((arr) => arr.IdActivity === idActivity);
+    const arr1 = tourFinal.filter((arr) => arr.IdActivity !== idActivity);
+
+    const arr2 = { ...arr, isFavaurite: true };
+
+    arr1.push(arr2);
+    setTourFinal(arr1);
+    console.log("NoFavaurite", idActivity, arr1);
+    const favaurite = {
+      idFavaurite: shortid.generate(),
+      idCustomer: "1997",
+      IdActivity: idActivity,
+    };
+    await favauriteApi.post(favaurite);
+  };
 
   return (
     <>
@@ -127,7 +174,7 @@ export default function Search() {
             <Typography
               className={classes.nameCity}
               variant="h4"
-            >{`Tất cả kết quả cho  
+            >{`Tất cả kết quả cho  ${namCity} ${namCountry}
             `}</Typography>
           </Box>
           <Box className={classes.sidebar}>
@@ -145,7 +192,10 @@ export default function Search() {
             </Box>
             <Box className={classes.listTourOfCity}>
               <TourOfCity
-                tours={tours}
+                handleNoFavaurite={handleNoFavaurite}
+                handleIsFavaurite={handleIsFavaurite}
+                // tours={tourFinal}
+                tours={listCityofTour}
                 handleOnclickTourSearch={handleOnclickTourSearch}
               />
             </Box>

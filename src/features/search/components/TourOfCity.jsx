@@ -5,41 +5,14 @@ import React, { useMemo, useState } from "react";
 import shortid from "shortid";
 import { useStyles } from "../assets/styles/tourOfcityStyle";
 
-export default function TourOfCity({ tours, handleOnclickTourSearch }) {
+export default function TourOfCity({
+  handleIsFavaurite,
+  tours,
+  handleOnclickTourSearch,
+  handleNoFavaurite,
+  arr1,
+}) {
   const classes = useStyles();
-  // const tours = [];
-
-  // const [show, setShow] = useState(true);
-  // console.log(listFavaurite.length, listTour);
-  // useMemo(() => {
-  //   for (let i = 0; i < listTour.length; i++) {
-  //     const tour = { ...listTour[i], isFavaurite: false };
-  //     for (let j = 0; j < listFavaurite.length; j++) {
-  //       if (listFavaurite[j].IdActivity == listTour[i].IdActivity) {
-  //         tour.isFavaurite = true;
-  //         console.log(
-  //           "ok",
-  //           listFavaurite[j].IdActivity,
-  //           listTour[i].IdActivity,
-  //           show
-  //         );
-  //       }
-  //     }
-  //     tours.push(tour);
-  //     console.log("tour", tour);
-  //   }
-  // }, [listTour,listFavaurite]);
-
-  // console.log("tours", tours);
-  // const handleClickFavaurite = async (id) => {
-  //   console.log(id);
-  //   const favaurite = {
-  //     idFavaurite: shortid.generate(),
-  //     idCustomer: "1997",
-  //     IdActivity: id,
-  //   };
-  //   await favauriteApi.post(favaurite);
-  // };
 
   return (
     <div>
@@ -57,9 +30,15 @@ export default function TourOfCity({ tours, handleOnclickTourSearch }) {
             // onChange={() => handleClickFavaurite(a.IdActivity)}
           >
             {a.isFavaurite === true ? (
-              <img src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/0/0de1c7d93fd2bfa0d2a087067ea0ff25.svg" />
+              <img
+                onClick={() => handleIsFavaurite(a.IdActivity)}
+                src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/0/0de1c7d93fd2bfa0d2a087067ea0ff25.svg"
+              />
             ) : (
-              <img src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/4/42e4a7e6ed00f63a69daf8b5a980d0d6.svg" />
+              <img
+                onClick={() => handleNoFavaurite(a.IdActivity, a.isFavaurite)}
+                src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/4/42e4a7e6ed00f63a69daf8b5a980d0d6.svg"
+              />
             )}
           </ToggleButton>
           <Box
@@ -68,12 +47,7 @@ export default function TourOfCity({ tours, handleOnclickTourSearch }) {
             mb={3}
             onClick={() => handleOnclickTourSearch(a.IdActivity)}
           >
-            <img
-              height={200}
-              width={300}
-              className={classes.img}
-              src={a.ImageUrl}
-            />
+            <img className={classes.img} src={a.ImageUrl} />
             <Box className={classes.content}>
               <Typography className={classes.title} variant="h6">
                 {a.ActivityName}

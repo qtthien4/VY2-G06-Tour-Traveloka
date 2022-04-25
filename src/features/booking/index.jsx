@@ -14,6 +14,7 @@ import { selectTour } from "features/product/productSlice";
 import { selectListSchedule } from "features/schedule/ScheduleSlice";
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import shortid from "shortid";
 import { bookingActions } from "./bookingSlice";
 import BookingForm from "./components/BookingForm";
@@ -31,6 +32,21 @@ export default function Booking() {
   const [scheduleTour, SetScheduleTour] = useState(
     JSON.parse(localStorage.getItem("schedule"))
   );
+  const [listTour, setListTour] = useState(
+    JSON.parse(localStorage.getItem("listTour"))
+  );
+  const location = useLocation();
+
+  let idSchedule = String(location.pathname.split("/")[3]);
+  console.log(location, idSchedule, scheduleTour);
+  // const scheduleOfTourCurrent = scheduleTour.find(
+  //   (schedule) => schedule.idSchedule.trim() === idSchedule
+  // );
+
+  const TourCurrent = listTour.filter(
+    (tour) => tour.IdActivity.trim() === scheduleTour.idActivity
+  )[0];
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(bookingActions.fetchTour(JSON.parse(idTourBooking)));
@@ -38,7 +54,7 @@ export default function Booking() {
 
   const fullWidth = true;
   const classes = useStyles();
-
+  const navigate = useNavigate();
   // handle form
   const handleBookingFormSubmit = async (formValue) => {
     const {
@@ -75,6 +91,10 @@ export default function Booking() {
       { customerDetail: customerDetail },
       { booking: booking },
     ]);
+    navigate("/booking/payment");
+  };
+  const handleOnclickSubmitPayment = () => {
+    navigate("/booking/payment");
   };
   return (
     <Box>
@@ -90,6 +110,7 @@ export default function Booking() {
         </Box>
         <Box className={classes.main}>
           <BookingForm
+            handleOnclickSubmitPayment={handleOnclickSubmitPayment}
             onSubmit={handleBookingFormSubmit}
             fullWidth={fullWidth}
             tour={tour}
@@ -108,14 +129,14 @@ export default function Booking() {
               </Box>
 
               <Typography className={classes.textTitleBox}>
-                {tour.ActivityName}
+                {TourCurrent.ActivityName}
               </Typography>
               <Box className={classes.rightImageBox} mt={2} mb={2}>
                 <img
                   style={{ objectFit: "cover", marginRight: "10px" }}
                   height="100"
                   width="100"
-                  src={tour.ImageUrl}
+                  src={TourCurrent.ImageUrl}
                 ></img>
                 <Box style={{ display: "flex", flexDirection: "column" }}>
                   <span>Mở chuyến tham quan cho Max. 12 người tham gia</span>
