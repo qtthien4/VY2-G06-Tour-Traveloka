@@ -132,11 +132,20 @@ class ApiController {
     console.log(req.body);
     console.log(IdActivity, idCustomer, idFavaurite);
 
-    var re = new sql.Request();
-    var insertFavaurite = `insert into favaurite (idFavaurite, idCustomer, idActivity) values('${idFavaurite}', '${idCustomer}','${IdActivity}')`;
-    re.query(insertFavaurite, function (err, result) {
+    // var re = new sql.Request();
+    // var insertFavaurite = `insert into favaurite (IdFavaurite, IdCustomer, IdActivity) values('${idFavaurite}', '${idCustomer}','${IdActivity}')`;
+    // re.query(insertFavaurite, function (err, result) {
+    //   if (err) console.log(err);
+    //   console.log(result);
+    // });
+    sql.connect(sqlConfig, (err) => {
       if (err) console.log(err);
-      console.log(result);
+      var re = new sql.Request();
+      var insertFavaurite = `insert into favourite (IdFavourite, IdCustomer, IdActivity) values('${idFavaurite}', '${idCustomer}','${IdActivity}')`;
+      re.query(insertFavaurite, function (err, result) {
+        if (err) console.log(err);
+        console.log(result);
+      });
     });
   }
 
@@ -147,6 +156,25 @@ class ApiController {
       re.query("select * from favourite", function (err, result) {
         if (err) console.log(err);
         res.send(result.recordset);
+      });
+    });
+  }
+
+  deleteFavourite(req, res) {
+    // var IdActivity = req.body.IdActivity;
+    // var idCustomer = req.body.idCustomer;
+    // var idFavaurite = req.body.idFavaurite;
+
+    var id = req.params.id;
+    console.log(id);
+    sql.connect(sqlConfig, (err) => {
+      if (err) console.log(err);
+      var re = new sql.Request();
+
+      var deleteFavaurite = `delete from favourite  where IdActivity = '${id}'`;
+      re.query(deleteFavaurite, function (err, result) {
+        if (err) console.log(err);
+        console.log(result);
       });
     });
   }

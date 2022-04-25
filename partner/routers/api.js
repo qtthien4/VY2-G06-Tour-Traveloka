@@ -18,8 +18,9 @@ router.get("/tour/:slug", apiController.show);
 router.get("/city", apiController.city);
 router.get("/country", apiController.country);
 
-router.post("/favaurite", apiController.favourite);
 router.get("/favaurite", apiController.getFavourite);
+router.post("/favaurite", apiController.favourite);
+router.post("/favaurite/:id", apiController.deleteFavourite);
 
 router.post("/test", apiController.getkeysearch);
 
