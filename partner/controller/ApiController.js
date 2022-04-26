@@ -160,6 +160,18 @@ class ApiController {
     });
   }
 
+  keysearch(req, res) {
+    sql.connect(sqlConfig, function (err) {
+      if (err) console.log(err);
+
+      var re = new sql.Request();
+      re.query("select * from keysearch", function (err, result) {
+        if (err) console.log(err);
+        res.send(result.recordset);
+      });
+    });
+  }
+
   deleteFavourite(req, res) {
     // var IdActivity = req.body.IdActivity;
     // var idCustomer = req.body.idCustomer;
@@ -180,16 +192,13 @@ class ApiController {
   }
 
   getkeysearch(req, res) {
-    console.log(req.query);
     sql.connect(sqlConfig, function (err) {
-      if (err) console.log(err);
       var re = new sql.Request();
       var insertkey = `insert into keysearch values ('${shortid.generate()}', '1', '${
         req.query.q
       }')`;
       re.query(insertkey, function (err, result) {
         if (err) console.log(err);
-        console.log(result.recordset);
       });
     });
   }
@@ -243,23 +252,27 @@ class ApiController {
   }
 
   booking(req, res) {
-    var idDetail = req.body[0].customerDetail.idDetail;
-    var idBooking = req.body[0].customerDetail.idBooking;
-    var customerName = req.body[0].customerDetail.customerName;
-    var cusPhoneNum = req.body[0].customerDetail.cusPhoneNum;
-    var emailCus = req.body[0].customerDetail.emailCus;
+    const { customerDetail, booking } = req.body;
+    var idDetail = customerDetail.idDetail;
+    var idBooking = customerDetail.idBooking;
+    var customerName = customerDetail.customerName;
+    var cusPhoneNum = customerDetail.cusPhoneNum;
+    var emailCus = customerDetail.emailCus;
 
-    var idSchedule = req.body[1].booking.idSchedule;
-    var idCustomer = req.body[1].booking.idCustomer;
-    var idVoucher = req.body[1].booking.idVoucher;
-    var paymentOption = req.body[1].booking.paymentOption;
-    var bookingTime = req.body[1].booking.bookingTime;
-    var sttBooking = req.body[1].booking.sttBooking;
-    var amountPeople = req.body[1].booking.amountPeople;
-    var disCount = req.body[1].booking.disCount;
-    var total = req.body[1].booking.idDetail;
+    var idSchedule = booking.idSchedule;
+    var idCustomer = booking.idCustomer;
+    var idVoucher = booking.idVoucher;
+    var paymentOption = booking.paymentOption;
+    var bookingTime = booking.bookingTime;
+    var sttBooking = booking.sttBooking;
+    var amountPeople = booking.amountPeople;
+    var disCount = booking.disCount;
+    var total = booking.idDetail;
 
     console.log(req.body);
+    res.json({
+      status: "ok",
+    });
 
     // sql.connect(sqlConfig, (err) => {
     //   if(err) console.log(err)

@@ -27,4 +27,6 @@ router.post("/test", apiController.getkeysearch);
 router.post("/schedule", apiController.schedule);
 router.post("/booking", apiController.booking);
 
+router.get("/keysearch", apiController.keysearch);
+
 module.exports = router;

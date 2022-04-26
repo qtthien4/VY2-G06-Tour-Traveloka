@@ -178,7 +178,8 @@
                                                     <input type="file" id="files" name="file[]" multiple="multiple">
                                                 </div>        
                                                 <div class="col-sm-2">
-                                                    <button  style="text-align: center; border: 1px solid black" onclick="upload()" type="button">xác nhận</button>    
+                                                    <button  style="text-align: center; border: 1px solid black" onclick="upload()" type="button">Xác nhận</button>
+                                                    <div id="success" style="display: none; margin-top: 6px">Hoàn thành</div>    
                                                 </div>      
                                                 <div style="display: none;" class="col-sm-2">
                                                     <select name="links[]" id="link" multiple>
@@ -192,6 +193,7 @@
                                                     <label class="col-sm-3 form-label">Nước</label>
                                                     <div class="col-sm-9">
                                                         <select onchange="onChangeValue()" name="nuoc" id="nuoc">
+                                                            <option value=''>--None--</option>     
                                                             {{#each nuoc}}
                                                             <option value='{{{this.IdCountry}}}'>{{{this.CountryName}}}</option>                                                           
                                                              {{/each}}
@@ -298,7 +300,7 @@
 
          
         
-        var a = () => {
+        var a = async() => {
             var storage = firebase.storage();
             var ref = storage.ref();
 
@@ -313,9 +315,9 @@
             }
             const task = ref.child(file.name).put(file, metadata);
 
-            task.then(snapshot => snapshot.ref.getDownloadURL())
+            await task.then(snapshot => snapshot.ref.getDownloadURL())
                 .then(url => {
-                    //console.log(url);
+                    console.log(url);
                     var select = document.querySelector('#link')
                     var opt = document.createElement('option')
                     opt.value = url
@@ -323,21 +325,15 @@
                     select.appendChild(opt)
                 })
             }
-            
-        }
-        
-        var b = () => {
-            setTimeout(()=>{
             for(var i = 0; i<document.getElementById("link").options.length; i++){
                 document.getElementById("link").options[i].selected =true
-            }            
-            },5000)
-           
-        }   
+            }   
+            document.querySelector('#success').style.display = "block"
+        }
 
      function upload() {   
          a();
-         b();  
+        
     }
 </script>
 
