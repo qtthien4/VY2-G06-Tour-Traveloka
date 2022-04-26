@@ -71,7 +71,7 @@ export default function Search() {
       dispatch(countryActions.fetchApiCountry());
       dispatch(favauriteActions.fetchApiFavaurite());
     }
-  }, [dispatch, location, listCity, listCountry]);
+  }, [dispatch, location]);
 
   //onclick navigation product
   const handleOnclickTourSearch = (idTour) => {
@@ -194,7 +194,7 @@ export default function Search() {
               <TourOfCity
                 handleNoFavaurite={handleNoFavaurite}
                 handleIsFavaurite={handleIsFavaurite}
-                // tours={tourFinal}
+                //tours={tourFinal}
                 tours={listCityofTour}
                 handleOnclickTourSearch={handleOnclickTourSearch}
               />

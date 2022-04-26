@@ -5,7 +5,12 @@ import React from "react";
 import { useStyles } from "../indexStyles";
 const shortid = require("shortid");
 
-export default function ImageList({ tour, listImage, firstImage }) {
+export default function ImageList({
+  tour,
+  listImage,
+  firstImage,
+  handleClickImageActivity,
+}) {
   const classes = useStyles();
   console.log("listImage", listImage);
   return (
@@ -35,7 +40,11 @@ export default function ImageList({ tour, listImage, firstImage }) {
           </Box>
         </Box>
 
-        <Grid item className={classes.imageBox}>
+        <Grid
+          item
+          className={classes.imageBox}
+          onClick={handleClickImageActivity}
+        >
           <Box className={classes.imageLeft}>
             <img
               className={classes.imageItem}

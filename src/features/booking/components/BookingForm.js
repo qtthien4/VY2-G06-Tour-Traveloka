@@ -12,6 +12,41 @@ import RadioGroupField from "components/FormFields/RadioGroupField";
 import InputField from "components/FormFields/InputField";
 import SelectFiled from "components/FormFields/SelectFiled";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup
+  .object({
+    // nameVisitor: yup.string().required("Vui lòng nhập họ và tên của bạn"),
+    // emailVisitor: yup.string().required("Vui lòng nhập email của bạn"),
+    // phoneVisitor: yup
+    //   .number()
+    //   .positive()
+    //   .integer("Please enter an interger")
+    //   .required("Vui lòng nhập số điện thoại của bạn"),
+    nameBooking: yup.string().required("Vui lòng nhập tên của người đặt"),
+    emailBooking: yup
+      .string()
+      .email("Bạn chưa nhập đúng định dạng email")
+      .required("Vui lòng nhập email của người đặt"),
+    phoneBooking: yup
+      .number()
+      .positive()
+      .integer("Vui lòng nhập số")
+      .required("Vui lòng nhập số điện thoại của người đặt"),
+    // requireCustomer: yup.string().required("Vui lòng nhập yêu câif của người đặt"),
+    selectGender: yup
+      .string()
+      .required("Vui lòng chọn giới tính của người đặt"),
+    radioVisitor: yup.string().required("Vui lòng chọn người đặt"),
+  })
+  .required();
+
+// schema.cast({
+//   nameVisitor: "Tên Hệ thống",
+//   emailVisitor: "Email user",
+//   createdOn: "2014-09-23T19:25:25Z",
+// });
 
 export default function BookingForm({
   onSubmit,
@@ -23,8 +58,8 @@ export default function BookingForm({
   const {
     control,
     handleSubmit,
-    formState: { isSubmitting },
-  } = useForm();
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
   const handleFormSubmit = async (formValue) => {
     const {
       emailBooking,
@@ -109,7 +144,7 @@ export default function BookingForm({
             <Box>
               <Typography
                 color="inherit"
-                variant="subtitle2"
+                variant="subtitle1"
                 className={`main-text-color-black main-font-weight`}
               >
                 Họ và tên
@@ -120,10 +155,13 @@ export default function BookingForm({
                 label="full"
                 fullWidthCustom={fullWidth}
               />
-              <Typography variant="caption">
-                Như trên CMND / hộ chiếu / giấy phép lái xe (không bằng cấp hoặc
-                các ký tự đặc biệt)
-              </Typography>
+              {errors.nameVisitor?.message ? (
+                <p></p>
+              ) : (
+                <Typography variant="caption">
+                  (không có tiêu đề và dấu chấm câu)
+                </Typography>
+              )}
             </Box>
 
             <Box mt={3}>
@@ -137,12 +175,12 @@ export default function BookingForm({
                       Số điện thoại
                     </InputLabel>
                     <Box className="d-flex" height={56}>
-                      <SelectFiled
+                      {/* <SelectFiled
                         name="selectVisitor"
                         control={control}
                         label="phone"
                         options={[{ label: "+84", value: "+84" }]}
-                      />
+                      /> */}
                       <Box>
                         <InputField
                           widthCustom="10px"
@@ -153,10 +191,14 @@ export default function BookingForm({
                         />
                       </Box>
                     </Box>
-                    <Typography variant="caption">
-                      ví dụ: +62812345678, cho Mã quốc gia (+62) và Số điện
-                      thoại di động 0812345678
-                    </Typography>
+                    {errors.phoneVisitor?.message ? (
+                      <p></p>
+                    ) : (
+                      <Typography variant="caption">
+                        ví dụ: +62812345678, cho Mã quốc gia (+62) và Số điện
+                        thoại di động 0812345678
+                      </Typography>
+                    )}
                   </Box>
 
                   <Box ml={2}>
@@ -172,9 +214,13 @@ export default function BookingForm({
                       label="full"
                       fullWidthCustom={fullWidth}
                     />
-                    <Typography variant="caption">
-                      ví dụ: email@example.com
-                    </Typography>
+                    {errors.phoneVisitor?.message ? (
+                      <p></p>
+                    ) : (
+                      <Typography variant="caption">
+                        ví dụ: email@example.com
+                      </Typography>
+                    )}
                   </Box>
                 </Box>
               </Box>
@@ -203,7 +249,7 @@ export default function BookingForm({
           <Box mt={2} className={classes.contactDetailBox}>
             <Box className={classes.contactDetailHeader}>
               <Typography className={classes.textTitleBox} variant="body1">
-                Người lớn 1
+                Người lớn
               </Typography>
               <Button
                 color="primary"
@@ -224,7 +270,7 @@ export default function BookingForm({
                 ]}
               />
             </Box>
-
+            {/* {errors.selectGender?.message} */}
             <Box>
               <Typography
                 className={`main-text-color-black main-font-weight`}
@@ -240,9 +286,13 @@ export default function BookingForm({
                 fullWidthCustom={fullWidth}
               />{" "}
               <br />
-              <Typography variant="caption">
-                (không có tiêu đề và dấu chấm câu)
-              </Typography>
+              {errors.phoneVisitor?.message ? (
+                <p></p>
+              ) : (
+                <Typography variant="caption">
+                  (không có tiêu đề và dấu chấm câu)
+                </Typography>
+              )}
             </Box>
             <Box mt={3}>
               <Box>
@@ -255,12 +305,12 @@ export default function BookingForm({
                       Số điện thoại
                     </InputLabel>
                     <Box>
-                      <SelectFiled
+                      {/* <SelectFiled
                         name="selectBooking"
                         control={control}
                         label="phone"
                         options={[{ label: "+84", value: "1" }]}
-                      />
+                      /> */}
                       <InputField
                         name="phoneBooking"
                         control={control}
@@ -269,10 +319,14 @@ export default function BookingForm({
                       />{" "}
                       <br />
                     </Box>
-                    <Typography variant="caption">
-                      ví dụ: +62812345678, cho Mã quốc gia (+62) và Số điện
-                      thoại di động 0812345678
-                    </Typography>
+                    {errors.phoneBooking?.message ? (
+                      <p></p>
+                    ) : (
+                      <Typography variant="caption">
+                        ví dụ: +62812345678, cho Mã quốc gia (+62) và Số điện
+                        thoại di động 0812345678
+                      </Typography>
+                    )}
                   </Box>
 
                   <Box>
@@ -289,9 +343,13 @@ export default function BookingForm({
                       fullWidthCustom={fullWidth}
                     />{" "}
                     <br />
-                    <Typography variant="caption">
-                      ví dụ: email@example.com
-                    </Typography>
+                    {errors.phoneBooking?.message ? (
+                      <p></p>
+                    ) : (
+                      <Typography variant="caption">
+                        ví dụ: email@example.com
+                      </Typography>
+                    )}
                   </Box>
                 </Box>
               </Box>
@@ -315,10 +373,14 @@ export default function BookingForm({
             fullWidthCustom={fullWidth}
           />{" "}
           <br /> <br />
-          <Typography variant="caption">
-            Định dạng: bằng tiếng Anh hoặc ngôn ngữ địa phương. Các yêu cầu tùy
-            thuộc vào tính khả dụng của nhà điều hành.
-          </Typography>
+          {errors.requireCustomer?.message ? (
+            <p></p>
+          ) : (
+            <Typography variant="caption">
+              Định dạng: bằng tiếng Anh hoặc ngôn ngữ địa phương. Các yêu cầu
+              tùy thuộc vào tính khả dụng của nhà điều hành.
+            </Typography>
+          )}
         </Box>
 
         <Box mt={3} mb={2}>

@@ -6,18 +6,20 @@ import Footer from "components/Footer";
 import Header from "components/Header";
 import { imageActions, selectListImage } from "features/Images/imageSlice";
 import { scheduleActions } from "features/schedule/ScheduleSlice";
-import React, { useEffect, useState } from "react";
+import ListTour from "features/tour/components/ListTour";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import TourDesDetail from "./components/DesTourDetail";
 import ImageList from "./components/ImageList";
+import ModalImage from "./components/ModalImage";
 import SelectTour from "./components/SelectTour";
 import { useStyles } from "./indexStyles";
 import { productActions, selectScheduleTour, selectTour } from "./productSlice";
 const shortid = require("shortid");
 
 function Product() {
-  window.scroll(0, 0);
+  // window.scroll(0, 0);
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -34,6 +36,32 @@ function Product() {
     dispatch(imageActions.fetchApiImage(idTour));
   }, [dispatch, idTour]);
 
+  //handle open model image
+  const searchOverlay = useRef();
+  const handleClickImageActivity = () => {
+    console.log("image ok");
+  };
+  // const handleOpenModel = () => {
+  //   // recentSearchesRef.current.style.display = "block";
+  //   searchOverlay.current.style.display = "block";
+  //   searchOverlay.current.style.backgroundColor = "rgba(3, 18, 26, 0.8)";
+  //   document.querySelector("body").style.overflow = "hidden";
+  // };
+
+  // const handleCloseModel = () => {
+  //   // recentSearchesRef.current.style.display = "none";
+  //   searchOverlay.current.style.display = "none";
+  //   // recentSearchesRef1.current.style.display = "none";
+  //   document.querySelector("body").style.overflowY = "scroll";
+  // };
+
+  //handle model image
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    console.log("ok");
+    return setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
   return (
     <Box>
       <Box className={classes.navProduct}>
@@ -67,8 +95,35 @@ function Product() {
               </Button>
             </Box>
           </Box>
+
+          {/* <div
+            
+            ref={searchOverlay}
+            style={{
+              left: 0,
+              top: 0,
+              bottom: 0,
+              right: 0,
+              zIndex: 3,
+              position: "fixed",
+              display: "none",
+              overflow: "hidden",
+            }}
+          >
+            <ListTour />
+          </div> */}
+          <ModalImage
+            tour={tour}
+            listImage={listImage}
+            open={open}
+            handleClose={handleClose}
+          />
           <Paper className={classes.root}>
-            <ImageList tour={tour} listImage={listImage} />
+            <ImageList
+              handleClickImageActivity={handleOpen}
+              tour={tour}
+              listImage={listImage}
+            />
           </Paper>
 
           <Box mt={4}>
@@ -80,7 +135,7 @@ function Product() {
                 Thông tin chi tiết sản phẩm
               </Typography>
               <Box mt={3}>
-                <TourDesDetail  listImage={listImage} tour={tour} />
+                <TourDesDetail listImage={listImage} tour={tour} />
               </Box>
             </Box>
 

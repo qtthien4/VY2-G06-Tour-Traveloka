@@ -38,7 +38,7 @@ export default function Booking() {
   const location = useLocation();
 
   let idSchedule = String(location.pathname.split("/")[3]);
-  console.log(location, idSchedule, scheduleTour);
+
   // const scheduleOfTourCurrent = scheduleTour.find(
   //   (schedule) => schedule.idSchedule.trim() === idSchedule
   // );
@@ -50,7 +50,7 @@ export default function Booking() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(bookingActions.fetchTour(JSON.parse(idTourBooking)));
-  }, [dispatch, idTourBooking]);
+  }, [dispatch]);
 
   const fullWidth = true;
   const classes = useStyles();
@@ -87,10 +87,9 @@ export default function Booking() {
       emailCus: emailCus,
       gender: gender,
     };
-    await bookingApi.post([
-      { customerDetail: customerDetail },
-      { booking: booking },
-    ]);
+
+    await bookingApi.post({ customerDetail, booking });
+
     navigate("/booking/payment");
   };
   const handleOnclickSubmitPayment = () => {
@@ -113,7 +112,7 @@ export default function Booking() {
             handleOnclickSubmitPayment={handleOnclickSubmitPayment}
             onSubmit={handleBookingFormSubmit}
             fullWidth={fullWidth}
-            tour={tour}
+            tour={TourCurrent}
           />
 
           <Box className={classes.right}>
@@ -152,19 +151,19 @@ export default function Booking() {
               </Box>
               <Box className={classes.rightTimeLine}>
                 <Box mt={1} className={classes.flex}>
-                  <Typography>Ngày viếng thăm:</Typography>
+                  <Typography>Ngày tham quan:</Typography>
                   <span className="main-text-color-black main-font-weight-500">
                     {scheduleTour.starttime}
                   </span>
                 </Box>
                 <Box mt={1} className={classes.flex}>
-                  <Typography>Ca thời gian:</Typography>
+                  <Typography>Thời gian:</Typography>
                   <span className="main-text-color-black main-font-weight-500">
                     18:30
                   </span>
                 </Box>
                 <Box mt={1} className={classes.flex}>
-                  <Typography>Tổng số khách truy cập:</Typography>
+                  <Typography>Tổng số khách:</Typography>
                   <span className="main-text-color-black main-font-weight-500">
                     {scheduleTour.Amount}
                   </span>
@@ -223,7 +222,9 @@ export default function Booking() {
             </Box>
           </Box>
         </Box>
-        <Footer />
+        <Box mt={5}>
+          <Footer />
+        </Box>
       </Box>
     </Box>
   );
