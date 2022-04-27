@@ -252,9 +252,10 @@ class ApiController {
   }
 
   booking(req, res) {
-    const { customerDetail, booking } = req.body;
+    const { customerDetail } = req.body[0];
+    const {booking} = req.body[1];
     var idDetail = customerDetail.idDetail;
-    var idBooking = customerDetail.idBooking;
+    var idBooking = booking.idBooking;
     var customerName = customerDetail.customerName;
     var cusPhoneNum = customerDetail.cusPhoneNum;
     var emailCus = customerDetail.emailCus;
@@ -264,31 +265,39 @@ class ApiController {
     var idVoucher = booking.idVoucher;
     var paymentOption = booking.paymentOption;
     var bookingTime = booking.bookingTime;
-    var sttBooking = booking.sttBooking;
+    var sttBooking = booking.sstBooking;
+    if(sttBooking)   sttBooking = 1
+    else sttBooking = 0
+    
     var amountPeople = booking.amountPeople;
     var disCount = booking.disCount;
-    var total = booking.idDetail;
+    var total = booking.total;
 
     console.log(req.body);
-    res.json({
-      status: "ok",
-    });
+    // res.json({
+    //   status: "ok",
+    // });
 
-    // sql.connect(sqlConfig, (err) => {
-    //   if(err) console.log(err)
+    sql.connect(sqlConfig, (err) => {
+      if(err) console.log(err)
 
-    //   var re = new sql.Request();
-    //   var insertCustomerDetail = `insert into CusDetail (IdDetail, IdBooking, CustomerName, CusPhoneNum, EmailCus) values('${idDetail}', '${idBooking}',N'${customerName}','${cusPhoneNum}',${emailCus})`
-    //   re.query(insertCustomerDetail, function (err, result) {
-    //     if (err) console.log(err);
-    //     console.log(result);
-    //   });
-    //   var inserBooking = `insert into Booking (IdBooking, IdSchedule, IdCustomer, IdVoucher, PaymentOption, BookingTime, Total, SttBooking, AmountPeople,Discount) values ('${idBooking}', '${idSchedule}','${idCustomer}','${idVoucher}' , ${paymentOption}, ${bookingTime}, '${total}',${sttBooking}, ${amountPeople}, '${disCount}')`
-    //   re.query(inserBooking, function (err, result) {
-    //     if (err) console.log(err);
-    //     console.log(result);
-    //   });
-    // })
+      var re = new sql.Request();
+      //add booking
+      var inserBooking = `insert into Booking (IdBooking, IdSchedule, IdCustomer, IdVoucher, PaymentOption, BookingTime, Total, SttBooking, AmountPeople,Discount) values 
+      ('${idBooking}', '${idSchedule}','${idCustomer}','${idVoucher}' , '${paymentOption}', '', '${total}',${sttBooking}, ${amountPeople}, '')`
+
+      re.query(inserBooking, function (err, result) {
+        if (err) console.log(err);
+        console.log(result);
+      });
+      //add customer
+      var insertCustomerDetail = `insert into CusDetail (IdDetail, IdBooking, CustomerName, CusPhoneNum, EmailCus) values('${idDetail}','${idBooking}',N'${customerName}','${cusPhoneNum}','${emailCus}')`
+      // console.log(insertCustomerDetail);
+      re.query(insertCustomerDetail, function (err, result) {
+        if (err) console.log(err);
+        console.log(result);
+      });
+    })
   }
 }
 
