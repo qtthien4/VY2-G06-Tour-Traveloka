@@ -41,6 +41,7 @@ create table Activity
 	Stt bit,
 	Price int,
 	Desr ntext null, 
+	imageUrl text,
 	PRIMARY KEY (IdActivity)
 )
 
@@ -67,7 +68,7 @@ create table customer(
 	PRIMARY KEY (IdCustomer)
 )
 
-
+insert into customer (IdCustomer, Name, Phone, age, address, email, gender, point, password) values('1', 'thienvo', '0915313964', 20, 'lam dong', 'qtthien@gmail.com', 'nam', 0,'123123')
 
 create table keysearch(
 	IdSearch char(20),
@@ -88,24 +89,23 @@ create table Booking(
 	IdBooking char(20),
 	IdSchedule char(20),
 	IdCustomer char(20),
-	IdVoucher char(20),
-	PaymentOption char(20),
-	BookingTime DateTime,
-	Total int,
+	IdVoucher char(20) null,
+	PaymentOption char(2),
+	BookingTime DateTime null,
+	Total text,
 	SttBooking bit,
-	AmountPeople int,	
-	TourTimeStart DateTime,
-	PhoneNumber char(11),
-	Reservationist nvarchar(50),
+	AmountPeople int,		
 	Discount float null,	
 	PRIMARY KEY (IdBooking)
 )
+
 create table CusDetail(	
 	IdDetail char(20),
 	IdBooking char(20),
-	CustomerName char(20),
-	CusPhoneNum float,
-	EmailCus nvarchar(50),	
+	CustomerName ntext,
+	CusPhoneNum text,
+	EmailCus text,	
+	Gender text
 	PRIMARY KEY (IdDetail)
 )
 --Create table Voucher (
