@@ -5,7 +5,6 @@ const { takeLatest, call, put } = require("redux-saga/effects");
 
 function* fetchApiImageApi(id) {
   const res = yield call(imageApi.getId, id.payload);
-  console.log(res);
   yield put(imageActions.fetchApiImageTourSuccess(res));
 }
 

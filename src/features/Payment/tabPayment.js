@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import "./css/GlobalCssSlider.css";
 import "./css/pay.css";
 import { Box, Tab, Tabs, Typography } from "@material-ui/core";
+import FormPayment from "./components/FormPayment";
+import { useForm } from "react-hook-form";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -42,6 +44,8 @@ function VerticalTabs() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  //handle form payment
 
   return (
     <Box
@@ -280,130 +284,7 @@ function VerticalTabs() {
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <div className="pay">
-          <div style={{ display: "flex", position: "relative" }}>
-            <h4 className="title">Thẻ thanh toán</h4>
-            <div style={{ position: "absolute", right: "24px" }}>
-              <img
-                style={{ height: "24px" }}
-                src="https://ik.imagekit.io/tvlk/image/imageResource/2017/01/17/1484655630637-0dcca3761eb5910f1835f438f153bfae.png?tr=q-75"
-                alt=""
-              />
-              <img
-                style={{ height: "24px" }}
-                src="https://ik.imagekit.io/tvlk/image/imageResource/2017/01/06/1483707776912-1abb188266f6d5b3f2e27f4733ca32e9.png?tr=q-75"
-                alt=""
-              />
-              <img
-                style={{ height: "24px" }}
-                src="https://ik.imagekit.io/tvlk/image/imageResource/2017/01/06/1483707787206-abc175b224ab92a6967e24bc17c30f45.png?tr=q-75"
-                alt=""
-              />
-              <img
-                style={{ height: "24px" }}
-                src="https://ik.imagekit.io/tvlk/image/imageResource/2017/07/10/1499673365437-1e1522e5cc323e7e8a7b57b90e81dbc9.png?tr=q-75"
-                alt=""
-              />
-            </div>
-          </div>
-          <div className="inputhandle">
-            <label>Số thẻ tín dụng </label>
-            <input
-              type="text"
-              placeholder="16 chữ số trên mặt thẻ"
-              style={{
-                width: "390px",
-                border: "1px solid #dadada",
-                borderRadius: "5px",
-              }}
-            />
-            <br />
-            <label>Hiệu lực đến </label>
-            <input
-              type="text"
-              placeholder="MM/YY"
-              style={{
-                width: "125px",
-                marginRight: "30px",
-                border: "1px solid #dadada",
-                borderRadius: "5px",
-              }}
-            />
-            <label>CCV</label>
-            <input
-              type="text"
-              placeholder="3 số CCV"
-              style={{
-                width: "120px",
-                border: "1px solid #dadada",
-                borderRadius: "5px",
-              }}
-            />
-            <br />
-            <label>Tên trên thẻ </label>
-            <input
-              type="text"
-              placeholder="Tên trên thẻ"
-              style={{ border: "1px solid #dadada", borderRadius: "5px" }}
-            />
-            <br />
-            <label>Chưa trả góp </label>
-            <a href="/#">Learn more</a>
-          </div>
-          <div
-            className="form-check form-switch"
-            style={{ display: "flex", alignItems: "center" }}
-          >
-            <input
-              className="form-check-input"
-              type="checkbox"
-              id="flexSwitchCheckDefault"
-            />
-            <label
-              className="form-check-label"
-              htmlFor="flexSwitchCheckDefault"
-            >
-              Nhập mã giảm giá
-            </label>
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="VD: CHEAP TRAVEL"
-              style={{
-                border: "1px solid #dadada",
-                borderRadius: "5px",
-                marginRight: "8px",
-              }}
-            />
-            <button style={{ border: "none" }}>Áp dụng mã</button>
-          </div>
-          <div className="detail-price">
-            <h4>Chi tiết giá</h4>
-            <div style={{ overflow: "auto" }}>
-              <div style={{ float: "left", width: "250px" }}>
-                Saigon River Sightseeing - 1 Hour Người lớn x 1
-              </div>
-              <div style={{ float: "right" }}>499.900 VND</div>
-            </div>
-            <div style={{ overflow: "auto" }}>
-              <div style={{ float: "left" }}>Phí tiện ích</div>
-              <div style={{ float: "right" }}>11.000 VND</div>
-            </div>
-            <div>--------------------------------</div>
-            <div style={{ overflow: "auto" }}>
-              <div style={{ float: "left" }}>Tổng giá tiền</div>
-              <div style={{ float: "right" }}>499.900 VND</div>
-            </div>
-          </div>
-          <div className="accept-pay">
-            <div>
-              Bằng việc nhấn Thanh toán, bạn đồng ý Điều khoản &amp; Điều kiện
-              và Chính sách quyền riêng tư.
-            </div>
-            <button>Thanh toán Chuyển khoản ngân hàng</button>
-          </div>
-        </div>
+        <FormPayment />
       </TabPanel>
     </Box>
   );

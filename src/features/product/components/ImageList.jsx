@@ -12,7 +12,6 @@ export default function ImageList({
   handleClickImageActivity,
 }) {
   const classes = useStyles();
-  console.log("listImage", listImage);
   return (
     <div>
       <Grid container className={classes.container}>

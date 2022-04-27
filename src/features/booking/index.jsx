@@ -24,7 +24,6 @@ export default function Booking() {
   window.scroll(0, 0);
   const user = useContext(AuthContext);
   const tour = useSelector(selectTour);
-  const schedule = useSelector(selectListSchedule);
 
   const [idTourBooking, setTourBooking] = useState(
     localStorage.getItem("idTour")
@@ -39,14 +38,9 @@ export default function Booking() {
 
   let idSchedule = String(location.pathname.split("/")[3]);
 
-  // const scheduleOfTourCurrent = scheduleTour.find(
-  //   (schedule) => schedule.idSchedule.trim() === idSchedule
-  // );
-
   const TourCurrent = listTour.filter(
     (tour) => tour.IdActivity.trim() === scheduleTour.idActivity
   )[0];
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(bookingActions.fetchTour(JSON.parse(idTourBooking)));
@@ -90,11 +84,11 @@ export default function Booking() {
 
     await bookingApi.post({ customerDetail, booking });
 
-    navigate("/booking/payment");
+    navigate(`/booking/payment/${booking.idBooking}`);
   };
-  const handleOnclickSubmitPayment = () => {
-    navigate("/booking/payment");
-  };
+  // const handleOnclickSubmitPayment = () => {
+  //   navigate("/booking/payment");
+  // };
   return (
     <Box>
       <Navbar />
@@ -109,7 +103,7 @@ export default function Booking() {
         </Box>
         <Box className={classes.main}>
           <BookingForm
-            handleOnclickSubmitPayment={handleOnclickSubmitPayment}
+            // handleOnclickSubmitPayment={handleOnclickSubmitPayment}
             onSubmit={handleBookingFormSubmit}
             fullWidth={fullWidth}
             tour={TourCurrent}

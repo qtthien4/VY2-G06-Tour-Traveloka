@@ -52,7 +52,7 @@ export default function BookingForm({
   onSubmit,
   fullWidth,
   tour,
-  handleOnclickSubmitPayment,
+
 }) {
   const classes = useStyles();
   const {

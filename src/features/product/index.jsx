@@ -36,29 +36,9 @@ function Product() {
     dispatch(imageActions.fetchApiImage(idTour));
   }, [dispatch, idTour]);
 
-  //handle open model image
-  const searchOverlay = useRef();
-  const handleClickImageActivity = () => {
-    console.log("image ok");
-  };
-  // const handleOpenModel = () => {
-  //   // recentSearchesRef.current.style.display = "block";
-  //   searchOverlay.current.style.display = "block";
-  //   searchOverlay.current.style.backgroundColor = "rgba(3, 18, 26, 0.8)";
-  //   document.querySelector("body").style.overflow = "hidden";
-  // };
-
-  // const handleCloseModel = () => {
-  //   // recentSearchesRef.current.style.display = "none";
-  //   searchOverlay.current.style.display = "none";
-  //   // recentSearchesRef1.current.style.display = "none";
-  //   document.querySelector("body").style.overflowY = "scroll";
-  // };
-
   //handle model image
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
-    console.log("ok");
     return setOpen(true);
   };
   const handleClose = () => setOpen(false);

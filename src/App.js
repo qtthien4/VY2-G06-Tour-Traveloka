@@ -22,7 +22,6 @@ const config = {
 firebase.initializeApp(config);
 
 export default function App({ user }) {
-  console.log(user);
   return (
     <div className="min-h-screen bg-white">
       <Routes>
@@ -41,7 +40,9 @@ export default function App({ user }) {
         <Route path="/booking" element={<Booking />}>
           <Route path="v2/:id" element={<Booking />} />
         </Route>
-        <Route path="/booking/payment" element={<Payment />} />
+        <Route path="/booking/payment" element={<Payment />}>
+          <Route path=":id" element={<Payment />} />
+        </Route>
       </Routes>
     </div>
   );

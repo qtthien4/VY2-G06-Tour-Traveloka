@@ -9,8 +9,12 @@ import {
 import { ToggleButton } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/styles";
 import InputField from "components/FormFields/InputField";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import {
+  scheduleActions,
+  selectListSchedule,
+} from "features/schedule/ScheduleSlice";
+import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { productActions } from "../productSlice";
 import SelectSchedule from "./SelectSchedule";
@@ -47,28 +51,28 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const schedule1 = useSelector(selectListSchedule);
   const [selectedValue, setSelectedValue] = useState("");
   const [numberCus, setNumberCus] = useState(0);
 
   const filterScheduleTour = schedule.find(
     (schedule) => schedule.IdSchedule === selectedValue
   );
-  console.log("schedule", filterScheduleTour);
 
-  const initialValue = {
-    idSchedule: selectedValue,
-    idActivity: idTour,
-    // starttime: filterScheduleTour.StartTime || "",
-    // endTime: filterScheduleTour.EndTime || "",
-    Amount: Number(numberCus),
-    Stt: "",
-    Desr: "",
-  };
   const handleSubmit = () => {
+    const initialValue = {
+      idSchedule: selectedValue,
+      idActivity: idTour,
+      starttime: filterScheduleTour.StartTime || "",
+      endTime: filterScheduleTour.EndTime || "",
+      Amount: Number(numberCus),
+      Stt: "",
+      Desr: "",
+    };
     dispatch(productActions.setSchedule(initialValue));
+    localStorage.setItem("schedule", JSON.stringify(initialValue));
     navigate(`/booking/v2/${String(selectedValue).trim()}`);
   };
-  localStorage.setItem("schedule", JSON.stringify(initialValue));
 
   // handle onChange event of the dropdown
   const handleChange = (e) => {

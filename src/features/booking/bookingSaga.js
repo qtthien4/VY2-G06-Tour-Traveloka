@@ -7,7 +7,6 @@ function* fetchDataProduct(idTour) {
   const product = responsive.filter((product) => {
     return String(product.IdActivity).trim() === String(idTour.payload);
   });
-  console.log("product", product);
   yield put(bookingActions.setProduct(product[0]));
 }
 
