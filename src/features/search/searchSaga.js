@@ -7,7 +7,7 @@ import { searchActions } from "./searchSlice";
 function* fetchTourList(id) {
   try {
     const responsive = yield call(tourApi.getAll);
-    console.log("saga", responsive);
+
     const listTour = responsive.filter((listArrTour) => {
       return String(listArrTour.IdCity).trim() === String(id.payload).trim();
     });

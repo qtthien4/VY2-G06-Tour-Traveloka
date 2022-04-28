@@ -8,12 +8,23 @@ import {
   selectListCountry,
 } from "features/Country/countrySlice";
 import { favauriteActions } from "features/Favaurite/favauriteSlice";
-import React, { useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import shortid from "shortid";
+import { SortTour } from "utils/sort";
 import SearchActivities from "../../components/SearchActivities";
-import { searchActions, SelectListTourOfCity } from "../search/searchSlice";
+import {
+  searchActions,
+  SelectListTourOfCity,
+  SelectFilterPrice,
+} from "../search/searchSlice";
 import ListFilter from "./components/ListFilter";
 import ListFilterControl from "./components/ListFilterControl";
 import { SelectPriceAndCommon } from "./components/SelectPriceAndCommon";
@@ -36,6 +47,8 @@ export default function Search() {
   const navigate = useNavigate();
   const classes = useStyles();
   const listCityofTour = useSelector(SelectListTourOfCity);
+  const SelectPriceSort = useSelector(SelectFilterPrice);
+
   const listCity = useSelector(selectListCity);
   const listCountry = useSelector(selectListCountry);
   const listFavaurite = JSON.parse(localStorage.getItem("favaurite"));
@@ -82,14 +95,13 @@ export default function Search() {
     let idFilter = e.target.value;
     dispatch(searchActions.setFiterHeader(idFilter));
   };
-
-  //handle favaurite
-  const tours = [];
-  // const [tours, setTour] = useState([]);
-
   const [show, setShow] = useState(true);
-  console.log(listFavaurite.length, listTour);
+  const tours = [];
+  const activity = useRef();
+  const [toursFinal, setToursFinal] = useState(tours);
   useMemo(() => {
+    //handle favaurite
+
     for (let i = 0; i < listTour.length; i++) {
       const tour = { ...listTour[i], isFavaurite: false };
       for (let j = 0; j < listFavaurite.length; j++) {
@@ -99,56 +111,44 @@ export default function Search() {
       }
       tours.push(tour);
     }
-  }, [listFavaurite]);
+    activity.current = SortTour(tours, SelectPriceSort);
 
-  // handle
-  console.log("tours", tours);
-  // const [tourMain, setTourMain] = useState(tours);
-  // console.log("tourMain", tourMain);
-  //handle post favaurite
+    setToursFinal(activity.current);
+  }, [SelectPriceSort]);
 
-  // useEffect(() => {
-  //   if (listFavaurite.idFavaurite) setShow(true);
-  //   setShow(false);
-  // }, [listFavaurite.idFavaurite]);
-
-  //post api favaurite
-  // const handleClickFavaurite = async (id) => {
-  //   console.log(id);
-  //   const favaurite = {
-  //     idFavaurite: shortid.generate(),
-  //     idCustomer: "1997",
-  //     IdActivity: id,
-  //   };
-  //   await favauriteApi.post(favaurite);
-  // };
+  const [id, setId] = useState();
+  const [index1, setIndex] = useState();
 
   //handle delete favourite
-  const handleIsFavaurite = async (idActivity) => {
-    console.log("isFavaurite", idActivity);
-    await favauriteApi.delete(idActivity);
-  };
+  const handleIsFavaurite = useCallback(
+    async (idActivity, index) => {
+      activity.current[index].isFavaurite = false;
+      setId(idActivity);
+      setIndex(index);
+      const arr = activity.current;
+      setToursFinal(arr);
+
+      await favauriteApi.delete(idActivity);
+    },
+    [toursFinal, id, activity.current[index1]]
+  );
 
   //handle post favourite
-  const [tourFinal, setTourFinal] = useState(tours);
-  const handleNoFavaurite = async (idActivity, flag) => {
-    console.log("flag", flag, idActivity);
-    const arr = tourFinal.find((arr) => arr.IdActivity === idActivity);
-    const arr1 = tourFinal.filter((arr) => arr.IdActivity !== idActivity);
-
-    const arr2 = { ...arr, isFavaurite: true };
-
-    arr1.push(arr2);
-    setTourFinal(arr1);
-    console.log("NoFavaurite", idActivity, arr1);
-    const favaurite = {
-      idFavaurite: shortid.generate(),
-      idCustomer: "1997",
-      IdActivity: idActivity,
-    };
-    await favauriteApi.post(favaurite);
-  };
-
+  const handleNoFavaurite = useCallback(
+    async (idActivity, index) => {
+      activity.current[index].isFavaurite = true;
+      setId(idActivity);
+      const arr = activity.current;
+      setToursFinal(arr);
+      const favaurite = {
+        idFavaurite: shortid.generate(),
+        idCustomer: "1997",
+        IdActivity: idActivity,
+      };
+      await favauriteApi.post(favaurite);
+    },
+    [activity.current[index1], toursFinal, id]
+  );
   return (
     <>
       <Header />
@@ -194,8 +194,8 @@ export default function Search() {
               <TourOfCity
                 handleNoFavaurite={handleNoFavaurite}
                 handleIsFavaurite={handleIsFavaurite}
-                //tours={tourFinal}
-                tours={listCityofTour}
+                tours={toursFinal}
+                //tours={listCityofTour}
                 handleOnclickTourSearch={handleOnclickTourSearch}
               />
             </Box>

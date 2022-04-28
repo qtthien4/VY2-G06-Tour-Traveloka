@@ -48,12 +48,7 @@ const schema = yup
 //   createdOn: "2014-09-23T19:25:25Z",
 // });
 
-export default function BookingForm({
-  onSubmit,
-  fullWidth,
-  tour,
-
-}) {
+export default function BookingForm({ onSubmit, fullWidth, tour }) {
   const classes = useStyles();
   const {
     control,

@@ -8,6 +8,8 @@ import reportWebVitals from "./reportWebVitals";
 import store from "app/store";
 import GlobalStyles from "components/GlobalStyles";
 import AuthProvider from "./context/AuthProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -19,6 +21,18 @@ ReactDOM.render(
           </AuthProvider>
         </GlobalStyles>
       </Provider>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      {/* Same as */}
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

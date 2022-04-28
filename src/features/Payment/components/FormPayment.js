@@ -1,52 +1,120 @@
 import InputField from "components/FormFields/InputField";
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import bookingApi from "api/ApiReal/bookingApi";
+import paymentApi from "api/ApiReal/paymentApi";
+import { toast } from "react-toastify";
+import { removeListener } from "@reduxjs/toolkit";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
-export default function FormPayment() {
-  const location = useLocation();
-  const idBooking = location.pathname.split("/")[3];
+// const schema = yup.object({
+//   firstName: yup.string().required(),
+//   age: yup.number().positive().integer().required(),
+// }).required();
 
+export default function FormPayment({ idBooking, tourCurrent }) {
   const { control, handleSubmit } = useForm();
   const btnVoucher = useRef();
-  const [voucher, setVoucher] = useState("");
-  const [price, setPrice] = useState("");
+  const navigate = useNavigate();
+  //Handle chay nguoc\
+  const [countdown, setCountdown] = useState(180);
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      setCountdown((prev) => prev - 1);
+    }, 1000);
 
+    return () => clearInterval(timerId);
+  }, []);
   //setTImeOut 1p30s delete  booking theo activity
+  const timer = useRef(null);
+  const timerTrans = useRef(null);
 
-  //   useEffect(() => {
-  //     let timeout;
-  //     setTimeout(() => {
-  //       //post delete booking
-  //     }, 90000);
-  //   }, []);
+  useEffect(() => {
+    const dataTimeoutPayment = {
+      idBooking: idBooking,
+      sstBooking: false,
+    };
+
+    //post delete booking affter long time
+    timer.current = setTimeout(async () => {
+      await bookingApi.post({ dataTimeoutPayment });
+      console.log("settimeout");
+    }, 10000);
+
+    timerTrans.current = setTimeout(async () => {
+      navigate("/booking");
+      toast.warning("Bạn đã qúa thời gian cho phép thanh toán !");
+      console.log("settimeout");
+    }, 10000);
+
+    return () => clearTimeout(timerTrans.current);
+  }, []);
 
   //getAll Booking theo idBooking => idSchedule => idTour
 
   //get tour theo idbooking
 
-  //handle submit
-  // post len server thien vo sttbooking = true, discount: "", bookingTime, total moi nhat
+  const [voucher, setVoucher] = useState("");
 
   // post sttVoucher tour da su dung
-  const onSubmit = (data) => console.log("ok", data);
-
   const handleChangInputVoucher = (e) => {
     setVoucher(e.target.value);
   };
 
+  //handle voucher
+
+  const priceTotal = useRef(null);
+
   const handleOnclickVoucher = () => {
-    console.log(voucher);
     //post api test xem co du kien hay khong. neu nhu du thi server se tra ve amount
-
+    const voucherFake = {
+      Amount: 25000,
+    };
     //lay gia goc tru di voucher
-    setPrice("gia goc tru di voucher");
-    setVoucher("");
-  };
 
+    priceTotal.current = tourCurrent.Price - voucherFake.Amount;
+
+    setVoucher("");
+    toast.success("Bạn đã áp dụng voucher thành công !");
+  };
+  //handle submit
+  // post len server thien vo sttbooking = true, discount: "", bookingTime, total moi nhat
+
+  const onSubmit = async (data) => {
+    const today = new Date();
+    var date =
+      today.getDate() +
+      "-" +
+      (today.getMonth() + 1) +
+      "-" +
+      today.getFullYear();
+    const time =
+      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    const dataPayment = {
+      idBooking: idBooking,
+      bookingTime: `${time} ${date}`,
+      sttBooking: true,
+      total: priceTotal.current || tourCurrent.Price,
+    };
+    const {} = data;
+    console.log("ok", dataPayment);
+    await bookingApi.post({ dataPayment });
+
+    //
+    //toast messenger success
+    toast.success("Bạn đã thanh toán thành công !");
+
+    console.log(timer);
+    clearTimeout(timer.current);
+    clearTimeout(timerTrans.current);
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="pay">
+        <div>Hoàn tất thanh toán trong {countdown}</div>
+        <br />
         <div style={{ display: "flex", position: "relative" }}>
           <h4 className="title">Thẻ thanh toán</h4>
           <div style={{ position: "absolute", right: "24px" }}>

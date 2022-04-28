@@ -14,6 +14,7 @@ export default function TourOfCity({
 }) {
   const classes = useStyles();
 
+  // console.log("tours --- ok", tours);
   return (
     <div>
       {tours.map((a, index) => (
@@ -29,14 +30,14 @@ export default function TourOfCity({
             value="check"
             // onChange={() => handleClickFavaurite(a.IdActivity)}
           >
-            {a.isFavaurite === true ? (
+            {a.isFavaurite == true ? (
               <img
-                onClick={() => handleIsFavaurite(a.IdActivity)}
+                onClick={() => handleIsFavaurite(a.IdActivity, index)}
                 src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/0/0de1c7d93fd2bfa0d2a087067ea0ff25.svg"
               />
             ) : (
               <img
-                onClick={() => handleNoFavaurite(a.IdActivity, a.isFavaurite)}
+                onClick={() => handleNoFavaurite(a.IdActivity, index)}
                 src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/4/42e4a7e6ed00f63a69daf8b5a980d0d6.svg"
               />
             )}
