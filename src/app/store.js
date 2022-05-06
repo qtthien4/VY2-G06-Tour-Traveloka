@@ -14,6 +14,8 @@ import imageReducer from "features/Images/imageSlice";
 import scheduleReducer from "features/schedule/ScheduleSlice";
 import favauriteReducer from "features/Favaurite/favauriteSlice";
 import keysearchReducer from "features/Keysearch/keysearchSlice";
+import xprerienceReducer from "features/Xprerience/xprerienceSlice";
+
 
 const { configureStore } = require("@reduxjs/toolkit");
 
@@ -31,6 +33,7 @@ const rootReducer = combineReducers({
   schedule: scheduleReducer,
   favaurite: favauriteReducer,
   keysearch: keysearchReducer,
+  xprerience: xprerienceReducer,
 });
 const sagaMiddleware = createSagaMiddleware();
 const store = configureStore({

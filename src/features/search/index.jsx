@@ -96,11 +96,15 @@ export default function Search() {
     dispatch(searchActions.setFiterHeader(idFilter));
   };
   const [show, setShow] = useState(true);
-  const tours = [];
+
   const activity = useRef();
-  const [toursFinal, setToursFinal] = useState(tours);
+
+  const [toursFinal, setToursFinal] = useState(listTour);
   useMemo(() => {
+    const tours = [];
     //handle favaurite
+
+    // const [tours, setTour] = useState([]);
 
     for (let i = 0; i < listTour.length; i++) {
       const tour = { ...listTour[i], isFavaurite: false };
@@ -116,6 +120,8 @@ export default function Search() {
     setToursFinal(activity.current);
   }, [SelectPriceSort]);
 
+  console.log("tours", activity.current);
+
   const [id, setId] = useState();
   const [index1, setIndex] = useState();
 
@@ -126,6 +132,7 @@ export default function Search() {
       setId(idActivity);
       setIndex(index);
       const arr = activity.current;
+      console.log("ok", index, idActivity, arr);
       setToursFinal(arr);
 
       await favauriteApi.delete(idActivity);
@@ -139,7 +146,9 @@ export default function Search() {
       activity.current[index].isFavaurite = true;
       setId(idActivity);
       const arr = activity.current;
+      console.log("ok em", index, idActivity, arr);
       setToursFinal(arr);
+
       const favaurite = {
         idFavaurite: shortid.generate(),
         idCustomer: "1997",
@@ -149,6 +158,9 @@ export default function Search() {
     },
     [activity.current[index1], toursFinal, id]
   );
+
+  console.log("toursFinal", toursFinal);
+
   return (
     <>
       <Header />
@@ -194,8 +206,8 @@ export default function Search() {
               <TourOfCity
                 handleNoFavaurite={handleNoFavaurite}
                 handleIsFavaurite={handleIsFavaurite}
-                tours={toursFinal}
-                //tours={listCityofTour}
+                //tours={toursFinal}
+                tours={listCityofTour}
                 handleOnclickTourSearch={handleOnclickTourSearch}
               />
             </Box>

@@ -27,6 +27,20 @@ export default function App({ user }) {
       <Routes>
         <Route path="/activities" element={<Xperience />}></Route>
         <Route path="/activities/category/daytour" element={<Tours />}></Route>
+        <Route
+          path="/activities/category/transport"
+          element={<Tours />}
+        ></Route>
+        <Route
+          path="/activities/category/playground"
+          element={<Tours />}
+        ></Route>
+        <Route
+          path="/activities/category/attraction"
+          element={<Tours />}
+        ></Route>
+        <Route path="/activities/category/sport" element={<Tours />}></Route>
+
         <Route path="/activities/search/daytour" element={<Search />}>
           {/* <Route path=":id" element={<Search />}></Route> */}
         </Route>

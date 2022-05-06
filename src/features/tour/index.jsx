@@ -5,16 +5,13 @@ import {
   ArrowRightOutlined,
   PlaceOutlined,
 } from "@material-ui/icons";
+import { FAKE_API_TYPE_EXPERENCE } from "api/Data/fakeTypeApi";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import Slide from "components/Slide";
-import {
-  searchActions,
-  SelectListTourOfCity,
-} from "features/search/searchSlice";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "swiper/css/bundle";
 import SearchActivities from "../../components/SearchActivities";
 import ListTour from "./components/ListTour";
@@ -25,6 +22,7 @@ import {
   selectListMalaysiaTour,
   selectListSingaporeTour,
   selectListThailandTour,
+  selectListType,
   tourActions,
 } from "./tourSlice";
 import { useStyles } from "./useStylesTour";
@@ -41,10 +39,43 @@ export default function Tours() {
   const ListSingaporeTour = useSelector(selectListSingaporeTour);
   const ListThailandTour = useSelector(selectListThailandTour);
 
-  const listCityofTour = useSelector(SelectListTourOfCity);
+  const listType = useSelector(selectListType);
+
+  //const [listType, setListType] = useState(() => FAKE_API_TYPE_EXPERENCE);
+  // useEffect(async () => {
+  //   const listType = await fakeTypeApi.getAll();
+  //   setListType(listType);
+  // }, []);
+  const location = useLocation();
+  const nameType = location.pathname.split("/")[3];
+  const list = useRef();
+  const [state, setState] = useState(() => {
+    if (listType.length === undefined) {
+      list.current = FAKE_API_TYPE_EXPERENCE.filter(
+        (arr) => arr.link === nameType
+      );
+    } else {
+      list.current = listType;
+    }
+    return list.current;
+  });
+
+  // useMemo(() => {
+  //   if (listType.length === undefined) {
+  //     list.current = FAKE_API_TYPE_EXPERENCE.filter(
+  //       (arr) => arr.link === nameType
+  //     );
+  //   } else {
+  //     list.current = listType;
+  //   }
+  // }, [nameType, dispatch]);
+
+  console.log("list 123", state[0]);
+
   useEffect(() => {
-    dispatch(tourActions.fetchApiTour());
-  }, [dispatch]);
+    dispatch(tourActions.fetchApiTour(String(nameType)));
+    //dispatch(xprerienceActions.fetchApiXprerience(nameType));
+  }, [dispatch, nameType]);
 
   const handleOnclickListTourVN = (idCity, idCountry) => {
     navigation(
@@ -90,16 +121,18 @@ export default function Tours() {
           <Grid className={classes.root}>
             <div className={classes.backgoundark}>
               <NavLink to="/activities">Xperience</NavLink>/
-              <NavLink to="/activities/category/daytour">tour</NavLink>
+              <NavLink to="/activities/category/daytour">
+                {state[0].nameType}
+              </NavLink>
               <Typography variant="h3" className={classes.titleTour}>
-                Tour
+                {state[0].nameType}
               </Typography>
               <Box className="header">
                 <img
                   id="hidden"
                   ref={imgBanner}
                   className={`${classes.heading_img}`}
-                  src="https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430518767-1fc642d45c0ab4008c1eba72a17a2780.jpeg?tr=h-242,q-75"
+                  src={listType.imageType}
                 ></img>
 
                 <Box className={classes.boxSearchandRecentSearch}>
@@ -165,35 +198,54 @@ export default function Tours() {
                 </Box>
               </Box>
               <Box className={classes.content} id="hidden">
-                <Box className={classes.contentCity}>
-                  <Typography className={classes.title}>
-                    Các điểm đến nổi bật của địa phương
-                  </Typography>
-                  <Typography className={classes.titleDescription}>
-                    Những nơi đáng tham quan và khám phá trong nước
-                  </Typography>
-                  <Box mt={4} className={classes.listTourCity}>
-                    <Slide
-                      listCityofCountry={listCityTourVietName}
-                      slideNumber={slideNumber}
-                      handleOnclickListTour={handleOnclickListTourVN}
-                    />
+                {nameType === "transport" ? (
+                  <Box mt={-12}></Box>
+                ) : (
+                  <Box className={classes.contentCity}>
+                    <Typography className={classes.title}>
+                      {listType.length === undefined
+                        ? list.current[0].listCityType.title
+                        : listType.listCityType.title}
+                    </Typography>
+                    <Typography className={classes.titleDescription}>
+                      {listType.length === undefined
+                        ? list.current[0].listCityType.des
+                        : listType.listCityType.des}
+                    </Typography>
+                    <Box mt={4} className={classes.listTourCity}>
+                      <Slide
+                        listCityofCountry={state[0].listCityType.listCity}
+                        slideNumber={slideNumber}
+                        handleOnclickListTour={handleOnclickListTourVN}
+                      />
+                    </Box>
                   </Box>
-                </Box>
+                )}
 
                 <Box className={classes.contentCity}>
                   <Typography
                     className={classes.title}
                     style={{ marginTop: "100px" }}
                   >
-                    Các điểm đến nổi bật của địa phương
+                    {nameType === "daytour" && state[0].listCountryType.title}
                   </Typography>
                   <Typography className={classes.titleDescription}>
-                    Những nơi đáng tham quan và khám phá trong nước
+                    {/* {listType.length === undefined
+                      ? list.current[0].listCountryType.des
+                      : listType.listCountryType.des} */}
+                    {nameType === "daytour" && state[0].listCountryType.des}
                   </Typography>
                   <Box mt={4} className={classes.listTourCity}>
                     <Slide
-                      listCityofCountry={ListCountry}
+                      listCityofCountry={
+                        // listType.length === undefined
+                        //   ? list.current[0].listCountryType.listCountry
+                        //   : listType.listCountryType.listCountry
+                        (nameType === "daytour" &&
+                          state[0].listCountryType.listCountry) ||
+                        (nameType === "transport" &&
+                          state[0].listCountryType.listCountry)
+                      }
                       slideNumber={slideNumber}
                       handleOnclickListTour={handleOnclickListCountry}
                     />
@@ -206,18 +258,27 @@ export default function Tours() {
                     className={classes.title}
                     style={{ marginTop: "100px" }}
                   >
-                    Singapore đầy nắng
+                    {(nameType === "daytour" &&
+                      state[0].listSingaporeType.title) ||
+                      (nameType === "transport" &&
+                        state[0].listSaigonType.title)}
                   </Typography>
                   <Typography
                     className={classes.titleDescription}
                     style={{ marginBottom: "-10px" }}
                   >
-                    Khám phá các tour du lịch phổ biến nhất mà Thành phố Sư tử
-                    cung cấp
+                    {(nameType === "daytour" &&
+                      state[0].listSingaporeType.des) ||
+                      (nameType === "transport" && state[0].listSaigonType.des)}
                   </Typography>
                   <Box mt={4} className={classes.listTourCity}>
                     <ListTour
-                      listTour={ListSingaporeTour}
+                      listTour={
+                        (nameType === "daytour" &&
+                          state[0].listSingaporeType.listSingapore) ||
+                        (nameType === "transport" &&
+                          state[0].listSaigonType.listSaigon)
+                      }
                       slideNumber={slideNumberCountry}
                       handleOnclickTourForeign={handleOnclickTourForeign}
                     />
@@ -239,18 +300,28 @@ export default function Tours() {
                     className={classes.title}
                     style={{ marginTop: "-10px" }}
                   >
-                    Singapore đầy nắng
+                    {(nameType === "daytour" &&
+                      state[0].listThailandType.title) ||
+                      (nameType === "transport" &&
+                        state[0].listNhaTrangType.title)}
                   </Typography>
                   <Typography
                     className={classes.titleDescription}
                     style={{ marginBottom: "-10px" }}
                   >
-                    Khám phá các tour du lịch phổ biến nhất mà Thành phố Sư tử
-                    cung cấp
+                    {(nameType === "daytour" &&
+                      state[0].listThailandType.des) ||
+                      (nameType === "transport" &&
+                        state[0].listNhaTrangType.des)}
                   </Typography>
                   <Box mt={4} className={classes.listTourCity}>
                     <ListTour
-                      listTour={ListThailandTour}
+                      listTour={
+                        (nameType === "daytour" &&
+                          state[0].listThailandType.listThailand) ||
+                        (nameType === "transport" &&
+                          state[0].listNhaTrangType.listNhaTrang)
+                      }
                       slideNumber={slideNumberCountry}
                       handleOnclickTourForeign={handleOnclickTourForeign}
                     />
@@ -268,18 +339,27 @@ export default function Tours() {
                     className={classes.title}
                     style={{ marginTop: "-10px" }}
                   >
-                    Singapore đầy nắng
+                    {(nameType === "daytour" &&
+                      state[0].listMalaysiaType.title) ||
+                      (nameType === "transport" &&
+                        state[0].listHaNoiType.title)}
                   </Typography>
                   <Typography
                     className={classes.titleDescription}
                     style={{ marginBottom: "-10px" }}
                   >
-                    Khám phá các tour du lịch phổ biến nhất mà Thành phố Sư tử
-                    cung cấp
+                    {(nameType === "daytour" &&
+                      state[0].listMalaysiaType.des) ||
+                      (nameType === "transport" && state[0].listHaNoiType.des)}
                   </Typography>
                   <Box mt={4} className={classes.listTourCity}>
                     <ListTour
-                      listTour={ListMalaysiaTour}
+                      listTour={
+                        (nameType === "daytour" &&
+                          state[0].listMalaysiaType.listMalaysia) ||
+                        (nameType === "transport" &&
+                          state[0].listHaNoiType.listHaNoi)
+                      }
                       slideNumber={slideNumberCountry}
                       handleOnclickTourForeign={handleOnclickTourForeign}
                     />

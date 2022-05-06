@@ -2,24 +2,44 @@ export const listTour = [
   {
     src: [
       {
+        id: "daytour",
         link: "/activities/category/daytour",
         img: "https://ik.imagekit.io/tvlk/image/imageResource/2022/01/10/1641801701552-766586d356118dfde22b0232c896f8cc.png?tr=q-75,w-183",
+        banner:
+          "https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430518767-1fc642d45c0ab4008c1eba72a17a2780.jpeg?tr=h-242,q-75",
+        name: "Tour",
       },
       {
-        link: "/activities/category/daytour",
-        img: "https://ik.imagekit.io/tvlk/image/imageResource/2022/01/10/1641801591751-1be71252c00b5739c7d13529cbf0704d.png?tr=q-75,w-183",
-      },
-      {
-        link: "/activities/category/daytour",
+        id: "transport",
+        link: "/activities/category/transport",
         img: "https://ik.imagekit.io/tvlk/image/imageResource/2022/01/10/1641801641399-5ce3a1f8fe7066bfde543ef02f666175.png?tr=q-75,w-183",
+        banner:
+          "https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430546985-538b2a877fcad8de4de2627222d53e4b.jpeg?tr=h-242,q-75",
+        name: "Di chuyển",
       },
       {
-        link: "/activities/category/daytour",
-        img: "https://ik.imagekit.io/tvlk/image/imageResource/2022/01/10/1641801676145-3d3b0b7529cb4954cbbffae5cda209ce.png?tr=q-75,w-183",
-      },
-      {
-        link: "/activities/category/daytour",
+        id: "playground",
+        link: "/activities/category/playground",
         img: "https://ik.imagekit.io/tvlk/image/imageResource/2022/01/10/1641801786286-ab248fcdf0eccad028c0606e8b88ebba.png?tr=q-75,w-183",
+        banner:
+          "https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430537793-acdf19fb7be73d38f5d8f45ae77afdd9.jpeg?tr=h-242,q-75",
+        name: "Sân chơi",
+      },
+      {
+        id: "sport",
+        link: "/activities/category/sport",
+        img: "https://ik.imagekit.io/tvlk/image/imageResource/2022/01/10/1641801676145-3d3b0b7529cb4954cbbffae5cda209ce.png?tr=q-75,w-183",
+        banner:
+          "https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430543164-435ea736b9a1b6ccaf1b2bd981b262b3.jpeg?tr=h-242,q-75",
+        name: "Thể thao",
+      },
+      {
+        id: "attraction",
+        link: "/activities/category/attraction",
+        img: "https://ik.imagekit.io/tvlk/image/imageResource/2022/01/10/1641801591751-1be71252c00b5739c7d13529cbf0704d.png?tr=q-75,w-183",
+        banner:
+          "https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430499610-aa4623efaf6820283035058871a91f55.jpeg?tr=h-242,q-75",
+        name: "Điểm tham quan",
       },
     ],
     width: "90%",

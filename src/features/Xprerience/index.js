@@ -1,5 +1,5 @@
-import  React, {useRef} from "react";
-import { Link } from "react-router-dom";
+import React, { useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import Banner from "./Banner";
 import Navbar from "./NavBar";
@@ -8,6 +8,17 @@ import { listTour, listPromotion, listPlace } from "./Containers/ListHome.js";
 import Footer from "components/Footer";
 
 export default function Xperience() {
+  //handleOnclickXperience
+  const navigate = useNavigate();
+  
+  const handleOnclickXperience = (nameType) => {
+    // console.log("id experience", nameType);
+
+    navigate(`/activities/category/${nameType}`);
+  };
+  //display id tour theo idType
+
+  //
   return (
     // <div>
     //   <Link to="/activities/category/daytour">daytour</Link> <br />
@@ -23,7 +34,7 @@ export default function Xperience() {
         <h3>Khám phá các danh mục Xperience</h3>
         <p>Xem thật kỹ các hoạt động và trải nghiệm độc đáo nhé</p>
       </div>
-      <Slide list={listTour} />
+      <Slide handleOnclickXperience={handleOnclickXperience} list={listTour} />
 
       <div style={{ marginLeft: "100px", marginTop: "50px" }}>
         <h3>Khuyến mãi Xperience hiện hành</h3>
@@ -36,10 +47,9 @@ export default function Xperience() {
       </div>
       <Slide list={listPlace} />
 
-      <div style={{marginTop : '100px'}}>
-      <Footer />
+      <div style={{ marginTop: "100px" }}>
+        <Footer />
       </div>
-      
     </div>
   );
 }

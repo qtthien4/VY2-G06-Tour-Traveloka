@@ -85,7 +85,9 @@ function ListTour({ listTour, slideNumber, handleOnclickTourForeign }) {
       >
         {listTour.map((list, index) => (
           <SwiperSlide
-            onClick={() => handleOnclickTourForeign(list.experienceId)}
+            onClick={() =>
+              handleOnclickTourForeign(list.experienceId || list.IdActivity)
+            }
             key={index}
             style={{
               background: "none",
@@ -101,16 +103,16 @@ function ListTour({ listTour, slideNumber, handleOnclickTourForeign }) {
                 <img
                   style={{ width: "100%" }}
                   className={classes.img}
-                  src={list.imageUrl}
+                  src={list.imageUrl || list.ImageUrl}
                 />
               </Box>
             </Box>
             <Box className={classes.img} mt={1} alignItems="flex-start">
               <Typography variant="h6" className={classes.nameTour}>
-                {list.experienceName}
+                {list.experienceName || list.ActivityName}
               </Typography>
               <Typography color="secondary" className={classes.price}>
-                {list.discountedPrice} VND
+                {list.discountedPrice || list.Price} VND
               </Typography>
             </Box>
           </SwiperSlide>

@@ -106,7 +106,6 @@ export default function FormPayment({ idBooking, tourCurrent }) {
     //toast messenger success
     toast.success("Bạn đã thanh toán thành công !");
 
-    console.log(timer);
     clearTimeout(timer.current);
     clearTimeout(timerTrans.current);
   };

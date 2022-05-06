@@ -9,6 +9,7 @@ import productSaga from "features/product/productSaga";
 import scheduleSaga from "features/schedule/scheduleSaga";
 import searchSaga from "features/search/searchSaga";
 import tourSaga from "features/tour/tourSaga";
+import xprerienceSaga from "features/Xprerience/xprerienceSaga";
 import { all } from "redux-saga/effects";
 
 export default function* rootSaga() {
@@ -25,5 +26,6 @@ export default function* rootSaga() {
     scheduleSaga(),
     favauriteSaga(),
     keysearchSaga(),
+    xprerienceSaga(),
   ]);
 }

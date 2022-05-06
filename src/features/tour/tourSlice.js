@@ -8,6 +8,7 @@ const initialState = {
   listTourSingapore: [],
   listTourThailand: [],
   listTourMalaysia: [],
+  listType: {},
 };
 const tourSlice = createSlice({
   name: "tour",
@@ -41,6 +42,9 @@ const tourSlice = createSlice({
     setTourSingaporeList: (state, action) => {
       state.listTourSingapore = action.payload;
     },
+    setListType: (state, action) => {
+      state.listType = action.payload;
+    },
   },
 });
 
@@ -54,6 +58,13 @@ export const selectListSingaporeTour = (state) => state.tour.listTourSingapore;
 export const selectListThailandTour = (state) => state.tour.listTourThailand;
 export const selectListMalaysiaTour = (state) => state.tour.listTourMalaysia;
 export const selectListCountryTour = (state) => state.tour.listCountry;
+
+export const selectListType = (state) => {
+  const newListType = { ...state.tour.listType };
+  // newListType.listCityType.listSingapore = state.tour.listTourSingapore;
+  // console.log("ok", newListType);
+  return newListType;
+};
 
 const tourReducer = tourSlice.reducer;
 export default tourReducer;

@@ -30,15 +30,6 @@ function Banner() {
             }}
           >
             <SearchActivities style={style} />
-            {/* <div style={{flexGrow: 1, padding: '8px', position: 'relative', display: 'flex'}}>
-                <div style={{display: 'flex', flexGrow: 1, 'align-items': 'center', }}>
-                  <img src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/9/9ce2df7066af89022702b2b17058582c.svg" style={{'padding-right': '8px',width: 24, height: 24}} alt="" />
-                  <input onClick={handleOpen} type="text" placeholder="Tìm hoạt động hoặc điểm đến" autoCorrect="off"  style={{fontSize: 16, width: '100%'}} />                                   
-                </div>
-                <div>
-                  <button type="button" className="btn btn-primary" style={{marginLeft: '20px', padding: '7px 15px', fontSize: '16px', fontWeight: 500}}>SEARCH</button>
-                </div>
-              </div> */}
           </div>
         </div>
         <div>
