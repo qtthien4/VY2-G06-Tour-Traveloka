@@ -9,9 +9,9 @@ const sql = require('mssql/msnodesqlv8')
 //   }
 // }
 const sqlConfig = {  
-  user: sa,
-  password: Qq123456789,
-  database: traveloka,
+  user: "sa",
+  password: "Qq123456789",
+  database: "traveloka",
   server: 'http://95.111.202.253/',
   pool: {
     max: 10,
