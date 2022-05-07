@@ -3,7 +3,7 @@ const sql = require('mssql/msnodesqlv8')
 //   database: "traveloka",
 //   server: 'LAPTOP-O552NIIB\\SQLEXPRESS',
 //   driver: 'msnodesqlv8',
-//   post: 12345,
+//   port: 12345,
 //   options: {
 //     trustedConnection: true,
 //   }
@@ -13,7 +13,7 @@ const sqlConfig = {
   password: "Qq123456789",
   database: "traveloka",
   server: 'http://95.111.203.185/',
-  post: 1433,
+  port: 1433,
   pool: {
     max: 10,
     min: 0,
