@@ -13,6 +13,7 @@ const sqlConfig = {
   password: "Qq123456789",
   database: "traveloka",
   server: 'http://95.111.203.185/',
+  post: 1433,
   pool: {
     max: 10,
     min: 0,
