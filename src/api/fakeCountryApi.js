@@ -5,7 +5,7 @@ const fakeCountryApi = {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(FAKE_DATA_COUNTRY);
-      }, 300);
+      }, 0);
     });
   },
 };

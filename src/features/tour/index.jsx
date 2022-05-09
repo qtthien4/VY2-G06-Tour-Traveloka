@@ -28,24 +28,34 @@ import {
 import { useStyles } from "./useStylesTour";
 
 export default function Tours() {
-  const slideNumber = 5;
-  const slideNumberCountry = 4;
-  const classes = useStyles();
-  const dispatch = useDispatch();
-  const navigation = useNavigate();
+  const style = {
+    marginTop: "10px",
+    position: "absolute",
+    top: "100%",
+    left: "0%",
+    width: "100%",
+    bgcolor: "background.paper",
+    boxShadow: "0px 8px 18px rgb(3 18 26 / 13%)",
+    zIndex: 10,
+    borderRadius: "5px",
+  };
   const listCityTourVietName = useSelector(selectListCityTour);
   const ListCountry = useSelector(selectListCountryTour);
   const ListMalaysiaTour = useSelector(selectListMalaysiaTour);
   const ListSingaporeTour = useSelector(selectListSingaporeTour);
   const ListThailandTour = useSelector(selectListThailandTour);
 
-  const listType = useSelector(selectListType);
+  const imgBanner = useRef();
+  const layoutRef = useRef(null);
+  const scroll = 256;
 
-  //const [listType, setListType] = useState(() => FAKE_API_TYPE_EXPERENCE);
-  // useEffect(async () => {
-  //   const listType = await fakeTypeApi.getAll();
-  //   setListType(listType);
-  // }, []);
+  const slideNumber = 5;
+  const slideNumberCountry = 4;
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const navigation = useNavigate();
+
+  const listType = useSelector(selectListType);
   const location = useLocation();
   const nameType = location.pathname.split("/")[3];
   const list = useRef();
@@ -60,18 +70,7 @@ export default function Tours() {
     return list.current;
   });
 
-  // useMemo(() => {
-  //   if (listType.length === undefined) {
-  //     list.current = FAKE_API_TYPE_EXPERENCE.filter(
-  //       (arr) => arr.link === nameType
-  //     );
-  //   } else {
-  //     list.current = listType;
-  //   }
-  // }, [nameType, dispatch]);
-
-  console.log("list 123", state[0]);
-
+  console.log(state);
   useEffect(() => {
     dispatch(tourActions.fetchApiTour(String(nameType)));
     //dispatch(xprerienceActions.fetchApiXprerience(nameType));
@@ -83,28 +82,14 @@ export default function Tours() {
     );
   };
   const handleOnclickListCountry = (idTourVN, idCountry) => {
-    navigation(`/activities/search/daytour?idCountry=${idCountry}`);
+    const idCountry1 = idCountry.trim();
+    console.log("idtype", nameType);
+    navigation(`/activities/search/daytour?idCountry=${idCountry1}`);
   };
 
   function handleOnclickTourForeign(idTour) {
     navigation(`/activities/vietnam/product/${idTour}`);
   }
-
-  const style = {
-    marginTop: "10px",
-    position: "absolute",
-    top: "100%",
-    left: "0%",
-    width: "100%",
-    bgcolor: "background.paper",
-    boxShadow: "0px 8px 18px rgb(3 18 26 / 13%)",
-    zIndex: 10,
-    borderRadius: "5px",
-  };
-
-  const imgBanner = useRef();
-  const layoutRef = useRef(null);
-  const scroll = 256;
 
   return (
     <div id="tour_root">
@@ -129,6 +114,7 @@ export default function Tours() {
               </Typography>
               <Box className="header">
                 <img
+                  alt="img1"
                   id="hidden"
                   ref={imgBanner}
                   className={`${classes.heading_img}`}
@@ -198,7 +184,10 @@ export default function Tours() {
                 </Box>
               </Box>
               <Box className={classes.content} id="hidden">
-                {nameType === "transport" ? (
+                {nameType === "transport" ||
+                nameType === "attraction" ||
+                nameType === "playground" ||
+                nameType === "sport" ? (
                   <Box mt={-12}></Box>
                 ) : (
                   <Box className={classes.contentCity}>
@@ -227,23 +216,37 @@ export default function Tours() {
                     className={classes.title}
                     style={{ marginTop: "100px" }}
                   >
-                    {nameType === "daytour" && state[0].listCountryType.title}
+                    {(nameType === "daytour" &&
+                      state[0].listCountryType.title) ||
+                      (nameType === "attraction" &&
+                        state[0].listCountryType.title) ||
+                      (nameType === "playground" &&
+                        state[0].listCountryType.title) ||
+                      (nameType === "sport" && state[0].listCountryType.title)}
                   </Typography>
                   <Typography className={classes.titleDescription}>
                     {/* {listType.length === undefined
                       ? list.current[0].listCountryType.des
                       : listType.listCountryType.des} */}
-                    {nameType === "daytour" && state[0].listCountryType.des}
+                    {(nameType === "daytour" && state[0].listCountryType.des) ||
+                      (nameType === "attraction" &&
+                        state[0].listCountryType.des) ||
+                      (nameType === "playground" &&
+                        state[0].listCountryType.des) ||
+                      (nameType === "sport" && state[0].listCountryType.des)}
                   </Typography>
                   <Box mt={4} className={classes.listTourCity}>
                     <Slide
                       listCityofCountry={
-                        // listType.length === undefined
-                        //   ? list.current[0].listCountryType.listCountry
-                        //   : listType.listCountryType.listCountry
                         (nameType === "daytour" &&
                           state[0].listCountryType.listCountry) ||
                         (nameType === "transport" &&
+                          state[0].listCountryType.listCountry) ||
+                        (nameType === "attraction" &&
+                          state[0].listCountryType.listCountry) ||
+                        (nameType === "playground" &&
+                          state[0].listCountryType.listCountry) ||
+                        (nameType === "sport" &&
                           state[0].listCountryType.listCountry)
                       }
                       slideNumber={slideNumber}
@@ -261,7 +264,12 @@ export default function Tours() {
                     {(nameType === "daytour" &&
                       state[0].listSingaporeType.title) ||
                       (nameType === "transport" &&
-                        state[0].listSaigonType.title)}
+                        state[0].listSaigonType.title) ||
+                      (nameType === "attraction" &&
+                        state[0].listSaigonType.title) ||
+                      (nameType === "playground" &&
+                        state[0].listSaigonType.title) ||
+                      (nameType === "sport" && state[0].listSaigonType.title)}
                   </Typography>
                   <Typography
                     className={classes.titleDescription}
@@ -269,7 +277,13 @@ export default function Tours() {
                   >
                     {(nameType === "daytour" &&
                       state[0].listSingaporeType.des) ||
-                      (nameType === "transport" && state[0].listSaigonType.des)}
+                      (nameType === "transport" &&
+                        state[0].listSaigonType.des) ||
+                      (nameType === "attraction" &&
+                        state[0].listSaigonType.des) ||
+                      (nameType === "playground" &&
+                        state[0].listSaigonType.des) ||
+                      (nameType === "sport" && state[0].listSaigonType.des)}
                   </Typography>
                   <Box mt={4} className={classes.listTourCity}>
                     <ListTour
@@ -277,6 +291,12 @@ export default function Tours() {
                         (nameType === "daytour" &&
                           state[0].listSingaporeType.listSingapore) ||
                         (nameType === "transport" &&
+                          state[0].listSaigonType.listSaigon) ||
+                        (nameType === "attraction" &&
+                          state[0].listSaigonType.listSaigon) ||
+                        (nameType === "playground" &&
+                          state[0].listSaigonType.listSaigon) ||
+                        (nameType === "sport" &&
                           state[0].listSaigonType.listSaigon)
                       }
                       slideNumber={slideNumberCountry}
@@ -303,7 +323,12 @@ export default function Tours() {
                     {(nameType === "daytour" &&
                       state[0].listThailandType.title) ||
                       (nameType === "transport" &&
-                        state[0].listNhaTrangType.title)}
+                        state[0].listNhaTrangType.title) ||
+                      (nameType === "attraction" &&
+                        state[0].listNhaTrangType.title) ||
+                      (nameType === "playground" &&
+                        state[0].listNhaTrangType.title) ||
+                      (nameType === "sport" && state[0].listNhaTrangType.title)}
                   </Typography>
                   <Typography
                     className={classes.titleDescription}
@@ -312,7 +337,12 @@ export default function Tours() {
                     {(nameType === "daytour" &&
                       state[0].listThailandType.des) ||
                       (nameType === "transport" &&
-                        state[0].listNhaTrangType.des)}
+                        state[0].listNhaTrangType.des) ||
+                      (nameType === "attraction" &&
+                        state[0].listNhaTrangType.des) ||
+                      (nameType === "playground" &&
+                        state[0].listNhaTrangType.des) ||
+                      (nameType === "sport" && state[0].listNhaTrangType.des)}
                   </Typography>
                   <Box mt={4} className={classes.listTourCity}>
                     <ListTour
@@ -320,6 +350,12 @@ export default function Tours() {
                         (nameType === "daytour" &&
                           state[0].listThailandType.listThailand) ||
                         (nameType === "transport" &&
+                          state[0].listNhaTrangType.listNhaTrang) ||
+                        (nameType === "attraction" &&
+                          state[0].listNhaTrangType.listNhaTrang) ||
+                        (nameType === "playground" &&
+                          state[0].listNhaTrangType.listNhaTrang) ||
+                        (nameType === "sport" &&
                           state[0].listNhaTrangType.listNhaTrang)
                       }
                       slideNumber={slideNumberCountry}
@@ -342,7 +378,12 @@ export default function Tours() {
                     {(nameType === "daytour" &&
                       state[0].listMalaysiaType.title) ||
                       (nameType === "transport" &&
-                        state[0].listHaNoiType.title)}
+                        state[0].listHaNoiType.title) ||
+                      (nameType === "attraction" &&
+                        state[0].listHaNoiType.title) ||
+                      (nameType === "playground" &&
+                        state[0].listHaNoiType.title) ||
+                      (nameType === "sport" && state[0].listHaNoiType.title)}
                   </Typography>
                   <Typography
                     className={classes.titleDescription}
@@ -350,7 +391,13 @@ export default function Tours() {
                   >
                     {(nameType === "daytour" &&
                       state[0].listMalaysiaType.des) ||
-                      (nameType === "transport" && state[0].listHaNoiType.des)}
+                      (nameType === "transport" &&
+                        state[0].listHaNoiType.des) ||
+                      (nameType === "attraction" &&
+                        state[0].listHaNoiType.des) ||
+                      (nameType === "playground" &&
+                        state[0].listHaNoiType.des) ||
+                      (nameType === "sport" && state[0].listHaNoiType.des)}
                   </Typography>
                   <Box mt={4} className={classes.listTourCity}>
                     <ListTour
@@ -358,6 +405,12 @@ export default function Tours() {
                         (nameType === "daytour" &&
                           state[0].listMalaysiaType.listMalaysia) ||
                         (nameType === "transport" &&
+                          state[0].listHaNoiType.listHaNoi) ||
+                        (nameType === "attraction" &&
+                          state[0].listHaNoiType.listHaNoi) ||
+                        (nameType === "playground" &&
+                          state[0].listHaNoiType.listHaNoi) ||
+                        (nameType === "sport" &&
                           state[0].listHaNoiType.listHaNoi)
                       }
                       slideNumber={slideNumberCountry}

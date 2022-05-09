@@ -4,7 +4,7 @@ const fakeTourHcmApi = {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(FAKE_CITY_TOUR_HCM);
-      }, 300);
+      }, 0);
     });
   },
 };

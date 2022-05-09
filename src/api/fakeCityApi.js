@@ -5,7 +5,7 @@ const fakeCityApi = {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(FAKE_DATA_CITY);
-      }, 300);
+      }, 0);
     });
   },
 };

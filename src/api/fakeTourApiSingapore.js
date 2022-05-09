@@ -5,7 +5,7 @@ const fakeTourApiSingapore = {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(FAKE_CITY_TOUR_SINGAPORE);
-      }, 300);
+      }, 0);
     });
   },
 };

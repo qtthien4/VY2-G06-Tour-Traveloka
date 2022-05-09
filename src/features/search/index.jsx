@@ -116,11 +116,8 @@ export default function Search() {
       tours.push(tour);
     }
     activity.current = SortTour(tours, SelectPriceSort);
-
     setToursFinal(activity.current);
   }, [SelectPriceSort]);
-
-  console.log("tours", activity.current);
 
   const [id, setId] = useState();
   const [index1, setIndex] = useState();
@@ -158,8 +155,6 @@ export default function Search() {
     },
     [activity.current[index1], toursFinal, id]
   );
-
-  console.log("toursFinal", toursFinal);
 
   return (
     <>

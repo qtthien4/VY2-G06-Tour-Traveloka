@@ -5,7 +5,7 @@ const fakeTourApiThailand = {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(FAKE_CITY_TOUR_THAILAND);
-      }, 300);
+      }, 0);
     });
   },
 };

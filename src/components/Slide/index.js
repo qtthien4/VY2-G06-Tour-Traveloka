@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Slide({ listCityofCountry, slideNumber, handleOnclickListTour }) {
+  console.log("listCityoftour", listCityofCountry);
   const classes = useStyles();
   return (
     <>
