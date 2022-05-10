@@ -8,6 +8,7 @@ const sql = require('mssql/msnodesqlv8')
 //     trustedConnection: true,
 //   }
 // }
+//
 const sqlConfig = {  
   user: "sa",
   password: "Qq123456789",
