@@ -36,6 +36,7 @@ const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
     "content-type": "application/json",
+    "Access-Control-Allow-Origin": "95.111.203.185:3003",
   },
   paramsSerializer: (params) => queryString.stringify(params),
 });

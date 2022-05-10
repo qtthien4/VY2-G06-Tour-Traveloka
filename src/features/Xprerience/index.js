@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Banner from "./Banner";
@@ -10,12 +10,19 @@ import Footer from "components/Footer";
 export default function Xperience() {
   //handleOnclickXperience
   const navigate = useNavigate();
-  
-  const handleOnclickXperience = (nameType) => {
-    // console.log("id experience", nameType);
 
-    navigate(`/activities/category/${nameType}`);
-  };
+  // useEffect(()=>{
+
+  // },[])
+
+  const handleOnclickXperience = useCallback(
+    (nameType) => {
+      // console.log("id experience", nameType);
+
+      navigate(`/activities/category/${nameType}`);
+    },
+    [navigate]
+  );
   //display id tour theo idType
 
   //
