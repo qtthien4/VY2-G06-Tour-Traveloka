@@ -1,7 +1,6 @@
 var shortid = require('shortid');
 const bcrypt = require('bcrypt');
-const sql = require('mssql/msnodesqlv8')
-const sqlConfig = require('../calldb')
+const {partner} = require('../configDb');
 class signUpController{
     index(req,res){
         res.render('signup');
@@ -20,18 +19,16 @@ class signUpController{
         if(pass = confirm){
             bcrypt.hash(confirm , 10, function(err, hash) {
                 if(err) console.log(err)
-                else{
-                    var insertk = `insert into partner (idpartner, partnername, password) values ('${shortid.generate()}', '${username}', '${hash}')`
-                    sql.connect(sqlConfig, function(err){                
-                        if(err)
-                        console.log( err);                    
-                        var re = new sql.Request();
-                        re.query(insertk, function(err, result){
-                            if(err) console.log(err)    
-                            console.log(insertk)
-                            res.redirect('login')
-                        })
-                    })                         
+                else{                
+                    partner.create({
+                        IdPartner: shortid.generate(),
+                        PartnerName: username,
+                        password: hash
+                    }).then(user => {
+                        console.log(user.get({plain:true}))
+                        res.redirect('login')
+                    })
+                    .catch(err => console.log(err))
                  }
             });
             

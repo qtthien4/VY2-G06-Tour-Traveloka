@@ -1,129 +1,68 @@
 const sql = require("mssql/msnodesqlv8");
 const sqlConfig = require("../calldb");
 const shortid = require("shortid");
+const {activity, country, city,favourite, keysearch, image, schedule, book, customer} = require('../configDb');
 class ApiController {
   index(req, res) {
-    var idCountry = req.query.IdCountry;
-    var idCity = req.query.idCity;
-    //var type = req.query.type;
-    if (idCountry == undefined && idCity == undefined) {
-      sql.connect(sqlConfig, function (err) {
-        if (err) console.log(err);
-
-        var re = new sql.Request();
-        re.query("select * from activity", function (err, result) {
-          if (err) console.log(err);
-          res.send(result.recordset);
-        });
-      });
-    }
-
-    if (idCountry != undefined) {
-      sql.connect(sqlConfig, function (err) {
-        if (err) console.log(err);
-        var re = new sql.Request();
-        var query = "select * from activity where idCountry = " + idCountry;
-        re.query(query, function (err, result) {
-          if (err) console.log(err);
-          res.send(result.recordset);
-          //console.log(result.recordset);
-        });
-      });
-    }
-    if (idCity != undefined) {
-      sql.connect(sqlConfig, function (err) {
-        if (err) console.log(err);
-        var re = new sql.Request();
-        var query = "select * from activity where idCity = " + idCity;
-        re.query(query, function (err, result) {
-          if (err) console.log(err);
-          res.send(result.recordset);
-          //console.log(result.recordset);
-        });
-      });
-    }
+    
   }
 
   tour(req, res) {
     var idCountry = req.query.IdCountry;
-    console.log(idCountry);
     var idCity = req.query.idCity;
-    //var type = req.query.type;
+
     if (idCountry == undefined && idCity == undefined) {
-      sql.connect(sqlConfig, function (err) {
-        if (err) console.log(err);
-
-        var re = new sql.Request();
-        re.query("select * from activity", function (err, result) {
-          if (err) console.log(err);
-          res.send(result.recordset);
-        });
-      });
+      activity.findOne({raw: true, order: ['IdActivity']}).then(arrActivity => res.send(arrActivity))      
     }
-
     if (idCountry != undefined) {
-      sql.connect(sqlConfig, function (err) {
-        if (err) console.log(err);
-        var re = new sql.Request();
-        var query = "select * from activity where idCountry = " + idCountry;
-        re.query(query, function (err, result) {
-          if (err) console.log(err);
-          res.send(result.recordset);
-          //console.log(result.recordset);
-        });
-      });
+      activity.findAll({raw: true, where:{IdCountry: idCountry}}).then(arrCountry => res.send(arrCountry))      
     }
     if (idCity != undefined) {
-      sql.connect(sqlConfig, function (err) {
-        if (err) console.log(err);
-        var re = new sql.Request();
-        var query = "select * from activity where idCity = " + idCity;
-        re.query(query, function (err, result) {
-          if (err) console.log(err);
-          res.send(result.recordset);
-          //console.log(result.recordset);
-        });
-      });
+      activity.findAll({raw: true, where:{IdCity: idCity}}).then(arrCity => res.send(arrCity))      
     }
   }
 
   show(req, res, next) {
     var id = req.params.slug;
-    sql.connect(sqlConfig, function (err) {
-      if (err) console.log(err);
+    activity.findAll({raw: true, where:{IdActivity: id}}).then(arrActivity => res.send(arrActivity))
+    // sql.connect(sqlConfig, function (err) {
+    //   if (err) console.log(err);
 
-      var re = new sql.Request();
-      re.query(
-        "select * from activity where IdActivity =" + id,
-        function (err, result) {
-          if (err) console.log(err);
-          res.send(result.recordset);
-        }
-      );
-    });
+    //   var re = new sql.Request();
+    //   re.query(
+    //     "select * from activity where IdActivity =" + id,
+    //     function (err, result) {
+    //       if (err) console.log(err);
+    //       res.send(result.recordset);
+    //     }
+    //   );
+    // });
+
   }
 
   city(req, res) {
-    sql.connect(sqlConfig, function (err) {
-      if (err) console.log(err);
+    city.findAll({raw: true}).then(arrCity => res.send(arrCity))
+    // sql.connect(sqlConfig, function (err) {
+    //   if (err) console.log(err);
 
-      var re = new sql.Request();
-      re.query("select * from City", function (err, result) {
-        if (err) console.log(err);
-        res.send(result.recordset);
-      });
-    });
+    //   var re = new sql.Request();
+    //   re.query("select * from City", function (err, result) {
+    //     if (err) console.log(err);
+    //     res.send(result.recordset);
+    //   });
+    // });
   }
 
   country(req, res) {
-    sql.connect(sqlConfig, function (err) {
-      if (err) console.log(err);
-      var re = new sql.Request();
-      re.query("select * from country", function (err, result) {
-        if (err) console.log(err);
-        res.send(result.recordset);
-      });
-    });
+    country.findAll({raw: true}).then(arrCountry => res.send(arrCountry))
+    // sql.connect(sqlConfig, function (err) {
+    //   if (err) console.log(err);
+    //   var re = new sql.Request();
+    //   re.query("select * from country", function (err, result) {
+    //     if (err) console.log(err);
+    //     res.send(result.recordset);
+    //   });
+    // });
   }
   favourite(req, res) {
     var IdActivity = req.body.IdActivity;
@@ -132,126 +71,139 @@ class ApiController {
     console.log(req.body);
     console.log(IdActivity, idCustomer, idFavaurite);
 
-    // var re = new sql.Request();
-    // var insertFavaurite = `insert into favaurite (IdFavaurite, IdCustomer, IdActivity) values('${idFavaurite}', '${idCustomer}','${IdActivity}')`;
-    // re.query(insertFavaurite, function (err, result) {
+    favourite.create({
+      IdFavourite: idFavaurite,
+      IdCustomer:idCustomer,
+      IdActivity: IdActivity
+    })
+    
+    // sql.connect(sqlConfig, (err) => {
     //   if (err) console.log(err);
-    //   console.log(result);
+    //   var re = new sql.Request();
+    //   var insertFavaurite = `insert into favourite (IdFavourite, IdCustomer, IdActivity) values('${idFavaurite}', '${idCustomer}','${IdActivity}')`;
+    //   re.query(insertFavaurite, function (err, result) {
+    //     if (err) console.log(err);
+    //     console.log(result);
+    //   });
     // });
-    sql.connect(sqlConfig, (err) => {
-      if (err) console.log(err);
-      var re = new sql.Request();
-      var insertFavaurite = `insert into favourite (IdFavourite, IdCustomer, IdActivity) values('${idFavaurite}', '${idCustomer}','${IdActivity}')`;
-      re.query(insertFavaurite, function (err, result) {
-        if (err) console.log(err);
-        console.log(result);
-      });
-    });
   }
 
   getFavourite(req, res) {
-    sql.connect(sqlConfig, function (err) {
-      if (err) console.log(err);
-      var re = new sql.Request();
-      re.query("select * from favourite", function (err, result) {
-        if (err) console.log(err);
-        res.send(result.recordset);
-      });
-    });
+    favourite.findAll({raw: true}).then(arrFavourite => res.send(arrFavourite))
+
+    // sql.connect(sqlConfig, function (err) {
+    //   if (err) console.log(err);
+    //   var re = new sql.Request();
+    //   re.query("select * from favourite", function (err, result) {
+    //     if (err) console.log(err);
+    //     res.send(result.recordset);
+    //   });
+    // });
   }
 
   keysearch(req, res) {
-    sql.connect(sqlConfig, function (err) {
-      if (err) console.log(err);
+    keysearch.findAll({raw:true}).then(arrKeySearch => res.send(arrKeySearch));
+    // sql.connect(sqlConfig, function (err) {
+    //   if (err) console.log(err);
 
-      var re = new sql.Request();
-      re.query("select * from keysearch", function (err, result) {
-        if (err) console.log(err);
-        res.send(result.recordset);
-      });
-    });
+    //   var re = new sql.Request();
+    //   re.query("select * from keysearch", function (err, result) {
+    //     if (err) console.log(err);
+    //     res.send(result.recordset);
+    //   });
+    // });
   }
 
-  deleteFavourite(req, res) {
-    // var IdActivity = req.body.IdActivity;
-    // var idCustomer = req.body.idCustomer;
-    // var idFavaurite = req.body.idFavaurite;
-
+  deleteFavourite(req, res) {  
     var id = req.params.id;
-    console.log(id);
-    sql.connect(sqlConfig, (err) => {
-      if (err) console.log(err);
-      var re = new sql.Request();
+    favourite.destroy({where: {IdActivity: id}})
 
-      var deleteFavaurite = `delete from favourite  where IdActivity = '${id}'`;
-      re.query(deleteFavaurite, function (err, result) {
-        if (err) console.log(err);
-        console.log(result);
-      });
-    });
+    // console.log(id);
+    // sql.connect(sqlConfig, (err) => {
+    //   if (err) console.log(err);
+    //   var re = new sql.Request();
+
+    //   var deleteFavaurite = `delete from favourite  where IdActivity = '${id}'`;
+    //   re.query(deleteFavaurite, function (err, result) {
+    //     if (err) console.log(err);
+    //     console.log(result);
+    //   });
+    // });
   }
 
   getkeysearch(req, res) {
-    sql.connect(sqlConfig, function (err) {
-      var re = new sql.Request();
-      var insertkey = `insert into keysearch values ('${shortid.generate()}', '1', '${
-        req.query.q
-      }')`;
-      re.query(insertkey, function (err, result) {
-        if (err) console.log(err);
-      });
-    });
+    var key =  req.query.q;
+    keysearch.create({
+      IdSearch: shortid.generate(),
+      IdCustomer: '1',
+      keyword: key
+    })
+    // sql.connect(sqlConfig, function (err) {
+    //   var re = new sql.Request();
+    //   var insertkey = `insert into keysearch values ('${shortid.generate()}', '1', '${
+    //     req.query.q
+    //   }')`;
+    //   re.query(insertkey, function (err, result) {
+    //     if (err) console.log(err);
+    //   });
+    // });
   }
+
   image(req, res) {
-    sql.connect(sqlConfig, function (err) {
-      if (err) console.log(err);
-      var re = new sql.Request();
-      var getschedule = `select * from Image`;
-      re.query(getschedule, function (err, result) {
-        if (err) console.log(err);
-        res.send(result.recordset);
-      });
-    });
+    image.findAll({raw: true}).then(arrImage => res.send(arrImage))
+    // sql.connect(sqlConfig, function (err) {
+    //   if (err) console.log(err);
+    //   var re = new sql.Request();
+    //   var getschedule = `select * from Image`;
+    //   re.query(getschedule, function (err, result) {
+    //     if (err) console.log(err);
+    //     res.send(result.recordset);
+    //   });
+    // });
   }
+
   imageId(req, res) {
     var id = req.params.id;
-    sql.connect(sqlConfig, function (err) {
-      if (err) console.log(err);
-      var re = new sql.Request();
-      var getschedule = `select * from image where IdActivity = '${id}' `;
-      re.query(getschedule, function (err, result) {
-        if (err) console.log(err);
-        res.send(result.recordset);
-      });
-    });
+    image.findAll({raw: true, where: {IdActivity : id}}).then(arrImage => res.send(arrImage))
+    // sql.connect(sqlConfig, function (err) {
+    //   if (err) console.log(err);
+    //   var re = new sql.Request();
+    //   var getschedule = `select * from image where IdActivity = '${id}' `;
+    //   re.query(getschedule, function (err, result) {
+    //     if (err) console.log(err);
+    //     res.send(result.recordset);
+    //   });
+    // });
   }
 
   schedule(req, res) {
-    sql.connect(sqlConfig, function (err) {
-      if (err) console.log(err);
-      var re = new sql.Request();
-      var getschedule = `select * from schedule`;
-      re.query(getschedule, function (err, result) {
-        if (err) console.log(err);
-        res.send(result.recordset);
-      });
-    });
+    schedule.findAll({raw: true}).then(arrSchedule => res.send(arrSchedule))
+    // sql.connect(sqlConfig, function (err) {
+    //   if (err) console.log(err);
+    //   var re = new sql.Request();
+    //   var getschedule = `select * from schedule`;
+    //   re.query(getschedule, function (err, result) {
+    //     if (err) console.log(err);
+    //     res.send(result.recordset);
+    //   });
+    // });
   }
 
   scheduleID(req, res) {
     var id = req.params.id;
-    sql.connect(sqlConfig, function (err) {
-      if (err) console.log(err);
-      var re = new sql.Request();
-      var getschedule = `select * from schedule where IdActivity = '${id}' `;
-      re.query(getschedule, function (err, result) {
-        if (err) console.log(err);
-        res.send(result.recordset);
-      });
-    });
+    schedule.findAll({raw: true, where: {IdActivity : id}}).then(arrSchedule => res.send(arrSchedule))
+    // sql.connect(sqlConfig, function (err) {
+    //   if (err) console.log(err);
+    //   var re = new sql.Request();
+    //   var getschedule = `select * from schedule where IdActivity = '${id}' `;
+    //   re.query(getschedule, function (err, result) {
+    //     if (err) console.log(err);
+    //     res.send(result.recordset);
+    //   });
+    // });
   }
 
-  booking(req, res) {
+  async booking(req, res) {
     const { customerDetail } = req.body[0];
     const {booking} = req.body[1];
     var idDetail = customerDetail.idDetail;
@@ -273,31 +225,51 @@ class ApiController {
     var disCount = booking.disCount;
     var total = booking.total;
 
-    console.log(req.body);
-    // res.json({
-    //   status: "ok",
-    // });
-
-    sql.connect(sqlConfig, (err) => {
-      if(err) console.log(err)
-
-      var re = new sql.Request();
-      //add booking
-      var inserBooking = `insert into Booking (IdBooking, IdSchedule, IdCustomer, IdVoucher, PaymentOption, BookingTime, Total, SttBooking, AmountPeople,Discount) values 
-      ('${idBooking}', '${idSchedule}','${idCustomer}','${idVoucher}' , '${paymentOption}', '', '${total}',${sttBooking}, ${amountPeople}, '')`
-
-      re.query(inserBooking, function (err, result) {
-        if (err) console.log(err);
-        console.log(result);
-      });
-      //add customer
-      var insertCustomerDetail = `insert into CusDetail (IdDetail, IdBooking, CustomerName, CusPhoneNum, EmailCus) values('${idDetail}','${idBooking}',N'${customerName}','${cusPhoneNum}','${emailCus}')`
-      // console.log(insertCustomerDetail);
-      re.query(insertCustomerDetail, function (err, result) {
-        if (err) console.log(err);
-        console.log(result);
-      });
+    await book.create({
+      IdBooking: idBooking,
+      IdSchedule: idSchedule,
+      IdCustomer:idCustomer,
+      IdVoucher: idVoucher,
+      PaymentOption: paymentOption,
+      BookingTime: "",
+      Total: total,
+      SttBooking: sttBooking,
+      AmountPeople:amountPeople,
+      Discount: "",
     })
+
+    await customer.create({
+      IdDetail: idDetail,
+      IdBooking: idBooking,
+      CustomerName: customerName,
+      CusPhoneNum: cusPhoneNum,
+      EmailCus: emailCus,
+      Gender: "nam"
+    })
+
+    res.json({
+      status: "ok",
+    });
+    // sql.connect(sqlConfig, (err) => {
+    //   if(err) console.log(err)
+
+    //   var re = new sql.Request();
+    //   //add booking
+    //   var inserBooking = `insert into Booking (IdBooking, IdSchedule, IdCustomer, IdVoucher, PaymentOption, BookingTime, Total, SttBooking, AmountPeople,Discount) values 
+    //   ('${idBooking}', '${idSchedule}','${idCustomer}','${idVoucher}' , '${paymentOption}', '', '${total}',${sttBooking}, ${amountPeople}, '')`
+
+    //   re.query(inserBooking, function (err, result) {
+    //     if (err) console.log(err);
+    //     console.log(result);
+    //   });
+    //   //add customer
+    //   var insertCustomerDetail = `insert into CusDetail (IdDetail, IdBooking, CustomerName, CusPhoneNum, EmailCus) values('${idDetail}','${idBooking}',N'${customerName}','${cusPhoneNum}','${emailCus}')`
+    //   // console.log(insertCustomerDetail);
+    //   re.query(insertCustomerDetail, function (err, result) {
+    //     if (err) console.log(err);
+    //     console.log(result);
+    //   });
+    // })
   }
 }
 

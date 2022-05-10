@@ -1,61 +1,17 @@
 const shortid = require("shortid");
-const sql = require("mssql/msnodesqlv8");
-const sqlConfig = require("../calldb");
+const {activity, image, city, country, type} = require('../configDb');
 class FormController {
-  index(req, res) {
-    //country
-    sql.connect(sqlConfig, function (err) {
-      if (err) console.log(err);
-
-      var re = new sql.Request();
-      re.query("select * from country", function (err, result) {
-        if (err) console.log(err);
-        var nuoc = result.recordset;
-        nuoc[0].IdCountry = nuoc[0].IdCountry.trim();
-        re.query("select * from city", function (err, result) {
-          if (err) console.log(err);
-          var thanhpho = result.recordset;
-          re.query("select * from type", function (err, result) {
-            if (err) console.log(err);
-            var type = result.recordset;
-
-            res.render("forms", { nuoc: nuoc, thanhpho: thanhpho, type: type });
-          });
-        });
-      });
-    });
+  async index(req, res) {
+    var rederCountry, rederCity, renderType = []
+    await country.findAll({raw:true}).then(arrCountry => rederCountry = arrCountry )
+    await city.findAll({raw:true}).then(arrCity => rederCity = arrCity)
+    await type.findAll({raw:true}).then(arrType => renderType = arrType)
+    
+    res.render("forms", { nuoc: rederCountry, thanhpho: rederCity, type: renderType })
   }
 
-  // testpost(req, res) {
-  //   const idpartner = 30;
-  //   const nuoc = req.body.nuoc;
-  //   const thanhpho = req.body.thanhpho;
-  //   const type = req.body.type;
-  //   const name = req.body.nameactivity;
-  //   const place = req.body.place;
-  //   const strprice = req.body.price;
-  //   const stramount = req.body.amount;
-  //   const strstt = req.body.stt;
-
-  //   var re = new sql.Request();
-  //   re.query("select * from country", function (err, result) {
-  //     if (err) console.log(err);
-  //     var nuoc = result.recordset;
-  //     re.query("select * from city", function (err, result) {
-  //       if (err) console.log(err);
-  //       var thanhpho = result.recordset;
-  //       re.query("select * from type", function (err, result) {
-  //         if (err) console.log(err);
-  //         var type = result.recordset;
-
-  //         res.render("forms", { nuoc: nuoc, thanhpho: thanhpho, type: type });
-  //       });
-  //     });
-  //   });
-  // }
-
-  testpost(req, res) {
-    const idpartner = 30;
+  async testpost(req, res) {
+    const idpartner = "30";
     const nuoc = req.body.nuoc;
     const thanhpho = req.body.thanhpho;
     const type = req.body.type;
@@ -68,43 +24,45 @@ class FormController {
     const desc = req.body.desc;
     const idactivity = req.body.idactivity;
 
-    console.log(req.body.links);
+//add db acttivity
+    await activity.create({
+      IdActivity: idactivity,
+      IdCountry: nuoc,
+      IdCity: thanhpho,
+      IdPartner: idpartner,
+      idtype: type,
+      ActivityName: name,
+      Location: place,
+      Amount: stramount,
+      Stt: strstt,
+      Price: strprice,
+      Desr: desc,
+      imageUrl: req.body.links[0]      
+    }).then(activity => {
+      console.log(activity.get({plain:true}))     
+    })
+    .catch(err => console.log(err))
 
-    sql.connect(sqlConfig, function (err) {
-      if (err) console.log(err);
-      var insert = `insert into activity (IdActivity, IdCountry,IdCity,IdPartner,idtype,ActivityName,Location,Amount,Stt,Price, Desr,imageUrl ) values (${idactivity}, '${nuoc}', '${thanhpho}','${idpartner}','${type}', N'${name}', '${place}',${stramount},${strstt},${strprice},N'${desc}', '${req.body.links[0]}')`;
-      var re = new sql.Request();
-      re.query(insert, function (err, result) {
-        if (err) console.log(err);
-        console.log(result);
-      });
-    });
+    // add db image
+    var arrImage = []
+    for (var i = 1; i < req.body.links.length; i++) {
+        var itemArrImage = {}
+        itemArrImage.IdImage = shortid.generate()
+        itemArrImage.IdActivity = idactivity
+        itemArrImage.Link = req.body.links[i]
+        arrImage.push(itemArrImage)
+    }
+    await image.bulkCreate(
+      arrImage
+    ).then(arrImg => arrImg.forEach(element => {
+      console.log(element.get({plain: true}));
+    }))
 
-    sql.connect(sqlConfig, (err) => {
-      if (err) console.log(err);
-
-      for (var i = 1; i < req.body.links.length; i++) {
-        var insert = `insert into Image(IdImage, IdActivity, Link) values ('${shortid.generate()}',${idactivity}, '${
-          req.body.links[i]
-        }')`;
-        var re = new sql.Request();
-
-        re.query(insert, (result, err) => {
-          if (err) console.log(err);
-          console.log(result);
-        });
-      }
-    });
-
-    sql.connect(sqlConfig, function (err) {
-      if (err) console.log(err);
-      var re = new sql.Request();
-      re.query("select * from activity", function (err, result) {
-        if (err) console.log(err);
-        var activity = result.recordset;
-        res.render("tables", { activity: activity });
-      });
-    });
+    //select all activity
+    activity.findAll({raw: true})
+    .then(arrActivity => {
+      res.render("tables", { activity: arrActivity });
+    })
   }
 }
 
