@@ -81,8 +81,12 @@ export default function Booking() {
       emailCus: emailCus,
       gender: gender,
     };
+    //["customerDetail":customerDetail, "booking":booking]
     localStorage.setItem("TourCurrent", JSON.stringify(TourCurrent));
-    await bookingApi.post({ customerDetail, booking });
+    await bookingApi.post([
+      { customerDetail: customerDetail },
+      { booking: booking },
+    ]);
 
     navigate(`/booking/payment/${booking.idBooking}`);
   };

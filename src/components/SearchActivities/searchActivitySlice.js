@@ -4,7 +4,22 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
   loadding: false,
-  listTour: [],
+  listTour: [
+    {
+      ActivityName: "",
+      Amount: 12,
+      Desr: "",
+      IdActivity: "",
+      IdCity: "",
+      IdCountry: "",
+      IdPartner: "",
+      Location: "",
+      Price: 0,
+      Stt: true,
+      idtype: "",
+      imageUrl: "",
+    },
+  ],
   search: "",
   listKeyWords: [],
   listRecentSearches: [],
@@ -44,8 +59,10 @@ export const listRemainingSelectorTourSearch = createSelector(
   selectListTourSearchActivity,
   selectSearchActivityInput,
   (listTour, searchText) => {
-    console.log("listTour", listTour.ActivityName);
-    return listTour;
+    console.log("listTour", listTour);
+    return listTour.filter((list) => {
+      return list.ActivityName.includes(searchText);
+    });
   }
 );
 // .filter((list) => {
