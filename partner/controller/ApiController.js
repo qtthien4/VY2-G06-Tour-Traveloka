@@ -12,7 +12,7 @@ class ApiController {
     var idCity = req.query.idCity;
 
     if (idCountry == undefined && idCity == undefined) {
-      activity.findOne({raw: true, order: ['IdActivity']}).then(arrActivity => res.send(arrActivity))      
+      activity.findAll({raw: true}).then(arrActivity => res.send(arrActivity))      
     }
     if (idCountry != undefined) {
       activity.findAll({raw: true, where:{IdCountry: idCountry}}).then(arrCountry => res.send(arrCountry))      
