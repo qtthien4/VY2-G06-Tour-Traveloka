@@ -77,7 +77,7 @@ export default function Booking() {
       idDetail: shortid.generate(),
       idBooking: booking.idBooking,
       customerName: Customername,
-      cusPhoneNum: cusPhoneNum,
+      cusPhoneNum: cusPhoneNum.toString(),
       emailCus: emailCus,
       gender: gender,
     };
