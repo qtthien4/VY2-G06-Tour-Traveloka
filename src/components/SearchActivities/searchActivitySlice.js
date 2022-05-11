@@ -44,12 +44,12 @@ export const listRemainingSelectorTourSearch = createSelector(
   selectListTourSearchActivity,
   selectSearchActivityInput,
   (listTour, searchText) => {
-    return listTour.filter((list) => {
-      return list.ActivityName.includes(searchText);
-    });
+    return listTour
   }
 );
-
+//.filter((list) => {
+//      return list.ActivityName.includes(searchText);
+ //   });
 //reducer
 
 const searchActivityReducer = searchActivitySlice.reducer;
