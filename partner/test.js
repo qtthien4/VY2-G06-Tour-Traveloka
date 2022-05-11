@@ -1,4 +1,10 @@
-const a = '2022-04-14T11:39'
-const b = '2022-04-14T11:40'
+const axios = require('axios').default;
 
-a > b ? console.log('a lon hon b') : console.log('b lon hon a')
+axios.get('http://95.111.203.185:3003/api/tour')
+  .then(function (response) {
+    console.log(response.data);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })

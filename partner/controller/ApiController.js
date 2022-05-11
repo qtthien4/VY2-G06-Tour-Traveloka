@@ -101,18 +101,7 @@ class ApiController {
     // });
   }
 
-  keysearch(req, res) {
-    keysearch.findAll({raw:true}).then(arrKeySearch => res.send(arrKeySearch));
-    // sql.connect(sqlConfig, function (err) {
-    //   if (err) console.log(err);
-
-    //   var re = new sql.Request();
-    //   re.query("select * from keysearch", function (err, result) {
-    //     if (err) console.log(err);
-    //     res.send(result.recordset);
-    //   });
-    // });
-  }
+ 
 
   deleteFavourite(req, res) {  
     var id = req.params.id;
@@ -131,12 +120,28 @@ class ApiController {
     // });
   }
 
-  getkeysearch(req, res) {
+  keysearch(req, res) {
+    keysearch.findAll({raw:true}).then(arrKeySearch => res.send(arrKeySearch));
+    // sql.connect(sqlConfig, function (err) {
+    //   if (err) console.log(err);
+
+    //   var re = new sql.Request();
+    //   re.query("select * from keysearch", function (err, result) {
+    //     if (err) console.log(err);
+    //     res.send(result.recordset);
+    //   });
+    // });
+  }
+  
+  async getkeysearch(req, res) {
     var key =  req.query.q;
-    keysearch.create({
+    await keysearch.create({
       IdSearch: shortid.generate(),
       IdCustomer: '1',
       keyword: key
+    })
+    res.json({
+      status: "ok"
     })
     // sql.connect(sqlConfig, function (err) {
     //   var re = new sql.Request();

@@ -6,6 +6,7 @@ const table = require("./table");
 const form = require("./form");
 const chart = require("./chart");
 const detailactivity = require("./detailactivity");
+const payment = require('./payment');
 
 function route(app) {
   app.use("/api", api);
@@ -16,6 +17,7 @@ function route(app) {
   app.use("/form", form);
   app.use("/chart", chart);
   app.use("/detailactivity", detailactivity);
+  app.use("/payment", payment);
 }
 
 module.exports = route;
