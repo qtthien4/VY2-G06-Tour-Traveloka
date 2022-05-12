@@ -56,6 +56,7 @@ export const SelectListTourOfCity = (state) => {
     });
   }
 };
+export const selectTour = (state) => state.search.listTour;
 
 export const SelectFilterPrice = (state) => state.search.filters.Price;
 

@@ -24,6 +24,7 @@ import {
   searchActions,
   SelectListTourOfCity,
   SelectFilterPrice,
+  selectTour,
 } from "../search/searchSlice";
 import ListFilter from "./components/ListFilter";
 import ListFilterControl from "./components/ListFilterControl";
@@ -50,9 +51,14 @@ export default function Search() {
   const SelectPriceSort = useSelector(SelectFilterPrice);
 
   const listCity = useSelector(selectListCity);
+
+  const selectTour1 = useSelector(selectTour);
+
+  const [listTour, setListTour] = useState(selectTour1);
   const listCountry = useSelector(selectListCountry);
   const listFavaurite = JSON.parse(localStorage.getItem("favaurite"));
-  const listTour = JSON.parse(localStorage.getItem("listTour"));
+
+  //const listTour = JSON.parse(localStorage.getItem("listTour"));
   const dispatch = useDispatch();
   let location = useLocation();
 
