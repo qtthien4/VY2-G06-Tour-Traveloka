@@ -41,6 +41,7 @@
         "slick-carousel": "^1.8.1",
         "sort-ids": "^2.1.0",
         "swiper": "^8.0.7",
+        "uselocalstorage-react-hook": "^1.0.5",
         "web-vitals": "^2.1.4",
         "yarn": "^1.22.17",
         "yup": "^0.32.11"

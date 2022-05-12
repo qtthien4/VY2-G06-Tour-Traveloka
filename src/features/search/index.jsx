@@ -105,16 +105,20 @@ export default function Search() {
     //handle favaurite
 
     // const [tours, setTour] = useState([]);
-
-    for (let i = 0; i < listTour.length; i++) {
-      const tour = { ...listTour[i], isFavaurite: false };
-      for (let j = 0; j < listFavaurite.length; j++) {
-        if (listFavaurite[j].IdActivity == listTour[i].IdActivity) {
-          tour.isFavaurite = true;
+    if (listTour.length === null) {
+      return;
+    } else {
+      for (let i = 0; i < listTour.length; i++) {
+        const tour = { ...listTour[i], isFavaurite: false };
+        for (let j = 0; j < listFavaurite.length; j++) {
+          if (listFavaurite[j].IdActivity == listTour[i].IdActivity) {
+            tour.isFavaurite = true;
+          }
         }
+        tours.push(tour);
       }
-      tours.push(tour);
     }
+
     activity.current = SortTour(tours, SelectPriceSort);
     setToursFinal(activity.current);
   }, [SelectPriceSort]);
