@@ -215,6 +215,7 @@ class ApiController {
     var idBooking = booking.idBooking;
     var customerName = customerDetail.customerName;
     var cusPhoneNum = customerDetail.cusPhoneNum;
+    cusPhoneNum = cusPhoneNum.toString();
     var emailCus = customerDetail.emailCus;
 
     var idSchedule = booking.idSchedule;

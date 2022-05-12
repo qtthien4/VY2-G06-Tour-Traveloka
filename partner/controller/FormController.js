@@ -37,7 +37,7 @@ class FormController {
       Stt: strstt,
       Price: strprice,
       Desr: desc,
-      imageUrl: req.body.links[0]      
+      ImageUrl: req.body.links[0]      
     }).then(activity => {
       console.log(activity.get({plain:true}))     
     })

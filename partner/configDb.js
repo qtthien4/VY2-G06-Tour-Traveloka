@@ -41,7 +41,7 @@ const db = new Sequelize({
     Stt: Sequelize.BOOLEAN,
     Price: Sequelize.INTEGER,
     Desr: Sequelize.TEXT,
-    imageUrl: Sequelize.TEXT,
+    ImageUrl: Sequelize.TEXT,
   },{timestamps: false})
 
 //table imgae
