@@ -35,8 +35,7 @@ const getFirebaseToken = () => {
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
-    "Content-Type":
-      "application/x-www-form-urlencoded; charset=UTF-8;application/json",
+    "Content-Type": "application/json;charset=UTF-8",
     // "Access-Control-Allow-Origin": "95.111.203.185:3003",
     "Access-Control-Allow-Origin": "*",
   },

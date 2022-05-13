@@ -83,10 +83,11 @@ export default function Booking() {
     };
 
     localStorage.setItem("TourCurrent", JSON.stringify(TourCurrent));
-    console.log("formValue", [
+    console.log("formValue123", [
       { customerDetail: customerDetail },
       { booking: booking },
     ]);
+
     await bookingApi.post([
       { customerDetail: customerDetail },
       { booking: booking },
