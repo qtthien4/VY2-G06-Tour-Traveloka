@@ -123,7 +123,7 @@ export default function Search() {
         tours.push(tour);
       }
     } else {
-      return;
+      console.log("ok");
     }
 
     activity.current = SortTour(tours, SelectPriceSort);
