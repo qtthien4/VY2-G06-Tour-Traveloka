@@ -5,5 +5,6 @@ var paymentController = require('../controller/PaymentController')
 
 
 router.post('/',paymentController.index);
+router.post('/refund',paymentController.refundPayment);
 
 module.exports = router;

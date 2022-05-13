@@ -13,11 +13,11 @@ class Login{
             },
             order: ['PartnerName'],
             raw: true
-        }).then(user => {            
-            bcrypt.compare(pass, user.password.trim()).then(function(result) {
+        }).then(users => {            
+            bcrypt.compare(pass, users.password.trim()).then(function(result) {
                 if(result)
                 {
-                    res.cookie('Cookie_User', "result[0].IdPartner", {
+                    res.cookie('Cookie_User',user, {
                         signed: true
                     })
                     res.redirect('home')

@@ -5,14 +5,21 @@ const {activity, image, schedule} = require('../configDb')
 class DetailActivityController {
   async index(req, res) {
     const idActivity = req.query.idactivity;
-    var objActivity,arrImage, arrSchedule;
+    var objActivity, arrSchedule;
+    var arrImage = []
     const idschedule = req.query.idschedule;
     if (idschedule == undefined) {     
-      await activity.findOne({raw: true,where: {IdActivity : idActivity}, order:['IdActivity']}).then(e => objActivity = e)
+        await activity.findOne({raw: true,where: {IdActivity : idActivity}, order:['IdActivity']}).then(e => {
+        objActivity = e
+        var objImage = {}
+        objImage.Link = e.ImageUrl
+        arrImage.push(objImage);
+      })      
       var arrActivity = [];
       arrActivity.push(objActivity);
-      await image.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
-        arrImage = e
+      await image.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {        
+        arrImage = e.concat(arrImage)
+        console.log(arrImage);
         arrImage[0].active = "active";
       })
       await schedule.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
@@ -40,11 +47,17 @@ class DetailActivityController {
 
     } else { 
       await schedule.destroy({where: {IdSchedule:idschedule}})
-      await activity.findOne({raw: true,where: {IdActivity : idActivity}, order:['IdActivity']}).then(e => objActivity = e)
+      await activity.findOne({raw: true,where: {IdActivity : idActivity}, order:['IdActivity']}).then(e => {
+        objActivity = e
+        var objImage = {}
+        objImage.Link = e.ImageUrl
+        arrImage.push(objImage);
+      })
       var arrActivity = [];
       arrActivity.push(objActivity);
       await image.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
-        arrImage = e
+        arrImage = e.concat(arrImage)
+        console.log(arrImage);
         arrImage[0].active = "active";
       })
       await schedule.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
@@ -75,16 +88,23 @@ class DetailActivityController {
     var starttime = req.body.timestart;
     var endtime = req.body.timeend;
     const idActivity = req.query.idactivity;
-    var objActivity,arrImage, arrSchedule;
+    var objActivity, arrSchedule;
+    var arrImage = []
     console.log(starttime);
 
-    await activity.findOne({raw: true,where: {IdActivity : idActivity}, order:['IdActivity']}).then(e => objActivity = e)
+    await activity.findOne({raw: true,where: {IdActivity : idActivity}, order:['IdActivity']}).then(e => {
+      objActivity = e
+      var objImage = {}
+      objImage.Link = e.ImageUrl
+      arrImage.push(objImage);
+    })
       var arrActivity = [];
       arrActivity.push(objActivity);
 
     await image.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
-        arrImage = e
-        arrImage[0].active = "active";
+      arrImage = e.concat(arrImage)
+      console.log(arrImage);
+      arrImage[0].active = "active";
       })
 
     if (starttime != undefined) {

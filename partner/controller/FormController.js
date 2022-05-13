@@ -1,17 +1,22 @@
 const shortid = require("shortid");
-const {activity, image, city, country, type} = require('../configDb');
+const {activity, image, city, country, type, partner} = require('../configDb');
 class FormController {
   async index(req, res) {
     var rederCountry, rederCity, renderType = []
     await country.findAll({raw:true}).then(arrCountry => rederCountry = arrCountry )
     await city.findAll({raw:true}).then(arrCity => rederCity = arrCity)
     await type.findAll({raw:true}).then(arrType => renderType = arrType)
+    //get cookie
+    // console.log(req.signedCookies.Cookie_User);
+
     
     res.render("forms", { nuoc: rederCountry, thanhpho: rederCity, type: renderType })
   }
 
-  async testpost(req, res) {
-    const idpartner = "30";
+  async form(req, res) {
+    var userPartner = req.signedCookies.Cookie_User;
+    var idPartner;
+    await partner.findOne({raw:true, where: {PartnerName : userPartner}, order: ['IdPartner']}).then(partner => idPartner = partner.IdPartner );
     const nuoc = req.body.nuoc;
     const thanhpho = req.body.thanhpho;
     const type = req.body.type;
@@ -29,7 +34,7 @@ class FormController {
       IdActivity: idactivity,
       IdCountry: nuoc,
       IdCity: thanhpho,
-      IdPartner: idpartner,
+      IdPartner: idPartner,
       idtype: type,
       ActivityName: name,
       Location: place,
@@ -59,7 +64,7 @@ class FormController {
     }))
 
     //select all activity
-    activity.findAll({raw: true})
+    activity.findAll({raw: true, where: {IdPartner: idPartner.trim()}})
     .then(arrActivity => {
       res.render("tables", { activity: arrActivity });
     })

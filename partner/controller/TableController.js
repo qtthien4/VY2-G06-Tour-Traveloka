@@ -1,11 +1,11 @@
 const sql = require('mssql/msnodesqlv8')
 const sqlConfig = require('../calldb')
-const {activity, favourite, schedule, image} = require("../configDb")
+const {activity, favourite, schedule, image, partner} = require("../configDb")
 class TableController {
     async index(req, res) {
         var stt = req.query.stt;
         var del = req.query.del;
-
+        var user = req.signedCookies.Cookie_User;
         if (del == undefined && stt == undefined) {
             // sql.connect(sqlConfig, function (err) {
             //     if (err) console.log(err);
@@ -17,7 +17,9 @@ class TableController {
             //         res.render('tables', { activity: activity })
             //     })
             // })
-            activity.findAll({raw: true}).then(arrActivity => {
+            var idPartner
+            await partner.findOne({raw:true, where: {PartnerName : user}, order: ['IdPartner']}).then(partner => idPartner = partner.IdPartner );
+            await activity.findAll({raw: true, where : {IdPartner: idPartner.trim()}}).then(arrActivity => {
                 res.render('tables', { activity: arrActivity }) })
         }
         if (stt != undefined && del == undefined) {

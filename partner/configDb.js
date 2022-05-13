@@ -113,17 +113,23 @@ const book = db.define('Booking', {
   IdBooking: Sequelize.CHAR(20),  
   IdSchedule: Sequelize.CHAR(20),  
   IdCustomer: Sequelize.CHAR(20),
-  IdVoucher: Sequelize.CHAR(20),
+  IdVoucher: {
+    type: Sequelize.CHAR(20),
+    allowNull: true
+  },
   PaymentOption:  Sequelize.CHAR(2),
   BookingTime: {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  Total: Sequelize.STRING,
+  Total: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
   SttBooking: Sequelize.BOOLEAN,
   AmountPeople: Sequelize.INTEGER,
-  Discount: {
-    type: Sequelize.FLOAT,
+  IdPayment: {
+    type: Sequelize.STRING,
     allowNull: true
   }
 },{
@@ -142,6 +148,20 @@ const customer = db.define('CusDetail', {
   timestamps: false,
   })
  
+// table user
+const user = db.define('customer',{
+  IdCustomer: Sequelize.CHAR(20), 
+  Name: Sequelize.STRING,
+  Phone: Sequelize.STRING,
+  address:Sequelize.STRING,
+  email:Sequelize.STRING,
+  gender:Sequelize.CHAR(10), 
+  // point: Sequelize.INT,
+  password:Sequelize.STRING,
+}, {
+  timestamps: false
+})
+
 //remove id table
 type.removeAttribute('id');
 country.removeAttribute('id');
@@ -154,7 +174,8 @@ schedule.removeAttribute('id');
 keysearch.removeAttribute('id');
 book.removeAttribute('id');
 customer.removeAttribute('id');
+user.removeAttribute('id');
 
 db.sync();
 
-   module.exports = {partner, activity, image, type, country, city,favourite, schedule, keysearch, book,customer}
+   module.exports = {partner, activity, image, type, country, city,favourite, schedule, keysearch, book,customer, user}

@@ -6,4 +6,6 @@ const authMiddleware = require('../middlewares/auth.middleware')
 
 router.get('/',authMiddleware.index, homeController.index);
 
+// router.get('/', homeController.index);
+
 module.exports = router;

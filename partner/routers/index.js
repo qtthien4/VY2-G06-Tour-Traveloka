@@ -7,6 +7,9 @@ const form = require("./form");
 const chart = require("./chart");
 const detailactivity = require("./detailactivity");
 const payment = require('./payment');
+const listgift = require("./listgift");
+const listvoucher = require('./listvoucher');
+
 
 function route(app) {
   app.use("/api", api);
@@ -18,6 +21,8 @@ function route(app) {
   app.use("/chart", chart);
   app.use("/detailactivity", detailactivity);
   app.use("/payment", payment);
+  app.use("/listgift", listgift);
+  app.use("/listvoucher", listvoucher);
 }
 
 module.exports = route;

@@ -4,9 +4,7 @@ class authMiddleware {
             res.redirect('/')
             return
         }
-
         next();
-
     }}
 
 
