@@ -55,32 +55,32 @@ export default function BookingForm({ onSubmit, fullWidth, tour }) {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-  const handleFormSubmit = async (formValue) => {
-    const {
-      emailBooking,
-      nameBooking,
-      phoneBooking,
-      radioVisitor,
-      requireCustomer,
-      selectGender,
-    } = formValue;
-    console.log("data form", formValue);
-    const dataForm = {
-      gender: selectGender,
-      emailCus: emailBooking,
-      Customername: nameBooking,
-      cusPhoneNum: phoneBooking,
-      paymentOption: radioVisitor,
-      reservationist: requireCustomer,
-    };
-    try {
-      await onSubmit(dataForm);
-    } catch (error) {
-      console.log("Fail to post booking", error);
-    }
-  };
+  // const handleFormSubmit = async (formValue) => {
+  //   const {
+  //     emailBooking,
+  //     nameBooking,
+  //     phoneBooking,
+  //     radioVisitor,
+  //     requireCustomer,
+  //     selectGender,
+  //   } = formValue;
+  //   console.log("data form", formValue);
+  //   const dataForm = {
+  //     gender: selectGender,
+  //     emailCus: emailBooking,
+  //     Customername: nameBooking,
+  //     cusPhoneNum: phoneBooking,
+  //     paymentOption: radioVisitor,
+  //     reservationist: requireCustomer,
+  //   };
+  //   try {
+  //     await onSubmit(dataForm);
+  //   } catch (error) {
+  //     console.log("Fail to post booking", error);
+  //   }
+  // };
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <Box className={classes.left}>
         <Box className={classes.loginOrRegister}>
           <img

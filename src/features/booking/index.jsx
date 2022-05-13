@@ -52,12 +52,12 @@ export default function Booking() {
   // handle form
   const handleBookingFormSubmit = async (formValue) => {
     const {
-      emailCus,
-      Customername,
-      cusPhoneNum,
-      paymentOption,
-      reservationist,
-      gender,
+      emailBooking,
+      nameBooking,
+      phoneBooking,
+      radioVisitor,
+      requireCustomer,
+      selectGender,
     } = formValue;
 
     const booking = {
@@ -65,24 +65,28 @@ export default function Booking() {
       idSchedule: scheduleTour.idSchedule.trim(),
       idCustomer: "1",
       idVoucher: shortid.generate(),
-      paymentOption: paymentOption,
+      paymentOption: radioVisitor,
       bookingTime: "",
       total: tour.Price,
       sstBooking: false,
       amountPeople: scheduleTour.Amount,
-      reservationist: reservationist,
+      reservationist: requireCustomer,
       disCount: "",
     };
     const customerDetail = {
       idDetail: shortid.generate(),
       idBooking: booking.idBooking,
-      customerName: Customername,
-      cusPhoneNum: cusPhoneNum.toString(),
-      emailCus: emailCus,
-      gender: gender,
+      customerName: nameBooking,
+      cusPhoneNum: String(phoneBooking),
+      emailCus: emailBooking,
+      gender: selectGender,
     };
-    //["customerDetail":customerDetail, "booking":booking]
+
     localStorage.setItem("TourCurrent", JSON.stringify(TourCurrent));
+    console.log("formValue", [
+      { customerDetail: customerDetail },
+      { booking: booking },
+    ]);
     await bookingApi.post([
       { customerDetail: customerDetail },
       { booking: booking },
@@ -90,9 +94,6 @@ export default function Booking() {
 
     navigate(`/booking/payment/${booking.idBooking}`);
   };
-  // const handleOnclickSubmitPayment = () => {
-  //   navigate("/booking/payment");
-  // };
   return (
     <Box>
       <Navbar />
@@ -107,7 +108,6 @@ export default function Booking() {
         </Box>
         <Box className={classes.main}>
           <BookingForm
-            // handleOnclickSubmitPayment={handleOnclickSubmitPayment}
             onSubmit={handleBookingFormSubmit}
             fullWidth={fullWidth}
             tour={TourCurrent}
