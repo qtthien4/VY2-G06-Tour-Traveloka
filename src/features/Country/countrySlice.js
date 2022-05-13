@@ -2,7 +2,13 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
   loadding: false,
-  list: [],
+  list: [
+    {
+      IdCountry: "",
+      CountryName: "",
+      imageUrl: "",
+    },
+  ],
 };
 const countrySlice = createSlice({
   name: "country",

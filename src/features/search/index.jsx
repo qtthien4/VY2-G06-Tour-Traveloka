@@ -51,13 +51,13 @@ export default function Search() {
   const SelectPriceSort = useSelector(SelectFilterPrice);
 
   const listCity = useSelector(selectListCity);
-
+  const listCountry = useSelector(selectListCountry);
   const selectTour1 = useSelector(selectTour);
 
-  const [listTour, setListTour] = useState(selectTour1);
-  const listCountry = useSelector(selectListCountry);
+  //const [listTour, setListTour] = useState(selectTour1);
+  //console.log("list", listCity, listCountry);
 
-  const listFavaurite = JSON.parse(localStorage.getItem("favaurite"));
+  //const listFavaurite = JSON.parse(localStorage.getItem("favaurite"));
 
   //const listTour = JSON.parse(localStorage.getItem("listTour"));
   const dispatch = useDispatch();
@@ -72,26 +72,19 @@ export default function Search() {
   useEffect(() => {
     if (location.search.split("&").length > 1) {
       let id = Number(location.search.split("&")[1].split("=")[1]);
-
-      nameCity = JSON.parse(localStorage.getItem("city")).filter(
-        (city) => city.experienceId === String(id)
-      )[0].name;
       setNameCity(nameCity);
       dispatch(searchActions.fetchTourList(id));
       dispatch(cityActions.fetchApiCity());
       dispatch(favauriteActions.fetchApiFavaurite());
     } else {
       let id = Number(location.search.split("=")[1]);
-      nameCountry = JSON.parse(localStorage.getItem("country")).filter(
-        (country) => country.IdCountry.trim() === String(id)
-      )[0].CountryName;
       setNameCountry(nameCountry);
       //dispatch(imageActions.fetchApiImage(listCityofTour.IdActivity));
       dispatch(searchActions.fetchTourCountryList(id));
       dispatch(countryActions.fetchApiCountry());
       dispatch(favauriteActions.fetchApiFavaurite());
     }
-  }, [dispatch, location]);
+  }, [dispatch, location, nameCountry]);
 
   //onclick navigation product
   const handleOnclickTourSearch = (idTour) => {
@@ -102,70 +95,70 @@ export default function Search() {
     let idFilter = e.target.value;
     dispatch(searchActions.setFiterHeader(idFilter));
   };
-  const [show, setShow] = useState(true);
+  // const [show, setShow] = useState(true);
 
-  const activity = useRef();
+  // const activity = useRef();
 
-  const [toursFinal, setToursFinal] = useState(listTour);
-  useMemo(() => {
-    const tours = [];
-    //handle favaurite
+  // const [toursFinal, setToursFinal] = useState(listTour);
+  // useMemo(() => {
+  //   const tours = [];
+  //   //handle favaurite
 
-    // const [tours, setTour] = useState([]);
-    if (listTour.length > 0) {
-      for (let i = 0; i < listTour.length; i++) {
-        const tour = { ...listTour[i], isFavaurite: false };
-        for (let j = 0; j < listFavaurite.length; j++) {
-          if (listFavaurite[j].IdActivity == listTour[i].IdActivity) {
-            tour.isFavaurite = true;
-          }
-        }
-        tours.push(tour);
-      }
-    } else {
-      console.log("ok");
-    }
+  //   // const [tours, setTour] = useState([]);
+  //   if (listTour.length > 0) {
+  //     for (let i = 0; i < listTour.length; i++) {
+  //       const tour = { ...listTour[i], isFavaurite: false };
+  //       for (let j = 0; j < listFavaurite.length; j++) {
+  //         if (listFavaurite[j].IdActivity == listTour[i].IdActivity) {
+  //           tour.isFavaurite = true;
+  //         }
+  //       }
+  //       tours.push(tour);
+  //     }
+  //   } else {
+  //     console.log("ok");
+  //   }
 
-    activity.current = SortTour(tours, SelectPriceSort);
-    setToursFinal(activity.current);
-  }, [SelectPriceSort]);
+  //   activity.current = SortTour(tours, SelectPriceSort);
+  //   setToursFinal(activity.current);
+  // }, [SelectPriceSort]);
 
-  const [id, setId] = useState();
-  const [index1, setIndex] = useState();
+  // const [id, setId] = useState();
+  // const [index1, setIndex] = useState();
 
-  //handle delete favourite
-  const handleIsFavaurite = useCallback(
-    async (idActivity, index) => {
-      activity.current[index].isFavaurite = false;
-      setId(idActivity);
-      setIndex(index);
-      const arr = activity.current;
-      console.log("ok", index, idActivity, arr);
-      setToursFinal(arr);
+  // //handle delete favourite
+  // const handleIsFavaurite = useCallback(
+  //   async (idActivity, index) => {
+  //     activity.current[index].isFavaurite = false;
+  //     setId(idActivity);
+  //     setIndex(index);
+  //     const arr = activity.current;
 
-      await favauriteApi.delete(idActivity);
-    },
-    [toursFinal, id, activity.current[index1]]
-  );
+  //     setToursFinal(arr);
 
-  //handle post favourite
-  const handleNoFavaurite = useCallback(
-    async (idActivity, index) => {
-      activity.current[index].isFavaurite = true;
-      setId(idActivity);
-      const arr = activity.current;
-      console.log("ok em", index, idActivity, arr);
-      setToursFinal(arr);
+  //     await favauriteApi.delete(idActivity);
+  //   },
+  //   [toursFinal, id, activity.current[index1]]
+  // );
 
-      const favaurite = {
-        idFavaurite: shortid.generate(),
-        idCustomer: "1997",
-        IdActivity: idActivity,
-      };
-      await favauriteApi.post(favaurite);
-    },
-    [activity.current[index1], toursFinal, id]
-  );
+  // //handle post favourite
+  // const handleNoFavaurite = useCallback(
+  //   async (idActivity, index) => {
+  //     activity.current[index].isFavaurite = true;
+  //     setId(idActivity);
+  //     const arr = activity.current;
+  //     console.log("ok em", index, idActivity, arr);
+  //     setToursFinal(arr);
+
+  //     const favaurite = {
+  //       idFavaurite: shortid.generate(),
+  //       idCustomer: "1997",
+  //       IdActivity: idActivity,
+  //     };
+  //     await favauriteApi.post(favaurite);
+  //   },
+  //   [activity.current[index1], toursFinal, id]
+  // );
 
   return (
     <>
@@ -210,8 +203,8 @@ export default function Search() {
             </Box>
             <Box className={classes.listTourOfCity}>
               <TourOfCity
-                handleNoFavaurite={handleNoFavaurite}
-                handleIsFavaurite={handleIsFavaurite}
+                // handleNoFavaurite={handleNoFavaurite}
+                // handleIsFavaurite={handleIsFavaurite}
                 //tours={toursFinal}
                 tours={listCityofTour}
                 handleOnclickTourSearch={handleOnclickTourSearch}

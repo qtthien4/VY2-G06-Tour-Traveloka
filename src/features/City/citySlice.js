@@ -2,7 +2,13 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
   loadding: false,
-  list: [],
+  list: [
+    {
+      IdCity: "",
+      IdCountry: "",
+      CityName: "",
+    },
+  ],
 };
 const citySlice = createSlice({
   name: "tour",
