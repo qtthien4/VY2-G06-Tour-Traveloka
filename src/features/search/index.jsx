@@ -56,6 +56,7 @@ export default function Search() {
 
   const [listTour, setListTour] = useState(selectTour1);
   const listCountry = useSelector(selectListCountry);
+
   const listFavaurite = JSON.parse(localStorage.getItem("favaurite"));
 
   //const listTour = JSON.parse(localStorage.getItem("listTour"));
@@ -111,9 +112,7 @@ export default function Search() {
     //handle favaurite
 
     // const [tours, setTour] = useState([]);
-    if (listTour.length === null) {
-      return;
-    } else {
+    if (listTour.length > 0) {
       for (let i = 0; i < listTour.length; i++) {
         const tour = { ...listTour[i], isFavaurite: false };
         for (let j = 0; j < listFavaurite.length; j++) {
@@ -123,6 +122,8 @@ export default function Search() {
         }
         tours.push(tour);
       }
+    } else {
+      return;
     }
 
     activity.current = SortTour(tours, SelectPriceSort);
