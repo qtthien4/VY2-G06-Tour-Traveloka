@@ -95,6 +95,9 @@ const schedule = db.define('Schedule', {
   IdActivity: Sequelize.CHAR(20),
   StartTime: Sequelize.STRING,
   EndTime: Sequelize.STRING,
+  Amount: Sequelize.INTEGER,
+  AmountBooking: Sequelize.INTEGER,
+  Status: Sequelize.BOOLEAN
 },{
 timestamps: false,
 })
@@ -126,7 +129,11 @@ const book = db.define('Booking', {
     type: Sequelize.STRING,
     allowNull: true
   },
-  SttBooking: Sequelize.BOOLEAN,
+  Reduce: {
+    type: Sequelize.STRING,
+    allowNull: true
+  },
+  SttBooking: Sequelize.STRING,
   AmountPeople: Sequelize.INTEGER,
   IdPayment: {
     type: Sequelize.STRING,
@@ -150,13 +157,13 @@ const customer = db.define('CusDetail', {
  
 // table user
 const user = db.define('customer',{
-  IdCustomer: Sequelize.CHAR(20), 
+  IdCustomer: Sequelize.CHAR(20),
   Name: Sequelize.STRING,
   Phone: Sequelize.STRING,
   address:Sequelize.STRING,
   email:Sequelize.STRING,
   gender:Sequelize.CHAR(10), 
-  // point: Sequelize.INT,
+  point: Sequelize.INTEGER,
   password:Sequelize.STRING,
 }, {
   timestamps: false

@@ -19,7 +19,6 @@ class DetailActivityController {
       arrActivity.push(objActivity);
       await image.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {        
         arrImage = e.concat(arrImage)
-        console.log(arrImage);
         arrImage[0].active = "active";
       })
       await schedule.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
@@ -57,7 +56,6 @@ class DetailActivityController {
       arrActivity.push(objActivity);
       await image.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
         arrImage = e.concat(arrImage)
-        console.log(arrImage);
         arrImage[0].active = "active";
       })
       await schedule.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
@@ -90,8 +88,8 @@ class DetailActivityController {
     const idActivity = req.query.idactivity;
     var objActivity, arrSchedule;
     var arrImage = []
-    console.log(starttime);
 
+    // show thong tin acti
     await activity.findOne({raw: true,where: {IdActivity : idActivity}, order:['IdActivity']}).then(e => {
       objActivity = e
       var objImage = {}
@@ -101,13 +99,14 @@ class DetailActivityController {
       var arrActivity = [];
       arrActivity.push(objActivity);
 
+    // show anh acti
     await image.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
       arrImage = e.concat(arrImage)
-      console.log(arrImage);
       arrImage[0].active = "active";
       })
 
     if (starttime != undefined) {
+      //check xem thoi gian bat dau cos laon hon tg ket thuc k 
       if (starttime >= endtime) {
         res.render("detailactivity", {
           activity: arrActivity,
@@ -119,7 +118,10 @@ class DetailActivityController {
             IdSchedule: shortid.generate(),
             IdActivity :idActivity,
             StartTime: starttime,
-            EndTime: endtime
+            EndTime: endtime,
+            Amount: objActivity.Amount,
+            AmountBooking: 0,
+            Status: 1
           })
           await schedule.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
             arrSchedule = e
@@ -129,6 +131,7 @@ class DetailActivityController {
             }
           })
 
+          // set hoạt động của activity
           if (objActivity.Stt == true) {
             res.render("detailactivity", {
               activity: arrActivity,

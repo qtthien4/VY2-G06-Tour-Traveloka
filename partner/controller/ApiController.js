@@ -83,7 +83,12 @@ class ApiController {
   }
 
   schedule(req, res) {
-    schedule.findAll({raw: true}).then(arrSchedule => res.send(arrSchedule))
+    schedule.findAll({raw: true}).then(arrSchedule =>
+      {
+        res.send(arrSchedule)
+        // console.log(arrSchedule)
+      }
+    )
   }
 
   scheduleID(req, res) {
@@ -92,51 +97,48 @@ class ApiController {
   }
 
   async booking(req, res) {
-    console.log(req.body)
-    // const { customerDetail } = req.body[0];
-    // const {booking} = req.body[1];
-    // var idDetail = customerDetail.idDetail;
-    // var idBooking = booking.idBooking;
-    // var customerName = customerDetail.customerName;
-    // var cusPhoneNum = customerDetail.cusPhoneNum;
-    // cusPhoneNum = cusPhoneNum.toString();
-    // var emailCus = customerDetail.emailCus;
-    // // var gender = customerDetail.emailCus;
+    //console.log(req.body)
+    const { customerDetail } = req.body[0];
+    const {booking} = req.body[1];
+    var idDetail = customerDetail.idDetail;
+    var idBooking = booking.idBooking;
+    var customerName = customerDetail.customerName;
+    var cusPhoneNum = customerDetail.cusPhoneNum;
+    cusPhoneNum = cusPhoneNum.toString();
+    var emailCus = customerDetail.emailCus;
+    //var gender = customerDetail.emailCus;
 
-    // var idSchedule = booking.idSchedule;
-    // var idCustomer = booking.idCustomer;
-    // var idVoucher = booking.idVoucher;
-    // var paymentOption = booking.paymentOption;
-    // var bookingTime = booking.bookingTime;
-    // var sttBooking = booking.sstBooking;
-    // if(sttBooking)   sttBooking = 1
-    // else sttBooking = 0
-    
-    // var amountPeople = booking.amountPeople;
-    // var disCount = booking.disCount;
-    // var total = booking.total;
+    var idSchedule = booking.idSchedule;
+    var idCustomer = booking.idCustomer;
+    var idVoucher = booking.idVoucher;
+    var paymentOption = booking.paymentOption;
 
-    // await book.create({
-    //   IdBooking: idBooking,
-    //   IdSchedule: idSchedule,
-    //   IdCustomer:idCustomer,
-    //   IdVoucher: idVoucher,
-    //   PaymentOption: paymentOption,
-    //   BookingTime: "",
-    //   Total: total,
-    //   SttBooking: sttBooking,
-    //   AmountPeople:amountPeople,
-    //   Discount: "",
-    // })
+    var sttBooking = booking.sstBooking;   
+    var amountPeople = booking.amountPeople;
+    var total = booking.total;
 
-    // await customer.create({
-    //   IdDetail: idDetail,
-    //   IdBooking: idBooking,
-    //   CustomerName: customerName,
-    //   CusPhoneNum: cusPhoneNum,
-    //   EmailCus: emailCus,
-    //   Gender: "nam"
-    // })
+    await book.create({
+      IdBooking: idBooking,
+      IdSchedule: idSchedule,
+      IdCustomer:idCustomer,
+      IdVoucher: idVoucher,
+      PaymentOption: paymentOption,
+      BookingTime: "",
+      Total: total,
+      Reduce: "",
+      SttBooking: sttBooking,
+      AmountPeople:amountPeople,
+      IdPayment: "",
+    })
+
+    await customer.create({
+      IdDetail: idDetail,
+      IdBooking: idBooking,
+      CustomerName: customerName,
+      CusPhoneNum: cusPhoneNum,
+      EmailCus: emailCus,
+      Gender: "nam"
+    })
 
     res.json({
       status: "ok",
