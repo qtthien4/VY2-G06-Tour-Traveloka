@@ -1,16 +1,27 @@
 import tourApi from "api/ApiReal/tourApi";
+import fakeTypeApi from "api/apiType/fakeTypeApi";
 import fakeAllTourApi from "api/fakeAllTourApi";
 import fakeTourHcmApi from "api/fakeTourHcmApi";
 import { call, put, take, takeEvery, takeLatest } from "redux-saga/effects";
 import { searchActions } from "./searchSlice";
 
-function* fetchTourList(id) {
+function* fetchTourList(props) {
+  const { id, nameType } = props.payload;
   try {
     const responsive = yield call(tourApi.getAll);
+    const listTypeAll = yield call(fakeTypeApi.getAll);
+
+    const Type = listTypeAll.find((list) => {
+      return String(list.link === nameType);
+    });
 
     const listTour = responsive.filter((listArrTour) => {
-      return String(listArrTour.IdCity).trim() === String(id.payload).trim();
+      return (
+        String(listArrTour.IdCity).trim() === String(id).trim() &&
+        listArrTour.idtype.trim() === String(Type.idType)
+      );
     });
+
     localStorage.setItem("listTour", JSON.stringify(listTour));
     yield put(searchActions.SetTourListOfCity(listTour));
   } catch (error) {
@@ -19,12 +30,23 @@ function* fetchTourList(id) {
 }
 
 //api real
-function* fetchCountryTour(id) {
+function* fetchCountryTour(props) {
+  const { id, nameType } = props.payload;
   try {
     const responsive = yield call(tourApi.getAll);
-    const listTour = responsive.filter((listArrTour) => {
-      return String(listArrTour.IdCountry.trim()) === String(id.payload);
+    const listTypeAll = yield call(fakeTypeApi.getAll);
+
+    let Type = listTypeAll.filter((list) => {
+      return list.link == nameType;
     });
+    const listTour = responsive.filter((listArrTour) => {
+      console.log(listArrTour);
+      return (
+        String(listArrTour.IdCountry).trim() === String(id).trim() &&
+        String(listArrTour.idtype).trim() == String(Type[0].idType).trim()
+      );
+    });
+
     localStorage.setItem("listTour", JSON.stringify(listTour));
 
     yield put(searchActions.SetTourListOfCity(listTour));

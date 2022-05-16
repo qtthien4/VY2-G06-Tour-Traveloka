@@ -5,7 +5,7 @@ import {
   ArrowRightOutlined,
   PlaceOutlined,
 } from "@material-ui/icons";
-import { FAKE_API_TYPE_EXPERENCE } from "api/Data/fakeTypeApi";
+import { FAKE_API_TYPE_EXPERENCE } from "api/Data/fakeDataTypeApi";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import Slide from "components/Slide";
@@ -76,6 +76,8 @@ export default function Tours() {
     //dispatch(xprerienceActions.fetchApiXprerience(nameType));
   }, [dispatch, nameType]);
 
+  console.log("nametype", nameType);
+
   const handleOnclickListTourVN = (idCity, idCountry) => {
     navigation(
       `/activities/search/daytour?idCountry=${idCountry}&idCity=${idCity}`
@@ -84,7 +86,7 @@ export default function Tours() {
   const handleOnclickListCountry = (idTourVN, idCountry) => {
     const idCountry1 = idCountry.trim();
     console.log("idtype", nameType);
-    navigation(`/activities/search/daytour?idCountry=${idCountry1}`);
+    navigation(`/activities/search/${nameType}?idCountry=${idCountry1}`);
   };
 
   function handleOnclickTourForeign(idTour) {

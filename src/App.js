@@ -44,6 +44,19 @@ export default function App({ user }) {
         <Route path="/activities/search/daytour" element={<Search />}>
           {/* <Route path=":id" element={<Search />}></Route> */}
         </Route>
+        <Route path="/activities/search/transport" element={<Search />}>
+          {/* <Route path=":id" element={<Search />}></Route> */}
+        </Route>
+        <Route path="/activities/search/sport" element={<Search />}>
+          {/* <Route path=":id" element={<Search />}></Route> */}
+        </Route>
+        <Route path="/activities/search/playground" element={<Search />}>
+          {/* <Route path=":id" element={<Search />}></Route> */}
+        </Route>
+        <Route path="/activities/search/attraction" element={<Search />}>
+          {/* <Route path=":id" element={<Search />}></Route> */}
+        </Route>
+
         <Route path="/asd">
           {/* <Route path=":id" element={<Search />}></Route> */}
         </Route>

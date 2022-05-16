@@ -53,13 +53,6 @@ export default function Search() {
   const listCity = useSelector(selectListCity);
   const listCountry = useSelector(selectListCountry);
   const selectTour1 = useSelector(selectTour);
-
-  //const [listTour, setListTour] = useState(selectTour1);
-  //console.log("list", listCity, listCountry);
-
-  //const listFavaurite = JSON.parse(localStorage.getItem("favaurite"));
-
-  //const listTour = JSON.parse(localStorage.getItem("listTour"));
   const dispatch = useDispatch();
   let location = useLocation();
 
@@ -72,15 +65,19 @@ export default function Search() {
   useEffect(() => {
     if (location.search.split("&").length > 1) {
       let id = Number(location.search.split("&")[1].split("=")[1]);
+      let nameType = location.pathname.split("/")[3];
+
       setNameCity(nameCity);
-      dispatch(searchActions.fetchTourList(id));
+      dispatch(searchActions.fetchTourList({ id, nameType }));
       dispatch(cityActions.fetchApiCity());
       dispatch(favauriteActions.fetchApiFavaurite());
     } else {
       let id = Number(location.search.split("=")[1]);
+      let nameType = location.pathname.split("/")[3];
+      
       setNameCountry(nameCountry);
       //dispatch(imageActions.fetchApiImage(listCityofTour.IdActivity));
-      dispatch(searchActions.fetchTourCountryList(id));
+      dispatch(searchActions.fetchTourCountryList( {id, nameType }));
       dispatch(countryActions.fetchApiCountry());
       dispatch(favauriteActions.fetchApiFavaurite());
     }

@@ -1,4 +1,4 @@
-import { FAKE_API_TYPE_EXPERENCE } from "api/Data/fakeTypeApi";
+import { FAKE_API_TYPE_EXPERENCE } from "api/Data/fakeDataTypeApi";
 
 const fakeTypeApi = {
   getAll() {
