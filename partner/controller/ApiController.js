@@ -97,48 +97,52 @@ class ApiController {
   }
 
   async booking(req, res) {
-    //console.log(req.body)
-    const { customerDetail } = req.body[0];
-    const {booking} = req.body[1];
-    var idDetail = customerDetail.idDetail;
-    var idBooking = booking.idBooking;
-    var customerName = customerDetail.customerName;
-    var cusPhoneNum = customerDetail.cusPhoneNum;
-    cusPhoneNum = cusPhoneNum.toString();
-    var emailCus = customerDetail.emailCus;
-    //var gender = customerDetail.emailCus;
-
-    var idSchedule = booking.idSchedule;
-    var idCustomer = booking.idCustomer;
-    var idVoucher = booking.idVoucher;
-    var paymentOption = booking.paymentOption;
-
-    var sttBooking = booking.sstBooking;   
-    var amountPeople = booking.amountPeople;
-    var total = booking.total;
-
-    await book.create({
-      IdBooking: idBooking,
-      IdSchedule: idSchedule,
-      IdCustomer:idCustomer,
-      IdVoucher: idVoucher,
-      PaymentOption: paymentOption,
-      BookingTime: "",
-      Total: total,
-      Reduce: "",
-      SttBooking: sttBooking,
-      AmountPeople:amountPeople,
-      IdPayment: "",
-    })
-
-    await customer.create({
-      IdDetail: idDetail,
-      IdBooking: idBooking,
-      CustomerName: customerName,
-      CusPhoneNum: cusPhoneNum,
-      EmailCus: emailCus,
-      Gender: "nam"
-    })
+   // console.log(req.body)
+    if( req.body[0] != undefined){
+      const { customerDetail } = req.body[0];
+      const {booking} = req.body[1];
+      var idDetail = customerDetail.idDetail;
+      var idBooking = booking.idBooking;
+      var customerName = customerDetail.customerName;
+      var cusPhoneNum = customerDetail.cusPhoneNum;
+      cusPhoneNum = cusPhoneNum.toString();
+      var emailCus = customerDetail.emailCus;
+      //var gender = customerDetail.emailCus;
+  
+      var idSchedule = booking.idSchedule;
+      var idCustomer = booking.idCustomer;
+      var idVoucher = booking.idVoucher;
+      var paymentOption = booking.paymentOption;
+  
+      var sttBooking = booking.sstBooking.toString();   
+      var amountPeople = booking.amountPeople;
+      var total = booking.total.toString();
+  
+      await book.create({
+        IdBooking: idBooking,
+        IdSchedule: idSchedule,
+        IdCustomer:idCustomer,
+        IdVoucher: idVoucher,
+        PaymentOption: paymentOption,
+        BookingTime: "",
+        Total: total,
+        Reduce: "",
+        SttBooking: sttBooking,
+        AmountPeople:amountPeople,
+        IdPayment: "",
+      })
+  
+      await customer.create({
+        IdDetail: idDetail,
+        IdBooking: idBooking,
+        CustomerName: customerName,
+        CusPhoneNum: cusPhoneNum,
+        EmailCus: emailCus,
+        Gender: "nam"
+      })
+    }    
+    else
+    console.log(req.body)
 
     res.json({
       status: "ok",
