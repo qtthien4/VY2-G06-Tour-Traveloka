@@ -9,9 +9,9 @@ class Login{
         var pass = req.body.password;
         partner.findOne({
             where: {
-                PartnerName: user
+                UserPartner: user
             },
-            order: ['PartnerName'],
+            order: ['UserPartner'],
             raw: true
         }).then(users => {            
             bcrypt.compare(pass, users.password.trim()).then(function(result) {

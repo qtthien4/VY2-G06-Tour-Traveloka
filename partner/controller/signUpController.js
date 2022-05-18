@@ -21,8 +21,7 @@ class signUpController{
                 if(err) console.log(err)
                 else{                
                     partner.create({
-                        IdPartner: shortid.generate(),
-                        PartnerName: username,
+                        UserPartner: username,
                         password: hash
                     }).then(user => {
                         console.log(user.get({plain:true}))

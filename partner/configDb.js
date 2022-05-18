@@ -21,9 +21,8 @@ const db = new Sequelize({
 
   //table partner
   const partner = db.define('Partner', {      
-      IdPartner: Sequelize.CHAR(20),
-      PartnerName: Sequelize.TEXT,
-      password: Sequelize.CHAR(200),      
+    UserPartner: Sequelize.CHAR(20),
+    password: Sequelize.CHAR(200),      
   },{
     timestamps: false,
   })
@@ -33,7 +32,7 @@ const db = new Sequelize({
     IdActivity: Sequelize.CHAR(20),
     IdCountry: Sequelize.CHAR(20),
     IdCity: Sequelize.CHAR(20),
-    IdPartner: Sequelize.CHAR(20),
+    UserPartner: Sequelize.CHAR(20),
     idtype: Sequelize.CHAR(20),
     ActivityName: Sequelize.TEXT,
     Location: Sequelize.TEXT,

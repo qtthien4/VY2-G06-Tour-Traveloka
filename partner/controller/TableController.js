@@ -5,7 +5,7 @@ class TableController {
     async index(req, res) {
         var stt = req.query.stt;
         var del = req.query.del;
-        var user = req.signedCookies.Cookie_User;
+        var userPartner = req.signedCookies.Cookie_User;
         if (del == undefined && stt == undefined) {
             // sql.connect(sqlConfig, function (err) {
             //     if (err) console.log(err);
@@ -17,9 +17,7 @@ class TableController {
             //         res.render('tables', { activity: activity })
             //     })
             // })
-            var idPartner
-            await partner.findOne({raw:true, where: {PartnerName : user}, order: ['IdPartner']}).then(partner => idPartner = partner.IdPartner );
-            await activity.findAll({raw: true, where : {IdPartner: idPartner.trim()}}).then(arrActivity => {
+             await activity.findAll({raw: true, where : {UserPartner: userPartner}}).then(arrActivity => {
                 res.render('tables', { activity: arrActivity }) })
         }
         if (stt != undefined && del == undefined) {

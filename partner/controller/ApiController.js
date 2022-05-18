@@ -2,6 +2,7 @@ const sql = require("mssql/msnodesqlv8");
 const sqlConfig = require("../calldb");
 const shortid = require("shortid");
 const {activity, country, city,favourite, keysearch, image, schedule, book, customer} = require('../configDb');
+
 class ApiController {
   index(req, res) {
     
@@ -82,18 +83,36 @@ class ApiController {
     image.findAll({raw: true, where: {IdActivity : id}}).then(arrImage => res.send(arrImage))
   }
 
-  schedule(req, res) {
-    schedule.findAll({raw: true}).then(arrSchedule =>
-      {
-        res.send(arrSchedule)
-        // console.log(arrSchedule)
-      }
-    )
-  }
+  // schedule(req, res) {
+  //   schedule.findAll({raw: true}).then(arrSchedule =>
+  //     {
+  //       res.send(arrSchedule)
+  //       // console.log(arrSchedule)
+  //     }
+  //   )a
+  // }
 
-  scheduleID(req, res) {
+  async scheduleID(req, res) {
     var id = req.params.id;
-    schedule.findAll({raw: true, where: {IdActivity : id}}).then(arrSchedule => res.send(arrSchedule))
+    var arrSchedule = [];
+
+    await schedule.findAll({raw: true, where: {IdActivity : id}}).then(e => {
+      arrSchedule = e      
+    })
+
+    for(var i = 0; i < arrSchedule.length; i++ ){
+      var a =  arrSchedule[i].StartTime
+      var timestart = new Date(a);
+      console.log(timestart <= new Date());
+      if(timestart <= new Date()){
+        await schedule.update({Status:0}, { where: {IdSchedule: arrSchedule[i].IdSchedule}})
+      }
+    }
+
+    await schedule.findAll({raw: true, where: {IdActivity : id, Status:true }}).then(e => {
+      res.send(e)
+    })
+    
   }
 
   async booking(req, res) {

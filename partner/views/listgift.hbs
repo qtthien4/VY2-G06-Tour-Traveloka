@@ -102,13 +102,13 @@
                 </svg>Forms </a>
                     </li>
                     <li class="sidebar-item ">
-                        <a class="sidebar-link" href="/listgift">
+                        <a class="sidebar-link" href="/listvoucher">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
                   <use xlink:href="#portfolio-grid-1"> </use>
                 </svg>List Voucher </a>
                     </li>   
                     <li class="sidebar-item active">
-                        <a class="sidebar-link" href="/listvoucher">
+                        <a class="sidebar-link" href="/listgift">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
                   <use xlink:href="#portfolio-grid-1"> </use>
                 </svg>List Gift </a>
@@ -126,7 +126,48 @@
           <div class="products-area-wrapper tableView">
       
             //sau này thêm bảng listgift ở đây
-
+            <form method="post">
+              <input type="text" name="search" placeholder="Search">
+              <button type="submit" class="btn btn-primary mb-2">Search</button>
+          </form>
+            <a href="#">Thống kê bằng sơ đồ</a>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" style="width:20%">Tên User</th>
+      <th scope="col">Số lượng người</th>
+      <th scope="col" style="width:20%">Ngày đặt</th>
+      <th scope="col">Sử dụng voucher</th>
+      <th scope="col" style="width:10%">Tổng tiền</th>
+      <th scope="col">Trạng thái</th>
+      <th ></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Thien vo</td>
+      <td>12 người</td>
+      <td>18/1/2001</td>
+      <td>có / không</td>
+      <td>10000đ</td>
+      <td>Đã thanh toán</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
     </div>
           
         </div>

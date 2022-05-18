@@ -15,8 +15,8 @@ class FormController {
 
   async form(req, res) {
     var userPartner = req.signedCookies.Cookie_User;
-    var idPartner;
-    await partner.findOne({raw:true, where: {PartnerName : userPartner}, order: ['IdPartner']}).then(partner => idPartner = partner.IdPartner );
+
+    
     const nuoc = req.body.nuoc;
     const thanhpho = req.body.thanhpho;
     const type = req.body.type;
@@ -34,7 +34,7 @@ class FormController {
       IdActivity: idactivity,
       IdCountry: nuoc,
       IdCity: thanhpho,
-      IdPartner: idPartner,
+      UserPartner: userPartner,
       idtype: type,
       ActivityName: name,
       Location: place,
@@ -64,7 +64,7 @@ class FormController {
     }))
 
     //select all activity
-    activity.findAll({raw: true, where: {IdPartner: idPartner.trim()}})
+    activity.findAll({raw: true, where: {UserPartner: userPartner.trim()}})
     .then(arrActivity => {
       res.render("tables", { activity: arrActivity });
     })

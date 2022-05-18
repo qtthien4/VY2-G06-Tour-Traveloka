@@ -10,7 +10,7 @@ router.get("/tour", apiController.tour);
 router.get("/image", apiController.image);
 router.get("/image/:id", apiController.imageId);
 
-router.get("/schedule", apiController.schedule);
+// router.get("/schedule", apiController.schedule);
 router.get("/schedule/:id", apiController.scheduleID);
 
 router.get("/tour/:slug", apiController.show);
@@ -24,7 +24,6 @@ router.post("/favaurite/:id", apiController.deleteFavourite);
 
 router.post("/test", apiController.getkeysearch);
 
-router.post("/schedule", apiController.schedule);
 router.post("/booking", apiController.booking);
 
 router.get("/keysearch", apiController.keysearch);
