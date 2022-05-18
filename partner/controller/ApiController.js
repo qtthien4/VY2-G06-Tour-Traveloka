@@ -1,11 +1,35 @@
 const sql = require("mssql/msnodesqlv8");
 const sqlConfig = require("../calldb");
 const shortid = require("shortid");
-const {activity, country, city,favourite, keysearch, image, schedule, book, customer} = require('../configDb');
+const {activity, country, city,favourite, keysearch, image, schedule, book, customer, user} = require('../configDb');
 
 class ApiController {
   index(req, res) {
     
+  }
+
+  RegisterUser(req,res){
+      var info = req.body;
+      var IdCustomer = info.IdCustomer
+      var Name = info.Name
+      var Phone = info.Phone
+      var email = info.email
+      var gender = info.gender
+      var point = info.point
+      var password = info.password
+
+      user.create({
+        IdCustomer,
+        Name,
+        Phone,
+        email,
+        gender,
+        point,
+        password
+      }).then(user => {
+        console.log(user.get({plain:true}))     
+      })
+      .catch(err => console.log(err))
   }
 
   tour(req, res) {

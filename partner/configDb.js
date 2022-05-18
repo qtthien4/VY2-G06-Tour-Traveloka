@@ -159,7 +159,6 @@ const user = db.define('customer',{
   IdCustomer: Sequelize.CHAR(20),
   Name: Sequelize.STRING,
   Phone: Sequelize.STRING,
-  address:Sequelize.STRING,
   email:Sequelize.STRING,
   gender:Sequelize.CHAR(10), 
   point: Sequelize.INTEGER,
