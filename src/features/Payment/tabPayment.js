@@ -5,6 +5,10 @@ import "./css/pay.css";
 import { Box, Tab, Tabs, Typography } from "@material-ui/core";
 import FormPayment from "./components/FormPayment";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import StripeCheckout from "react-stripe-checkout";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { display } from "@mui/system";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -38,7 +42,7 @@ function a11yProps(index) {
   };
 }
 
-function VerticalTabs({ idBooking , tourCurrent}) {
+function VerticalTabs({ idBooking, tourCurrent }) {
   const [value, setValue] = React.useState(1);
 
   const handleChange = (event, newValue) => {
@@ -46,7 +50,36 @@ function VerticalTabs({ idBooking , tourCurrent}) {
   };
 
   //handle form payment
+  const stripe = useStripe();
+  const elements = useElements();
 
+  var nameOnCard;
+  async function test() {
+    try {
+      const response = await axios("http://localhost:3003/payment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: { ten: "thien" },
+      });
+
+      const data = await response.data;
+      const cardElement = elements.getElement(CardElement);
+      const confirmPayment = await stripe.confirmCardPayment(
+        data.clientSecret,
+        {
+          payment_method: { card: cardElement },
+        }
+      );
+      const { paymentIntent } = confirmPayment;
+      if (paymentIntent.status == "succeeded") alert("payment successful!");
+      else alert("payment failed");
+    } catch (error) {
+      console.error(error);
+      alert("payment failed!");
+    }
+  }
   return (
     <Box
       sx={{
@@ -155,7 +188,7 @@ function VerticalTabs({ idBooking , tourCurrent}) {
               Bằng việc nhấn Thanh toán, bạn đồng ý Điều khoản &amp; Điều kiện
               và Chính sách quyền riêng tư.
             </div>
-            <button>Thanh toán Chuyển khoản ngân hàng</button>
+            <button onClick={test}>Thanh toán Chuyển khoản ngân hàng</button>
           </div>
         </div>
       </TabPanel>
@@ -284,7 +317,7 @@ function VerticalTabs({ idBooking , tourCurrent}) {
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <FormPayment  idBooking={idBooking} tourCurrent={tourCurrent} />
+        <FormPayment idBooking={idBooking} tourCurrent={tourCurrent} />
       </TabPanel>
     </Box>
   );
