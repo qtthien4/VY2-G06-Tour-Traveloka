@@ -13,7 +13,8 @@ import axios from "axios";
 import StripeCheckout from "react-stripe-checkout";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { display } from "@mui/system";
-import ListVoucherApi from "api/ApiExternal/ListVoucherApi";
+import VouchersApi from "api/ApiExternal/Vouchers/VouchersApi";
+import { error } from "jquery";
 
 const schema = yup
   .object({
@@ -70,18 +71,8 @@ export default function FormPayment({ idBooking, tourCurrent }) {
   const [listVoucher, setListVoucher] = useState([]);
 
   useEffect(() => {
-    fetch(
-      "http://128.199.241.206:8080/api/v1/user/voucher/eligible?typeVoucher=tour",
-      {
-        method: "GET",
-        headers: {
-          user_id: "12333333",
-          partner_id: "a67f1f4e-946a-483b-9993-ca5c344da8f5",
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((response) => response.json())
+    VouchersApi.getAllList()
+      .then((response) => response.data)
       .then((json) => {
         setListVoucher(
           json.data.vouchers.map((item) => {
@@ -91,6 +82,9 @@ export default function FormPayment({ idBooking, tourCurrent }) {
             };
           })
         );
+      })
+      .catch(function (error) {
+        console.log(error.config);
       });
   }, []);
 
@@ -102,21 +96,16 @@ export default function FormPayment({ idBooking, tourCurrent }) {
   const [amountVoucher, setAmountVoucher] = useState(0);
   const [codeVoucher, setCodeVoucher] = useState("");
 
-  const handleChangeVoucher = (e) => {
+  const handleChangeVoucher = async (e) => {
     const code = e.value;
-    axios(`http://128.199.241.206:8080/api/v1/user/voucher/check-condition`, {
-      method: "GET",
-      headers: {
-        user_id: "12333333",
-        partner_id: "a67f1f4e-946a-483b-9993-ca5c344da8f5",
-        "Content-Type": "application/json",
-      },
-      params: {
-        amount: tourCurrent.Price,
-        code,
-        typeVoucher: "tour",
-      },
-    })
+    const paramsCheckConditionVoucher = {
+      amount: tourCurrent.Price,
+      code,
+      typeVoucher: "tour",
+    };
+
+    //api check condition
+    await VouchersApi.checkCondition(paramsCheckConditionVoucher)
       .then((res) => {
         const { message, data } = res.data;
         toast.success(message);
@@ -167,6 +156,7 @@ export default function FormPayment({ idBooking, tourCurrent }) {
           data: dataVoucher,
         }
       );
+      //const res = VouchersApi.preOrder(dataVoucher);
 
       let { orderId } = res.data.data;
 
