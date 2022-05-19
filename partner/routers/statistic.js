@@ -5,5 +5,6 @@ var statisticController = require('../controller/StatisticController')
 
 router.get('/',statisticController.index);
 router.get('/Detail/:id',statisticController.StatisticDetail);
+router.post('/Detail/:id',statisticController.Seach);
 
 module.exports = router;

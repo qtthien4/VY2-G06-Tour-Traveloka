@@ -15,13 +15,22 @@ class PaymentController{
                              
             });
             const clientSecret = paymentIntent.client_secret;
-            // console.log(paymentIntent);
+            console.log(paymentIntent)
+            // if(clientSecret != ''){
+
+            // }
             res.json({clientSecret, message: 'Payment initiated successfully!'})
         } catch (error) {
             console.log(error);
             res.json(500).json({message : 'Internal server error'})
         }
     }
+
+    CheckPayment(req,res){
+        console.log(req.body)
+        i
+    }
+
     async refundPayment(req,res){
         try {
             const refund = await stripe.refunds.create({

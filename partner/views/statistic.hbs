@@ -78,50 +78,48 @@
     <div class="page-content d-flex align-items-stretch">
       <!-- Side Navbar -->
       <nav class="side-navbar z-index-40">
-        <!-- Sidebar Header-->
-        <div class="sidebar-header d-flex align-items-center py-4 px-3"><img
-            class="avatar shadow-0 img-fluid rounded-circle" src="img/avatar-1.jpg" alt="...">
-          <div class="ms-3 title">
-            <h1 class="h4 mb-2">Mark Stephen</h1>
-            <p class="text-sm text-gray-500 fw-light mb-0 lh-1">Web Designer</p>
-          </div>
-        </div>
-        <!-- Sidebar Navidation Menus--><span
-          class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Main</span>
-        <ul class="list-unstyled py-4">
-          <li class="sidebar-item">
-            <a class="sidebar-link" href="/home">
-              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                <use xlink:href="#real-estate-1"> </use>
-              </svg>Home </a>
-          </li>
-          <li class="sidebar-item ">
-            <a class="sidebar-link" href="/table">
-              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                <use xlink:href="#portfolio-grid-1"> </use>
-              </svg>Tables </a>
-          </li>
-          </li>
-          <li class="sidebar-item ">
-            <a class="sidebar-link" href="/form">
-              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                <use xlink:href="#survey-1"> </use>
-              </svg>Forms </a>
-          </li>
-          <li class="sidebar-item active">
-            <a class="sidebar-link" href="/listvoucher">
-              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                <use xlink:href="#portfolio-grid-1"> </use>
-              </svg>List Voucher </a>
-          </li>
-          <li class="sidebar-item ">
-            <a class="sidebar-link" href="/listgift">
-              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                <use xlink:href="#portfolio-grid-1"> </use>
-              </svg>List Gift </a>
-          </li>
-        </ul>
-      </nav>
+                <!-- Sidebar Header-->
+                <div class="sidebar-header d-flex align-items-center py-4 px-3"><img class="avatar shadow-0 img-fluid rounded-circle" src="img/avatar-1.jpg" alt="...">
+                    <div class="ms-3 title">
+                        <h1 class="h4 mb-2">Mark Stephen</h1>
+                        <p class="text-sm text-gray-500 fw-light mb-0 lh-1">Web Designer</p>
+                    </div>
+                </div>
+                <!-- Sidebar Navidation Menus--><span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Main</span>
+                <ul class="list-unstyled py-4">
+                    <li class="sidebar-item ">
+                        <a class="sidebar-link" href="/home">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                  <use xlink:href="#real-estate-1"> </use>
+                </svg>Home </a>
+                    </li>
+                    <li class="sidebar-item ">
+                        <a class="sidebar-link" href="/table">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                  <use xlink:href="#portfolio-grid-1"> </use>
+                </svg>Tables </a>
+                    </li>                    
+                    </li>
+                    <li class="sidebar-item ">
+                        <a class="sidebar-link" href="/form">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                  <use xlink:href="#survey-1"> </use>
+                </svg>Forms </a>
+                    </li>
+                    <li class="sidebar-item  active">
+                        <a class="sidebar-link" href="/statistic">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                  <use xlink:href="#portfolio-grid-1"> </use>
+                </svg>Thống kê </a>
+                    </li>   
+                    <li class="sidebar-item ">
+                        <a class="sidebar-link" href="/">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                  <use xlink:href="#portfolio-grid-1"> </use>
+                </svg>Thống kê biểu đồ </a>
+                    </li>   
+                </ul>
+            </nav>
       <div class="content-inner w-100">
         <!-- Page Header-->
         <header class="bg-white shadow-sm px-4 py-3 z-index-20">
@@ -142,7 +140,9 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col" style="width:60%">Tên Activity</th>
+      <th scope="col">Tên Activity</th>
+      <th scope="col">Loại Activity</th>
+      <th scope="col">Số Lượng người</th>
       <th scope="col">Vị trị</th>
       <th scope="col">Tổng tiền thu được</th>
       <th ></th>
@@ -153,6 +153,8 @@
     <tr>
       <th scope="row">1</th>
       <td>{{{this.ActivityName}}}</td>
+      <td>{{{this.type}}}</td>
+      <td>{{{this.Amount}}}</td>
       <td>{{{this.Location}}}</td>
       <td>{{{this.totalBooking}}}</td>
       <td><a href="statistic/Detail/{{{this.IdActivity}}}">Chi tiết</a></td>

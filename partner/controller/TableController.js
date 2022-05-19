@@ -17,7 +17,9 @@ class TableController {
             //         res.render('tables', { activity: activity })
             //     })
             // })
-             await activity.findAll({raw: true, where : {UserPartner: userPartner}}).then(arrActivity => {
+            var idpartner = {}
+            await partner.findOne({raw:true, where: {UserPartner: userPartner}}).then(e => idpartner = e)
+             await activity.findAll({raw: true, where : {Idpartner: idpartner.Idpartner}}).then(arrActivity => {
                 res.render('tables', { activity: arrActivity }) })
         }
         if (stt != undefined && del == undefined) {

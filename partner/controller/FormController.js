@@ -8,15 +8,17 @@ class FormController {
     await type.findAll({raw:true}).then(arrType => renderType = arrType)
     //get cookie
     // console.log(req.signedCookies.Cookie_User);
-
     
     res.render("forms", { nuoc: rederCountry, thanhpho: rederCity, type: renderType })
   }
 
   async form(req, res) {
     var userPartner = req.signedCookies.Cookie_User;
+    var idpartner = {}
+    await partner.findOne({raw:true, where: {UserPartner: userPartner}}).then(e => {
+      idpartner = e
+    })
 
-    
     const nuoc = req.body.nuoc;
     const thanhpho = req.body.thanhpho;
     const type = req.body.type;
@@ -34,7 +36,7 @@ class FormController {
       IdActivity: idactivity,
       IdCountry: nuoc,
       IdCity: thanhpho,
-      UserPartner: userPartner,
+      Idpartner: idpartner.Idpartner,
       idtype: type,
       ActivityName: name,
       Location: place,
@@ -64,11 +66,11 @@ class FormController {
     }))
 
     //select all activity
-    activity.findAll({raw: true, where: {UserPartner: userPartner.trim()}})
+    activity.findAll({raw: true, where: {Idpartner: idpartner.Idpartner}})
     .then(arrActivity => {
       res.render("tables", { activity: arrActivity });
     })
-  }
+   }
 }
 
 module.exports = new FormController();

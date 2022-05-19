@@ -21,6 +21,10 @@ const db = new Sequelize({
 
   //table partner
   const partner = db.define('Partner', {      
+    Idpartner: {
+      type: Sequelize.CHAR(20),
+      primaryKey: true
+    },
     UserPartner: Sequelize.CHAR(20),
     password: Sequelize.CHAR(200),      
   },{
@@ -32,7 +36,7 @@ const db = new Sequelize({
     IdActivity: Sequelize.CHAR(20),
     IdCountry: Sequelize.CHAR(20),
     IdCity: Sequelize.CHAR(20),
-    UserPartner: Sequelize.CHAR(20),
+    Idpartner: Sequelize.CHAR(20),
     idtype: Sequelize.CHAR(20),
     ActivityName: Sequelize.TEXT,
     Location: Sequelize.TEXT,
@@ -173,7 +177,6 @@ country.removeAttribute('id');
 city.removeAttribute('id');
 image.removeAttribute('id');
 activity.removeAttribute('id');
-partner.removeAttribute('id');
 favourite.removeAttribute('id');
 schedule.removeAttribute('id');
 keysearch.removeAttribute('id');
