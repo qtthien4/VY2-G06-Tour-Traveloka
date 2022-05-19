@@ -170,12 +170,13 @@ export default function FormPayment({ idBooking, tourCurrent }) {
 
       let { orderId } = res.data.data;
 
+// post total ở đây (post lan 1) 
       const response = await axios("http://95.111.203.185:3003/payment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        data: { ten: "thien" },
+        data: { total: "thien" },
       });
 
       const data = response.data;
@@ -190,9 +191,8 @@ export default function FormPayment({ idBooking, tourCurrent }) {
 
       if (paymentIntent.status !== "succeeded") {
         toast.error("Thanh toan that bai !");
-
         return;
-      }
+      }else
       alert("payment successful!");
       //post api thanh toán sau khi đã chuyển tiền
       const today = new Date();
@@ -207,9 +207,14 @@ export default function FormPayment({ idBooking, tourCurrent }) {
 
       const dataPayment = {
         idBooking: idBooking,
-        bookingTime: `${time} ${date}`,
-        sttBooking: true,
+        bookingTime: today,
+        sttBooking: "success",
+        idVoucher: "id của voucher",
+        idGift: "id của gift",
+        reduce: "gia da duoc giam",
+        idPayment: paymentIntent.id,
 
+        // không hiểu dòng ở dưới là gì
         l: priceTotal.current || tourCurrent.Price,
       };
 

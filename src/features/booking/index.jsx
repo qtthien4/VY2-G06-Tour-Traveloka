@@ -64,14 +64,15 @@ export default function Booking() {
       idBooking: shortid.generate(),
       idSchedule: scheduleTour.idSchedule.trim(),
       idCustomer: "1",
-      idVoucher: shortid.generate(),
+      idVoucher: "",
+      idGift: "",
       paymentOption: radioVisitor,
       bookingTime: "",
       total: tour.Price,
-      sstBooking: false,
+      reduce: "",
+      sstBooking: "fail",
       amountPeople: scheduleTour.Amount,
-      reservationist: requireCustomer,
-      disCount: "",
+      IdPayment: ""      
     };
     const customerDetail = {
       idDetail: shortid.generate(),
