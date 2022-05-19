@@ -94,10 +94,11 @@ export default function FormPayment({ idBooking, tourCurrent }) {
       });
   }, []);
 
-  const priceTotal = useRef(null);
+  const [priceTotal, setPriceTotal] = useState(0);
 
   //handle voucher
   const [checkCondition, setCheckCondition] = useState(false);
+
   const [amountVoucher, setAmountVoucher] = useState(0);
   const [codeVoucher, setCodeVoucher] = useState("");
 
@@ -119,15 +120,14 @@ export default function FormPayment({ idBooking, tourCurrent }) {
       .then((res) => {
         const { message, data } = res.data;
         toast.success(message);
-        console.log(data);
 
         setCodeVoucher(code);
         setAmountVoucher(data.amount);
-        priceTotal.current = tourCurrent.Price - amountVoucher;
-        console.log(tourCurrent.Price, priceTotal.current, amountVoucher);
       })
       .catch((err) => {
         console.error(err.response.data.message);
+        setAmountVoucher(0);
+        setCodeVoucher("");
         toast.error(err.response.data.message);
       });
 
@@ -135,6 +135,11 @@ export default function FormPayment({ idBooking, tourCurrent }) {
 
     //lay gia goc tru di voucher
   };
+
+  useEffect(() => {
+    setPriceTotal(tourCurrent.Price - amountVoucher);
+  }, [amountVoucher]);
+
   //handle submit
   // post len server thien vo sttbooking = true, discount: "", bookingTime, total moi nhat
   const [orderIdVoucher, setOrderIdVoucher] = useState("");
@@ -361,20 +366,21 @@ export default function FormPayment({ idBooking, tourCurrent }) {
         </div>
         <div className="detail-price">
           <h4>Chi tiết giá</h4>
+
           <div style={{ overflow: "auto" }}>
             <div style={{ float: "left", width: "250px" }}>
               Saigon River Sightseeing - 1 Hour Người lớn x 1
             </div>
-            <div style={{ float: "right" }}>499.900 VND</div>
+            <div style={{ float: "right" }}>{tourCurrent.Price} VND</div>
           </div>
           <div style={{ overflow: "auto" }}>
-            <div style={{ float: "left" }}>Phí tiện ích</div>
-            <div style={{ float: "right" }}>11.000 VND</div>
+            <div style={{ float: "left" }}>Voucher giảm</div>
+            <div style={{ float: "right" }}>{amountVoucher} VND</div>
           </div>
           <div>--------------------------------</div>
           <div style={{ overflow: "auto" }}>
             <div style={{ float: "left" }}>Tổng giá tiền</div>
-            <div style={{ float: "right" }}>499.900 VND</div>
+            <div style={{ float: "right" }}>{priceTotal} VND</div>
           </div>
         </div>
         <div className="accept-pay">
