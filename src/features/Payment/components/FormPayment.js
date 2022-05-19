@@ -165,7 +165,7 @@ export default function FormPayment({ idBooking, tourCurrent }) {
 
       let { orderId } = res.data.data;
 
-      const response = await axios("http://localhost:3003/payment", {
+      const response = await axios("http://95.111.203.185:3003/payment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
