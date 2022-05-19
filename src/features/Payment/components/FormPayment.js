@@ -67,31 +67,7 @@ export default function FormPayment({ idBooking, tourCurrent }) {
   //get tour theo idbooking
 
   //handle voucher
-  const [listVoucher, setListVoucher] = useState({
-    status: "",
-    message: "",
-    data: {
-      vouchers: [
-        {
-          title: "",
-          content: "",
-          limitUse: 0,
-          effectiveAt: "",
-          voucherCode: "",
-          imageUrl: null,
-          amount: "0",
-          expirationAt: "",
-          PartnerTypeVoucherId: "",
-          Condition: {
-            threshold: "",
-            discount: "",
-            maxAmount: "",
-          },
-          description: "",
-        },
-      ],
-    },
-  });
+  const [listVoucher, setListVoucher] = useState([]);
 
   useEffect(() => {
     fetch(
@@ -106,18 +82,19 @@ export default function FormPayment({ idBooking, tourCurrent }) {
       }
     )
       .then((response) => response.json())
-      .then((json) => setListVoucher(json));
+      .then((json) => {
+        setListVoucher(
+          json.data.vouchers.map((item) => {
+            return {
+              value: item.voucherCode,
+              label: `Voucher giảm ${item.Condition.discount} %`,
+            };
+          })
+        );
+      });
   }, []);
 
   const priceTotal = useRef(null);
-  const dataSeclect = [];
-  console.log("listVoucher.data.voucher", listVoucher.data.vouchers);
-  listVoucher.data.vouchers.forEach((element) => {
-    dataSeclect.push({
-      value: element.voucherCode,
-      label: `Voucher giảm ${element.Condition.discount} %`,
-    });
-  });
 
   //handle voucher
   const [checkCondition, setCheckCondition] = useState(false);
@@ -125,12 +102,7 @@ export default function FormPayment({ idBooking, tourCurrent }) {
   const [codeVoucher, setCodeVoucher] = useState("");
 
   const handleChangeVoucher = (e) => {
-    console.log(e.value);
-    const voucher = listVoucher.data.vouchers.find(
-      (voucher) => voucher.voucherCode === e.value
-    );
-    setCodeVoucher(voucher.voucherCode);
-
+    const code = e.value;
     axios(`http://128.199.241.206:8080/api/v1/user/voucher/check-condition`, {
       method: "GET",
       headers: {
@@ -140,31 +112,59 @@ export default function FormPayment({ idBooking, tourCurrent }) {
       },
       params: {
         amount: tourCurrent.Price,
-        code: voucher.voucherCode,
+        code,
         typeVoucher: "tour",
       },
-    }).then((res) => {
-      const vouchers = res.data.data.vouchers;
-      if (vouchers.status === "Không đủ điều kiện") {
-        toast.warning("Bạn đã lưu voucher thất bại !");
-      } else if (vouchers.status === "Đủ điều kiện") {
-        toast.success("Bạn đã lưu voucher thành công !");
-        setAmountVoucher(vouchers.amount);
-      }
-    });
+    })
+      .then((res) => {
+        const { message, data } = res.data;
+        toast.success(message);
+        console.log(data);
+
+        setCodeVoucher(code);
+        setAmountVoucher(data.amount);
+        priceTotal.current = tourCurrent.Price - amountVoucher;
+        console.log(tourCurrent.Price, priceTotal.current, amountVoucher);
+      })
+      .catch((err) => {
+        console.error(err.response.data.message);
+        toast.error(err.response.data.message);
+      });
 
     //   console.log(schedule1[0].IdSchedule);
 
     //lay gia goc tru di voucher
-
-    priceTotal.current = tourCurrent.Price - amountVoucher;
-    console.log(tourCurrent.Price, priceTotal.current);
   };
   //handle submit
   // post len server thien vo sttbooking = true, discount: "", bookingTime, total moi nhat
+  const [orderIdVoucher, setOrderIdVoucher] = useState("");
 
   const onSubmit = async (data) => {
+    const dataVoucher = {
+      code: codeVoucher,
+      typeVoucher: "tour",
+      transactionId: idBooking,
+      amount: tourCurrent.Price,
+    };
+
+    //post áp dụng voucher
+
     try {
+      const res = await axios(
+        "http://128.199.241.206:8080/api/v1/user/voucher/pre-order",
+        {
+          method: "POST",
+          headers: {
+            user_id: "12333333",
+            partner_id: "a67f1f4e-946a-483b-9993-ca5c344da8f5",
+            "Content-Type": "application/json",
+          },
+          data: dataVoucher,
+        }
+      );
+
+      let { orderId } = res.data.data;
+
       const response = await axios("http://localhost:3003/payment", {
         method: "POST",
         headers: {
@@ -173,7 +173,7 @@ export default function FormPayment({ idBooking, tourCurrent }) {
         data: { ten: "thien" },
       });
 
-      const data = await response.data;
+      const data = response.data;
       const cardElement = elements.getElement(CardElement);
       const confirmPayment = await stripe.confirmCardPayment(
         data.clientSecret,
@@ -183,57 +183,53 @@ export default function FormPayment({ idBooking, tourCurrent }) {
       );
       const { paymentIntent } = confirmPayment;
 
-      if (paymentIntent.status == "succeeded") {
-        alert("payment successful!");
-        //post api thanh toán sau khi đã chuyển tiền
-        const today = new Date();
-        var date =
-          today.getDate() +
-          "-" +
-          (today.getMonth() + 1) +
-          "-" +
-          today.getFullYear();
-        const time =
-          today.getHours() +
-          ":" +
-          today.getMinutes() +
-          ":" +
-          today.getSeconds();
+      if (paymentIntent.status !== "succeeded") {
+        toast.error("Thanh toan that bai !");
 
-        const dataPayment = {
-          idBooking: idBooking,
-          bookingTime: `${time} ${date}`,
-          sttBooking: true,
-          total: priceTotal.current || tourCurrent.Price,
-        };
+        return;
+      }
+      alert("payment successful!");
+      //post api thanh toán sau khi đã chuyển tiền
+      const today = new Date();
+      var date =
+        today.getDate() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getFullYear();
+      const time =
+        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-        const dataVoucher = {
-          code: codeVoucher,
+      const dataPayment = {
+        idBooking: idBooking,
+        bookingTime: `${time} ${date}`,
+        sttBooking: true,
+
+        l: priceTotal.current || tourCurrent.Price,
+      };
+
+      await bookingApi.post({ dataPayment });
+
+      //update status voucher
+      await axios("http://128.199.241.206:8080/api/v1/user/voucher/state", {
+        method: "PUT",
+        headers: {
+          user_id: "12333333",
+          partner_id: "a67f1f4e-946a-483b-9993-ca5c344da8f5",
+          "Content-Type": "application/json",
+        },
+        data: {
           typeVoucher: "tour",
-          transactionId: idBooking,
-          amount: tourCurrent.Price,
-        };
+          orderId,
+        },
+      });
 
-        const {} = data;
-        console.log("ok", dataPayment);
-        await bookingApi.post({ dataPayment });
-        //post áp dụng voucher
-        axios("http://128.199.241.206:8080/api/v1/user/voucher/pre-order", {
-          method: "POST",
-          headers: {
-            user_id: "12333333",
-            partner_id: "a67f1f4e-946a-483b-9993-ca5c344da8f5",
-            "Content-Type": "application/json",
-          },
-          data: dataVoucher,
-        });
-        //
-        //toast messenger success
-        toast.success("Bạn đã thanh toán thành công !");
-
-        clearTimeout(timer.current);
-        clearTimeout(timerTrans.current);
-      } else alert("payment failed");
+      toast.success("Bạn đã thanh toán thành công !");
+      clearTimeout(timer.current);
+      clearTimeout(timerTrans.current);
+      navigate("/activities");
+      //post áp dụng voucher
+      //toast messenger success
     } catch (error) {
       console.error(error);
       alert("payment failed!");
@@ -333,7 +329,7 @@ export default function FormPayment({ idBooking, tourCurrent }) {
         <div className="main-d-flex">
           <Select
             placeholder="Select Option"
-            options={dataSeclect} // set list of the data
+            options={listVoucher} // set list of the data
             onChange={handleChangeVoucher} // assign onChange function
           />
           {/* <input
