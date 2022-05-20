@@ -15,6 +15,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { display } from "@mui/system";
 import VouchersApi from "api/ApiExternal/Vouchers/VouchersApi";
 import { error } from "jquery";
+import { formatter } from "../../../utils/formatter";
 
 const schema = yup
   .object({
@@ -23,7 +24,7 @@ const schema = yup
   })
   .required();
 
-export default function FormPayment({ idBooking, tourCurrent }) {
+export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   const stripe = useStripe();
   const elements = useElements();
   const { control, handleSubmit } = useForm();
@@ -95,11 +96,12 @@ export default function FormPayment({ idBooking, tourCurrent }) {
 
   const [amountVoucher, setAmountVoucher] = useState(0);
   const [codeVoucher, setCodeVoucher] = useState("");
+  const totalInitTour = tourCurrent.Price * schedule.Amount;
 
   const handleChangeVoucher = async (e) => {
     const code = e.value;
     const paramsCheckConditionVoucher = {
-      amount: tourCurrent.Price,
+      amount: totalInitTour,
       code,
       typeVoucher: "tour",
     };
@@ -126,7 +128,7 @@ export default function FormPayment({ idBooking, tourCurrent }) {
   };
 
   useEffect(() => {
-    setPriceTotal(tourCurrent.Price - amountVoucher);
+    setPriceTotal(totalInitTour - amountVoucher);
   }, [amountVoucher]);
 
   //handle submit
@@ -138,7 +140,7 @@ export default function FormPayment({ idBooking, tourCurrent }) {
       code: codeVoucher,
       typeVoucher: "tour",
       transactionId: idBooking,
-      amount: tourCurrent.Price,
+      amount: totalInitTour,
     };
 
     //post áp dụng voucher
@@ -160,12 +162,13 @@ export default function FormPayment({ idBooking, tourCurrent }) {
 
       let { orderId } = res.data.data;
 
+      // post total ở đây (post lan 1)
       const response = await axios("http://95.111.203.185:3003/payment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        data: { ten: "thien" },
+        data: { total: "thien" },
       });
 
       const data = response.data;
@@ -180,10 +183,8 @@ export default function FormPayment({ idBooking, tourCurrent }) {
 
       if (paymentIntent.status !== "succeeded") {
         toast.error("Thanh toan that bai !");
-
         return;
-      }
-      alert("payment successful!");
+      } else alert("payment successful!");
       //post api thanh toán sau khi đã chuyển tiền
       const today = new Date();
       var date =
@@ -198,9 +199,14 @@ export default function FormPayment({ idBooking, tourCurrent }) {
       const dataPayment = {
         idBooking: idBooking,
         bookingTime: `${time} ${date}`,
-        sttBooking: true,
+        sttBooking: "success",
+        idVoucher: "id của voucher",
+        idGift: "id của gift",
+        reduce: "gia da duoc giam",
+        idPayment: paymentIntent.id,
 
-        l: priceTotal.current || tourCurrent.Price,
+        // không hiểu dòng ở dưới là gì
+        //l: priceTotal.current || tourCurrent.Price,
       };
 
       await bookingApi.post({ dataPayment });
@@ -264,50 +270,8 @@ export default function FormPayment({ idBooking, tourCurrent }) {
         <div className="">
           <label>Số thẻ tín dụng </label>
           <CardElement />
-          {/* <InputField
-            name="numberCredit"
-            control={control}
-            label="full"
-            fullWidthCustom={true}
-          />
-          <br /> */}
-          <div className="main-d-flex">
-            <div>
-              <label>Hiệu lực đến </label>
-
-              <InputField
-                heightCustom="50px"
-                widthCustom="120px"
-                name="effectCredit"
-                control={control}
-                fullWidthCustom={false}
-              />
-            </div>
-            <div>
-              <label>CCV</label>
-
-              <InputField
-                widthCustom="120px"
-                name="ccvCredit"
-                control={control}
-                fullWidthCustom={false}
-              />
-              <br />
-            </div>
-          </div>
-
-          <label>Tên trên thẻ </label>
-          <br />
-          <InputField
-            widthCustom="120px"
-            name="nameCredit"
-            control={control}
-            fullWidthCustom={true}
-          />
-          <br />
-          <label>Chưa trả góp </label>
-          <a href="/#">Learn more</a>
         </div>
+        <br />
         <div
           className="form-check form-switch"
           style={{ display: "flex", alignItems: "center" }}
@@ -323,54 +287,44 @@ export default function FormPayment({ idBooking, tourCurrent }) {
         </div>
         <div className="main-d-flex">
           <Select
+            theme={(theme) => ({
+              ...theme,
+              borderRadius: 0,
+              colors: {
+                ...theme.colors,
+                primary25: "#ccc",
+                primary: "black",
+              },
+            })}
             placeholder="Select Option"
             options={listVoucher} // set list of the data
             onChange={handleChangeVoucher} // assign onChange function
           />
-          {/* <input
-            value={voucher}
-            onChange={(e) => handleChangInputVoucher(e)}
-            type="text"
-            placeholder="VD: CHEAP TRAVEL"
-            style={{
-              border: "1px solid #dadada",
-              borderRadius: "5px",
-              marginRight: "8px",
-            }}
-          /> */}
-          {/* <div
-            ref={btnVoucher}
-            onClick={handleOnclickVoucher}
-            style={{
-              cursor: "pointer",
-              alignItems: "center",
-              border: "none",
-              background: "#e7e7e7",
-
-              width: "100px",
-              textAlign: "center",
-            }}
-          >
-            Áp dụng mã
-          </div> */}
         </div>
         <div className="detail-price">
           <h4>Chi tiết giá</h4>
 
-          <div style={{ overflow: "auto" }}>
+          <div style={{ overflow: "auto", alignItems: "center" }}>
             <div style={{ float: "left", width: "250px" }}>
-              Saigon River Sightseeing - 1 Hour Người lớn x 1
+              Số lượng: Người lớn x {schedule.Amount}
             </div>
-            <div style={{ float: "right" }}>{tourCurrent.Price} VND</div>
+
+            <div style={{ float: "right" }}>
+              {formatter.format(totalInitTour)}
+            </div>
           </div>
           <div style={{ overflow: "auto" }}>
-            <div style={{ float: "left" }}>Voucher giảm</div>
-            <div style={{ float: "right" }}>{amountVoucher} VND</div>
+            <div style={{ float: "left" }}>Voucher giảm tối đa</div>
+            <div style={{ float: "right" }}>
+              {formatter.format(amountVoucher)}
+            </div>
           </div>
-          <div>--------------------------------</div>
+          <div>
+            --------------------------------------------------------------------------
+          </div>
           <div style={{ overflow: "auto" }}>
             <div style={{ float: "left" }}>Tổng giá tiền</div>
-            <div style={{ float: "right" }}>{priceTotal} VND</div>
+            <div style={{ float: "right" }}>{formatter.format(priceTotal)}</div>
           </div>
         </div>
         <div className="accept-pay">

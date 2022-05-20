@@ -18,6 +18,8 @@
         "@testing-library/user-event": "^13.5.0",
         "array-rearrange": "^2.2.2",
         "axios": "^0.25.0",
+        "chroma": "^0.0.1",
+        "chroma-js": "^2.4.2",
         "cors": "^2.8.5",
         "firebase": "^9.6.6",
         "formik": "^2.2.9",

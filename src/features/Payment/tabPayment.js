@@ -42,7 +42,7 @@ function a11yProps(index) {
   };
 }
 
-function VerticalTabs({ idBooking, tourCurrent }) {
+function VerticalTabs({ idBooking, tourCurrent, schedule }) {
   const [value, setValue] = React.useState(1);
 
   const handleChange = (event, newValue) => {
@@ -317,7 +317,11 @@ function VerticalTabs({ idBooking, tourCurrent }) {
         </div>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <FormPayment idBooking={idBooking} tourCurrent={tourCurrent} />
+        <FormPayment
+          idBooking={idBooking}
+          schedule={schedule}
+          tourCurrent={tourCurrent}
+        />
       </TabPanel>
     </Box>
   );

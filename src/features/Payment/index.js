@@ -19,18 +19,6 @@ export default function Paymemt() {
   const schedule = JSON.parse(localStorage.getItem("schedule"));
 
   console.log(tourCurrent, schedule);
-  //setTImeOut 1p30s delete  booking theo activity
-
-  //   useEffect(() => {
-  //     let timeout;
-  //     setTimeout(() => {
-  //       //post delete booking
-  //     }, 90000);
-  //   }, []);
-
-  //getAll Booking theo idBooking => idSchedule => idTour
-
-  //get tour theo idbooking
 
   return (
     <Elements stripe={stripePromis}>
