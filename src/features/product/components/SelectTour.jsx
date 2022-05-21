@@ -94,9 +94,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
   };
 
   const countRef = useRef(null);
-  const amountInvalid = useMemo(() => {
-    return tour.Amount - numberCus;
-  }, []);
+  const amountInvalid = tour.Amount - numberCus;
 
   //increase counter
   const increase = () => {
