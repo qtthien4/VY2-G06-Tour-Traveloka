@@ -24,6 +24,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   const btnVoucher = useRef();
   const navigate = useNavigate();
   //Handle chay nguoc\
+  console.log(schedule);
   const [countdown, setCountdown] = useState(180);
   // useEffect(() => {
   //   const timerId = setInterval(() => {
@@ -169,7 +170,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
         headers: {
           "Content-Type": "application/json",
         },
-        data: { total: "thien" },
+        data: { total: priceTotal },
       });
 
       const data = response.data;
@@ -201,13 +202,13 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
         idBooking: idBooking,
         bookingTime: `${time} ${date}`,
         sttBooking: "success",
-        idVoucher: "id của voucher",
-        idGift: "id của gift",
-        reduce: "gia da duoc giam",
+        idVoucher: codeVoucher,
+        idGift: "",
+        reduce: priceTotal,
         idPayment: paymentIntent.id,
-
-        // không hiểu dòng ở dưới là gì
-        //l: priceTotal.current || tourCurrent.Price,
+        idSchedule: schedule.idSchedule,
+        amountBooking: schedule.Amount,
+        idCustomer: "1",
       };
 
       await bookingApi.post({ dataPayment });
