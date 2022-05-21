@@ -7,8 +7,11 @@ import {
   Typography,
 } from "@material-ui/core";
 import bookingApi from "api/ApiReal/bookingApi";
+import Moment from "react-moment";
 import Footer from "components/Footer";
 import { AuthContext } from "context/AuthProvider";
+import { selectListCity } from "features/City/citySlice";
+import { selectListCountry } from "features/Country/countrySlice";
 import Navbar from "features/Payment/navbar";
 import { selectTour } from "features/product/productSlice";
 import { selectListSchedule } from "features/schedule/ScheduleSlice";
@@ -24,6 +27,8 @@ export default function Booking() {
   window.scroll(0, 0);
   const user = useContext(AuthContext);
   const tour = useSelector(selectTour);
+
+  useEffect(() => {});
 
   const [idTourBooking, setTourBooking] = useState(
     localStorage.getItem("idTour")
@@ -56,7 +61,6 @@ export default function Booking() {
       nameBooking,
       phoneBooking,
       radioVisitor,
-      requireCustomer,
       selectGender,
     } = formValue;
 
@@ -68,7 +72,7 @@ export default function Booking() {
       idGift: "",
       paymentOption: radioVisitor,
       bookingTime: "",
-      total: tour.Price,
+      total: tour.Price * scheduleTour.Amount,
       reduce: "",
       sstBooking: "fail",
       amountPeople: scheduleTour.Amount,
@@ -96,6 +100,7 @@ export default function Booking() {
 
     navigate(`/booking/payment/${booking.idBooking}`);
   };
+  Moment.globalFormat = "D MMM YYYY";
   return (
     <Box>
       <Navbar />
@@ -110,6 +115,7 @@ export default function Booking() {
         </Box>
         <Box className={classes.main}>
           <BookingForm
+            schedule={scheduleTour}
             onSubmit={handleBookingFormSubmit}
             fullWidth={fullWidth}
             tour={TourCurrent}
@@ -132,13 +138,20 @@ export default function Booking() {
               </Typography>
               <Box className={classes.rightImageBox} mt={2} mb={2}>
                 <img
-                  style={{ objectFit: "cover", marginRight: "10px" }}
+                  alt=""
+                  style={{
+                    objectFit: "cover",
+                    marginRight: "10px",
+                    width: "200px",
+                  }}
                   height="100"
-                  width="100"
                   src={TourCurrent.ImageUrl}
                 ></img>
                 <Box style={{ display: "flex", flexDirection: "column" }}>
-                  <span>Mở chuyến tham quan cho Max. 12 người tham gia</span>
+                  <span>
+                    Mở chuyến tham quan cho Max. {TourCurrent.Amount} người tham
+                    gia
+                  </span>
                   <Button
                     style={{ left: "75px", width: "100px" }}
                     className={`main-text-transform main-text-color-primary main-font-weight`}
@@ -153,13 +166,9 @@ export default function Booking() {
                 <Box mt={1} className={classes.flex}>
                   <Typography>Ngày tham quan:</Typography>
                   <span className="main-text-color-black main-font-weight-500">
-                    {scheduleTour.starttime}
-                  </span>
-                </Box>
-                <Box mt={1} className={classes.flex}>
-                  <Typography>Thời gian:</Typography>
-                  <span className="main-text-color-black main-font-weight-500">
-                    18:30
+                    <Moment format="DD/MM/YYYY" date={scheduleTour.starttime} />{" "}
+                    đến{" "}
+                    <Moment format="DD/MM/YYYY" date={scheduleTour.endTime} />
                   </span>
                 </Box>
                 <Box mt={1} className={classes.flex}>
@@ -178,17 +187,24 @@ export default function Booking() {
                       width="16"
                       src="https://ik.imagekit.io/tvlk/image/imageResource/2021/02/04/1612455491487-083f2aa1250ed2145b0b41c4e1dba240.png"
                     />
-                    <ListItemText
+                    <Typography
                       style={{
-                        fontSize: "12px",
+                        fontSize: "14px",
                         marginLeft: "8px",
                         lineHeight: "20px",
                       }}
-                      primary={scheduleTour.starttime}
-                    />
+                    >
+                      {" "}
+                      Có hiệu lực vào ngày:{" "}
+                    </Typography>
+                    <Moment
+                      format="DD/MM/YYYY"
+                      date={scheduleTour.starttime}
+                    />{" "}
                   </ListItem>
                   <ListItem>
                     <img
+                      alt=""
                       height="16"
                       width="16"
                       src="https://ik.imagekit.io/tvlk/image/imageResource/2021/02/04/1612455486715-9f445c68bf929b8ace8e744c568484f9.png"
@@ -200,21 +216,6 @@ export default function Booking() {
                         lineHeight: "20px",
                       }}
                       primary="Không cần đặt chỗ trước"
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <img
-                      height="16"
-                      width="16"
-                      src="https://ik.imagekit.io/tvlk/image/imageResource/2021/02/04/1612455479726-cb00253dc0267a8fc369760e81dc577c.png"
-                    />
-                    <ListItemText
-                      style={{
-                        fontSize: "12px",
-                        marginLeft: "8px",
-                        lineHeight: "20px",
-                      }}
-                      primary={scheduleTour.endtime}
                     />
                   </ListItem>
                 </List>

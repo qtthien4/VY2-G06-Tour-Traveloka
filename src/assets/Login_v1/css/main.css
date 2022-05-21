@@ -28,7 +28,7 @@
 /*//////////////////////////////////////////////////////////////////
 [ RESTYLE TAG ]*/
 
-* {
+/* * {
 	margin: 0px; 
 	padding: 0px; 
 	box-sizing: border-box;
@@ -37,7 +37,7 @@
 body, html {
 	height: 100%;
 	font-family: Poppins-Regular, sans-serif;
-}
+} */
 
 /*---------------------------------------------*/
 a {
@@ -62,7 +62,7 @@ a:hover {
 }
 
 /*---------------------------------------------*/
-h1,h2,h3,h4,h5,h6 {
+/* h1,h2,h3,h4,h5,h6 {
 	margin: 0px;
 }
 
@@ -77,13 +77,16 @@ p {
 ul, li {
 	margin: 0px;
 	list-style-type: none;
-}
+} */
 
 
 /*---------------------------------------------*/
-input {
+.input1 {
 	outline: none;
 	border: none;
+}
+input {
+	outline: none;
 }
 
 textarea {
@@ -116,13 +119,13 @@ textarea::-moz-placeholder { color: #999999; }
 textarea:-ms-input-placeholder { color: #999999; }
 
 /*---------------------------------------------*/
-button {
+.button1 {
 	outline: none !important;
 	border: none;
 	background: transparent;
 }
 
-button:hover {
+.button1:hover {
 	cursor: pointer;
 }
 

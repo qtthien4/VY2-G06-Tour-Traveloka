@@ -1,22 +1,15 @@
-import InputField from "components/FormFields/InputField";
-import React, { useEffect, useReducer, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
-import bookingApi from "api/ApiReal/bookingApi";
-import paymentApi from "api/ApiReal/paymentApi";
-import { toast } from "react-toastify";
-import Select from "react-select";
-import { removeListener } from "@reduxjs/toolkit";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import axios from "axios";
-import StripeCheckout from "react-stripe-checkout";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { display } from "@mui/system";
+import Switch from "@material-ui/core/Switch";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import VouchersApi from "api/ApiExternal/Vouchers/VouchersApi";
-import { error } from "jquery";
+import bookingApi from "api/ApiReal/bookingApi";
+import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import Select from "react-select";
+import { toast } from "react-toastify";
+import * as yup from "yup";
 import { formatter } from "../../../utils/formatter";
-
 const schema = yup
   .object({
     firstName: yup.string().required(),
@@ -97,7 +90,15 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   const [amountVoucher, setAmountVoucher] = useState(0);
   const [codeVoucher, setCodeVoucher] = useState("");
   const totalInitTour = tourCurrent.Price * schedule.Amount;
+  const [state, setState] = React.useState({
+    checkedA: false,
+    checkedB: false,
+  });
 
+  const handleChangeCheckBoxVoucher = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+    setAmountVoucher(0);
+  };
   const handleChangeVoucher = async (e) => {
     const code = e.value;
     const paramsCheckConditionVoucher = {
@@ -243,7 +244,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
         <div>Hoàn tất thanh toán trong {countdown}</div>
         <br />
         <div style={{ display: "flex", position: "relative" }}>
-          <h4 className="title">Thẻ thanh toán</h4>
+          <h4 className="title">Thẻ tín dụng</h4>
           <div style={{ position: "absolute", right: "24px" }}>
             <img
               style={{ height: "24px" }}
@@ -268,39 +269,41 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
           </div>
         </div>
         <div className="">
-          <label>Số thẻ tín dụng </label>
+          <label>Mời bạn nhập số thẻ tín dụng: </label> <br />
           <CardElement />
         </div>
         <br />
-        <div
-          className="form-check form-switch"
-          style={{ display: "flex", alignItems: "center" }}
-        >
-          <input
-            className="form-check-input"
-            type="checkbox"
-            id="flexSwitchCheckDefault"
+        <div className="" style={{ display: "flex", alignItems: "center" }}>
+          <Switch
+            checked={state.checkedB}
+            onChange={handleChangeCheckBoxVoucher}
+            color="primary"
+            name="checkedB"
+            inputProps={{ "aria-label": "primary checkbox" }}
           />
           <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
             Chọn mã giảm giá
           </label>
         </div>
-        <div className="main-d-flex">
-          <Select
-            theme={(theme) => ({
-              ...theme,
-              borderRadius: 0,
-              colors: {
-                ...theme.colors,
-                primary25: "#ccc",
-                primary: "black",
-              },
-            })}
-            placeholder="Select Option"
-            options={listVoucher} // set list of the data
-            onChange={handleChangeVoucher} // assign onChange function
-          />
-        </div>
+        {state.checkedB && (
+          <div className="main-d-flex">
+            <Select
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: 0,
+                colors: {
+                  ...theme.colors,
+                  primary25: "#ccc",
+                  primary: "black",
+                },
+              })}
+              placeholder="Chọn mã"
+              options={listVoucher} // set list of the data
+              onChange={handleChangeVoucher} // assign onChange function
+            />
+          </div>
+        )}
+
         <div className="detail-price">
           <h4>Chi tiết giá</h4>
 

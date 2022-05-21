@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import Moment from "react-moment";
 import "./css/info.css";
 
 function Info({ idBooking, tourCurrent, schedule }) {
+  const [scheduleTour, SetScheduleTour] = useState(
+    JSON.parse(localStorage.getItem("schedule"))
+  );
   return (
     <div className="info">
       <div>
@@ -20,17 +24,16 @@ function Info({ idBooking, tourCurrent, schedule }) {
           <div style={{ float: "left" }}>Ngày tham quan:</div> <br />
           <div style={{ float: "left" }}>
             {" "}
-            Từ ngày {schedule.starttime} đến {schedule.endTime}
+            <Moment
+              format="DD/MM/YYYY"
+              date={scheduleTour.starttime}
+            /> đến <Moment format="DD/MM/YYYY" date={scheduleTour.endTime} />
           </div>
         </div>
         <div className="chia2">
           <div style={{ float: "left" }}>Áp dụng cho:</div>
           <div style={{ float: "right" }}>{schedule.Amount} người</div>
         </div>
-        {/* <div className="chia2">
-          <div style={{ float: "left" }}>Khung thời gian</div>
-          <div style={{ float: "right" }}>18:30</div>
-        </div> */}
       </div>
     </div>
   );

@@ -115,7 +115,7 @@ function Product() {
                 Thông tin chi tiết sản phẩm
               </Typography>
               <Box mt={3}>
-                <TourDesDetail listImage={listImage} tour={tour} />
+                <TourDesDetail  listImage={listImage} tour={tour} />
               </Box>
             </Box>
 

@@ -1,5 +1,7 @@
 import { Box, Typography } from "@material-ui/core";
+import cityApi from "api/ApiReal/cityApi";
 import favauriteApi from "api/ApiReal/favauriteApi";
+import fakeCityApi from "api/fakeCityApi";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import { cityActions, selectListCity } from "features/City/citySlice";
@@ -50,15 +52,17 @@ export default function Search() {
   const listCityofTour = useSelector(SelectListTourOfCity);
   const SelectPriceSort = useSelector(SelectFilterPrice);
 
-  const listCity = useSelector(selectListCity);
-  const listCountry = useSelector(selectListCountry);
   const selectTour1 = useSelector(selectTour);
   const dispatch = useDispatch();
   let location = useLocation();
 
-  var nameCity = "";
-  var nameCountry = "";
+  const [listCity, setListCity] = useState(
+    JSON.parse(localStorage.getItem("city"))
+  );
 
+  const [listCountry, setListCountry] = useState(
+    JSON.parse(localStorage.getItem("country"))
+  );
   const [namCity, setNameCity] = useState("");
   const [namCountry, setNameCountry] = useState("");
 
@@ -66,22 +70,30 @@ export default function Search() {
     if (location.search.split("&").length > 1) {
       let id = Number(location.search.split("&")[1].split("=")[1]);
       let nameType = location.pathname.split("/")[3];
+      let nameCity = listCity.filter(
+        (list) => list.experienceId === String(id)
+      );
+      setNameCity(nameCity[0].name);
 
-      setNameCity(nameCity);
       dispatch(searchActions.fetchTourList({ id, nameType }));
       dispatch(cityActions.fetchApiCity());
       dispatch(favauriteActions.fetchApiFavaurite());
     } else {
       let id = Number(location.search.split("=")[1]);
       let nameType = location.pathname.split("/")[3];
-      
-      setNameCountry(nameCountry);
-      //dispatch(imageActions.fetchApiImage(listCityofTour.IdActivity));
-      dispatch(searchActions.fetchTourCountryList( {id, nameType }));
+
+      dispatch(searchActions.fetchTourCountryList({ id, nameType }));
       dispatch(countryActions.fetchApiCountry());
       dispatch(favauriteActions.fetchApiFavaurite());
+
+      let nameCountry = listCountry.filter((list) => {
+        return list.IdCountry.trim() == id;
+      });
+      console.log(nameCountry);
+      setNameCountry(nameCountry[0].CountryName);
+      console.log("listCountry", listCountry);
     }
-  }, [dispatch, location, nameCountry]);
+  }, [dispatch, location]);
 
   //onclick navigation product
   const handleOnclickTourSearch = (idTour) => {

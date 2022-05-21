@@ -89,7 +89,7 @@ export default function Login({ setToken }) {
             >
               <input
                 {...register("email")}
-                className="input100"
+                className="input100 input1"
                 type="text"
                 placeholder="Email"
               />
@@ -105,7 +105,7 @@ export default function Login({ setToken }) {
             >
               <input
                 {...register("password")}
-                className="input100"
+                className="input100 input1"
                 type="password"
                 placeholder="Password"
               />
@@ -116,7 +116,7 @@ export default function Login({ setToken }) {
             </div>
             <p>{errors.password?.message}</p>
             <div className="container-login100-form-btn">
-              <button className="login100-form-btn">Login</button>
+              <button className="login100-form-btn button1">Login</button>
             </div>
             <div className="text-center p-t-12">
               <span className="txt1">Forgot</span>

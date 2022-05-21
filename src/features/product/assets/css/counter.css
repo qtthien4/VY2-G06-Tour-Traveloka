@@ -1,0 +1,40 @@
+.counter {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    text-align: left;
+  
+}
+ 
+ 
+.counter__output {
+    
+    font-size: 35px;
+    margin: 10px;
+    width: 40px;
+    border: none;
+    color: rgb(116, 7, 7);
+}
+ 
+.btn__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+}
+ 
+.control__btn {
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: rgb(247, 249, 250);
+
+    
+    transition: 0.2s ease-in-out;
+}
+ 
+.control__btn:hover {
+    cursor: pointer;
+}
+   

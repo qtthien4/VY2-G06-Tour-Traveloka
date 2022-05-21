@@ -13,11 +13,12 @@ import {
   scheduleActions,
   selectListSchedule,
 } from "features/schedule/ScheduleSlice";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { productActions } from "../productSlice";
 import SelectSchedule from "./SelectSchedule";
+import "../assets/css/counter.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +56,10 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const [selectedValue, setSelectedValue] = useState("");
   const [numberCus, setNumberCus] = useState(0);
 
+  const [counter, setCounter] = useState(1);
+  const [disableButton, setDisableButton] = useState(false);
+  const [disableButtonIn, setDisableButtonIn] = useState(false);
+
   const filterScheduleTour = schedule.find(
     (schedule) => schedule.IdSchedule === selectedValue
   );
@@ -65,7 +70,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
       idActivity: idTour,
       starttime: filterScheduleTour.StartTime || "",
       endTime: filterScheduleTour.EndTime || "",
-      Amount: Number(numberCus),
+      Amount: counter,
       Stt: "",
       Desr: "",
     };
@@ -79,9 +84,37 @@ export default function SelectTour({ schedule, tour, idTour }) {
     setSelectedValue(e.value);
   };
   const handleChangeInput = (e) => {
+    console.log(e.target.value);
     setNumberCus(e.target.value);
   };
+
+  const countRef = useRef(null);
+  var amountMax = 10;
+  //increase counter
+  const increase = () => {
+    if (counter === 1) {
+      setDisableButton(false);
+    } else if (counter === amountMax - 1) {
+      console.log("10");
+      setDisableButtonIn(true);
+    } else {
+      setDisableButton(false);
+    }
+    setCounter((count) => count + 1);
+  };
+
+  //decrease counter
+  const decrease = () => {
+    if (counter === 1) {
+      setDisableButton(true);
+    } else {
+      setDisableButtonIn(false);
+      setDisableButton(false);
+      setCounter((count) => count - 1);
+    }
+  };
   const [show, setShow] = useState(false);
+
   return (
     <div>
       <Box mb={10} className={classes.root}>
@@ -103,7 +136,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
         <Typography
           className={`main-font-size-text main-text-color-black main-font-weight`}
         >
-          Mở chuyến tham quan cho Max. 12 người tham gia
+          Mở chuyến tham quan cho Max. {tour.Amount} người tham gia
         </Typography>
 
         <List className={classes.List}>
@@ -169,16 +202,49 @@ export default function SelectTour({ schedule, tour, idTour }) {
         {show ? (
           <Box style={{ transition: "height 2s" }}>
             <Typography>Chọn ngày đi và ngày kết thúc</Typography>
-
             <SelectSchedule
               selectedValue={selectedValue}
               handleChange={handleChange}
               schedule={schedule}
             />
-            <Typography name="soluong">Số lượng:</Typography>
-            <Box className="d-flex main-justify-content">
-              <input onChange={(e) => handleChangeInput(e)} />
+            {selectedValue ? (
+              <div>
+                <Typography name="soluong">
+                  Số lượng còn lại có thể đặt:
+                </Typography>
+                <div className="counter">
+                  <div className="btn__container">
+                    <button
+                      disabled={disableButtonIn}
+                      style={{ border: "none" }}
+                      className="control__btn"
+                      onClick={increase}
+                    >
+                      +
+                    </button>
+                    <input
+                      onChange={(e) => handleChangeInput(e)}
+                      ref={countRef}
+                      className="counter__output"
+                      value={counter}
+                    />
+                    <button
+                      disabled={disableButton}
+                      style={{ border: "none" }}
+                      className="control__btn"
+                      onClick={decrease}
+                    >
+                      -
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div></div>
+            )}
 
+            <Box className="d-flex main-justify-content">
+              <div></div>
               <Button
                 onClick={handleSubmit}
                 style={{ padding: "5px 35px 5px 35px", fontSize: "20px" }}

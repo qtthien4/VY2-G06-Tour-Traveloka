@@ -1,29 +1,22 @@
-import { useStyles } from "../indexStyle";
-import {
-  Box,
-  Button,
-  InputLabel,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-} from "@material-ui/core";
-import RadioGroupField from "components/FormFields/RadioGroupField";
-import InputField from "components/FormFields/InputField";
-import SelectFiled from "components/FormFields/SelectFiled";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Box, Button, InputLabel, Typography } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import red from "@material-ui/core/colors/red";
+import IconButton from "@material-ui/core/IconButton";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import InputField from "components/FormFields/InputField";
+import RadioGroupField from "components/FormFields/RadioGroupField";
+import SelectFiled from "components/FormFields/SelectFiled";
+import { useMemo } from "react";
+import { useForm } from "react-hook-form";
+import { formatter } from "utils/formatter";
 import * as yup from "yup";
+import { useStyles } from "../indexStyle";
 
 const schema = yup
   .object({
-    // nameVisitor: yup.string().required("Vui lòng nhập họ và tên của bạn"),
-    // emailVisitor: yup.string().required("Vui lòng nhập email của bạn"),
-    // phoneVisitor: yup
-    //   .number()
-    //   .positive()
-    //   .integer("Please enter an interger")
-    //   .required("Vui lòng nhập số điện thoại của bạn"),
     nameBooking: yup.string().required("Vui lòng nhập tên của người đặt"),
     emailBooking: yup
       .string()
@@ -42,81 +35,78 @@ const schema = yup
   })
   .required();
 
-// schema.cast({
-//   nameVisitor: "Tên Hệ thống",
-//   emailVisitor: "Email user",
-//   createdOn: "2014-09-23T19:25:25Z",
-// });
+export default function BookingForm({ schedule, onSubmit, fullWidth, tour }) {
+  //const user = null;
+  const user = {};
 
-export default function BookingForm({ onSubmit, fullWidth, tour }) {
   const classes = useStyles();
+  //const priceTotal = schedule.Amount * tour.Price;
+  const priceTotal = useMemo(() => {
+    return schedule.Amount * tour.Price;
+  }, []);
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-  // const handleFormSubmit = async (formValue) => {
-  //   const {
-  //     emailBooking,
-  //     nameBooking,
-  //     phoneBooking,
-  //     radioVisitor,
-  //     requireCustomer,
-  //     selectGender,
-  //   } = formValue;
-  //   console.log("data form", formValue);
-  //   const dataForm = {
-  //     gender: selectGender,
-  //     emailCus: emailBooking,
-  //     Customername: nameBooking,
-  //     cusPhoneNum: phoneBooking,
-  //     paymentOption: radioVisitor,
-  //     reservationist: requireCustomer,
-  //   };
-  //   try {
-  //     await onSubmit(dataForm);
-  //   } catch (error) {
-  //     console.log("Fail to post booking", error);
-  //   }
-  // };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Box className={classes.left}>
-        <Box className={classes.loginOrRegister}>
-          <img
-            height="100"
-            width="100"
-            src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/6/6019da794c10a8a7b0357f9ed46f1d6f.png"
-            alt=""
-          />
-          <Box ml={2}>
-            <Typography
-              className={classes.textTitleBox}
-              variant="body1"
-              color="inherit"
-            >
-              Đăng nhập hoặc đăng ký để tận hưởng lợi ích chỉ dành cho thành
-              viên này
-            </Typography>
-            <Box mt={1} mb={1}>
-              <img
-                height="24"
-                width="24"
-                src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/33fcc4e9daaeafc158c1a2542399ac66.svg"
-              ></img>
-              <span className={`main-padding-4px`}>
-                Đặt chỗ nhanh hơn và dễ dàng hơn với Chọn Nhanh Hành Khách
-              </span>
+        {user ? (
+          <Card sx={{ maxWidth: 345 }}>
+            <CardHeader
+              avatar={
+                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+                  R
+                </Avatar>
+              }
+              // action={
+              //   <IconButton aria-label="settings">
+              //     <MoreVertIcon />
+              //   </IconButton>
+              // }
+              title="Đăng nhập là Lê Hiếu"
+              subheader="Hieu le"
+            />
+          </Card>
+        ) : (
+          <Box className={classes.loginOrRegister}>
+            <img
+              height="100"
+              width="100"
+              src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/6/6019da794c10a8a7b0357f9ed46f1d6f.png"
+              alt=""
+            />
+
+            <Box ml={2}>
+              <Typography
+                className={classes.textTitleBox}
+                variant="body1"
+                color="inherit"
+              >
+                Đăng nhập hoặc đăng ký để tận hưởng lợi ích chỉ dành cho thành
+                viên này
+              </Typography>
+              <Box mt={1} mb={1}>
+                <img
+                  height="24"
+                  width="24"
+                  src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/33fcc4e9daaeafc158c1a2542399ac66.svg"
+                ></img>
+                <span className={`main-padding-4px`}>
+                  Đặt chỗ nhanh hơn và dễ dàng hơn với Chọn Nhanh Hành Khách
+                </span>
+              </Box>
+              <Button
+                className={`main-text-transform main-font-weight main-text-color-primary main-font-size-title`}
+                color="primary"
+                size="small"
+              >
+                Đăng nhập hay đăng kí
+              </Button>
             </Box>
-            <Button
-              className={`main-text-transform main-font-weight main-text-color-primary main-font-size-title`}
-              color="primary"
-              size="small"
-            >
-              Đăng nhập hay đăng kí
-            </Button>
           </Box>
-        </Box>
+        )}
 
         <Box mt={3} className="Chi tiet lien he">
           <Typography variant="h4" className={classes.header_title}>
@@ -389,7 +379,7 @@ export default function BookingForm({ onSubmit, fullWidth, tour }) {
             style={{ fontSize: "20px", lineHeight: "28px" }}
             className={`maim-font-weight main-text-color-orange`}
           >
-            {tour.Price} VND
+            {formatter.format(priceTotal)}
           </Typography>
         </Box>
         <Box align="right" mt={5}>

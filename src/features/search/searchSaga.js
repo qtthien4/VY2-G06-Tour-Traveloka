@@ -40,7 +40,6 @@ function* fetchCountryTour(props) {
       return list.link == nameType;
     });
     const listTour = responsive.filter((listArrTour) => {
-      console.log(listArrTour);
       return (
         String(listArrTour.IdCountry).trim() === String(id).trim() &&
         String(listArrTour.idtype).trim() == String(Type[0].idType).trim()

@@ -17,56 +17,7 @@ export default function TourDesDetail({ tour, listImage }) {
     <Box className={classes.root}>
       <Box className={classes.left}>
         <Box className={classes.leftDes}>
-          {/* <Typography
-            className={`main-text-color-black main-font-size-title main-font-weight`}
-          >
-            Điểm nổi bật
-          </Typography>
-          <ul className={`${classes.list} main-text-color-black`}>
-            <li>
-              Sắp xếp buổi chụp ảnh của riêng bạn ở Tokyo với một nhiếp ảnh gia
-              chuyên nghiệp địa phương
-            </li>
-            <li>
-              Ghi lại những khoảnh khắc đẹp nhất trong chuyến đi của bạn tại địa
-              điểm ưa thích của bạn
-            </li>
-            <li>
-              Hãy sẵn sàng để thể hiện những tư thế đẹp nhất của bạn và làm cho
-              Instagram của bạn tỏa sáng
-            </li>
-          </ul>
-
-          <Box
-            mb={1}
-            className={`main-text-color-black main-d-flex main-align-item-center`}
-          >
-            <img
-              height="20"
-              width="20"
-              src="https://ik.imagekit.io/tvlk/image/imageResource/2020/02/24/1582533078216-28e45a291d35a380e73193eff26b4938.png"
-            />
-            <Typography className={`main-padding-4px`}>
-              Tốt cho: Tham quan
-            </Typography>
-          </Box> */}
-
-          {/* <Box mt={3}>
-            <Typography
-              className={`main-text-color-black main-font-size-title main-font-weight`}
-            >
-              Lịch trình tour du lịch
-            </Typography>
-            <Button
-              className={`main-text-color-white main-bg-button-color-primary `}
-              variant="contained"
-            >
-              1 Day
-            </Button>
-            <br />
-            <VerticalSkedule />
-          </Box> */}
-
+          
           <Typography
             variant="h6"
             className={`main-text-color-black main-font-weight`}
@@ -78,15 +29,7 @@ export default function TourDesDetail({ tour, listImage }) {
             variant="body2"
           >
             {tour.Desr}
-            {/* Du lịch như một người nổi tiếng và sắp xếp buổi chụp ảnh của riêng
-            bạn ở Tokyo với một nhiếp ảnh gia chuyên nghiệp địa phương. Có quyền
-            tự do chọn vị trí ưa thích của bạn, tạo dáng trong bối cảnh đô thị
-            sôi động, biểu tượng văn hóa hoặc khung cảnh đường phố sôi động. Bạn
-            sẽ nhận được tất cả ảnh đã chỉnh sửa có độ phân giải cao trong vòng
-            một ngày sau khi chụp. Hãy sẵn sàng để thể hiện những tư thế đẹp
-            nhất của bạn và làm cho Instagram của bạn tỏa sáng! Lưu ý: Một lượt
-            đặt chỗ 'người lớn' tương đương với một buổi chụp ảnh cho tối đa sáu
-            người. */}
+            
           </Typography>
 
           <Box mt={3}>
@@ -107,17 +50,6 @@ export default function TourDesDetail({ tour, listImage }) {
             ))}
           </Box>
         </Box>
-
-        {/* <Box className={`${classes.leftMap} `}>
-          <AppBar position="static">
-            <Tabs value={state} onChange={handleChange}>
-              <Tab className={`main-text-color-white`} label="Item One" />
-              <Tab className={`main-text-color-white`} label="Item Two" />
-            </Tabs>
-          </AppBar>
-          {state === 0 && <PlaceMap />}
-          {state === 1 && <InformationMore />}
-        </Box> */}
       </Box>
       <Box ref={leftRightBox} className={classes.right}>
         <Box className={classes.rightTop}>

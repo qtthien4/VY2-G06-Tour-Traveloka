@@ -12,7 +12,7 @@ export default function SelectSchedule({
     data.push({
       value: element.IdSchedule,
       label:
-        "Từ ngày: " +
+        "Từ ngày: " + 
         String(element.StartTime).split("T")[0] +
         " đến " +
         String(element.EndTime).split("T")[0],
@@ -20,23 +20,14 @@ export default function SelectSchedule({
   });
 
   return (
-    <div className="App">
+    <div className="App" style={{ width: "35%" }}>
       <br />
-
       <Select
-        placeholder="Select Option"
+        placeholder="Chọn thời gian"
         value={schedule.find((obj) => obj.idSchedule === selectedValue)} // set selected value
         options={data} // set list of the data
         onChange={handleChange} // assign onChange function
       />
-
-      {selectedValue && (
-        <div style={{ marginTop: 20, lineHeight: "25px" }}>
-          <div>
-            <b>Selected Value: </b> {selectedValue}
-          </div>
-        </div>
-      )}
     </div>
   );
 }
