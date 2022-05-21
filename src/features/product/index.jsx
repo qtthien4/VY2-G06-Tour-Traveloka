@@ -75,23 +75,6 @@ function Product() {
               </Button>
             </Box>
           </Box>
-
-          {/* <div
-            
-            ref={searchOverlay}
-            style={{
-              left: 0,
-              top: 0,
-              bottom: 0,
-              right: 0,
-              zIndex: 3,
-              position: "fixed",
-              display: "none",
-              overflow: "hidden",
-            }}
-          >
-            <ListTour />
-          </div> */}
           <ModalImage
             tour={tour}
             listImage={listImage}
@@ -115,7 +98,7 @@ function Product() {
                 Thông tin chi tiết sản phẩm
               </Typography>
               <Box mt={3}>
-                <TourDesDetail  listImage={listImage} tour={tour} />
+                <TourDesDetail listImage={listImage} tour={tour} />
               </Box>
             </Box>
 

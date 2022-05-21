@@ -19,6 +19,8 @@ import { useNavigate } from "react-router-dom";
 import { productActions } from "../productSlice";
 import SelectSchedule from "./SelectSchedule";
 import "../assets/css/counter.css";
+import { ArrowDropDown } from "@material-ui/icons";
+import BookVisitCustomer from "./BookVisitCustomer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,7 +54,6 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const schedule1 = useSelector(selectListSchedule);
   const [selectedValue, setSelectedValue] = useState("");
   const [numberCus, setNumberCus] = useState(0);
 
@@ -82,20 +83,26 @@ export default function SelectTour({ schedule, tour, idTour }) {
   // handle onChange event of the dropdown
   const handleChange = (e) => {
     setSelectedValue(e.value);
+    setNumberCus(filterScheduleTour.AmountBooking);
   };
+
+  console.log(filterScheduleTour, numberCus);
+
   const handleChangeInput = (e) => {
     console.log(e.target.value);
     setNumberCus(e.target.value);
   };
 
   const countRef = useRef(null);
-  var amountMax = 10;
+  const amountInvalid = useMemo(() => {
+    return tour.Amount - numberCus;
+  }, []);
+
   //increase counter
   const increase = () => {
     if (counter === 1) {
       setDisableButton(false);
-    } else if (counter === amountMax - 1) {
-      console.log("10");
+    } else if (counter === amountInvalid - 1) {
       setDisableButtonIn(true);
     } else {
       setDisableButton(false);
@@ -113,8 +120,9 @@ export default function SelectTour({ schedule, tour, idTour }) {
       setCounter((count) => count - 1);
     }
   };
+  const [visible, setVisible] = useState(false);
   const [show, setShow] = useState(false);
-
+  const handleOnclickAmount = () => {};
   return (
     <div>
       <Box mb={10} className={classes.root}>
@@ -160,7 +168,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
               Không cần đặt chỗ trước
             </Typography>
           </ListItem>
-          <ListItem>
+          <ListItem className="">
             <img
               height="16"
               width="16"
@@ -169,10 +177,17 @@ export default function SelectTour({ schedule, tour, idTour }) {
             <Typography className="main-padding-4px" variant="body1">
               Hoàn tiền dễ dàng
             </Typography>
+            <Typography
+              style={{ marginLeft: "65%", transform: "translateX(65px)" }}
+              className="main-padding-4px main-text-color-orange"
+              variant="h5"
+            >
+              600.000dd
+            </Typography>
           </ListItem>
         </List>
 
-        <Box mb={9} className={classes.btnBoxSeeDetailAndSelect}>
+        <Box mb={3} className={classes.btnBoxSeeDetailAndSelect}>
           <Button variant="outlined">Xem chi tiết</Button>
           <ToggleButton
             style={{ width: "100px", color: "white" }}
@@ -200,61 +215,95 @@ export default function SelectTour({ schedule, tour, idTour }) {
         </Box>
 
         {show ? (
-          <Box style={{ transition: "height 2s" }}>
-            <Typography>Chọn ngày đi và ngày kết thúc</Typography>
-            <SelectSchedule
-              selectedValue={selectedValue}
-              handleChange={handleChange}
-              schedule={schedule}
-            />
-            {selectedValue ? (
-              <div>
-                <Typography name="soluong">
-                  Số lượng còn lại có thể đặt:
-                </Typography>
-                <div className="counter">
-                  <div className="btn__container">
-                    <button
-                      disabled={disableButtonIn}
-                      style={{ border: "none" }}
-                      className="control__btn"
-                      onClick={increase}
-                    >
-                      +
-                    </button>
-                    <input
-                      onChange={(e) => handleChangeInput(e)}
-                      ref={countRef}
-                      className="counter__output"
-                      value={counter}
-                    />
-                    <button
-                      disabled={disableButton}
-                      style={{ border: "none" }}
-                      className="control__btn"
-                      onClick={decrease}
-                    >
-                      -
-                    </button>
-                  </div>
+          <>
+            <hr />
+            <Box style={{ transition: "height 2s" }}>
+              <div className="main-d-flex">
+                <div style={{ width: "300px", height: "120px" }}>
+                  <h4>Chọn ngày đi và ngày kết thúc</h4>
+                  <SelectSchedule
+                    selectedValue={selectedValue}
+                    handleChange={handleChange}
+                    schedule={schedule}
+                  />
+                </div>
+                <div>
+                  {selectedValue ? (
+                    <BookVisitCustomer visible={visible}>
+                      <div
+                        style={{ width: "95%", margin: "10px" }}
+                        className="main-d-flex main-justify-content main-align-item-center"
+                      >
+                        <Box>
+                          <Typography name="soluong">Người đặt:</Typography>
+                          <Typography>650.000 VND</Typography>
+                        </Box>
+
+                        <div>
+                          <div className="btn__container">
+                            <button
+                              disabled={disableButtonIn}
+                              style={{ border: "none" }}
+                              className="control__btn"
+                              onClick={increase}
+                            >
+                              +
+                            </button>
+                            <input
+                              onChange={(e) => handleChangeInput(e)}
+                              ref={countRef}
+                              className="counter__output"
+                              value={counter}
+                            />
+                            <button
+                              disabled={disableButton}
+                              style={{ border: "none" }}
+                              className="control__btn"
+                              onClick={decrease}
+                            >
+                              -
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          width: "100%",
+                          padding: "10px",
+                          background: "rgb(247, 249, 250)",
+                        }}
+                        className="main-d-flex main-justify-content main-align-item-center"
+                      >
+                        <Box>
+                          <Typography name="soluong">Người đặt:</Typography>
+                          <Typography>650.000 VND</Typography>
+                        </Box>
+                        <Button
+                          onClick={handleOnclickAmount}
+                          className="main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight"
+                        >
+                          Xong
+                        </Button>
+                      </div>
+                    </BookVisitCustomer>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
               </div>
-            ) : (
-              <div></div>
-            )}
-
-            <Box className="d-flex main-justify-content">
-              <div></div>
-              <Button
-                onClick={handleSubmit}
-                style={{ padding: "5px 35px 5px 35px", fontSize: "20px" }}
-                variant="contained"
-                className={` main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`}
-              >
-                Đặt bây giờ
-              </Button>
+              <Box className="d-flex main-justify-content">
+                <div></div>
+                <Button
+                  onClick={handleSubmit}
+                  style={{ padding: "5px 35px 5px 35px", fontSize: "20px" }}
+                  variant="contained"
+                  className={` main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`}
+                >
+                  Đặt bây giờ
+                </Button>
+              </Box>
             </Box>
-          </Box>
+          </>
         ) : null}
       </Box>
     </div>

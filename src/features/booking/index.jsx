@@ -25,6 +25,7 @@ import { useStyles } from "./indexStyle";
 
 export default function Booking() {
   window.scroll(0, 0);
+  Moment.globalFormat = "D MMM YYYY";
   const user = useContext(AuthContext);
   const tour = useSelector(selectTour);
 
@@ -40,7 +41,7 @@ export default function Booking() {
     JSON.parse(localStorage.getItem("listTour"))
   );
   const location = useLocation();
-
+  console.log(scheduleTour);
   let idSchedule = String(location.pathname.split("/")[3]);
 
   const TourCurrent = listTour.filter(
@@ -100,7 +101,7 @@ export default function Booking() {
 
     navigate(`/booking/payment/${booking.idBooking}`);
   };
-  Moment.globalFormat = "D MMM YYYY";
+
   return (
     <Box>
       <Navbar />

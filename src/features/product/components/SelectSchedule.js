@@ -12,7 +12,7 @@ export default function SelectSchedule({
     data.push({
       value: element.IdSchedule,
       label:
-        "Từ ngày: " + 
+        "Từ ngày: " +
         String(element.StartTime).split("T")[0] +
         " đến " +
         String(element.EndTime).split("T")[0],
@@ -20,7 +20,7 @@ export default function SelectSchedule({
   });
 
   return (
-    <div className="App" style={{ width: "35%" }}>
+    <div style={{ width: "90%", marginTop: "-42px" }}>
       <br />
       <Select
         placeholder="Chọn thời gian"

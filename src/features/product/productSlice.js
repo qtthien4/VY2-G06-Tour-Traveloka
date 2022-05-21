@@ -5,7 +5,17 @@ const initialState = {
   tour: {},
   Schedule: {},
   listImage: [],
-  listSchedule: [],
+  listSchedule: [
+    {
+      Amount: 0,
+      AmountBooking: 0,
+      EndTime: "",
+      IdActivity: "",
+      IdSchedule: "",
+      StartTime: "",
+      Status: true,
+    },
+  ],
 };
 
 const productSlice = createSlice({
