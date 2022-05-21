@@ -2,7 +2,17 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
   loadding: false,
-  list: [],
+  list: [
+    {
+      Amount: 0,
+      AmountBooking: 0,
+      EndTime: "",
+      IdActivity: "",
+      IdSchedule: "",
+      StartTime: "",
+      Status: true,
+    },
+  ],
 };
 const scheduleSlice = createSlice({
   name: "schedule",

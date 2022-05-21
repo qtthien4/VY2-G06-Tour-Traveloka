@@ -55,22 +55,42 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [selectedValue, setSelectedValue] = useState("");
-  const [numberCus, setNumberCus] = useState(0);
+  const [numberCus, setNumberCus] = useState();
 
   const [counter, setCounter] = useState(1);
   const [disableButton, setDisableButton] = useState(false);
   const [disableButtonIn, setDisableButtonIn] = useState(false);
-
-  const filterScheduleTour = schedule.find(
-    (schedule) => schedule.IdSchedule === selectedValue
+  const [scheduleTour, SetScheduleTour] = useState(
+    JSON.parse(localStorage.getItem("scheduleList"))
   );
+  const [listSchedule, setListSchedule] = useState({
+    Amount: 0,
+    AmountBooking: 0,
+    EndTime: "",
+    IdActivity: "",
+    IdSchedule: "",
+    StartTime: "",
+    Status: true,
+  });
+
+  useEffect(() => {
+    if (selectedValue === "") {
+      return;
+    } else {
+      const list = scheduleTour.find((schedule) => {
+        return schedule.IdSchedule === selectedValue;
+      });
+      setListSchedule(list);
+    }
+  }, [selectedValue]);
+  console.log(listSchedule.AmountBooking);
 
   const handleSubmit = () => {
     const initialValue = {
       idSchedule: selectedValue,
       idActivity: idTour,
-      starttime: filterScheduleTour.StartTime || "",
-      endTime: filterScheduleTour.EndTime || "",
+      starttime: listSchedule.StartTime || "",
+      endTime: listSchedule.EndTime || "",
       Amount: counter,
       Stt: "",
       Desr: "",
@@ -83,24 +103,21 @@ export default function SelectTour({ schedule, tour, idTour }) {
   // handle onChange event of the dropdown
   const handleChange = (e) => {
     setSelectedValue(e.value);
-    setNumberCus(filterScheduleTour.AmountBooking);
+    setNumberCus();
   };
 
-  console.log(filterScheduleTour, numberCus);
-
   const handleChangeInput = (e) => {
-    console.log(e.target.value);
     setNumberCus(e.target.value);
   };
 
   const countRef = useRef(null);
-  const amountInvalid = tour.Amount - numberCus;
-
+  var amountMax = tour.Amount - listSchedule.AmountBooking;
   //increase counter
   const increase = () => {
     if (counter === 1) {
       setDisableButton(false);
-    } else if (counter === amountInvalid - 1) {
+    } else if (counter === amountMax - 1) {
+      console.log("10");
       setDisableButtonIn(true);
     } else {
       setDisableButton(false);

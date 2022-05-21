@@ -4,8 +4,12 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Footer from "components/Footer";
 import Header from "components/Header";
+
 import { imageActions, selectListImage } from "features/Images/imageSlice";
-import { scheduleActions } from "features/schedule/ScheduleSlice";
+import {
+  scheduleActions,
+  selectListSchedule,
+} from "features/schedule/ScheduleSlice";
 import ListTour from "features/tour/components/ListTour";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,8 +20,8 @@ import ModalImage from "./components/ModalImage";
 import SelectTour from "./components/SelectTour";
 import { useStyles } from "./indexStyles";
 import { productActions, selectScheduleTour, selectTour } from "./productSlice";
-const shortid = require("shortid");
 
+const shortid = require("shortid");
 function Product() {
   // window.scroll(0, 0);
   const classes = useStyles();
@@ -25,17 +29,19 @@ function Product() {
 
   const tour = useSelector(selectTour);
   const schedule = useSelector(selectScheduleTour);
+  const schedule1 = useSelector(selectListSchedule);
 
   const listImage = useSelector(selectListImage);
-
   const location = useLocation();
   const idTour = location.pathname.split("/")[4];
   const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(productActions.fetchProduct(idTour));
     dispatch(imageActions.fetchApiImage(idTour));
+    dispatch(scheduleActions.fetchApiSchedule(idTour));
   }, [dispatch, idTour]);
-
+  console.log(schedule1);
   //handle model image
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
