@@ -239,7 +239,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
 
       toast.success("Bạn đã thanh toán thành công !");
       clearTimeout(timerTrans.current);
-      //navigate("/activities");
+      navigate("/activities");
       //post áp dụng voucher
       //toast messenger success
     } catch (error) {
