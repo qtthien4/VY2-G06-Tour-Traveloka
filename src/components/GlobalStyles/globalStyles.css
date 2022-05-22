@@ -8,6 +8,8 @@
     --main-color-text-secondary: rgba(2,100,200,1.00);
     --main-color-black:rgba(3,18,26,1.00);
     --main-bg-color-blue: rgba(236,248,255,1.00)
+    --main-bg-color-disable: rgba(242,243,243,1.00)
+
 }
 .main-bg-button-color-orange{
     background-color: var(--main-color-orange) !important;
@@ -23,6 +25,9 @@
 }
 .main-text-color-orange{
     color:var(--main-color-orange) !important
+}
+.main-text-color-disable{
+    color:var(--main-bg-color-disable) !important
 }
 .main-text-color-primary{
     color:var(--main-color-secondary) !important

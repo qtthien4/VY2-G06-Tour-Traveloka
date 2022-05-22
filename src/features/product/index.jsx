@@ -41,13 +41,15 @@ function Product() {
     dispatch(imageActions.fetchApiImage(idTour));
     dispatch(scheduleActions.fetchApiSchedule(idTour));
   }, [dispatch, idTour]);
-  console.log(schedule1);
+
+  console.log(tour);
   //handle model image
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     return setOpen(true);
   };
   const handleClose = () => setOpen(false);
+  
   return (
     <Box>
       <Box className={classes.navProduct}>

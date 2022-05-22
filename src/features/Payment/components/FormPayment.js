@@ -3,6 +3,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import VouchersApi from "api/ApiExternal/Vouchers/VouchersApi";
 import bookingApi from "api/ApiReal/bookingApi";
 import axios from "axios";
+import CountDown from "features/product/components/CountDown";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -21,42 +22,41 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   const stripe = useStripe();
   const elements = useElements();
   const { control, handleSubmit } = useForm();
-  const btnVoucher = useRef();
   const navigate = useNavigate();
-  //Handle chay nguoc\
-  console.log(schedule);
-  const [countdown, setCountdown] = useState(180);
-  // useEffect(() => {
-  //   const timerId = setInterval(() => {
-  //     setCountdown((prev) => prev - 1);
-  //   }, 1000);
 
-  //   return () => clearInterval(timerId);
-  // }, []);
+  //sô giây
+
+  //Handle chay nguoc
+
+  const [countdown, setCountdown] = useState(300);
+  const time = countdown;
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      setCountdown((prev) => prev - 1);
+    }, 1000);
+    return () => clearInterval(timerId);
+  }, []);
   //setTImeOut 1p30s delete  booking theo activity
-  const timer = useRef(null);
+
   const timerTrans = useRef(null);
 
-  // useEffect(() => {
-  //   const dataTimeoutPayment = {
-  //     idBooking: idBooking,
-  //     sstBooking: false,
-  //   };
+  useEffect(() => {
+    const dataTimeoutPayment = {
+      idBooking: idBooking,
+      sstBooking: "return",
+    };
 
-  //   //post delete booking affter long time
-  //   timer.current = setTimeout(async () => {
-  //     await bookingApi.post({ dataTimeoutPayment });
-  //     console.log("settimeout");
-  //   }, 1000000);
+    //post delete booking affter long time
 
-  //   timerTrans.current = setTimeout(async () => {
-  //     navigate("/booking");
-  //     toast.warning("Bạn đã qúa thời gian cho phép thanh toán !");
-  //     console.log("settimeout");
-  //   }, 1000000);
+    timerTrans.current = setTimeout(async () => {
+      await bookingApi.post({ dataTimeoutPayment });
+      console.log("settimeout");
+      toast.warning("Bạn đã qúa thời gian cho phép thanh toán !");
+      navigate("/activities");
+    }, time * 1000);
 
-  //   return () => clearTimeout(timerTrans.current);
-  // }, []);
+    return () => clearTimeout(timerTrans.current);
+  }, []);
 
   //getAll Booking theo idBooking => idSchedule => idTour
 
@@ -98,8 +98,14 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
 
   const handleChangeCheckBoxVoucher = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
-    setAmountVoucher(0);
+    if (event.target.checked) {
+      return;
+    } else {
+      setAmountVoucher(0);
+      setCodeVoucher("");
+    }
   };
+  console.log(codeVoucher, amountVoucher);
   const handleChangeVoucher = async (e) => {
     const code = e.value;
     const paramsCheckConditionVoucher = {
@@ -135,8 +141,8 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
 
   //handle submit
   // post len server thien vo sttbooking = true, discount: "", bookingTime, total moi nhat
-  const [orderIdVoucher, setOrderIdVoucher] = useState("");
 
+  var orderId = useRef();
   const onSubmit = async (data) => {
     const dataVoucher = {
       code: codeVoucher,
@@ -146,8 +152,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
     };
 
     //post áp dụng voucher
-
-    try {
+    if (codeVoucher !== "") {
       const res = await axios(
         "http://128.199.241.206:8080/api/v1/user/voucher/pre-order",
         {
@@ -162,8 +167,11 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
       );
       //const res = VouchersApi.preOrder(dataVoucher);
 
-      let { orderId } = res.data.data;
+      //let { orderId } = res.data.data.orderId;
+      orderId = res.data.data.orderId;
+    }
 
+    try {
       // post total ở đây (post lan 1)
       const response = await axios("http://95.111.203.185:3003/payment", {
         method: "POST",
@@ -214,23 +222,24 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
       await bookingApi.post({ dataPayment });
 
       //update status voucher
-      await axios("http://128.199.241.206:8080/api/v1/user/voucher/state", {
-        method: "PUT",
-        headers: {
-          user_id: "12333333",
-          partner_id: "a67f1f4e-946a-483b-9993-ca5c344da8f5",
-          "Content-Type": "application/json",
-        },
-        data: {
-          typeVoucher: "tour",
-          orderId,
-        },
-      });
+      if (codeVoucher !== "") {
+        await axios("http://128.199.241.206:8080/api/v1/user/voucher/state", {
+          method: "PUT",
+          headers: {
+            user_id: "12333333",
+            partner_id: "a67f1f4e-946a-483b-9993-ca5c344da8f5",
+            "Content-Type": "application/json",
+          },
+          data: {
+            typeVoucher: "tour",
+            orderId,
+          },
+        });
+      }
 
       toast.success("Bạn đã thanh toán thành công !");
-      clearTimeout(timer.current);
       clearTimeout(timerTrans.current);
-      navigate("/activities");
+      //navigate("/activities");
       //post áp dụng voucher
       //toast messenger success
     } catch (error) {
@@ -242,7 +251,8 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="pay">
-        <div>Hoàn tất thanh toán trong {countdown}</div>
+        <CountDown countdown={countdown} />
+
         <br />
         <div style={{ display: "flex", position: "relative" }}>
           <h4 className="title">Thẻ tín dụng</h4>

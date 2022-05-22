@@ -2,7 +2,21 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
   loadding: false,
-  tour: {},
+  tour: {
+    ActivityName: "",
+    Amount: 12,
+    Desr: "",
+    IdActivity: "",
+    IdCity: "",
+    IdCountry: "",
+    Idpartner: "",
+    ImageUrl:
+      "",
+    Location: "",
+    Price: 0,
+    Stt: true,
+    idtype: "",
+  },
   Schedule: {},
   listImage: [],
   listSchedule: [

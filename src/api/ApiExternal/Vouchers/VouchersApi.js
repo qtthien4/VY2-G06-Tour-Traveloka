@@ -12,8 +12,8 @@ const VouchersApi = {
     });
   },
   preOrder: (data) => {
-    const urlListVoucher = `/pre-order`;
-    return axiosExternalVouchers.post(urlListVoucher, data);
+    const urlPreVoucher = `/pre-order`;
+    return axiosExternalVouchers.post(urlPreVoucher, data);
   },
 };
 

@@ -21,6 +21,7 @@ import SelectSchedule from "./SelectSchedule";
 import "../assets/css/counter.css";
 import { ArrowDropDown } from "@material-ui/icons";
 import BookVisitCustomer from "./BookVisitCustomer";
+import { formatter } from "utils/formatter";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,11 +59,10 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const [numberCus, setNumberCus] = useState();
 
   const [counter, setCounter] = useState(1);
-  const [disableButton, setDisableButton] = useState(false);
+  const [disableButton, setDisableButton] = useState(true);
   const [disableButtonIn, setDisableButtonIn] = useState(false);
-  const [scheduleTour, SetScheduleTour] = useState(
-    JSON.parse(localStorage.getItem("scheduleList"))
-  );
+  const [priceTotal, setPriceTotal] = useState(tour.Price);
+  console.log(tour.Price);
   const [listSchedule, setListSchedule] = useState({
     Amount: 0,
     AmountBooking: 0,
@@ -77,13 +77,12 @@ export default function SelectTour({ schedule, tour, idTour }) {
     if (selectedValue === "") {
       return;
     } else {
-      const list = scheduleTour.find((schedule) => {
+      const list = schedule.find((schedule) => {
         return schedule.IdSchedule === selectedValue;
       });
       setListSchedule(list);
     }
-  }, [selectedValue]);
-  console.log(listSchedule.AmountBooking);
+  }, [selectedValue, priceTotal]);
 
   const handleSubmit = () => {
     const initialValue = {
@@ -111,33 +110,47 @@ export default function SelectTour({ schedule, tour, idTour }) {
   };
 
   const countRef = useRef(null);
+
   var amountMax = tour.Amount - listSchedule.AmountBooking;
   //increase counter
   const increase = () => {
     if (counter === 1) {
       setDisableButton(false);
     } else if (counter === amountMax - 1) {
-      console.log("10");
       setDisableButtonIn(true);
     } else {
       setDisableButton(false);
     }
+
     setCounter((count) => count + 1);
+    setPriceTotal((counter + 1) * tour.Price);
   };
 
   //decrease counter
   const decrease = () => {
-    if (counter === 1) {
+    if (counter === 2) {
       setDisableButton(true);
+      // } else if (counter === 2) {
+      //   setDisableButton(false);
     } else {
       setDisableButtonIn(false);
-      setDisableButton(false);
-      setCounter((count) => count - 1);
     }
+    setCounter((count) => count - 1);
+    setPriceTotal((counter - 1) * tour.Price);
   };
+  const btnRef = useRef(null);
+
   const [visible, setVisible] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [colorDisable, setColorDisable] = useState("main-text-color-disable");
+
   const [show, setShow] = useState(false);
-  const handleOnclickAmount = () => {};
+  const handleOnclickAmount = () => {
+    setVisible(false);
+    setDisabled(false);
+    setColorDisable("main-bg-button-color-orange");
+    console.log("ok");
+  };
   return (
     <div>
       <Box mb={10} className={classes.root}>
@@ -197,7 +210,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
               className="main-padding-4px main-text-color-orange"
               variant="h5"
             >
-              600.000dd
+              {formatter.format(tour.Price)}
             </Typography>
           </ListItem>
         </List>
@@ -244,32 +257,22 @@ export default function SelectTour({ schedule, tour, idTour }) {
                 </div>
                 <div>
                   {selectedValue ? (
-                    <BookVisitCustomer visible={visible}>
+                    <BookVisitCustomer
+                      counter={counter}
+                      visible={visible}
+                      setVisible={setVisible}
+                    >
                       <div
                         style={{ width: "95%", margin: "10px" }}
                         className="main-d-flex main-justify-content main-align-item-center"
                       >
                         <Box>
                           <Typography name="soluong">Người đặt:</Typography>
-                          <Typography>650.000 VND</Typography>
+                          <Typography>{counter}</Typography>
                         </Box>
 
-                        <div>
+                        <div className="">
                           <div className="btn__container">
-                            <button
-                              disabled={disableButtonIn}
-                              style={{ border: "none" }}
-                              className="control__btn"
-                              onClick={increase}
-                            >
-                              +
-                            </button>
-                            <input
-                              onChange={(e) => handleChangeInput(e)}
-                              ref={countRef}
-                              className="counter__output"
-                              value={counter}
-                            />
                             <button
                               disabled={disableButton}
                               style={{ border: "none" }}
@@ -278,11 +281,27 @@ export default function SelectTour({ schedule, tour, idTour }) {
                             >
                               -
                             </button>
+                            <input
+                              onChange={(e) => handleChangeInput(e)}
+                              ref={countRef}
+                              className="counter__output"
+                              value={counter}
+                            />
+
+                            <button
+                              disabled={disableButtonIn}
+                              style={{ border: "none" }}
+                              className="control__btn"
+                              onClick={increase}
+                            >
+                              +
+                            </button>
                           </div>
                         </div>
                       </div>
                       <div
                         style={{
+                          borderRadius: "5px",
                           width: "100%",
                           padding: "10px",
                           background: "rgb(247, 249, 250)",
@@ -290,8 +309,12 @@ export default function SelectTour({ schedule, tour, idTour }) {
                         className="main-d-flex main-justify-content main-align-item-center"
                       >
                         <Box>
-                          <Typography name="soluong">Người đặt:</Typography>
-                          <Typography>650.000 VND</Typography>
+                          <Typography name="soluong">Tổng giá:</Typography>
+                          <Typography>
+                            {priceTotal === 0
+                              ? formatter.format(tour.Price)
+                              : formatter.format(priceTotal)}
+                          </Typography>
                         </Box>
                         <Button
                           onClick={handleOnclickAmount}
@@ -309,10 +332,12 @@ export default function SelectTour({ schedule, tour, idTour }) {
               <Box className="d-flex main-justify-content">
                 <div></div>
                 <Button
+                  ref={btnRef}
+                  disabled={disabled}
                   onClick={handleSubmit}
                   style={{ padding: "5px 35px 5px 35px", fontSize: "20px" }}
                   variant="contained"
-                  className={` main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`}
+                  className={`${colorDisable} main-text-transform main-text-color-white main-font-weight`}
                 >
                   Đặt bây giờ
                 </Button>
