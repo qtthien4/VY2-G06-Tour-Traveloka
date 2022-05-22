@@ -1,4 +1,3 @@
-const sqlConfig = require("../calldb");
 const sql = require("mssql/msnodesqlv8");
 const shortid = require("shortid");
 const {activity, image, schedule} = require('../configDb')

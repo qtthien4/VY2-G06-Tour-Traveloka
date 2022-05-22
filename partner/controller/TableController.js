@@ -1,5 +1,5 @@
 const sql = require('mssql/msnodesqlv8')
-const sqlConfig = require('../calldb')
+
 const {activity, favourite, schedule, image, partner} = require("../configDb")
 class TableController {
     async index(req, res) {

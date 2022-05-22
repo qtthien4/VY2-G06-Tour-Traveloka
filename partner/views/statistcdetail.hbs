@@ -175,7 +175,11 @@
     <script>
       var strThang, strNam
       for(var i = 1; i <= 12; i++){
-        strThang = strThang + `<option value="${i}">Tháng ${i}</option>`
+        if(i<=9){
+          strThang = strThang + `<option value="0${i}">Tháng ${i}</option>`
+        }else{
+             strThang = strThang + `<option value="${i}">Tháng ${i}</option>`
+        }       
       }
 
       for(var i = 2022; i >= 1990; i--){

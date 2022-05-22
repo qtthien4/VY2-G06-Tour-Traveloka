@@ -123,6 +123,10 @@ const book = db.define('Booking', {
     type: Sequelize.CHAR(20),
     allowNull: true
   },
+  IdGift: {
+    type: Sequelize.CHAR(20),
+    allowNull: true
+  },
   PaymentOption:  Sequelize.CHAR(2),
   BookingTime: {
     type: Sequelize.STRING,

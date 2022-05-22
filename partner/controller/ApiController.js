@@ -1,5 +1,4 @@
 const sql = require("mssql/msnodesqlv8");
-const sqlConfig = require("../calldb");
 const shortid = require("shortid");
 const {activity, country, city,favourite, keysearch, image, schedule, book, customer, user} = require('../configDb');
 
@@ -144,35 +143,54 @@ class ApiController {
     if( req.body[0] != undefined){
       const { customerDetail } = req.body[0];
       const {booking} = req.body[1];
-      var idDetail = customerDetail.idDetail;
+      //booking
       var idBooking = booking.idBooking;
+      var idSchedule = booking.idSchedule;
+      var idCustomer = booking.idCustomer;
+      var idVoucher = booking.idVoucher;
+      var idGift = booking.idGift;
+      var paymentOption = booking.paymentOption;
+      var bookingTime = booking.bookingTime;
+      var total = booking.total.toString();
+      var reduce = booking.reduce.toString();
+      var sttBooking = booking.sstBooking.toString();   
+      var amountPeople = booking.amountPeople.toString();
+      var idPayment = booking.IdPayment;
+
+      //customerdetail
+      var idDetail = customerDetail.idDetail;      
       var customerName = customerDetail.customerName;
       var cusPhoneNum = customerDetail.cusPhoneNum;
       cusPhoneNum = cusPhoneNum.toString();
       var emailCus = customerDetail.emailCus;
-      //var gender = customerDetail.emailCus;
+      var gender = customerDetail.gender;      
   
-      var idSchedule = booking.idSchedule;
-      var idCustomer = booking.idCustomer;
-      var idVoucher = booking.idVoucher;
-      var paymentOption = booking.paymentOption;
-  
-      var sttBooking = booking.sstBooking.toString();   
-      var amountPeople = booking.amountPeople;
-      var total = booking.total.toString();
-  
+      var scheduleObj = await schedule.findOne({raw:true, where:{IdSchedule : idSchedule}, order: ["IdSchedule"]})
+      
+      var amountBookingSchedule = scheduleObj.AmountBooking 
+      amountPeople = parseInt(amountPeople)  + parseInt(amountBookingSchedule) 
+      amountPeople.toString()
+
+      //update giữ chổ
+      await schedule.update({
+        AmountBooking: amountPeople
+      },{where: {IdSchedule: idSchedule}})
+
+
+      //inser db
       await book.create({
         IdBooking: idBooking,
         IdSchedule: idSchedule,
         IdCustomer:idCustomer,
         IdVoucher: idVoucher,
+        IdGift: idGift,
         PaymentOption: paymentOption,
-        BookingTime: "",
+        BookingTime: bookingTime,
         Total: total,
-        Reduce: "",
+        Reduce: reduce,
         SttBooking: sttBooking,
         AmountPeople:amountPeople,
-        IdPayment: "",
+        IdPayment: idPayment,
       })
   
       await customer.create({
@@ -181,12 +199,10 @@ class ApiController {
         CustomerName: customerName,
         CusPhoneNum: cusPhoneNum,
         EmailCus: emailCus,
-        Gender: "nam"
+        Gender: gender
       })
     }    
-    else
-    console.log(req.body)
-
+    
     res.json({
       status: "ok",
     });
