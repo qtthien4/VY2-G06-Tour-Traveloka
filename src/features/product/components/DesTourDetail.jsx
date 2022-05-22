@@ -5,7 +5,7 @@ import VerticalSkedule from "./VerticalSkedule";
 
 var x;
 var y;
-export default function TourDesDetail({ tour, listImage }) {
+export default function TourDesDetail({ schedule, tour, listImage }) {
   const classes = useStyles();
   const [state, setState] = React.useState(0);
   const handleChange = (e, value) => {
@@ -17,7 +17,6 @@ export default function TourDesDetail({ tour, listImage }) {
     <Box className={classes.root}>
       <Box className={classes.left}>
         <Box className={classes.leftDes}>
-          
           <Typography
             variant="h6"
             className={`main-text-color-black main-font-weight`}
@@ -29,7 +28,6 @@ export default function TourDesDetail({ tour, listImage }) {
             variant="body2"
           >
             {tour.Desr}
-            
           </Typography>
 
           <Box mt={3}>
@@ -57,7 +55,7 @@ export default function TourDesDetail({ tour, listImage }) {
             className={`${classes.title} main-font-weight main-font-size-title main-text-color-black`}
             variant="h5"
           >
-            Chụp ảnh chuyên nghiệp ở Tokyo
+            {tour.ActivityName}
           </Typography>
           <Button
             variant="contained"
@@ -82,9 +80,7 @@ export default function TourDesDetail({ tour, listImage }) {
                 </Typography>
               </Box>
 
-              <Typography variant="body2">
-                Thứ sáu, ngày 18 tháng 3 năm 2022
-              </Typography>
+              <Typography variant="body2"></Typography>
             </ListItem>
             <ListItem className={classes.titleRightListTop}>
               <Box className={`d-flex main-align-item-center`}>
@@ -97,11 +93,9 @@ export default function TourDesDetail({ tour, listImage }) {
                   style={{ fontWeight: 600 }}
                   className={`main-font-size-text main-padding-4px main-text-color-black `}
                 >
-                  Thời lượng:
+                  Thời lượng: 3 giờ
                 </Typography>
               </Box>
-
-              <Typography variant="body2">3 gio</Typography>
             </ListItem>
             <ListItem className={classes.titleRightListTop}>
               <Box className={`d-flex main-align-item-center`}>
@@ -141,7 +135,7 @@ export default function TourDesDetail({ tour, listImage }) {
                   style={{ fontWeight: 530 }}
                   className={`main-font-size-text main-padding-4px main-text-color-black `}
                 >
-                  Ngày có sẵn tiếp theo:
+                  Hủy miễn phí
                 </Typography>
               </Box>
             </ListItem>
@@ -156,7 +150,7 @@ export default function TourDesDetail({ tour, listImage }) {
                   style={{ fontWeight: 530 }}
                   className={`main-font-size-text main-padding-4px main-text-color-black `}
                 >
-                  Thời lượng:
+                  Giá đặc biệt
                 </Typography>
               </Box>
             </ListItem>
@@ -171,7 +165,7 @@ export default function TourDesDetail({ tour, listImage }) {
                   style={{ fontWeight: 530 }}
                   className={`main-font-size-text main-padding-4px main-text-color-black `}
                 >
-                  Dịch vụ có sẵn bằng:{" "}
+                  Chứng nhận tức thì
                 </Typography>
               </Box>
               <hr />

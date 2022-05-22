@@ -1,9 +1,9 @@
 import Switch from "@material-ui/core/Switch";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import VouchersApi from "api/ApiExternal/Vouchers/VouchersApi";
 import bookingApi from "api/ApiReal/bookingApi";
 import axios from "axios";
-import CountDown from "features/product/components/CountDown";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -11,9 +11,14 @@ import Select from "react-select";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { formatter } from "../../../utils/formatter";
+import CountDown from "./CountDown";
 const schema = yup
   .object({
-    firstName: yup.string().required(),
+    cardElement: yup
+      .number()
+      .positive()
+      .integer("Vui lòng nhập số")
+      .required("Vui lòng nhập số tài khoản thanh toán"),
     age: yup.number().positive().integer().required(),
   })
   .required();
@@ -21,36 +26,34 @@ const schema = yup
 export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   const stripe = useStripe();
   const elements = useElements();
-  const { control, handleSubmit } = useForm();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
 
   //sô giây
 
   //Handle chay nguoc
 
-  const [countdown, setCountdown] = useState(300);
-  const time = countdown;
-  useEffect(() => {
-    const timerId = setInterval(() => {
-      setCountdown((prev) => prev - 1);
-    }, 1000);
-    return () => clearInterval(timerId);
-  }, []);
   //setTImeOut 1p30s delete  booking theo activity
-
+  const time = 300;
   const timerTrans = useRef(null);
 
   useEffect(() => {
     const dataTimeoutPayment = {
       idBooking: idBooking,
       sstBooking: "return",
+      idSchedule: schedule.idSchedule,
+      amountBooking: schedule.Amount,
     };
 
     //post delete booking affter long time
 
     timerTrans.current = setTimeout(async () => {
       await bookingApi.post({ dataTimeoutPayment });
-      console.log("settimeout");
+
       toast.warning("Bạn đã qúa thời gian cho phép thanh toán !");
       navigate("/activities");
     }, time * 1000);
@@ -105,7 +108,6 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
       setCodeVoucher("");
     }
   };
-  console.log(codeVoucher, amountVoucher);
   const handleChangeVoucher = async (e) => {
     const code = e.value;
     const paramsCheckConditionVoucher = {
@@ -130,8 +132,6 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
         toast.error(err.response.data.message);
       });
 
-    //   console.log(schedule1[0].IdSchedule);
-
     //lay gia goc tru di voucher
   };
 
@@ -150,26 +150,6 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
       transactionId: idBooking,
       amount: totalInitTour,
     };
-
-    //post áp dụng voucher
-    if (codeVoucher !== "") {
-      const res = await axios(
-        "http://128.199.241.206:8080/api/v1/user/voucher/pre-order",
-        {
-          method: "POST",
-          headers: {
-            user_id: "12333333",
-            partner_id: "a67f1f4e-946a-483b-9993-ca5c344da8f5",
-            "Content-Type": "application/json",
-          },
-          data: dataVoucher,
-        }
-      );
-      //const res = VouchersApi.preOrder(dataVoucher);
-
-      //let { orderId } = res.data.data.orderId;
-      orderId = res.data.data.orderId;
-    }
 
     try {
       // post total ở đây (post lan 1)
@@ -221,6 +201,25 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
 
       await bookingApi.post({ dataPayment });
 
+      //post áp dụng voucher
+      if (codeVoucher !== "") {
+        const res = await axios(
+          "http://128.199.241.206:8080/api/v1/user/voucher/pre-order",
+          {
+            method: "POST",
+            headers: {
+              user_id: "12333333",
+              partner_id: "a67f1f4e-946a-483b-9993-ca5c344da8f5",
+              "Content-Type": "application/json",
+            },
+            data: dataVoucher,
+          }
+        );
+        //const res = VouchersApi.preOrder(dataVoucher);
+        //let { orderId } = res.data.data.orderId;
+        orderId = res.data.data.orderId;
+      }
+
       //update status voucher
       if (codeVoucher !== "") {
         await axios("http://128.199.241.206:8080/api/v1/user/voucher/state", {
@@ -239,7 +238,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
 
       toast.success("Bạn đã thanh toán thành công !");
       clearTimeout(timerTrans.current);
-      navigate("/activities");
+      //navigate("/activities");
       //post áp dụng voucher
       //toast messenger success
     } catch (error) {
@@ -251,7 +250,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="pay">
-        <CountDown countdown={countdown} />
+        <CountDown time={time} />
 
         <br />
         <div style={{ display: "flex", position: "relative" }}>
@@ -281,7 +280,8 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
         </div>
         <div className="">
           <label>Mời bạn nhập số thẻ tín dụng: </label> <br />
-          <CardElement />
+          <CardElement name="cardElement" />
+          {/* {errors.cardElement?.message} */}
         </div>
         <br />
         <div className="" style={{ display: "flex", alignItems: "center" }}>

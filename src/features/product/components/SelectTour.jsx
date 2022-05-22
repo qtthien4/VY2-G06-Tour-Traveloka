@@ -62,7 +62,6 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const [disableButton, setDisableButton] = useState(true);
   const [disableButtonIn, setDisableButtonIn] = useState(false);
   const [priceTotal, setPriceTotal] = useState(tour.Price);
-  console.log(tour.Price);
   const [listSchedule, setListSchedule] = useState({
     Amount: 0,
     AmountBooking: 0,
@@ -130,8 +129,6 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const decrease = () => {
     if (counter === 2) {
       setDisableButton(true);
-      // } else if (counter === 2) {
-      //   setDisableButton(false);
     } else {
       setDisableButtonIn(false);
     }
@@ -145,11 +142,21 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const [colorDisable, setColorDisable] = useState("main-text-color-disable");
 
   const [show, setShow] = useState(false);
+  const [showAmount, setShowAmount] = useState(false);
+
   const handleOnclickAmount = () => {
     setVisible(false);
     setDisabled(false);
     setColorDisable("main-bg-button-color-orange");
-    console.log("ok");
+  };
+  const handleChangeToggle = () => {
+    setShow(!show);
+    setShowAmount(!showAmount);
+    setSelectedValue("");
+    setCounter(1);
+    setPriceTotal(tour.Price);
+    setColorDisable("main-text-color-disable");
+    setDisabled(true);
   };
   return (
     <div>
@@ -206,7 +213,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
               Hoàn tiền dễ dàng
             </Typography>
             <Typography
-              style={{ marginLeft: "65%", transform: "translateX(65px)" }}
+              style={{ transform: "translateX(630px)" }}
               className="main-padding-4px main-text-color-orange"
               variant="h5"
             >
@@ -223,9 +230,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
             variant="contained"
             className={`main-bg-button-color-orange main-text-transform main-text-color-white main-font-weight`}
             value="check"
-            onChange={() => {
-              setShow(!show);
-            }}
+            onChange={handleChangeToggle}
           >
             {!show ? (
               <div style={{ width: "100px", color: "white" }}>Lựa chọn</div>
@@ -256,7 +261,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
                   />
                 </div>
                 <div>
-                  {selectedValue ? (
+                  {selectedValue.length > 1 && showAmount === true ? (
                     <BookVisitCustomer
                       counter={counter}
                       visible={visible}

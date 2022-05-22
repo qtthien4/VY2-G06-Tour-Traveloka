@@ -2,10 +2,12 @@ import { Box, Button } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
+import { formatter } from "utils/formatter";
 import { useStyles } from "../indexStyles";
 const shortid = require("shortid");
 
 export default function ImageList({
+  schedule,
   tour,
   listImage,
   firstImage,
@@ -109,7 +111,7 @@ export default function ImageList({
               className={`main-text-color-orange main-font-weight`}
               variant="h5"
             >
-              {tour.Price} VND
+              {formatter.format(tour.Price)}
             </Typography>
             <Button
               fullWidth

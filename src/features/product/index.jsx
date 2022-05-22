@@ -49,7 +49,7 @@ function Product() {
     return setOpen(true);
   };
   const handleClose = () => setOpen(false);
-  
+
   return (
     <Box>
       <Box className={classes.navProduct}>
@@ -91,6 +91,7 @@ function Product() {
           />
           <Paper className={classes.root}>
             <ImageList
+              schedule={schedule}
               handleClickImageActivity={handleOpen}
               tour={tour}
               listImage={listImage}
@@ -106,7 +107,11 @@ function Product() {
                 Thông tin chi tiết sản phẩm
               </Typography>
               <Box mt={3}>
-                <TourDesDetail listImage={listImage} tour={tour} />
+                <TourDesDetail
+                  schedule={schedule}
+                  listImage={listImage}
+                  tour={tour}
+                />
               </Box>
             </Box>
 

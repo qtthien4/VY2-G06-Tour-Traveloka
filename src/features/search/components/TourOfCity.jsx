@@ -3,6 +3,7 @@ import { ToggleButton } from "@material-ui/lab";
 import favauriteApi from "api/ApiReal/favauriteApi";
 import React, { useMemo, useState } from "react";
 import shortid from "shortid";
+import { formatter } from "utils/formatter";
 import { useStyles } from "../assets/styles/tourOfcityStyle";
 
 export default function TourOfCity({
@@ -13,8 +14,6 @@ export default function TourOfCity({
   arr1,
 }) {
   const classes = useStyles();
-
-  // console.log("tours --- ok", tours);
   return (
     <div>
       {tours.map((a, index) => (
@@ -28,7 +27,6 @@ export default function TourOfCity({
               color: "white",
             }}
             value="check"
-            // onChange={() => handleClickFavaurite(a.IdActivity)}
           >
             {a.isFavaurite == true ? (
               <img
@@ -64,22 +62,11 @@ export default function TourOfCity({
                   {a.Location}
                 </span>
               </Box>
-              <Box>
-                {/* <img
-                height="12"
-                width="12"
-                src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/9/986bcf0f5b0c898a34fd75a917ceefad.svg"
-                alt=""
-              /> */}
-                {/* <span className={classes.text}>{a.score} /10</span>
-              <span className={classes.text}>(1 nhận xét)</span> */}
-              </Box>
+              <Box></Box>
               <Box className={classes.boxPrice}>
-                {/* <span className={classes.textLineThought}>
-                {a.originalPrice} VND
-              </span>{" "}
-              <br /> */}
-                <span className={classes.price}>{a.Price} VND</span>
+                <span className={classes.price}>
+                  {formatter.format(a.Price)}
+                </span>
               </Box>
             </Box>
           </Box>
