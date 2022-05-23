@@ -83,6 +83,10 @@ export default function SelectTour({ schedule, tour, idTour }) {
         return schedule.IdSchedule === selectedValue;
       });
       setListSchedule(list);
+      setCounter(1);
+      setPriceTotal(tour.Price);
+      setColorDisable("main-text-color-disable");
+      setDisabled(true);
     }
   }, [selectedValue]);
 
@@ -139,18 +143,31 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const countRef = useRef(null);
 
   var amountMax = tour.Amount - listSchedule.AmountBooking;
-  console.log(amountMax, listSchedule.AmountBooking);
-
+  console.log(
+    "amountMax",
+    amountMax,
+    "AmountBooking",
+    listSchedule.AmountBooking,
+    "counter",
+    counter
+  );
   //increase counter
-  const increase = () => {
-    if (counter === 1) {
-      setDisableButton(false);
-    } else if (counter === amountMax - 1) {
+  useEffect(() => {
+    if (amountMax === 1) {
+      console.log("ok");
       setDisableButtonIn(true);
+      setDisableButton(true);
     } else {
+      setDisableButtonIn(false);
+    }
+  }, [amountMax]);
+
+  const increase = () => {
+    if (counter === amountMax - 1) {
+      console.log(counter);
+      setDisableButtonIn(true);
       setDisableButton(false);
     }
-
     setCounter((count) => count + 1);
     setPriceTotal((counter + 1) * tour.Price);
   };
@@ -158,13 +175,14 @@ export default function SelectTour({ schedule, tour, idTour }) {
   //decrease counter
   const decrease = () => {
     if (counter === 2) {
-      setDisableButton(true);
-    } else {
+      console.log(counter);
       setDisableButtonIn(false);
+      setDisableButton(true);
     }
     setCounter((count) => count - 1);
     setPriceTotal((counter - 1) * tour.Price);
   };
+
   const btnRef = useRef(null);
 
   const [visible, setVisible] = useState(false);
