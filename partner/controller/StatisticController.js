@@ -27,6 +27,7 @@ class StatisticController{
     }
 
     async Seach(req,res){
+        var user = req.signedCookies.Cookie_User
         var id = req.params.id;
         console.log(req.body)
         if(req.body.search != undefined){
@@ -64,6 +65,7 @@ class StatisticController{
     }
 
     async PostChart(req,res){
+        
         var id = req.params.id;
         var arrBoking = await GetDb.fullBookngOneActivity(id)
         var nam = req.body.nam;
@@ -91,6 +93,7 @@ class StatisticController{
     }
 
     async Chart(req,res){
+        var user = req.signedCookies.Cookie_User
         var id = req.params.id;
         var arrBoking = await GetDb.fullBookngOneActivity(id)        
         res.render('statisticChart', { id : id ,book: arrBoking, user:user})

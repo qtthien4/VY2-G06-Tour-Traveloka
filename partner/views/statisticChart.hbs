@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="/css/homecustom.css">
     <link rel="stylesheet" href="/css/selectmultiple.css">
     <link rel="import" href="https://rawgit.com/sitepoint-editors/multiselect-web-component/master/src/multiselect.html">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
         .container {
             width: 80%;
@@ -79,7 +80,8 @@
             <!-- Side Navbar -->
             <nav class="side-navbar z-index-40">
                 <!-- Sidebar Header-->
-                <div class="sidebar-header d-flex align-items-center py-4 px-3"><img class="avatar shadow-0 img-fluid rounded-circle" src="img/avatar-1.jpg" alt="...">
+                <div class="sidebar-header d-flex align-items-center py-4 px-3">
+                    <img class="avatar shadow-0 img-fluid rounded-circle" src="img/avatar-1.jpg" alt="...">
                     <div class="ms-3 title">
                         <h1 class="h4 mb-2">{{{user}}}</h1>
                     </div>
@@ -117,8 +119,6 @@
 
                 <!-- Breadcrumb-->
                 <div class="products-area-wrapper tableView">
-
-                    //sau này thêm bảng listgift ở đây
 
                     <select name="nam" id="nam"></select>
                     <select name="type" id="type">
