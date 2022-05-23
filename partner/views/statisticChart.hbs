@@ -151,6 +151,7 @@
         async function getdata() {
             var nam = document.getElementById('nam').value
             var type = document.getElementById('type').value
+            var myChart
             var getdata = await axios({
                 method: 'post',
                 url: `http://95.111.203.185:3003/statistic/Detail/chart/${id}`,
@@ -159,10 +160,14 @@
                 }
             })
             getdata = getdata.data;
-
+            await document.getElementById("myChart").remove()
+            var canvas = document.createElement("canvas")
+            canvas.id = "myChart"
+            document.querySelector(".container").appendChild(canvas);
+            
 
             var ctx = document.getElementById("myChart").getContext('2d');
-            var myChart = new Chart(ctx, {
+            myChart = new Chart(ctx, {
                 type: type,
                 data: {
                     labels: ['Tháng 1', 'Tháng 2 ', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12 '],

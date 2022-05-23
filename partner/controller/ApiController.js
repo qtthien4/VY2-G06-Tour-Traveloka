@@ -133,6 +133,11 @@ class ApiController {
       if(timestart <= new Date()){
         await schedule.update({Status:0}, { where: {IdSchedule: arrSchedule[i].IdSchedule}})
       }
+      if(arrSchedule[i].AmountBooking == arrSchedule[i].Amount){
+        await schedule.update({Status:0}, { where: {IdSchedule: arrSchedule[i].IdSchedule}})
+      }else{
+        await schedule.update({Status:1}, { where: {IdSchedule: arrSchedule[i].IdSchedule}})
+      }
     }
 
     await schedule.findAll({raw: true, where: {IdActivity : id, Status:true }}).then(e => {
