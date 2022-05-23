@@ -87,6 +87,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
       setPriceTotal(tour.Price);
       setColorDisable("main-text-color-disable");
       setDisabled(true);
+      setDisableButton(true);
     }
   }, [selectedValue]);
 
@@ -195,6 +196,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const handleOnclickAmount = () => {
     setVisible(false);
     setDisabled(false);
+
     setColorDisable("main-bg-button-color-orange");
   };
   const handleChangeToggle = () => {
