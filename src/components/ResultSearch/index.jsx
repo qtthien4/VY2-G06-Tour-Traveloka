@@ -3,7 +3,7 @@ import { Box, Button, Typography } from "@material-ui/core";
 import React from "react";
 import { useStyles } from "./styles";
 
-export default function ResultSearch({ listTour }) {
+export default function ResultSearch({ listTour, handleTourInSearch }) {
   const classes = useStyles();
   return (
     <Box className={classes.root}>
@@ -93,7 +93,11 @@ export default function ResultSearch({ listTour }) {
 
         <Box mt={3} className={classes.boxTourSearch}>
           {listTour.map((list) => (
-            <Box key={list.IdActivity} className={`${classes.tourSearch}`}>
+            <Box
+              key={list.IdActivity}
+              onClick={handleTourInSearch(list.IdActivity)}
+              className={`${classes.tourSearch}`}
+            >
               <Box
                 style={{
                   boxShadow: "rgb(0 0 0 / 22%) 0px 1px 2.22px",

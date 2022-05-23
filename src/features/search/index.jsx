@@ -1,31 +1,17 @@
 import { Box, Typography } from "@material-ui/core";
-import cityApi from "api/ApiReal/cityApi";
-import favauriteApi from "api/ApiReal/favauriteApi";
-import fakeCityApi from "api/fakeCityApi";
 import Footer from "components/Footer";
 import Header from "components/Header";
-import { cityActions, selectListCity } from "features/City/citySlice";
-import {
-  countryActions,
-  selectListCountry,
-} from "features/Country/countrySlice";
+import { cityActions } from "features/City/citySlice";
+import { countryActions } from "features/Country/countrySlice";
 import { favauriteActions } from "features/Favaurite/favauriteSlice";
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import shortid from "shortid";
-import { SortTour } from "utils/sort";
 import SearchActivities from "../../components/SearchActivities";
 import {
   searchActions,
-  SelectListTourOfCity,
   SelectFilterPrice,
+  SelectListTourOfCity,
   selectTour,
 } from "../search/searchSlice";
 import ListFilter from "./components/ListFilter";

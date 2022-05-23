@@ -88,6 +88,8 @@ export default function App({ user }) {
         </Route>
         {/* <Route path="/sign-in" element={<SignIn />} /> */}
         <Route path="/login" element={<Login />} />
+        <Route path="/sign-in" element={<SignIn />} />
+
         <Route path="/register" element={<Register />} />
         <Route path="/booking" element={<Booking />}>
           <Route path="v2/:id" element={<Booking />} />

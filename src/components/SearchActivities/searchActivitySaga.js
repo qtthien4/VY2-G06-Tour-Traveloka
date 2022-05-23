@@ -5,7 +5,6 @@ import { searchActivityActions } from "./searchActivitySlice";
 function* fetchTourApi(searchText) {
   const response = yield call(tourApi.getAll);
 
-  console.log("res", response);
   yield put(searchActivityActions.fetchSearchActivitySuccess(response));
 }
 

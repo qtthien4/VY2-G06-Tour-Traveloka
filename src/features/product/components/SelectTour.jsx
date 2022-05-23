@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/styles";
 import InputField from "components/FormFields/InputField";
 import {
   scheduleActions,
-  selectListSchedule,
+  selectScheduleAmount,
 } from "features/schedule/ScheduleSlice";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +22,8 @@ import "../assets/css/counter.css";
 import { ArrowDropDown } from "@material-ui/icons";
 import BookVisitCustomer from "./BookVisitCustomer";
 import { formatter } from "utils/formatter";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,6 +59,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const navigate = useNavigate();
   const [selectedValue, setSelectedValue] = useState("");
   const [numberCus, setNumberCus] = useState();
+  const amountSchedule = useSelector(selectScheduleAmount);
 
   const [counter, setCounter] = useState(1);
   const [disableButton, setDisableButton] = useState(true);
@@ -83,7 +86,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
     }
   }, [selectedValue, priceTotal]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const initialValue = {
       idSchedule: selectedValue,
       idActivity: idTour,
@@ -93,9 +96,34 @@ export default function SelectTour({ schedule, tour, idTour }) {
       Stt: "",
       Desr: "",
     };
-    dispatch(productActions.setSchedule(initialValue));
-    localStorage.setItem("schedule", JSON.stringify(initialValue));
-    navigate(`/booking/v2/${String(selectedValue).trim()}`);
+
+    var amountCheckTourNow;
+    //call api schedule
+
+    await axios(`http://95.111.203.185:3003/api/schedule/${idTour}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      const arr = res.data.filter(
+        (list) => list.IdSchedule.trim() === selectedValue.trim()
+      );
+      amountCheckTourNow = arr[0].Amount;
+    });
+    //check số lượng
+
+    if (counter <= amountCheckTourNow) {
+      dispatch(productActions.setSchedule(initialValue));
+      localStorage.setItem("schedule", JSON.stringify(initialValue));
+      navigate(`/booking/v2/${String(selectedValue).trim()}`);
+    } else {
+      toast.warning(
+        `Số lượng tour không đủ ${counter} chỉ còn ${amountCheckTourNow} chỗ trống, vui lòng chọn lại !!!`
+      );
+    }
+    //ok
+    //no ok
   };
 
   // handle onChange event of the dropdown

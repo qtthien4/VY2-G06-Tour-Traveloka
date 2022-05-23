@@ -59,7 +59,6 @@ export const listRemainingSelectorTourSearch = createSelector(
   selectListTourSearchActivity,
   selectSearchActivityInput,
   (listTour, searchText) => {
-    console.log("listTour", listTour);
     return listTour.filter((list) => {
       return list.ActivityName.includes(searchText);
     });

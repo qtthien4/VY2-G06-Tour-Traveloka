@@ -42,7 +42,6 @@ function Product() {
     dispatch(scheduleActions.fetchApiSchedule(idTour));
   }, [dispatch, idTour]);
 
-  console.log(tour);
   //handle model image
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {

@@ -72,6 +72,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchActivities({ style, layoutRef, scroll }) {
   const classes = useStyles();
+
   const inputRef = useRef();
   const searchOverlay = useRef();
   const recentSearchesRef = useRef();
@@ -107,7 +108,6 @@ export default function SearchActivities({ style, layoutRef, scroll }) {
 
   const handleInputSearchChange = (e) => {
     const value = e.target.value;
-    console.log("value", value);
 
     if (value.length >= 1 || value !== "") {
       recentSearchesRef.current.style.display = "none";
@@ -124,6 +124,10 @@ export default function SearchActivities({ style, layoutRef, scroll }) {
   const handleOnButtonSearch = () => {
     setSearchText("");
     searchApi.postTextSearch(searchText);
+  };
+  const handleTourInSearch = (idActivity) => {
+    //console.log(idActivity);
+    // navigate(`/activities/vietnam/product/${idActivity}`);
   };
 
   return (
@@ -178,7 +182,10 @@ export default function SearchActivities({ style, layoutRef, scroll }) {
         style={{ display: "none" }}
       >
         {listTour.length >= 1 ? (
-          <ResultSearch listTour={listTour} />
+          <ResultSearch
+            handleTourInSearch={handleTourInSearch}
+            listTour={listTour}
+          />
         ) : searchText == "" ? (
           <RecentSearch listKeySearch={listKeySearch} />
         ) : (

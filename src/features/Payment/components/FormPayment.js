@@ -38,13 +38,12 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   //Handle chay nguoc
 
   //setTImeOut 1p30s delete  booking theo activity
-  const time = 300;
+  const time = 10;
   const timerTrans = useRef(null);
 
   useEffect(() => {
     const dataTimeoutPayment = {
       idBooking: idBooking,
-      sstBooking: "return",
       idSchedule: schedule.idSchedule,
       amountBooking: schedule.Amount,
     };
@@ -188,7 +187,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
 
       const dataPayment = {
         idBooking: idBooking,
-        bookingTime: `${time} ${date}`,
+        bookingTime: `${date} ${time}`,
         sttBooking: "success",
         idVoucher: codeVoucher,
         idGift: "",
@@ -238,7 +237,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
 
       toast.success("Bạn đã thanh toán thành công !");
       clearTimeout(timerTrans.current);
-      //navigate("/activities");
+      navigate("/activities");
       //post áp dụng voucher
       //toast messenger success
     } catch (error) {
