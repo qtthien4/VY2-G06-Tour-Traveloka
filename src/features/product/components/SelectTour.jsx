@@ -84,7 +84,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
       });
       setListSchedule(list);
     }
-  }, [selectedValue, priceTotal]);
+  }, [selectedValue]);
 
   const handleSubmit = async () => {
     const initialValue = {
@@ -139,6 +139,8 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const countRef = useRef(null);
 
   var amountMax = tour.Amount - listSchedule.AmountBooking;
+  console.log(amountMax, listSchedule.AmountBooking);
+
   //increase counter
   const increase = () => {
     if (counter === 1) {

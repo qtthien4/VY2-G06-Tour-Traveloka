@@ -29,8 +29,6 @@ function Product() {
 
   const tour = useSelector(selectTour);
   const schedule = useSelector(selectScheduleTour);
-  const schedule1 = useSelector(selectListSchedule);
-
   const listImage = useSelector(selectListImage);
   const location = useLocation();
   const idTour = location.pathname.split("/")[4];

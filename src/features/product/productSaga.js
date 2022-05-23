@@ -14,6 +14,9 @@ function* fetchApiListImage(idTour) {
 }
 function* fetchApiListSchedule(idTour) {
   const res = yield call(scheduleApi.getId, idTour.payload);
+  const listSchedule = res.filter((res) => {
+    return res.stt === true
+  });
   yield put(productActions.setScheduleSuccess(res));
 }
 function* fetchDataProduct(idTour) {

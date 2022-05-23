@@ -25,7 +25,13 @@ export default function AuthProvider({ children }) {
         try {
           const actionResult = await dispatch(getMe());
           const currentUser = unwrapResult(actionResult);
-          setUser(currentUser);
+          // setUser({
+          //   displayName: "hieule",
+          //   email: "hieu@gmail.com",
+          //   uid: "123",
+          //   photoURL: "https",
+          // });
+          //setUser(currentUser);
           //   console.log("logged in user redux:", currentUser);
           //   const token = await user.getIdToken();
           //   console.log("Logged in user token:", token);

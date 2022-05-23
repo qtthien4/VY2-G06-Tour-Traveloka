@@ -10,8 +10,7 @@ const initialState = {
     IdCity: "",
     IdCountry: "",
     Idpartner: "",
-    ImageUrl:
-      "",
+    ImageUrl: "",
     Location: "",
     Price: 0,
     Stt: true,
@@ -49,10 +48,6 @@ const productSlice = createSlice({
     fetchProductFaild(state, action) {
       state.loading = false;
     },
-    // setProduct(state, action) {
-    //   state.loadding = true;
-    //   state.tour = action.payload;
-    // },
     setSchedule(state, action) {
       state.loadding = true;
       state.Schedule = action.payload;

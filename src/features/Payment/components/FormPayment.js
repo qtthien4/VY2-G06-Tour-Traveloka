@@ -196,6 +196,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
         idSchedule: schedule.idSchedule,
         amountBooking: schedule.Amount,
         idCustomer: "1",
+        score: 10,
       };
 
       await bookingApi.post({ dataPayment });

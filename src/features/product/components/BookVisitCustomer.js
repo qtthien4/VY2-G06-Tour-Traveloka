@@ -4,8 +4,6 @@ import React, { useRef, useState } from "react";
 
 export default function BookVisitCustomer({ children, ...props }) {
   const { visible, setVisible, counter } = props;
-  console.log(visible);
-  //const [visible, setVisible] = useState(false);
   const show = () => setVisible(true);
   const hide = () => setVisible(false);
   const refTippy = useRef();
