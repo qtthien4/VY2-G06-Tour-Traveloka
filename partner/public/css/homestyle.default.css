@@ -9853,7 +9853,7 @@ fieldset:disabled .btn {
 }
 
 .text-white {
-    color: #fff !important;
+    color: #000 !important;
 }
 
 .text-body {
@@ -13384,7 +13384,7 @@ nav.side-navbar.shrinked .sidebar-header .title {
 */
 
 nav.navbar {
-    background: #2f333e;
+    background: #f2f3f4;
     /*==== Navbar Items ====*/
     /*==== Search Box ====*/
 }
@@ -14592,7 +14592,7 @@ a.text-hover-paleBlue:hover {
 }
 
 .text-gray-400 {
-    color: #ced4da !important;
+    color: #000 !important;
 }
 
 .border-gray-400 {

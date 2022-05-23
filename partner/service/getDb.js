@@ -10,14 +10,14 @@ class GetDb{
         await activity.findAll({raw: true, where: {Idpartner : idpartner.Idpartner}}).then(e => arrActivity = e);
         
         for(var i = 0; i < arrActivity.length; i++){
-            var arrSchedule = [], arrBooking = [], handleArrBooking, totalBooking =0 , typeActivity
+            var arrSchedule = [], arrBooking = [], handleArrBooking = [], totalBooking =0 , typeActivity
             //tim tat ca lich trinh của acitivity này
             await schedule.findAll({raw: true, where: {IdActivity:arrActivity[i].IdActivity}}).then(e => arrSchedule = e)
             arrActivity[i].schedule = arrSchedule;
 
             //tim tat ca bôking cua activity này
             for(var j = 0; j <  arrActivity[i].schedule.length; j++){
-                await book.findAll({raw: true, where: {IdSchedule: arrActivity[i].schedule[j].IdSchedule}}).then(e => handleArrBooking = arrBooking.concat(e))                
+                await book.findAll({raw: true, where: {IdSchedule: arrActivity[i].schedule[j].IdSchedule}}).then(e => handleArrBooking = [...handleArrBooking, ...e])                
             }
             arrActivity[i].booking = handleArrBooking;
 
@@ -37,7 +37,7 @@ class GetDb{
 
     async fullBookngOneActivity(IdActivity){
         var arrActivity;
-        var arrSchedule = [], arrBooking = [], handleArrBooking, totalBooking =0 
+        var arrSchedule = [], arrBooking = [], handleArrBooking=[], totalBooking =0 
 
         await activity.findAll({raw: true, where: {IdActivity : IdActivity}}).then(e => arrActivity = e);
         //get booking
@@ -46,14 +46,14 @@ class GetDb{
             await schedule.findAll({raw: true, where: {IdActivity:arrActivity[i].IdActivity}}).then(e => arrSchedule = e)
             arrActivity[i].schedule = arrSchedule;
             for(var j = 0; j <  arrActivity[i].schedule.length; j++){
-                await book.findAll({raw: true, where: {IdSchedule: arrActivity[i].schedule[j].IdSchedule}}).then(e => handleArrBooking = arrBooking.concat(e))                
+                await book.findAll({raw: true, where: {IdSchedule: arrActivity[i].schedule[j].IdSchedule}}).then(e => handleArrBooking = [...handleArrBooking, ...e])                
             }
             arrActivity[i].booking = handleArrBooking;
             for(var k = 0; k < arrActivity[i].booking.length; k++ ){
                 totalBooking = totalBooking + parseInt(arrActivity[i].booking[k].Total)
             }
         }
-
+        
         //get userbooking
         for(var i = 0; i < handleArrBooking.length; i++){
             var arrUser
@@ -67,8 +67,8 @@ class GetDb{
                 handleArrBooking[i].Voucher = "Có"
             }
             //format gia tien
-            var totalBooking = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format( handleArrBooking[i].Total)
-            handleArrBooking[i].Total = totalBooking
+            // var totalBooking = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format( handleArrBooking[i].Total)
+            // handleArrBooking[i].Total = totalBooking
         }
         return handleArrBooking;
     }

@@ -2,6 +2,7 @@ const shortid = require("shortid");
 const {activity, image, city, country, type, partner} = require('../configDb');
 class FormController {
   async index(req, res) {
+    var user = req.signedCookies.Cookie_User
     var rederCountry, rederCity, renderType = []
     await country.findAll({raw:true}).then(arrCountry => rederCountry = arrCountry )
     await city.findAll({raw:true}).then(arrCity => rederCity = arrCity)
@@ -9,10 +10,11 @@ class FormController {
     //get cookie
     // console.log(req.signedCookies.Cookie_User);
     
-    res.render("forms", { nuoc: rederCountry, thanhpho: rederCity, type: renderType })
+    res.render("forms", { nuoc: rederCountry, thanhpho: rederCity, type: renderType, user:user })
   }
 
   async form(req, res) {
+    var user = req.signedCookies.Cookie_User
     var userPartner = req.signedCookies.Cookie_User;
     var idpartner = {}
     await partner.findOne({raw:true, where: {UserPartner: userPartner}}).then(e => {
@@ -31,7 +33,7 @@ class FormController {
     const desc = req.body.desc;
     const idactivity = req.body.idactivity;
 
-//add db acttivity
+  //add db acttivity
     await activity.create({
       IdActivity: idactivity,
       IdCountry: nuoc,
@@ -68,7 +70,7 @@ class FormController {
     //select all activity
     activity.findAll({raw: true, where: {Idpartner: idpartner.Idpartner}})
     .then(arrActivity => {
-      res.render("tables", { activity: arrActivity });
+      res.render("tables", { activity: arrActivity ,user:user});
     })
    }
 }

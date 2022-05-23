@@ -3,8 +3,7 @@ const shortid = require("shortid");
 const {activity, country, city,favourite, keysearch, image, schedule, book, customer, user} = require('../configDb');
 
 class ApiController {
-  index(req, res) {
-    
+  index(req, res) {    
   }
 
   RegisterUser(req,res){
@@ -14,7 +13,7 @@ class ApiController {
       var Phone = info.Phone
       var email = info.email
       var gender = info.gender
-      var point = info.point
+      var point = 0
       var password = info.password
 
       user.create({
@@ -29,6 +28,10 @@ class ApiController {
         console.log(user.get({plain:true}))     
       })
       .catch(err => console.log(err))
+      
+      res.json({
+        status: "ok",
+      });
   }
 
   tour(req, res) {
@@ -206,6 +209,18 @@ class ApiController {
     res.json({
       status: "ok",
     });
+  }
+
+  async endbooking(req,res){
+    const {endbooking} = req.body
+    var amountBooking  = endbooking.amountBooking;
+    var idBooking  = endbooking.idBooking;
+    var idSchedule  = endbooking.idSchedule;    
+
+    await book.destroy({where: {IdBooking: idBooking}})
+    var scheduleObj = await schedule.findOne({raw:true, where: {IdSchedule:idSchedule }})
+    var subtractAmount = scheduleObj.AmountBooking - amountBooking;
+    await schedule.update({AmountBooking: subtractAmount},{where:{IdSchedule:idSchedule}})
   }
 }
 

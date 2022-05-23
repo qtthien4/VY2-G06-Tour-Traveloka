@@ -20,17 +20,17 @@ class TableController {
             var idpartner = {}
             await partner.findOne({raw:true, where: {UserPartner: userPartner}}).then(e => idpartner = e)
              await activity.findAll({raw: true, where : {Idpartner: idpartner.Idpartner}}).then(arrActivity => {
-                res.render('tables', { activity: arrActivity }) })
+                res.render('tables', { activity: arrActivity , user: userPartner}) })
         }
         if (stt != undefined && del == undefined) {
             activity.findOne({raw:true, where: {IdActivity : stt}, order: ['IdActivity']})
             .then(status => {
                 if(status.Stt == true){
                     activity.update({Stt: 0}, {where: {IdActivity : stt }})
-                    activity.findAll({raw: true}).then(arrActivity => res.render('tables', { activity: arrActivity }))
+                    activity.findAll({raw: true}).then(arrActivity => res.render('tables', { activity: arrActivity , user: userPartner}))
                 }else{
                     activity.update({Stt: 1}, {where: {IdActivity : stt }})
-                    activity.findAll({raw: true}).then(arrActivity => res.render('tables', { activity: arrActivity }))
+                    activity.findAll({raw: true}).then(arrActivity => res.render('tables', { activity: arrActivity, user: userPartner }))
                 }
             })
             
@@ -41,7 +41,7 @@ class TableController {
             await schedule.destroy({where:{IdActivity: del}})
             await image.destroy({where:{IdActivity: del}})
             await activity.destroy({where:{IdActivity: del}})
-            activity.findAll({raw: true}).then(arrActivity => res.render('tables', { activity: arrActivity }))
+            activity.findAll({raw: true}).then(arrActivity => res.render('tables', { activity: arrActivity, user :userPartner }))
         }
 
     }

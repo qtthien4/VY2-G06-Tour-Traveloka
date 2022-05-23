@@ -3,6 +3,7 @@ const shortid = require("shortid");
 const {activity, image, schedule} = require('../configDb')
 class DetailActivityController {
   async index(req, res) {
+    var user = req.signedCookies.Cookie_User
     const idActivity = req.query.idactivity;
     var objActivity, arrSchedule;
     var arrImage = []
@@ -33,6 +34,7 @@ class DetailActivityController {
                   image: arrImage,
                   schedule: arrSchedule,
                   stt: ["Dừng hoạt động"],
+                  user:user
                 });
       } else {
         res.render("detailactivity", {
@@ -40,6 +42,7 @@ class DetailActivityController {
           image: arrImage,
           schedule: arrSchedule,
           stt: ["Bật hoạt động"],
+          user : user
         });
       }
 
@@ -70,6 +73,7 @@ class DetailActivityController {
           image: arrImage,
           schedule: arrSchedule,
           stt: ["Dừng hoạt động"],
+          user:user
         });
         } else {
         res.render("detailactivity", {
@@ -77,11 +81,13 @@ class DetailActivityController {
           image: arrImage,
           schedule: arrSchedule,
           stt: ["Bật hoạt động"],
+          user : user
         });
         }
     }
   }
   async postTime(req, res) {
+    var user = req.signedCookies.Cookie_User
     var starttime = req.body.timestart;
     var endtime = req.body.timeend;
     const idActivity = req.query.idactivity;
@@ -112,6 +118,7 @@ class DetailActivityController {
           image: arrImage,
           schedule: arrSchedule,
           err: ["thời gian bắt đầu phải nhỏ hơn thời gian kết thúc"],
+          user:user
         })}else{
           await schedule.create({
             IdSchedule: shortid.generate(),
@@ -137,6 +144,7 @@ class DetailActivityController {
               image: arrImage,
               schedule: arrSchedule,
               stt: ["Bật hoạt động"],
+              user: user
             });
           }else {
             res.render("detailactivity", {
@@ -144,6 +152,7 @@ class DetailActivityController {
               image: arrImage,
               schedule: arrSchedule,
               stt: ["Dừng hoạt động"],
+              user: user
             });
             }
           }
@@ -168,6 +177,7 @@ class DetailActivityController {
               image: arrImage,
               schedule: arrSchedule,
               stt: ["Dừng hoạt động"],
+              user: user
             });
           } else {
             res.render("detailactivity", {
@@ -175,6 +185,7 @@ class DetailActivityController {
               image: arrImage,
               schedule: arrSchedule,
               stt: ["Bật hoạt động"],
+              user: user
             });
           }
         }

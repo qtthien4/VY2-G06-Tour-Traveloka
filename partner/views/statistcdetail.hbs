@@ -76,8 +76,7 @@
                 <!-- Sidebar Header-->
                 <div class="sidebar-header d-flex align-items-center py-4 px-3"><img class="avatar shadow-0 img-fluid rounded-circle" src="img/avatar-1.jpg" alt="...">
                     <div class="ms-3 title">
-                        <h1 class="h4 mb-2">Mark Stephen</h1>
-                        <p class="text-sm text-gray-500 fw-light mb-0 lh-1">Web Designer</p>
+                        <h1 class="h4 mb-2">{{{user}}}</h1>
                     </div>
                 </div>
                 <!-- Sidebar Navidation Menus--><span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Main</span>
@@ -119,13 +118,12 @@
           <!-- Page Header-->
           <header class="bg-white shadow-sm px-4 py-3 z-index-20">
             <div class="container-fluid px-0">
-              <h2 class="mb-0 p-1">Tables</h2>
+              <h2 class="mb-0 p-1">Thống kê</h2>
             </div>
           </header>
           <!-- Breadcrumb-->
           <div class="products-area-wrapper tableView">
-      
-            //sau này thêm bảng listgift ở đây
+
             <form method="post">
               <input type="text" name="search" placeholder="Search">
               <button type="submit" class="btn btn-primary mb-2">Search</button>
@@ -137,7 +135,8 @@
             <input type="submit"/>
           </form>
           
-            <a href="#">Thống kê bằng sơ đồ</a>
+            <a href="/statistic/Detail/chart/{{{id}}}">Thống kê bằng sơ đồ</a>
+
 <table class="table">
   <thead class="thead-dark">
     <tr>
