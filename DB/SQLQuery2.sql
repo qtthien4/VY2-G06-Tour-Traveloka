@@ -22,10 +22,10 @@ create table City
 
 create table Partner
 (
-	IdPartner char(20),
-	PartnerName nvarchar(50),	
+	Idpartner char(20),
+	UserPartner char(20),
 	password char(200)
-	PRIMARY KEY (IdPartner)
+	PRIMARY KEY (Idpartner)
 )
 
 create table Activity
@@ -33,34 +33,35 @@ create table Activity
 	IdActivity char(20),
 	IdCountry char(20),
 	IdCity char(20),
-	IdPartner char(20),
+	Idpartner char(20),
 	idtype char(20),
 	ActivityName nvarchar(500),	
 	Location ntext,	
-	Amount int,
+	Amount int,	
 	Stt bit,
 	Price int,
 	Desr ntext null, 
-	imageUrl text,
+	ImageUrl text,
 	PRIMARY KEY (IdActivity)
 )
 
-
+--doi kieu cua schedule va them status, amount, amountbooking
 create table Schedule
 (
 	IdSchedule char(20),
 	IdActivity char(20),
-	StartTime datetime,
-	EndTime dateTime,	
+	StartTime varchar(50),
+	EndTime varchar(50),	
+	Amount int,
+	AmountBooking int,
+	Status bit,
 	PRIMARY KEY (IdSchedule)
 )
-
+--sua lai customer
 create table customer(
 	IdCustomer char(20),
 	Name nvarchar(50),
 	Phone nvarchar(15),
-	age int,
-	address nvarchar(50),
 	email nvarchar(50),
 	gender char(10),
 	point int,
@@ -68,12 +69,12 @@ create table customer(
 	PRIMARY KEY (IdCustomer)
 )
 
-insert into customer (IdCustomer, Name, Phone, age, address, email, gender, point, password) values('1', 'thienvo', '0915313964', 20, 'lam dong', 'qtthien@gmail.com', 'nam', 0,'123123')
+insert into customer (IdCustomer, Name, Phone,  email, gender, point, password) values('1', 'thienvo', '0915313964', 'qtthien@gmail.com', 'nam', 0,'123123')
 
 create table keysearch(
 	IdSearch char(20),
 	IdCustomer char(20),
-	keyword nvarchar(50)
+	keyword nvarchar(200)
 	PRIMARY KEY (IdSearch)
 )
 
@@ -84,18 +85,20 @@ create table favourite (
 	PRIMARY KEY (IdFavourite)
 )
 
-
+--sua booking time thanh string va voucher thanh idpayment, sttbooking = text
 create table Booking(	
 	IdBooking char(20),
 	IdSchedule char(20),
 	IdCustomer char(20),
 	IdVoucher char(20) null,
+	IdGift char(20) null,
 	PaymentOption char(2),
-	BookingTime DateTime null,
-	Total text,
-	SttBooking bit,
+	BookingTime varchar(200) null,
+	Total text null,
+	Reduce text null,
+	SttBooking text,
 	AmountPeople int,		
-	Discount float null,	
+	IdPayment text null,	
 	PRIMARY KEY (IdBooking)
 )
 
@@ -155,8 +158,8 @@ references country(IdCountry)
 
 alter table Activity 
 add constraint FK_Activity_partner
-foreign key(idpartner)
-references partner(idpartner)
+foreign key(Idpartner)
+references partner(Idpartner)
 
 alter table Image 
 add constraint FK_Activity_IMG
@@ -194,7 +197,6 @@ alter table CusDetail
 add constraint FK_booking_detail
 foreign key(IdBooking)
 references Booking(IdBooking)
-
 
 --alter table Payment
 --add constraint FK_Pay_booking
