@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import * as yup from "yup";
 import { formatter } from "../../../utils/formatter";
 import CountDown from "./CountDown";
+import reBookingApi from "api/ApiReal/reBookingApi";
 const schema = yup
   .object({
     cardElement: yup
@@ -51,8 +52,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
     //post delete booking affter long time
 
     timerTrans.current = setTimeout(async () => {
-      await bookingApi.post({ dataTimeoutPayment });
-
+      await reBookingApi.post({ dataTimeoutPayment });
       toast.warning("Bạn đã qúa thời gian cho phép thanh toán !");
       navigate("/activities");
     }, time * 1000);

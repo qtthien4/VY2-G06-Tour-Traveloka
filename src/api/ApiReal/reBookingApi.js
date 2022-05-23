@@ -1,8 +1,8 @@
 const { default: axiosClient } = require("../axiosClient");
 
-const bookingApi = {
+const reBookingApi = {
   post: (data) => {
-    const url = `/booking`;
+    const url = `/endbooking `;
     return axiosClient.post(url, data);
   },
   //   get: (id) => {
@@ -11,4 +11,4 @@ const bookingApi = {
   //   },
 };
 
-export default bookingApi;
+export default reBookingApi;

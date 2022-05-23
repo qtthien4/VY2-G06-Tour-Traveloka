@@ -42,7 +42,8 @@ function* fetchCountryTour(props) {
     const listTour = responsive.filter((listArrTour) => {
       return (
         String(listArrTour.IdCountry).trim() === String(id).trim() &&
-        String(listArrTour.idtype).trim() == String(Type[0].idType).trim()
+        String(listArrTour.idtype).trim() == String(Type[0].idType).trim() &&
+        listArrTour.Stt === true
       );
     });
 
