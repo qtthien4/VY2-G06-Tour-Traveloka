@@ -1,5 +1,5 @@
 require('dotenv').config();
-var {book, schedule} = require('../configDb');
+var {book, schedule, user} = require('../configDb');
 
 const stripe = require("stripe")("sk_test_51KZccWHODmKkGzOlyJqFOoP6ncck8bhkklMe3R2MZMBILvXmRYZNfbJ0CBnKBpiyH849s0XbSfAbxwrC2ZbVqqAO00tQAQCRaS");
 class PaymentController{
@@ -47,6 +47,7 @@ class PaymentController{
             var idGift = updateBooking.idGift
             var reduce = updateBooking.reduce.toString()
             var idPayment = updateBooking.idPayment
+            var idUser = updateBooking.idCustomer
 
             book.update({
                 IdVoucher: idVoucher,
@@ -58,6 +59,9 @@ class PaymentController{
             },{where : {IdBooking: idbooking}})
             //update theem cai soo luong da them
             //update điểm
+            // var userObj = user.findOne({raw: true, where: {IdCustomer:idUser }})
+            // var addPoint = userObj + 10;
+            // user.update({point : addPoint}, {where: {IdCustomer:idUser}})
         }
         
     }

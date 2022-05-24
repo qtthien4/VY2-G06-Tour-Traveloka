@@ -1,10 +1,10 @@
 const { Sequelize } = require('sequelize');
 
 module.exports = (db) => {
-    return db.define('favourite', {      
-      IdFavourite: Sequelize.CHAR(20),
-      IdCustomer: Sequelize.CHAR(20),
-      IdActivity: Sequelize.CHAR(20),
+    return db.define('city', {      
+      IdCity: Sequelize.CHAR(20),
+      IdCountry: Sequelize.CHAR(20),
+      CityName: Sequelize.TEXT,
     },{
     timestamps: false,
     })

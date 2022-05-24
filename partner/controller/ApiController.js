@@ -130,9 +130,11 @@ class ApiController {
       var a =  arrSchedule[i].StartTime
       var timestart = new Date(a);
       console.log(timestart <= new Date());
+      //check xem qua time ch
       if(timestart <= new Date()){
         await schedule.update({Status:0}, { where: {IdSchedule: arrSchedule[i].IdSchedule}})
       }
+      //check xem du so luong nguoi ch
       if(arrSchedule[i].AmountBooking == arrSchedule[i].Amount){
         await schedule.update({Status:0}, { where: {IdSchedule: arrSchedule[i].IdSchedule}})
       }else{
