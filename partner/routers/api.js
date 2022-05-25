@@ -4,7 +4,7 @@ var router = express.Router();
 var apiController = require("../controller/ApiController");
 var authMiddleware = require("../middlewares/auth.middleware");
 
-router.post("registeruser", apiController.RegisterUser)
+router.post("/registeruser", apiController.RegisterUser);
 
 router.get("/", apiController.index);
 router.get("/tour", apiController.tour);
