@@ -1,7 +1,8 @@
 
 class HomeController{
     index(req, res) {
-        res.render('home');
+        var user = req.signedCookies.Cookie_User
+        res.render('home', {user: user});
     }
 }
 

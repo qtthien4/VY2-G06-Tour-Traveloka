@@ -127,6 +127,8 @@
                                                     <th scope="col">#</th>
                                                     <th scope="col">Thời gian bắt đầu tour</th>
                                                     <th scope="col">Thời gian kết thúc tour</th>
+                                                    <th scope="col">Số lượng người đã đăng ký</th>
+                                                    <th scope="col">Tổng số người đăng ký tối đa</th>
                                                     <th scope="col"></th>
                                                 </tr>
                                             </thead>
@@ -136,6 +138,8 @@
                                                     <th scope="row">{{{this.count}}}</th>
                                                     <td>{{{this.StartTime}}}</td>
                                                     <td>{{{this.EndTime}}}</td>
+                                                    <td>{{{this.AmountBooking}}}</td>
+                                                    <td>{{{this.Amount}}}</td>
                                                     <td><a href="/detailactivity?idactivity={{{this.IdActivity}}}&&idschedule={{{this.IdSchedule}}}">Xóa</a></td>
                                                 </tr>
                                                 {{/each}}                                                

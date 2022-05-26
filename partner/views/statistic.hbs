@@ -1,33 +1,26 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Bootstrap Material Admin by Bootstrapious.com</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="robots" content="all,follow">
-  {{!-- select --}}
-
-
-  <!-- Google fonts - Poppins -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
-  <!-- Choices CSS-->
-  <link rel="stylesheet" href="/css/homechoices.min.css">
-  <!-- theme stylesheet-->
-  <link rel="stylesheet" href="/css/homestyle.default.css" id="theme-stylesheet">
-  <!-- Custom stylesheet - for your changes-->
-  <link rel="stylesheet" href="/css/homecustom.css">
-
-
-  <!-- Favicon-->
-  <link rel="shortcut icon" href="img/favicon.ico">
-  <!-- Tweaks for older IEs-->
-  <!--[if lt IE 9]>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bootstrap Material Admin by Bootstrapious.com</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all,follow">
+    <!-- Google fonts - Poppins -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
+    <!-- Choices CSS-->
+    <link rel="stylesheet" href="/css/homechoices.min.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="/css/homestyle.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="/css/homecustom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
-</head>
+  </head>
 
 <body>
   <div class="page">
@@ -78,61 +71,52 @@
     <div class="page-content d-flex align-items-stretch">
       <!-- Side Navbar -->
       <nav class="side-navbar z-index-40">
-        <!-- Sidebar Header-->
-        <div class="sidebar-header d-flex align-items-center py-4 px-3"><img
-            class="avatar shadow-0 img-fluid rounded-circle" src="img/avatar-1.jpg" alt="...">
-          <div class="ms-3 title">
-            <h1 class="h4 mb-2">Mark Stephen</h1>
-            <p class="text-sm text-gray-500 fw-light mb-0 lh-1">Web Designer</p>
-          </div>
-        </div>
-        <!-- Sidebar Navidation Menus--><span
-          class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Main</span>
-        <ul class="list-unstyled py-4">
-          <li class="sidebar-item">
-            <a class="sidebar-link" href="/home">
-              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                <use xlink:href="#real-estate-1"> </use>
-              </svg>Home </a>
-          </li>
-          <li class="sidebar-item ">
-            <a class="sidebar-link" href="/table">
-              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                <use xlink:href="#portfolio-grid-1"> </use>
-              </svg>Tables </a>
-          </li>
-          </li>
-          <li class="sidebar-item ">
-            <a class="sidebar-link" href="/form">
-              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                <use xlink:href="#survey-1"> </use>
-              </svg>Forms </a>
-          </li>
-          <li class="sidebar-item active">
-            <a class="sidebar-link" href="/listvoucher">
-              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                <use xlink:href="#portfolio-grid-1"> </use>
-              </svg>List Voucher </a>
-          </li>
-          <li class="sidebar-item ">
-            <a class="sidebar-link" href="/listgift">
-              <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                <use xlink:href="#portfolio-grid-1"> </use>
-              </svg>List Gift </a>
-          </li>
-        </ul>
-      </nav>
+                <!-- Sidebar Header-->
+                <div class="sidebar-header d-flex align-items-center py-4 px-3">
+                  <img class="avatar shadow-0 img-fluid rounded-circle" src="img/avatar-1.jpg" alt="...">
+                    <div class="ms-3 title">
+                        <h1 class="h4 mb-2">{{{user}}}</h1>
+                    </div>
+                </div>
+                <!-- Sidebar Navidation Menus--><span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Main</span>
+                <ul class="list-unstyled py-4">
+                    <li class="sidebar-item ">
+                        <a class="sidebar-link" href="/home">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                  <use xlink:href="#real-estate-1"> </use>
+                </svg>Home </a>
+                    </li>
+                    <li class="sidebar-item ">
+                        <a class="sidebar-link" href="/table">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                  <use xlink:href="#portfolio-grid-1"> </use>
+                </svg>Tables </a>
+                    </li>                    
+                    </li>
+                    <li class="sidebar-item ">
+                        <a class="sidebar-link" href="/form">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                  <use xlink:href="#survey-1"> </use>
+                </svg>Forms </a>
+                    </li>
+                    <li class="sidebar-item  active">
+                        <a class="sidebar-link" href="/statistic">
+                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
+                  <use xlink:href="#portfolio-grid-1"> </use>
+                </svg>Thống kê </a>
+                    </li>   
+                      
+                </ul>
+            </nav>
       <div class="content-inner w-100">
         <!-- Page Header-->
         <header class="bg-white shadow-sm px-4 py-3 z-index-20">
           <div class="container-fluid px-0">
-            <h2 class="mb-0 p-1">Tables</h2>
+            <h2 class="mb-0 p-1">Thống kê</h2>
           </div>
         </header>
         <!-- Breadcrumb-->
         <div class="products-area-wrapper tableView">
-          //sau này thêm bảng list voucher ở đây
-
           <form method="post">
               <input type="text" name="search" placeholder="Search">
               <button type="submit" class="btn btn-primary mb-2">Search</button>
@@ -142,7 +126,9 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">#</th>
-      <th scope="col" style="width:60%">Tên Activity</th>
+      <th scope="col">Tên Activity</th>
+      <th scope="col">Loại Activity</th>
+      <th scope="col">Số Lượng người</th>
       <th scope="col">Vị trị</th>
       <th scope="col">Tổng tiền thu được</th>
       <th ></th>
@@ -153,6 +139,8 @@
     <tr>
       <th scope="row">1</th>
       <td>{{{this.ActivityName}}}</td>
+      <td>{{{this.type}}}</td>
+      <td>{{{this.Amount}}}</td>
       <td>{{{this.Location}}}</td>
       <td>{{{this.totalBooking}}}</td>
       <td><a href="statistic/Detail/{{{this.IdActivity}}}">Chi tiết</a></td>
@@ -172,9 +160,38 @@
 
 
   </script>
-  <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Chart.min.js"></script>
+    <script src="/js/just-validate.min.js"></script>
+    <script src="js/choices.min.js"></script>
+    <!-- Main File-->
+    <script src="js/front.js"></script>
+    <script>
+        // ------------------------------------------------------- //
+        //   Inject SVG Sprite - 
+        //   see more here 
+        //   https://css-tricks.com/ajaxing-svg-sprite/
+        // ------------------------------------------------------ //
+        function injectSvgSprite(path) {
+
+            var ajax = new XMLHttpRequest();
+            ajax.open("GET", path, true);
+            ajax.send();
+            ajax.onload = function(e) {
+                var div = document.createElement("div");
+                div.className = 'd-none';
+                div.innerHTML = ajax.responseText;
+                document.body.insertBefore(div, document.body.childNodes[0]);
+            }
+        }
+        // this is set to BootstrapTemple website as you cannot 
+        // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+        // while using file:// protocol
+        // pls don't forget to change to your domain :)
+        injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
+    </script>
+  
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </body>
 
 </html>

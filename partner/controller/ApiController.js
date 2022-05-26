@@ -1,5 +1,4 @@
 const sql = require("mssql/msnodesqlv8");
-const sqlConfig = require("../calldb");
 const shortid = require("shortid");
 const {
   activity,
@@ -15,21 +14,20 @@ const {
 } = require("../configDb");
 
 class ApiController {
-  index(req, res) {}
+  index(req, res) {    
+  }
 
-  RegisterUser(req, res) {
-    var info = req.body;
-    console.log(info);
-    var IdCustomer = info.IdCustomer;
-    var Name = info.Name;
-    var Phone = info.Phone;
-    var email = info.email;
-    var gender = info.gender;
-    var point = info.point;
-    var password = info.password;
+  RegisterUser(req,res){
+      var info = req.body;
+      var IdCustomer = info.IdCustomer
+      var Name = info.Name
+      var Phone = info.Phone
+      var email = info.email
+      var gender = info.gender
+      var point = 0
+      var password = info.password
 
-    user
-      .create({
+      user.create({
         IdCustomer,
         Name,
         Phone,
@@ -38,12 +36,11 @@ class ApiController {
         point,
         password,
       })
-      .then((user) => {
-        console.log(user.get({ plain: true }));
-      })
-      .catch((err) => console.log(err));
-
-    res.send({ data: "ok" });
+      .catch(err => console.log(err))
+      
+      res.json({
+        status: "ok",
+      });
   }
 
   tour(req, res) {
@@ -158,11 +155,24 @@ class ApiController {
       var a = arrSchedule[i].StartTime;
       var timestart = new Date(a);
       console.log(timestart <= new Date());
+<<<<<<< HEAD
       if (timestart <= new Date()) {
         await schedule.update(
           { Status: 0 },
           { where: { IdSchedule: arrSchedule[i].IdSchedule } }
         );
+=======
+      
+      //check xem du so luong nguoi ch
+      if(arrSchedule[i].AmountBooking == arrSchedule[i].Amount){
+        await schedule.update({Status:0}, { where: {IdSchedule: arrSchedule[i].IdSchedule}})
+      }else{
+        await schedule.update({Status:1}, { where: {IdSchedule: arrSchedule[i].IdSchedule}})
+        //check xem qua time ch
+        if(timestart <= new Date()){
+        await schedule.update({Status:0}, { where: {IdSchedule: arrSchedule[i].IdSchedule}})
+>>>>>>> 6cc431f9bb8f0d532e3f480a2f72d4f599856928
+      }
       }
     }
 
@@ -177,6 +187,7 @@ class ApiController {
     // console.log(req.body)
     if (req.body[0] != undefined) {
       const { customerDetail } = req.body[0];
+<<<<<<< HEAD
       const { booking } = req.body[1];
       var idDetail = customerDetail.idDetail;
       var idBooking = booking.idBooking;
@@ -186,42 +197,106 @@ class ApiController {
       var emailCus = customerDetail.emailCus;
       //var gender = customerDetail.emailCus;
 
+=======
+      const {booking} = req.body[1];
+      //booking
+      var idBooking = booking.idBooking;
+>>>>>>> 6cc431f9bb8f0d532e3f480a2f72d4f599856928
       var idSchedule = booking.idSchedule;
       var idCustomer = booking.idCustomer;
       var idVoucher = booking.idVoucher;
+      var idGift = booking.idGift;
       var paymentOption = booking.paymentOption;
+<<<<<<< HEAD
 
       var sttBooking = booking.sstBooking.toString();
       var amountPeople = booking.amountPeople;
       var total = booking.total.toString();
 
+=======
+      var bookingTime = booking.bookingTime;
+      var total = booking.total.toString();
+      var reduce = booking.reduce.toString();
+      var sttBooking = booking.sstBooking.toString();   
+      var amountPeople = booking.amountPeople.toString();
+      var idPayment = booking.IdPayment;
+
+      //customerdetail
+      var idDetail = customerDetail.idDetail;      
+      var customerName = customerDetail.customerName;
+      var cusPhoneNum = customerDetail.cusPhoneNum;
+      cusPhoneNum = cusPhoneNum.toString();
+      var emailCus = customerDetail.emailCus;
+      var gender = customerDetail.gender;      
+  
+      var scheduleObj = await schedule.findOne({raw:true, where:{IdSchedule : idSchedule}, order: ["IdSchedule"]})
+      
+      var amountBookingSchedule = scheduleObj.AmountBooking 
+      amountPeople = parseInt(amountPeople)  + parseInt(amountBookingSchedule) 
+      amountPeople.toString()
+
+      //update giữ chổ
+      await schedule.update({
+        AmountBooking: amountPeople
+      },{where: {IdSchedule: idSchedule}})
+
+
+      //inser db
+>>>>>>> 6cc431f9bb8f0d532e3f480a2f72d4f599856928
       await book.create({
         IdBooking: idBooking,
         IdSchedule: idSchedule,
         IdCustomer: idCustomer,
         IdVoucher: idVoucher,
+        IdGift: idGift,
         PaymentOption: paymentOption,
-        BookingTime: "",
+        BookingTime: bookingTime,
         Total: total,
-        Reduce: "",
+        Reduce: reduce,
         SttBooking: sttBooking,
+<<<<<<< HEAD
         AmountPeople: amountPeople,
         IdPayment: "",
       });
 
+=======
+        AmountPeople:amountPeople,
+        IdPayment: idPayment,
+      })
+  
+>>>>>>> 6cc431f9bb8f0d532e3f480a2f72d4f599856928
       await customer.create({
         IdDetail: idDetail,
         IdBooking: idBooking,
         CustomerName: customerName,
         CusPhoneNum: cusPhoneNum,
         EmailCus: emailCus,
+<<<<<<< HEAD
         Gender: "nam",
       });
     } else console.log(req.body);
 
+=======
+        Gender: gender
+      })
+    }    
+    
+>>>>>>> 6cc431f9bb8f0d532e3f480a2f72d4f599856928
     res.json({
       status: "ok",
     });
+  }
+
+  async endbooking(req,res){
+    const {endbooking} = req.body
+    var amountBooking  = endbooking.amountBooking;
+    var idBooking  = endbooking.idBooking;
+    var idSchedule  = endbooking.idSchedule;    
+
+    await book.destroy({where: {IdBooking: idBooking}})
+    var scheduleObj = await schedule.findOne({raw:true, where: {IdSchedule:idSchedule }})
+    var subtractAmount = scheduleObj.AmountBooking - amountBooking;
+    await schedule.update({AmountBooking: subtractAmount},{where:{IdSchedule:idSchedule}})
   }
 }
 

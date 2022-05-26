@@ -74,15 +74,15 @@
         <!-- Side Navbar -->
         <nav class="side-navbar z-index-40">
                 <!-- Sidebar Header-->
-                <div class="sidebar-header d-flex align-items-center py-4 px-3"><img class="avatar shadow-0 img-fluid rounded-circle" src="img/avatar-1.jpg" alt="...">
+                <div class="sidebar-header d-flex align-items-center py-4 px-3">
+                  <img class="avatar shadow-0 img-fluid rounded-circle" src="img/avatar-1.jpg" alt="...">
                     <div class="ms-3 title">
-                        <h1 class="h4 mb-2">Mark Stephen</h1>
-                        <p class="text-sm text-gray-500 fw-light mb-0 lh-1">Web Designer</p>
+                        <h1 class="h4 mb-2">{{{user}}}</h1>
                     </div>
                 </div>
                 <!-- Sidebar Navidation Menus--><span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Main</span>
                 <ul class="list-unstyled py-4">
-                    <li class="sidebar-item">
+                    <li class="sidebar-item ">
                         <a class="sidebar-link" href="/home">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
                   <use xlink:href="#real-estate-1"> </use>
@@ -101,36 +101,36 @@
                   <use xlink:href="#survey-1"> </use>
                 </svg>Forms </a>
                     </li>
-                    <li class="sidebar-item ">
-                        <a class="sidebar-link" href="/listvoucher">
+                    <li class="sidebar-item  active">
+                        <a class="sidebar-link" href="/statistic">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
                   <use xlink:href="#portfolio-grid-1"> </use>
-                </svg>List Voucher </a>
-                    </li>   
-                    <li class="sidebar-item active">
-                        <a class="sidebar-link" href="/listgift">
-                            <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                  <use xlink:href="#portfolio-grid-1"> </use>
-                </svg>List Gift </a>
-                    </li>   
+                </svg>Thống kê </a>                      
                 </ul>
             </nav>
         <div class="content-inner w-100">
           <!-- Page Header-->
           <header class="bg-white shadow-sm px-4 py-3 z-index-20">
             <div class="container-fluid px-0">
-              <h2 class="mb-0 p-1">Tables</h2>
+              <h2 class="mb-0 p-1">Thống kê</h2>
             </div>
           </header>
           <!-- Breadcrumb-->
           <div class="products-area-wrapper tableView">
-      
-            //sau này thêm bảng listgift ở đây
+
             <form method="post">
               <input type="text" name="search" placeholder="Search">
               <button type="submit" class="btn btn-primary mb-2">Search</button>
           </form>
-            <a href="#">Thống kê bằng sơ đồ</a>
+          
+          <form id="test" method="post">          
+            <select id="thang" name="thang"></select>
+            <select name="nam" id="nam"></select>
+            <input type="submit"/>
+          </form>
+          
+            <a href="/statistic/Detail/chart/{{{id}}}">Thống kê bằng sơ đồ</a>
+
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -145,16 +145,18 @@
     </tr>
   </thead>
   <tbody>
+    {{#each booking}}
     <tr>
-      <th scope="row">1</th>
-      <td>Thien vo</td>
-      <td>12 người</td>
-      <td>18/1/2001</td>
-      <td>có / không</td>
-      <td>10000đ</td>
+      <th scope="row">{{{this.count}}}</th>
+      <td>{{{this.User}}}</td>
+      <td>{{this.AmountPeople}}</td>
+      <td>{{{this.BookingTime}}}</td>
+      <td>{{{this.Voucher}}}</td>
+      <td>{{{this.Total}}}</td>
       <td>Đã thanh toán</td>
+      {{!-- <td>{{{this.SttBooking}}}</td> --}}
     </tr>
-    
+    {{/each}}  
   </tbody>
 </table>
     </div>
@@ -162,6 +164,27 @@
         </div>
       </div>
     </div>
+
+    <script>
+      var strThang, strNam
+      for(var i = 1; i <= 12; i++){
+        if(i<=9){
+          strThang = strThang + `<option value="0${i}">Tháng ${i}</option>`
+        }else{
+             strThang = strThang + `<option value="${i}">Tháng ${i}</option>`
+        }       
+      }
+
+      for(var i = 2022; i >= 1990; i--){
+        strNam = strNam + `<option value="${i}">Năm ${i}</option>`
+      }
+      document.getElementById('thang').innerHTML = strThang
+      document.getElementById('nam').innerHTML = strNam
+
+     
+
+
+    </script>
     
     <!-- JavaScript files-->
     <script src="/js/bootstrap.bundle.min.js"></script>
