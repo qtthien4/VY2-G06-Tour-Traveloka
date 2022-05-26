@@ -6,6 +6,7 @@ import favauriteSaga from "features/Favaurite/favauriteSaga";
 import imageSaga from "features/Images/imageSaga";
 import keysearchSaga from "features/Keysearch/keysearchSaga";
 import productSaga from "features/product/productSaga";
+import refundSaga from "features/Refund/refundSaga";
 import scheduleSaga from "features/schedule/scheduleSaga";
 import searchSaga from "features/search/searchSaga";
 import tourSaga from "features/tour/tourSaga";
@@ -27,5 +28,6 @@ export default function* rootSaga() {
     favauriteSaga(),
     keysearchSaga(),
     xprerienceSaga(),
+    refundSaga(),
   ]);
 }

@@ -19,7 +19,6 @@ export default function Paymemt() {
   const schedule = JSON.parse(localStorage.getItem("schedule"));
 
   console.log(tourCurrent, schedule);
-
   return (
     <Elements stripe={stripePromis}>
       <div>

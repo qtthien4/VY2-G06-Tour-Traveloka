@@ -13,6 +13,7 @@ import * as yup from "yup";
 import { formatter } from "../../../utils/formatter";
 import CountDown from "./CountDown";
 import reBookingApi from "api/ApiReal/reBookingApi";
+import PayPal from "PayPal";
 const schema = yup
   .object({
     cardElement: yup
@@ -25,8 +26,8 @@ const schema = yup
   .required();
 
 export default function FormPayment({ schedule, idBooking, tourCurrent }) {
-  const stripe = useStripe();
-  const elements = useElements();
+  // const stripe = useStripe();
+  // const elements = useElements();
   const {
     control,
     handleSubmit,
@@ -39,7 +40,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   //Handle chay nguoc
 
   //setTImeOut 1p30s delete  booking theo activity
-  const time = 10;
+  const time = 399;
   const timerTrans = useRef(null);
 
   useEffect(() => {
@@ -85,14 +86,14 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
       });
   }, []);
 
-  const [priceTotal, setPriceTotal] = useState(0);
-
   //handle voucher
   const [checkCondition, setCheckCondition] = useState(false);
 
   const [amountVoucher, setAmountVoucher] = useState(0);
   const [codeVoucher, setCodeVoucher] = useState("");
   const totalInitTour = tourCurrent.Price * schedule.Amount;
+
+  const [priceTotal, setPriceTotal] = useState(totalInitTour);
   const [state, setState] = React.useState({
     checkedA: false,
     checkedB: false,
@@ -142,48 +143,35 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   // post len server thien vo sttbooking = true, discount: "", bookingTime, total moi nhat
 
   var orderId = useRef();
-  const onSubmit = async (data) => {
-    const dataVoucher = {
-      code: codeVoucher,
-      typeVoucher: "tour",
-      transactionId: idBooking,
-      amount: totalInitTour,
-    };
 
-    try {
-      // post total ở đây (post lan 1)
-      const response = await axios("http://95.111.203.185:3003/payment", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: { total: priceTotal },
-      });
-
-      const data = response.data;
-      const cardElement = elements.getElement(CardElement);
-      const confirmPayment = await stripe.confirmCardPayment(
-        data.clientSecret,
+  const createOrder = (data, actions, err) => {
+    return actions.order.create({
+      intent: "CAPTURE",
+      purchase_units: [
         {
-          payment_method: { card: cardElement },
-        }
-      );
-      const { paymentIntent } = confirmPayment;
-
-      if (paymentIntent.status !== "succeeded") {
-        toast.error("Thanh toan that bai !");
-        return;
-      } else alert("payment successful!");
-      //post api thanh toán sau khi đã chuyển tiền
-      const today = new Date();
-      var date =
-        today.getDate() +
-        "-" +
-        (today.getMonth() + 1) +
-        "-" +
-        today.getFullYear();
-      const time =
-        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+          amount: {
+            value: "10",
+            currency_code: "CAD",
+          },
+        },
+      ],
+    });
+  };
+  const onApprove = async (data, actions) => {
+    //post api thanh toán sau khi đã chuyển tiền
+    const today = new Date();
+    let date =
+      today.getDate() +
+      "-" +
+      (today.getMonth() + 1) +
+      "-" +
+      today.getFullYear();
+    const time =
+      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    try {
+      const order = await actions.order.capture();
+      let { id } = order;
+      console.log(order);
 
       const dataPayment = {
         idBooking: idBooking,
@@ -192,7 +180,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
         idVoucher: codeVoucher,
         idGift: "",
         reduce: priceTotal,
-        idPayment: paymentIntent.id,
+        idPayment: id,
         idSchedule: schedule.idSchedule,
         amountBooking: schedule.Amount,
         idCustomer: "1",
@@ -202,13 +190,19 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
       await bookingApi.post({ dataPayment });
 
       //post áp dụng voucher
+      const dataVoucher = {
+        code: codeVoucher,
+        typeVoucher: "tour",
+        transactionId: idBooking,
+        amount: totalInitTour,
+      };
       if (codeVoucher !== "") {
         const res = await axios(
           "http://128.199.241.206:8080/api/v1/user/voucher/pre-order",
           {
             method: "POST",
             headers: {
-              user_id: "12333333",
+              user_id: "456",
               partner_id: "a67f1f4e-946a-483b-9993-ca5c344da8f5",
               "Content-Type": "application/json",
             },
@@ -225,7 +219,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
         await axios("http://128.199.241.206:8080/api/v1/user/voucher/state", {
           method: "PUT",
           headers: {
-            user_id: "12333333",
+            user_id: "456",
             partner_id: "a67f1f4e-946a-483b-9993-ca5c344da8f5",
             "Content-Type": "application/json",
           },
@@ -238,7 +232,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
 
       toast.success("Bạn đã thanh toán thành công !");
       clearTimeout(timerTrans.current);
-      navigate("/activities");
+      navigate(`/booking/refund/${idBooking}`);
       //post áp dụng voucher
       //toast messenger success
     } catch (error) {
@@ -248,107 +242,111 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="pay">
-        <CountDown time={time} />
+    <>
+      <form>
+        <div className="pay">
+          <CountDown time={time} />
 
-        <br />
-        <div style={{ display: "flex", position: "relative" }}>
-          <h4 className="title">Thẻ tín dụng</h4>
-          <div style={{ position: "absolute", right: "24px" }}>
-            <img
-              style={{ height: "24px" }}
-              src="https://ik.imagekit.io/tvlk/image/imageResource/2017/01/17/1484655630637-0dcca3761eb5910f1835f438f153bfae.png?tr=q-75"
-              alt=""
-            />
-            <img
-              style={{ height: "24px" }}
-              src="https://ik.imagekit.io/tvlk/image/imageResource/2017/01/06/1483707776912-1abb188266f6d5b3f2e27f4733ca32e9.png?tr=q-75"
-              alt=""
-            />
-            <img
-              style={{ height: "24px" }}
-              src="https://ik.imagekit.io/tvlk/image/imageResource/2017/01/06/1483707787206-abc175b224ab92a6967e24bc17c30f45.png?tr=q-75"
-              alt=""
-            />
-            <img
-              style={{ height: "24px" }}
-              src="https://ik.imagekit.io/tvlk/image/imageResource/2017/07/10/1499673365437-1e1522e5cc323e7e8a7b57b90e81dbc9.png?tr=q-75"
-              alt=""
-            />
-          </div>
-        </div>
-        <div className="">
-          <label>Mời bạn nhập số thẻ tín dụng: </label> <br />
-          <CardElement name="cardElement" />
-          {/* {errors.cardElement?.message} */}
-        </div>
-        <br />
-        <div className="" style={{ display: "flex", alignItems: "center" }}>
-          <Switch
-            checked={state.checkedB}
-            onChange={handleChangeCheckBoxVoucher}
-            color="primary"
-            name="checkedB"
-            inputProps={{ "aria-label": "primary checkbox" }}
-          />
-          <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
-            Chọn mã giảm giá
-          </label>
-        </div>
-        {state.checkedB && (
-          <div className="main-d-flex">
-            <Select
-              theme={(theme) => ({
-                ...theme,
-                borderRadius: 0,
-                colors: {
-                  ...theme.colors,
-                  primary25: "#ccc",
-                  primary: "black",
-                },
-              })}
-              placeholder="Chọn mã"
-              options={listVoucher} // set list of the data
-              onChange={handleChangeVoucher} // assign onChange function
-            />
-          </div>
-        )}
-
-        <div className="detail-price">
-          <h4>Chi tiết giá</h4>
-
-          <div style={{ overflow: "auto", alignItems: "center" }}>
-            <div style={{ float: "left", width: "250px" }}>
-              Số lượng: Người lớn x {schedule.Amount}
-            </div>
-
-            <div style={{ float: "right" }}>
-              {formatter.format(totalInitTour)}
+          <br />
+          <div style={{ display: "flex", position: "relative" }}>
+            <h4 className="title">Thẻ tín dụng</h4>
+            <div style={{ position: "absolute", right: "24px" }}>
+              <img
+                style={{ height: "24px" }}
+                src="https://ik.imagekit.io/tvlk/image/imageResource/2017/01/17/1484655630637-0dcca3761eb5910f1835f438f153bfae.png?tr=q-75"
+                alt=""
+              />
+              <img
+                style={{ height: "24px" }}
+                src="https://ik.imagekit.io/tvlk/image/imageResource/2017/01/06/1483707776912-1abb188266f6d5b3f2e27f4733ca32e9.png?tr=q-75"
+                alt=""
+              />
+              <img
+                style={{ height: "24px" }}
+                src="https://ik.imagekit.io/tvlk/image/imageResource/2017/01/06/1483707787206-abc175b224ab92a6967e24bc17c30f45.png?tr=q-75"
+                alt=""
+              />
+              <img
+                style={{ height: "24px" }}
+                src="https://ik.imagekit.io/tvlk/image/imageResource/2017/07/10/1499673365437-1e1522e5cc323e7e8a7b57b90e81dbc9.png?tr=q-75"
+                alt=""
+              />
             </div>
           </div>
-          <div style={{ overflow: "auto" }}>
-            <div style={{ float: "left" }}>Voucher giảm tối đa</div>
-            <div style={{ float: "right" }}>
-              {formatter.format(amountVoucher)}
+
+          <br />
+          <div className="" style={{ display: "flex", alignItems: "center" }}>
+            <Switch
+              checked={state.checkedB}
+              onChange={handleChangeCheckBoxVoucher}
+              color="primary"
+              name="checkedB"
+              inputProps={{ "aria-label": "primary checkbox" }}
+            />
+            <label
+              className="form-check-label"
+              htmlFor="flexSwitchCheckDefault"
+            >
+              Chọn mã giảm giá
+            </label>
+          </div>
+          {state.checkedB && (
+            <div className="main-d-flex">
+              <Select
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 0,
+                  colors: {
+                    ...theme.colors,
+                    primary25: "#ccc",
+                    primary: "black",
+                  },
+                })}
+                placeholder="Chọn mã"
+                options={listVoucher} // set list of the data
+                onChange={handleChangeVoucher} // assign onChange function
+              />
+            </div>
+          )}
+
+          <div className="detail-price">
+            <h4>Chi tiết giá</h4>
+
+            <div style={{ overflow: "auto", alignItems: "center" }}>
+              <div style={{ float: "left", width: "250px" }}>
+                Số lượng: Người lớn x {schedule.Amount}
+              </div>
+
+              <div style={{ float: "right" }}>
+                {formatter.format(totalInitTour)}
+              </div>
+            </div>
+            <div style={{ overflow: "auto" }}>
+              <div style={{ float: "left" }}>Voucher giảm tối đa</div>
+              <div style={{ float: "right" }}>
+                {formatter.format(amountVoucher)}
+              </div>
+            </div>
+            <div>
+              --------------------------------------------------------------------------
+            </div>
+            <div style={{ overflow: "auto" }}>
+              <div style={{ float: "left" }}>Tổng giá tiền</div>
+              <div style={{ float: "right" }}>
+                {formatter.format(priceTotal)}
+              </div>
             </div>
           </div>
-          <div>
-            --------------------------------------------------------------------------
-          </div>
-          <div style={{ overflow: "auto" }}>
-            <div style={{ float: "left" }}>Tổng giá tiền</div>
-            <div style={{ float: "right" }}>{formatter.format(priceTotal)}</div>
+          <div className="accept-pay">
+            <div>
+              Bằng việc nhấn Thanh toán, bạn đồng ý Điều khoản &amp; Điều kiện
+              và Chính sách quyền riêng tư.
+            </div>
+            {/* <button type="submit">Thanh toán Chuyển khoản ngân hàng</button> */}
           </div>
         </div>
-        <div className="accept-pay">
-          <div>
-            Bằng việc nhấn Thanh toán, bạn đồng ý Điều khoản &amp; Điều kiện và
-            Chính sách quyền riêng tư.
-          </div>
-          <button type="submit">Thanh toán Chuyển khoản ngân hàng</button>
-        </div>
-      </div>
-    </form>
+      </form>
+      <PayPal onApprove={onApprove} createOrder={createOrder} />
+    </>
   );
 }

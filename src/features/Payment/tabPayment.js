@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "./css/GlobalCssSlider.css";
 import "./css/pay.css";
@@ -9,6 +9,8 @@ import axios from "axios";
 import StripeCheckout from "react-stripe-checkout";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { display } from "@mui/system";
+import PayPal from "PayPal";
+import { Link, useNavigate } from "react-router-dom";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -52,7 +54,7 @@ function VerticalTabs({ idBooking, tourCurrent, schedule }) {
   //handle form payment
   const stripe = useStripe();
   const elements = useElements();
-
+  const navigate = useNavigate();
   var nameOnCard;
   async function test() {
     try {
@@ -80,6 +82,8 @@ function VerticalTabs({ idBooking, tourCurrent, schedule }) {
       alert("payment failed!");
     }
   }
+
+  const [checkout, setCheckout] = useState();
   return (
     <Box
       sx={{
@@ -87,6 +91,7 @@ function VerticalTabs({ idBooking, tourCurrent, schedule }) {
         bgcolor: "background.paper",
         display: "flex",
         height: 843,
+
         width: 670,
         marginRight: "60px",
       }}
@@ -321,7 +326,10 @@ function VerticalTabs({ idBooking, tourCurrent, schedule }) {
           idBooking={idBooking}
           schedule={schedule}
           tourCurrent={tourCurrent}
-        />
+        />       
+        <button onClick={() => navigate(`/booking/refund/${idBooking}`)}>
+          Thanh toán Chuyển khoản ngân hàng
+        </button>
       </TabPanel>
     </Box>
   );

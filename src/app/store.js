@@ -15,7 +15,8 @@ import scheduleReducer from "features/schedule/ScheduleSlice";
 import favauriteReducer from "features/Favaurite/favauriteSlice";
 import keysearchReducer from "features/Keysearch/keysearchSlice";
 import xprerienceReducer from "features/Xprerience/xprerienceSlice";
-
+import refundReducer from "features/Refund/RefundSlice";
+import paypalReducer from "PayPal/paypalSlice";
 
 const { configureStore } = require("@reduxjs/toolkit");
 
@@ -34,6 +35,8 @@ const rootReducer = combineReducers({
   favaurite: favauriteReducer,
   keysearch: keysearchReducer,
   xprerience: xprerienceReducer,
+  refund: refundReducer,
+  paypal: paypalReducer,
 });
 const sagaMiddleware = createSagaMiddleware();
 const store = configureStore({

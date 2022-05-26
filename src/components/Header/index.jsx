@@ -1,8 +1,20 @@
-import React from "react";
+import { AuthContext } from "context/AuthProvider";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./index.css";
 
 function Header() {
+  const user = useContext(AuthContext);
+
+  useEffect(() => {
+    if (Object.keys(user).length === 0) {
+      return;
+    } else {
+      console.log("use1r", user);
+      console.log("use1r", Object.keys(user).length);
+    }
+  });
+
   return (
     <div
       className="navLayout"
@@ -127,61 +139,107 @@ function Header() {
             </div>
             <div />
           </div>
-          <div className="header1-right-item4">
-            <div>
-              <img
-                alt="a"
-                importance="low"
-                loading="lazy"
-                src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/f/f2ccb8732da6068a2f24a40aea2bdcdd.svg"
-                decoding="async"
-                width={23}
-                height={23}
-                className="r-tuq35u"
-                style={{
-                  backgroundColor: "rgba(205,208,209,1.00)",
-                  borderTopLeftRadius: "9999px",
-                  borderTopRightRadius: "9999px",
-                  borderBottomRightRadius: "9999px",
-                  borderBottomLeftRadius: "9999px",
-                  objectFit: "fill",
-                  objectPosition: "50% 50%",
-                  marginRight: "4px",
-                }}
-              />
-              <div
-                style={{
-                  fontSize: "16px",
-                  color: "rgb(139, 137, 137)",
-                  fontWeight: 500,
-                }}
-              >
-                <Link to="/login">Đăng nhập</Link>
+          {Object.keys(user).length > 0 ? (
+            <div className="header1-right-item4">
+              <div>
+                <img
+                  alt="a"
+                  importance="low"
+                  loading="lazy"
+                  src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/f/f2ccb8732da6068a2f24a40aea2bdcdd.svg"
+                  decoding="async"
+                  width={23}
+                  height={23}
+                  className="r-tuq35u"
+                  style={{
+                    backgroundColor: "rgba(205,208,209,1.00)",
+                    borderTopLeftRadius: "9999px",
+                    borderTopRightRadius: "9999px",
+                    borderBottomRightRadius: "9999px",
+                    borderBottomLeftRadius: "9999px",
+                    objectFit: "fill",
+                    objectPosition: "50% 50%",
+                    marginRight: "4px",
+                  }}
+                />
+                <div
+                  style={{
+                    fontSize: "16px",
+                    color: "rgb(139, 137, 137)",
+                    fontWeight: 500,
+                  }}
+                >
+                  <Link to="/login">{user.displayName}</Link>
+                </div>
+                <img
+                  id="icon-right"
+                  src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/393c6a1dee81cd3dc84df59672d43edb.svg"
+                  style={{ marginLeft: "4px" }}
+                  alt=""
+                />
               </div>
-              <img
-                id="icon-right"
-                src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/393c6a1dee81cd3dc84df59672d43edb.svg"
-                style={{ marginLeft: "4px" }}
-                alt=""
-              />
+              <div />
             </div>
-            <div />
-          </div>
-          <div className="header1-right-item5">
-            <button
-              type="button"
-              className="btn btn-primary"
-              style={{
-                fontSize: "16px",
-                color: "white",
-                fontWeight: 500,
-              }}
-            >
-              <Link style={{ color: "white" }} to="/login">
-                Đăng Ký
-              </Link>
-            </button>
-          </div>
+          ) : (
+            <>
+              {" "}
+              <div className="header1-right-item4">
+                <div>
+                  <img
+                    alt="a"
+                    importance="low"
+                    loading="lazy"
+                    src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/f/f2ccb8732da6068a2f24a40aea2bdcdd.svg"
+                    decoding="async"
+                    width={23}
+                    height={23}
+                    className="r-tuq35u"
+                    style={{
+                      backgroundColor: "rgba(205,208,209,1.00)",
+                      borderTopLeftRadius: "9999px",
+                      borderTopRightRadius: "9999px",
+                      borderBottomRightRadius: "9999px",
+                      borderBottomLeftRadius: "9999px",
+                      objectFit: "fill",
+                      objectPosition: "50% 50%",
+                      marginRight: "4px",
+                    }}
+                  />
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      color: "rgb(139, 137, 137)",
+                      fontWeight: 500,
+                    }}
+                  >
+                    <Link to="/login">Đăng nhập</Link>
+                  </div>
+                  <img
+                    id="icon-right"
+                    src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/393c6a1dee81cd3dc84df59672d43edb.svg"
+                    style={{ marginLeft: "4px" }}
+                    alt=""
+                  />
+                </div>
+                <div />
+              </div>
+              <div className="header1-right-item5">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  style={{
+                    fontSize: "16px",
+                    color: "white",
+                    fontWeight: 500,
+                  }}
+                >
+                  <Link style={{ color: "white" }} to="/login">
+                    Đăng Ký
+                  </Link>
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <div className="header2">

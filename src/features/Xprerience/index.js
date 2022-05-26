@@ -6,6 +6,7 @@ import Navbar from "./NavBar";
 import Slide from "./Slide";
 import { listTour, listPromotion, listPlace } from "./Containers/ListHome.js";
 import Footer from "components/Footer";
+import Header from "components/Header";
 
 export default function Xperience() {
   //handleOnclickXperience
@@ -34,7 +35,7 @@ export default function Xperience() {
     // </div>
 
     <div className="background_change">
-      <Navbar />
+      <Header />
       <Banner />
 
       <div style={{ marginLeft: "100px", marginTop: "50px" }}>

@@ -13,7 +13,6 @@ import "../../assets/Login_v1/css/util.css";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import userApi from "api/ApiReal/userApi";
 
 const schema = yup
   .object({
@@ -32,6 +31,16 @@ async function loginUser(credentials) {
   }).then((data) => data.json());
 }
 
+async function getUser(user) {
+  return fetch("http://localhost:3005/loginTest", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  }).then((data) => data.json());
+}
+
 export default function Login({ setToken }) {
   const navigate = useNavigate();
   const {
@@ -40,6 +49,7 @@ export default function Login({ setToken }) {
     watch,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
+
   const onSubmit = async (data) => {
     console.log(data);
 
@@ -50,23 +60,13 @@ export default function Login({ setToken }) {
       taikhoan: email,
       matkhau: password,
     });
+    // const user = await getUser({
+    //   taikhoan: email,
+    //   matkhau: password,
+    // });
+    // console.log("user", user);
     setToken(token);
     navigate("/activities");
-
-    //post api login (app id)
-
-    // userApi
-    //   .login({
-    //     appId: "tour-vy2",
-    //     taikhoan: email,
-    //     matkhau: password,
-    //   })
-    //   .then((res) => console.log(res));
-
-    //nhan response server tra ve
-    //check token
-    // token ==> true => redirect /activities
-    // token ==> false => thong bao cho nguoi dung la sai tai khoan or mat khau
   };
   return (
     <div className="limiter">

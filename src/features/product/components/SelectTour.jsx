@@ -144,18 +144,9 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const countRef = useRef(null);
 
   var amountMax = tour.Amount - listSchedule.AmountBooking;
-  console.log(
-    "amountMax",
-    amountMax,
-    "AmountBooking",
-    listSchedule.AmountBooking,
-    "counter",
-    counter
-  );
   //increase counter
   useEffect(() => {
     if (amountMax === 1) {
-      console.log("ok");
       setDisableButtonIn(true);
       setDisableButton(true);
     } else {
@@ -165,8 +156,11 @@ export default function SelectTour({ schedule, tour, idTour }) {
 
   const increase = () => {
     if (counter === amountMax - 1) {
-      console.log(counter);
       setDisableButtonIn(true);
+      setDisableButton(false);
+    }
+    if (counter < amountMax - 1 && counter > 0) {
+      setDisableButtonIn(false);
       setDisableButton(false);
     }
     setCounter((count) => count + 1);
@@ -176,9 +170,12 @@ export default function SelectTour({ schedule, tour, idTour }) {
   //decrease counter
   const decrease = () => {
     if (counter === 2) {
-      console.log(counter);
       setDisableButtonIn(false);
       setDisableButton(true);
+    }
+    if (counter < amountMax + 1 && counter > 2) {
+      setDisableButtonIn(false);
+      setDisableButton(false);
     }
     setCounter((count) => count - 1);
     setPriceTotal((counter - 1) * tour.Price);

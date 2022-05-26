@@ -6,8 +6,10 @@ import SignIn from "features/Auth/pages/SignIn";
 import Booking from "features/booking";
 import Payment from "features/Payment";
 import Product from "features/product";
+import Refund from "features/Refund";
 import Search from "features/search";
 import Tours from "features/tour";
+import Transaction from "features/Transaction";
 import Xperience from "features/Xprerience";
 import "firebase/auth";
 import firebase from "firebase/compat/app";
@@ -35,16 +37,11 @@ firebase.initializeApp(config);
 // }
 
 export default function App({ user }) {
-  // const [token, setToken] = useState();
-  // console.log("token", token);
-  const navigate = useNavigate();
-  const { token, setToken } = useToken();
-  //console.log("token", token);
-
   // if (!token) {
   //   return <Login setToken={setToken} />;
   // }
-
+  const navigate = useNavigate();
+  const { token, setToken } = useToken();
   return (
     <div className="min-h-screen bg-white">
       <Routes>
@@ -87,7 +84,7 @@ export default function App({ user }) {
           <Route path=":id" element={<Product />}></Route>
         </Route>
         {/* <Route path="/sign-in" element={<SignIn />} /> */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="/sign-in" element={<SignIn />} />
 
         <Route path="/register" element={<Register />} />
@@ -96,6 +93,12 @@ export default function App({ user }) {
         </Route>
         <Route path="/booking/payment" element={<Payment />}>
           <Route path=":id" element={<Payment />} />
+        </Route>
+        <Route path="/booking/refund" element={<Refund />}>
+          <Route path=":id" element={<Refund />} />
+        </Route>
+        <Route path="/booking/transaction" element={<Transaction />}>
+          <Route path=":id" element={<Transaction />} />
         </Route>
       </Routes>
     </div>
