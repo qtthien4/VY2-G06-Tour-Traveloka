@@ -26,6 +26,8 @@ router.post("/favaurite/:id", apiController.deleteFavourite);
 router.post("/test", apiController.getkeysearch);
 router.post("/booking", apiController.booking);
 router.post("/endbooking", apiController.endbooking)
-
+router.post("/login", apiController.Login)
+router.post("/userbooking", apiController.UserBooking)
+router.post("/payment", apiController.payment)
 
 module.exports = router;

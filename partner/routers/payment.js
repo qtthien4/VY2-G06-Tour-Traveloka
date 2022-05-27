@@ -4,8 +4,7 @@ var router = express.Router();
 var paymentController = require('../controller/PaymentController')
 
 
-router.post('/',paymentController.index);
-router.post('/check',paymentController.CheckPayment);
-router.post('/refund',paymentController.refundPayment);
+router.post('/', paymentController.index);
+router.post('/refund', paymentController.refundPayment);
 
 module.exports = router;
