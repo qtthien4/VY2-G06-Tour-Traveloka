@@ -4,7 +4,7 @@ var router = express.Router();
 var apiController = require("../controller/ApiController");
 var authMiddleware = require("../middlewares/auth.middleware");
 
-router.post("/registeruser", apiController.RegisterUser)
+router.post("/registeruser", apiController.RegisterUser);
 
 router.get("/", apiController.index);
 router.get("/tour", apiController.tour);
@@ -25,7 +25,6 @@ router.post("/favaurite", apiController.favourite);
 router.post("/favaurite/:id", apiController.deleteFavourite);
 router.post("/test", apiController.getkeysearch);
 router.post("/booking", apiController.booking);
-router.post("/endbooking", apiController.endbooking)
-
+router.post("/endbooking", apiController.endbooking);
 
 module.exports = router;
