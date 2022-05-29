@@ -1,22 +1,18 @@
-var {activity, schedule, book, user, type, partner} = require('./configDb');
+const axios = require('axios');
 
-async function dime(){
-    var a = []
-
-    var idpartner = await partner.findOne({raw:true, where: {UserPartner: "vothien"}})
-
-    var arrActivity = await activity.findAll({raw: true, where: {Idpartner : idpartner.Idpartner}})
-    
-    for(var i = 0; i < arrActivity.length; i++){
-        var arrSchedule = await schedule.findAll({raw: true, where: {IdActivity:arrActivity[i].IdActivity}})
-
-        for(var j = 0; j <  arrSchedule.length; j++){
-           var arrBoking =  await book.findAll({raw: true, where: {IdSchedule: arrSchedule[j].IdSchedule}})
-            
-            a = [...a, ...arrBoking]
-        }
-        console.log(a)
+// axios("https://api-m.sandbox.paypal.com/v2/payments/captures/3HB493205W812352J/refund", {
+//     method: "post",
+//     headers: {
+//         "Content-Type" : "application/json"
+//     },
+//     auth: {
+//         username: 'ATINp8X4ScCQh55X9CZMRprGro2kG0wzUTp_NyqOL4d2-lw6RISvj-PdOOcBUIediRqoI1xqvrg7tGhH',
+//         password: 'EL1zQPQt5MwU6KE2l0ljJFeC-kQ5kKZMc5w-kqFn1vr1f6mabbaw-hZq9u5h4BHxzSgPCGTkNrYAL04u'
+//     }
+// })
+axios("https://localhost:3003/payment/refund", {
+    method: "post",
+    data: {
+        a: "asd"
     }
-}
-
-dime();
+})

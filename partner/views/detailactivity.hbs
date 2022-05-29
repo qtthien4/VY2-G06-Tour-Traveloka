@@ -129,7 +129,6 @@
                                                     <th scope="col">Thời gian kết thúc tour</th>
                                                     <th scope="col">Số lượng người đã đăng ký</th>
                                                     <th scope="col">Tổng số người đăng ký tối đa</th>
-                                                    <th scope="col"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -140,7 +139,7 @@
                                                     <td>{{{this.EndTime}}}</td>
                                                     <td>{{{this.AmountBooking}}}</td>
                                                     <td>{{{this.Amount}}}</td>
-                                                    <td><a href="/detailactivity?idactivity={{{this.IdActivity}}}&&idschedule={{{this.IdSchedule}}}">Xóa</a></td>
+                                                    
                                                 </tr>
                                                 {{/each}}                                                
                                             </tbody>
@@ -234,8 +233,7 @@
                                         
                                         <button type="submit" class="btn btn-primary m-3">Sửa</a></button>
                                         
-                                        {{#each activity}}
-                                        <button type="button" class="btn btn-secondary m-3"><a href="/table?del={{{this.IdActivity}}}" style="color: white;">Xóa</a></button>
+                                        {{#each activity}}                                    
                                         <button type="button" class="btn btn-warning m-3"><a href="/table?stt={{{this.IdActivity}}}" style="color: white;">{{/each}}
                                         {{#if stt}}
                                         {{#each stt}}
