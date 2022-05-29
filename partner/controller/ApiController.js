@@ -255,11 +255,32 @@ class ApiController {
       var idCustomer = customer.IdCustomer
 
       var booking = await book.findAll({ raw: true, where: { IdCustomer: idCustomer } })
+      var idSchedule, arrBookingUser = []
+
+      for (var i = 0; i < booking.length; i++) {
+        idSchedule = booking[1].IdSchedule
+        var objSchedule = await schedule.findOne({ raw: true, where: { IdSchedule: idSchedule }, order: ['IdSchedule'] })
+        var objAcivity = await activity.findOne({ raw: true, where: { IdActivity: objSchedule.IdActivity }, order: ['IdActivity'] })
+        var objBookingUser = {}
+        objBookingUser.ActivityName = objAcivity.ActivityName
+        objBookingUser.ImageUrl = objAcivity.ImageUrl
+        objBookingUser.Price = objAcivity.Price
+        objBookingUser.reduce = booking[i].Reduce
+        objBookingUser.handleStartTime = objSchedule.StartTime
+        objBookingUser.handleEndTime = objSchedule.EndTime
+        objBookingUser.voucher = booking[i].IdVoucher
+        objBookingUser.gift = booking[i].IdGift
+        objBookingUser.bookingTime = booking[i].BookingTime
+        objBookingUser.amountPeople = booking[i].AmountPeople
+        objBookingUser.idBooking = booking[i].IdBooking
+
+        arrBookingUser.push(objBookingUser)
+      }
 
       if (booking == null) {
         res.json({ status: 400, data: "khong co booking nao" })
       } else {
-        res.send(booking)
+        res.send(arrBookingUser)
       }
     }
   }
