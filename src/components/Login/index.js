@@ -33,7 +33,7 @@ async function loginUser(credentials) {
 }
 
 async function getUser(user) {
-  return fetch("http://localhost:3003/api/login", {
+  return fetch("http://95.111.203.185:3003/api/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
