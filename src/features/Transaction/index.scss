@@ -1,5 +1,6 @@
 
 section {
+	color: black;
 	width: 90%;
 	max-width: 800px;
 	margin-left: auto;
@@ -17,6 +18,7 @@ section {
 
 
 summary {
+
 	background-color: #fff;
 	position: relative;
 	cursor: pointer;
@@ -43,7 +45,7 @@ summary {
 	
 	small {
 		color: #999;
-		font-size: .875em;
+		font-size: .575em;
 	}
 	
 	strong {

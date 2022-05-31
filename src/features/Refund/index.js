@@ -1,13 +1,16 @@
 import { Typography } from "@material-ui/core";
+import bookingApi from "api/ApiReal/bookingApi";
 import refundApi from "api/ApiReal/refundApi";
+import scheduleApi from "api/ApiReal/scheduleApi";
 import Info from "features/Payment/Info";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { formatter } from "utils/formatter";
 import Navbar from "../Payment/navbar";
 import "./index.css";
-import { paymentPaypal, refundAction } from "./RefundSlice";
+import { paymentPaypal } from "./RefundSlice";
 
 export default function Refund() {
   const location = useLocation();
@@ -18,7 +21,16 @@ export default function Refund() {
   const idPayment = location.pathname.split("/")[3];
   const tourCurrent = JSON.parse(localStorage.getItem("TourCurrent"));
   const schedule = JSON.parse(localStorage.getItem("schedule"));
+  const [reduce, setReduce] = useState(0);
 
+  useEffect(() => {
+    (async function () {
+      const resBooking = await bookingApi.get(idPayment);
+      //const resTour = await scheduleApi.getId(resBooking[0].IdSchedule.trim());
+      setReduce(resBooking[0].reduce);
+      //console.log(resBooking[0], resTour);
+    })();
+  }, []);
   const handleRefund = async () => {
     try {
       let dataRefund = {
@@ -39,7 +51,14 @@ export default function Refund() {
     <div>
       <Navbar />
 
-      <div style={{ "background-color": "#f2f3f3", paddingTop: "80px" }}>
+      <div
+        style={{
+          "background-color": "#f2f3f3",
+          paddingTop: "80px",
+          height: "740px",
+          overflow: "hidden",
+        }}
+      >
         <Typography
           style={{
             fontSize: "24px",
@@ -59,15 +78,17 @@ export default function Refund() {
                 <h1> {tourCurrent.ActivityName}</h1>
 
                 <p>Địa điểm: {tourCurrent.Desr}</p>
+                <p>Tổng giá: {formatter.format(reduce)}</p>
               </div>
               <div className="product-price-btn">
-                <p>
-                  <span>78</span>$
-                </p>
-                <button type="button" onClick={handleRefund}>
+                <button
+                  style={{ marginBottom: "10px" }}
+                  type="button"
+                  onClick={handleRefund}
+                >
                   Hủy
                 </button>
-                <p></p>
+                <br />
                 <button type="button" onClick={handleBackToHome}>
                   Trang chủ
                 </button>

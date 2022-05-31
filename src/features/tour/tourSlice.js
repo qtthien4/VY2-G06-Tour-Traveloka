@@ -61,8 +61,6 @@ export const selectListCountryTour = (state) => state.tour.listCountry;
 
 export const selectListType = (state) => {
   const newListType = { ...state.tour.listType };
-  // newListType.listCityType.listSingapore = state.tour.listTourSingapore;
-  // console.log("ok", newListType);
   return newListType;
 };
 

@@ -75,9 +75,7 @@ export default function Search() {
       let nameCountry = listCountry.filter((list) => {
         return list.IdCountry.trim() == id;
       });
-      console.log(nameCountry);
       setNameCountry(nameCountry[0].CountryName);
-      console.log("listCountry", listCountry);
     }
   }, [dispatch, location]);
 

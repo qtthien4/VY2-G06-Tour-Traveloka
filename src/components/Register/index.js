@@ -80,10 +80,60 @@ export default function Register() {
               data-validate="Valid email is required: ex@abc.xyz"
             >
               <input
+                {...register("Name")}
+                className="input100"
+                type="text"
+                placeholder="Tên người dùng"
+              />
+              <p>{errors.email?.message}</p>
+              <span className="focus-input100" />
+              <span className="symbol-input100">
+                <i className="fa fa-envelope" aria-hidden="true" />
+              </span>
+            </div>
+            <div
+              className="wrap-input100 validate-input"
+              data-validate="Valid email is required: ex@abc.xyz"
+            >
+              <input
+                {...register("Phone")}
+                className="input100"
+                type="text"
+                placeholder="Số điện thoại"
+              />
+              <p>{errors.email?.message}</p>
+              <span className="focus-input100" />
+              <span className="symbol-input100">
+                <i className="fa fa-envelope" aria-hidden="true" />
+              </span>
+            </div>
+
+            <div
+              className="wrap-input100 validate-input"
+              data-validate="Valid email is required: ex@abc.xyz"
+            >
+              <input
                 {...register("email")}
                 className="input100"
                 type="text"
                 placeholder="Tài khoản"
+              />
+              <p>{errors.email?.message}</p>
+              <span className="focus-input100" />
+              <span className="symbol-input100">
+                <i className="fa fa-envelope" aria-hidden="true" />
+              </span>
+            </div>
+
+            <div
+              className="wrap-input100 validate-input"
+              data-validate="Valid email is required: ex@abc.xyz"
+            >
+              <input
+                {...register("gender")}
+                className="input100"
+                type="text"
+                placeholder="Nhập giới tính nam/ nữ"
               />
               <p>{errors.email?.message}</p>
               <span className="focus-input100" />
@@ -127,6 +177,7 @@ export default function Register() {
             </div>
 
             {checkpass === false && <p>Mật khẩu không khớp</p>}
+
             <div className="container-login100-form-btn">
               <button type="submit" className="login100-form-btn">
                 Register

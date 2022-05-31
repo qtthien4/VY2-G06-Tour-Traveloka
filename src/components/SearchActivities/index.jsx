@@ -8,11 +8,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
+  cityActions,
+  countryActions,
+  selectListCountry,
+  selectListCountryFilter,
+} from "features/Country/countrySlice";
+import {
   listRemainingSelectorTourSearch,
   searchActivityActions,
 } from "./searchActivitySlice";
 import searchApi from "../../api/ApiReal/searchApi";
-import { asd } from "api/Data/axiosTest";
 import {
   keysearchActions,
   selectListKeysearch,
@@ -80,8 +85,9 @@ export default function SearchActivities({ style, layoutRef, scroll }) {
   const [searchText, setSearchText] = useState("");
   const listTour = useSelector(listRemainingSelectorTourSearch);
   const listKeySearch = useSelector(selectListKeysearch);
-  // const listKeySearch1 = listKeySearch.reverse();
-  // console.log("listKeySearch", listKeySearch);
+  const listCountry = useSelector(selectListCountry);
+  const listCountryFilter = useSelector(selectListCountryFilter);
+
   const dispatch = useDispatch();
 
   const handleOpenModel = () => {
@@ -104,6 +110,8 @@ export default function SearchActivities({ style, layoutRef, scroll }) {
     dispatch(searchActivityActions.fetchSearchActivity(searchText));
     dispatch(searchActivityActions.setFilterSearchChangeInput(searchText));
     dispatch(keysearchActions.fetchApiKeysearch());
+    dispatch(countryActions.fetchApiCountry());
+    dispatch(countryActions.fetchApiCountryFilter(searchText));
   }, [dispatch, searchText]);
 
   const handleInputSearchChange = (e) => {
@@ -126,8 +134,15 @@ export default function SearchActivities({ style, layoutRef, scroll }) {
     searchApi.postTextSearch(searchText);
   };
   const handleTourInSearch = (idActivity) => {
-    //console.log(idActivity);
-    // navigate(`/activities/vietnam/product/${idActivity}`);
+    navigate(`/activities/vietnam/product/${idActivity}`);
+    document.querySelector("body").style.overflowY = "scroll";
+  };
+  const handleOnclickCountries = (idCountry, nameType) => {
+    navigate(`/activities/search/daytour?idCountry=${idCountry}`);
+    document.querySelector("body").style.overflowY = "scroll";
+    recentSearchesRef.current.style.display = "none";
+    searchOverlay.current.style.display = "none";
+    recentSearchesRef1.current.style.display = "none";
   };
 
   return (
@@ -172,7 +187,13 @@ export default function SearchActivities({ style, layoutRef, scroll }) {
         sx={style}
         style={{ display: "none" }}
       >
-        {searchText === "" && <RecentSearch listKeySearch={listKeySearch} />}
+        {searchText === "" && (
+          <RecentSearch
+            handleOnclickCountries={handleOnclickCountries}
+            listCountry={listCountry}
+            listKeySearch={listKeySearch}
+          />
+        )}
       </Box>
 
       <Box
@@ -181,13 +202,18 @@ export default function SearchActivities({ style, layoutRef, scroll }) {
         sx={style}
         style={{ display: "none" }}
       >
-        {listTour.length >= 1 ? (
+        {listTour.length >= 1 || listCountryFilter.length >= 1 ? (
           <ResultSearch
+            handleOnclickCountries={handleOnclickCountries}
+            listCountryFilter={listCountryFilter}
             handleTourInSearch={handleTourInSearch}
             listTour={listTour}
           />
         ) : searchText == "" ? (
-          <RecentSearch listKeySearch={listKeySearch} />
+          <RecentSearch
+            listCountry={listCountry}
+            listKeySearch={listKeySearch}
+          />
         ) : (
           <NotFound />
         )}

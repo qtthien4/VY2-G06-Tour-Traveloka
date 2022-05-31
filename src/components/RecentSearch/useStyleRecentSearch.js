@@ -32,6 +32,8 @@ export const useStyles = makeStyles((theme) => ({
   boxBtn: {},
   trenddingBtn: {
     marginRight: "10px",
+    marginBottom: "10px",
+
     textTransform: "none",
     fontWeight: 700,
     border: "1px solid black",

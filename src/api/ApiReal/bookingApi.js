@@ -6,8 +6,13 @@ const bookingApi = {
     return axiosClient.post(url, data);
   },
   get: (id) => {
-    const url = `/booking`;
+    const url = `/booking/${id}`;
     return axiosClient.get(url);
+  },
+
+  postBooking: (data) => {
+    const url = `/payment`;
+    return axiosClient.post(url, data);
   },
 };
 

@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Slide({ listCityofCountry, slideNumber, handleOnclickListTour }) {
-  console.log("listCityoftour", listCityofCountry);
   const classes = useStyles();
   return (
     <>
@@ -65,8 +64,6 @@ function Slide({ listCityofCountry, slideNumber, handleOnclickListTour }) {
         slidesPerView={slideNumber}
         navigation
         pagination={{ clickable: true }}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log("slide change")}
       >
         {listCityofCountry.map((list) => (
           <SwiperSlide key={list.IdCountry} style={{ background: "none" }}>

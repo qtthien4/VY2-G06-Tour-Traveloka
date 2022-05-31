@@ -3,8 +3,14 @@ import { Box, Button, Typography } from "@material-ui/core";
 import React from "react";
 import { useStyles } from "./styles";
 
-export default function ResultSearch({ listTour, handleTourInSearch }) {
+export default function ResultSearch({
+  listCountryFilter,
+  listTour,
+  handleTourInSearch,
+  handleOnclickCountries,
+}) {
   const classes = useStyles();
+
   return (
     <Box className={classes.root}>
       <Box className={classes.boxRecentSearch}>
@@ -14,76 +20,16 @@ export default function ResultSearch({ listTour, handleTourInSearch }) {
             Recommended Keywords for
           </Typography>
           <Box className={classes.boxBtn} mt={3}>
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.trenddingBtn}
-            >
-              Ho Chi Minh City
-            </Button>
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.trenddingBtn}
-            >
-              Đà nẵng
-            </Button>
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.trenddingBtn}
-            >
-              Nha Trang
-            </Button>
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.trenddingBtn}
-            >
-              Điểm đến mới
-            </Button>
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.trenddingBtn}
-            >
-              Điểm đến mới
-            </Button>{" "}
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.trenddingBtn}
-            >
-              Điểm đến mới
-            </Button>{" "}
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.trenddingBtn}
-            >
-              Điểm đến mới
-            </Button>{" "}
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.trenddingBtn}
-            >
-              Điểm đến mới
-            </Button>{" "}
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.trenddingBtn}
-            >
-              Điểm đến mới
-            </Button>{" "}
-            <Button
-              variant="outlined"
-              size="small"
-              className={classes.trenddingBtn}
-            >
-              Điểm đến mới
-            </Button>
+            {listCountryFilter.map((list) => (
+              <Button
+                onClick={() => handleOnclickCountries(list.IdCountry)}
+                variant="outlined"
+                size="small"
+                className={classes.trenddingBtn}
+              >
+                {list.CountryName}
+              </Button>
+            ))}
           </Box>
         </Box>
 
@@ -95,7 +41,7 @@ export default function ResultSearch({ listTour, handleTourInSearch }) {
           {listTour.map((list) => (
             <Box
               key={list.IdActivity}
-              onClick={handleTourInSearch(list.IdActivity)}
+              onClick={() => handleTourInSearch(list.IdActivity)}
               className={`${classes.tourSearch}`}
             >
               <Box

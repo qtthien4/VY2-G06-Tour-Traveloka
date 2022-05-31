@@ -12,28 +12,24 @@ export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   const dispatch = useDispatch();
-
-  const [user, setUser] = useState({});
-  useEffect(() => {
-    const unregisterAuthObserver = () => {
-      try {
-        // const actionResult = await dispatch(getMe());
-        // const currentUser = unwrapResult(actionResult);
-        setUser({
-          displayName: "hieule",
-          email: "hieu@gmail.com",
-          uid: "123",
-          photoURL: "https",
-        });
-        //setUser(currentUser);
-        //const token = await user.getIdToken();
-        // console.log("Logged in user token:", token);
-      } catch (error) {
-        console.log("fail to login");
-      }
-    };
-    unregisterAuthObserver();
-    console.log("logged in user redux:", user);
-  }, [dispatch]);
+  const user = JSON.parse(localStorage.getItem("userInfo"));
+  console.log(user);
+  // const [user, setUser] = useState({});
+  // useEffect(() => {
+  //   const unregisterAuthObserver = () => {
+  //     try {
+  //       // const actionResult = await dispatch(getMe());
+  //       // const currentUser = unwrapResult(actionResult);
+  //       setUser(user1);
+  //       //setUser(currentUser);
+  //       //const token = await user.getIdToken();
+  //       // console.log("Logged in user token:", token);
+  //     } catch (error) {
+  //       console.log("fail to login");
+  //     }
+  //   };
+  //   unregisterAuthObserver();
+  //   console.log("logged in user redux:", user);
+  // }, [dispatch]);
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 }

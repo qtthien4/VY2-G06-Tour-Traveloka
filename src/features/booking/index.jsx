@@ -116,6 +116,7 @@ export default function Booking() {
         </Box>
         <Box className={classes.main}>
           <BookingForm
+            user={user}
             schedule={scheduleTour}
             onSubmit={handleBookingFormSubmit}
             fullWidth={fullWidth}
@@ -154,7 +155,6 @@ export default function Booking() {
                     gia
                   </span>
                   <Button
-                    style={{ left: "75px", width: "100px" }}
                     className={`main-text-transform main-text-color-primary main-font-weight`}
                     align="right"
                     size="small"

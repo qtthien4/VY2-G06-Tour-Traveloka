@@ -60,7 +60,10 @@ export const listRemainingSelectorTourSearch = createSelector(
   selectSearchActivityInput,
   (listTour, searchText) => {
     return listTour.filter((list) => {
-      return list.ActivityName.includes(searchText);
+      return (
+        list.ActivityName.includes(searchText) ||
+        list.Location.includes(searchText)
+      );
     });
   }
 );

@@ -4,8 +4,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import red from "@material-ui/core/colors/red";
-import IconButton from "@material-ui/core/IconButton";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import InputField from "components/FormFields/InputField";
 import RadioGroupField from "components/FormFields/RadioGroupField";
 import SelectFiled from "components/FormFields/SelectFiled";
@@ -35,10 +33,15 @@ const schema = yup
   })
   .required();
 
-export default function BookingForm({ schedule, onSubmit, fullWidth, tour }) {
+export default function BookingForm({
+  schedule,
+  onSubmit,
+  fullWidth,
+  tour,
+  user,
+}) {
   //const user = null;
-  const user = {};
-
+  console.log(user);
   const classes = useStyles();
   //const priceTotal = schedule.Amount * tour.Price;
   const priceTotal = useMemo(() => {
@@ -52,7 +55,7 @@ export default function BookingForm({ schedule, onSubmit, fullWidth, tour }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Box className={classes.left}>
-        {user ? (
+        {user != null ? (
           <Card sx={{ maxWidth: 345 }}>
             <CardHeader
               avatar={
@@ -60,13 +63,8 @@ export default function BookingForm({ schedule, onSubmit, fullWidth, tour }) {
                   R
                 </Avatar>
               }
-              // action={
-              //   <IconButton aria-label="settings">
-              //     <MoreVertIcon />
-              //   </IconButton>
-              // }
-              title="Đăng nhập là Lê Hiếu"
-              subheader="Hieu le"
+              title={`Đăng nhập là ${user.Name}`}
+              subheader={user.Name}
             />
           </Card>
         ) : (
@@ -135,6 +133,7 @@ export default function BookingForm({ schedule, onSubmit, fullWidth, tour }) {
                 Họ và tên
               </Typography>
               <InputField
+                defaultValue={user != null ? user.Name : ""}
                 name="nameVisitor"
                 control={control}
                 label="full"
@@ -168,6 +167,7 @@ export default function BookingForm({ schedule, onSubmit, fullWidth, tour }) {
                       /> */}
                       <Box>
                         <InputField
+                          defaultValue={user != null ? user.Phone : ""}
                           widthCustom="10px"
                           name="phoneVisitor"
                           control={control}
@@ -194,6 +194,7 @@ export default function BookingForm({ schedule, onSubmit, fullWidth, tour }) {
                       Email
                     </InputLabel>
                     <InputField
+                      defaultValue={user != null ? user.email : ""}
                       name="emailVisitor"
                       control={control}
                       label="full"

@@ -40,7 +40,6 @@ export default function App({ user }) {
   // if (!token) {
   //   return <Login setToken={setToken} />;
   // }
-  const navigate = useNavigate();
   const { token, setToken } = useToken();
   return (
     <div className="min-h-screen bg-white">

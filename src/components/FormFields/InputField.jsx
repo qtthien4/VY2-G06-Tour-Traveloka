@@ -8,6 +8,7 @@ export default function InputField({
   name,
   control,
   label,
+
   fullWidthCustom,
   widthCustom,
   placeholder,
@@ -16,7 +17,7 @@ export default function InputField({
 }) {
   const classes = useStyles();
   const {
-    field: { value, onChange, onBlur, ref },
+    field: { defaultValue, value, onChange, onBlur, ref },
     fieldState: { invalid, error },
   } = useController({
     name,
@@ -24,6 +25,7 @@ export default function InputField({
   });
   return (
     <TextField
+      defaultValue={defaultValue}
       placeholder={placeholder}
       style={{ width: { widthCustom }, height: { heightCustom } }}
       className={`inputPhoneNumber ${classes.input}`}

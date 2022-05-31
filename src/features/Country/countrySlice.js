@@ -2,6 +2,7 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
   loadding: false,
+  listFilter: [],
   list: [
     {
       IdCountry: "",
@@ -16,6 +17,14 @@ const countrySlice = createSlice({
   reducers: {
     fetchApiCountry: (state) => {
       state.loadding = true;
+    },
+
+    fetchApiCountryFilter: (state) => {
+      state.loadding = true;
+    },
+    fetchApiCountryFilterSuccess: (state, action) => {
+      state.loadding = true;
+      state.listFilter = action.payload;
     },
     fetchApiCountryTourSuccess: (state, action) => {
       state.loadding = true;
@@ -33,6 +42,9 @@ export const countryActions = countrySlice.actions;
 export const selectListCountryLoadding = (state) => state.country.loadding;
 
 export const selectListCountry = (state) => state.country.list;
+
+export const selectListCountryFilter = (state) => state.country.listFilter;
+
 
 const countryReducer = countrySlice.reducer;
 export default countryReducer;

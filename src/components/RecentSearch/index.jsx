@@ -1,9 +1,13 @@
 import { Box, Button, ListItem, Typography } from "@material-ui/core";
-import React from "react";
+import React, { useEffect } from "react";
 import { List } from "reactstrap";
 import "./index.css";
 import { useStyles } from "./useStyleRecentSearch";
-export default function RecentSearch({ listKeySearch }) {
+export default function RecentSearch({
+  listKeySearch,
+  listCountry,
+  handleOnclickCountries,
+}) {
   const classes = useStyles();
   return (
     <Box className={classes.root}>
@@ -34,35 +38,17 @@ export default function RecentSearch({ listKeySearch }) {
 
       <Box className={classes.boxTrendingNow}>
         <Typography className={classes.title}>Treading Now</Typography>
-        <Box className={classes.boxBtn} mt={2}>
-          <Button
-            variant="outlined"
-            size="small"
-            className={classes.trenddingBtn}
-          >
-            Ho Chi Minh City
-          </Button>
-          <Button
-            variant="outlined"
-            size="small"
-            className={classes.trenddingBtn}
-          >
-            Đà nẵng
-          </Button>
-          <Button
-            variant="outlined"
-            size="small"
-            className={classes.trenddingBtn}
-          >
-            Nha Trang
-          </Button>
-          <Button
-            variant="outlined"
-            size="small"
-            className={classes.trenddingBtn}
-          >
-            Điểm đến mới
-          </Button>
+        <Box className={classes.boxBtn} mt={2} mb={2}>
+          {listCountry.map((list) => (
+            <Button
+              onClick={() => handleOnclickCountries(list.IdCountry)}
+              variant="outlined"
+              size="small"
+              className={classes.trenddingBtn}
+            >
+              {list.CountryName}
+            </Button>
+          ))}
         </Box>
       </Box>
     </Box>

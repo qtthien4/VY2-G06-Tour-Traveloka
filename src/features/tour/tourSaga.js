@@ -10,7 +10,6 @@ import { tourActions } from "./tourSlice";
 
 function* fetchTourThaiLandList() {
   const response = yield call(fakeTourApiThailand.getAll);
-  console.log("ThaiLand:", response);
   yield put(tourActions.setTourThaiLanList(response));
 }
 function* fetchTourMalaysiaList() {
@@ -170,25 +169,24 @@ function* fetchDataTourList(nameType) {
         yield put(tourActions.fetchDataSucceess()),
       ]);
     } else if (nameType.payload === "transport") {
-      console.log("transport");
+
       yield all([
         call(fetchApiListTypeTransport, nameType.payload),
         yield put(tourActions.fetchDataSucceess()),
       ]);
     } else if (nameType.payload === "playground") {
-      console.log("playground");
+
       yield all([
         call(fetchApiListTypePlayground, nameType.payload),
         yield put(tourActions.fetchDataSucceess()),
       ]);
     } else if (nameType.payload === "attraction") {
-      console.log("attraction");
       yield all([
         call(fetchApiListTypeAttraction, nameType.payload),
         yield put(tourActions.fetchDataSucceess()),
       ]);
     } else if (nameType.payload === "sport") {
-      console.log("sport");
+
       yield all([
         call(fetchApiListTypeSport, nameType.payload),
         yield put(tourActions.fetchDataSucceess()),
@@ -198,7 +196,6 @@ function* fetchDataTourList(nameType) {
         call(fetchApiListTypeTransport, nameType.payload),
         yield put(tourActions.fetchDataSucceess()),
       ]);
-      console.log("roongx");
     }
   } catch (error) {
     yield put(tourActions.fetchApiTourFailed());

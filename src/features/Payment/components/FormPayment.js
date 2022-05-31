@@ -14,16 +14,6 @@ import { formatter } from "../../../utils/formatter";
 import CountDown from "./CountDown";
 import reBookingApi from "api/ApiReal/reBookingApi";
 import PayPal from "PayPal";
-const schema = yup
-  .object({
-    cardElement: yup
-      .number()
-      .positive()
-      .integer("Vui lòng nhập số")
-      .required("Vui lòng nhập số tài khoản thanh toán"),
-    age: yup.number().positive().integer().required(),
-  })
-  .required();
 
 export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   // const stripe = useStripe();
@@ -87,7 +77,6 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   }, []);
 
   //handle voucher
-  const [checkCondition, setCheckCondition] = useState(false);
 
   const [amountVoucher, setAmountVoucher] = useState(0);
   const [codeVoucher, setCodeVoucher] = useState("");
@@ -187,7 +176,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
         score: 10,
       };
 
-      await bookingApi.post({ dataPayment });
+      await bookingApi.postBooking({ dataPayment });
 
       //post áp dụng voucher
       const dataVoucher = {

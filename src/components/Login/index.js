@@ -13,6 +13,7 @@ import "../../assets/Login_v1/css/util.css";
 
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { setUserId } from "firebase/analytics";
 
 const schema = yup
   .object({
@@ -32,8 +33,8 @@ async function loginUser(credentials) {
 }
 
 async function getUser(user) {
-  return fetch("http://localhost:3005/loginTest", {
-    method: "GET",
+  return fetch("http://localhost:3003/api/login", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
@@ -41,7 +42,7 @@ async function getUser(user) {
   }).then((data) => data.json());
 }
 
-export default function Login({ setToken }) {
+export default function Login({ setToken, setUser }) {
   const navigate = useNavigate();
   const {
     register,
@@ -51,21 +52,20 @@ export default function Login({ setToken }) {
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data) => {
-    console.log(data);
-
     const { email, password } = data;
-
-    const token = await loginUser({
-      appId: "tour-vy2",
-      taikhoan: email,
-      matkhau: password,
-    });
-    // const user = await getUser({
+    // const token = await loginUser({
+    //   appId: "tour-vy2",
     //   taikhoan: email,
     //   matkhau: password,
     // });
-    // console.log("user", user);
-    setToken(token);
+    const user = await getUser({
+      user: email,
+      matkhau: password,
+    });
+
+    localStorage.setItem("userInfo", JSON.stringify(user));
+    //setUser(user);
+    //setToken(token);
     navigate("/activities");
   };
   return (

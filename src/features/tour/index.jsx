@@ -70,13 +70,11 @@ export default function Tours() {
     return list.current;
   });
 
-  console.log(state);
   useEffect(() => {
     dispatch(tourActions.fetchApiTour(String(nameType)));
     //dispatch(xprerienceActions.fetchApiXprerience(nameType));
   }, [dispatch, nameType]);
 
-  console.log("nametype", nameType);
 
   const handleOnclickListTourVN = (idCity, idCountry) => {
     navigation(
@@ -85,7 +83,6 @@ export default function Tours() {
   };
   const handleOnclickListCountry = (idTourVN, idCountry) => {
     const idCountry1 = idCountry.trim();
-    console.log("idtype", nameType);
     navigation(`/activities/search/${nameType}?idCountry=${idCountry1}`);
   };
 
@@ -104,7 +101,6 @@ export default function Tours() {
           item
           xs={12}
         >
-          {/* {console.log(layoutRef)} */}
           <Grid className={classes.root}>
             <div className={classes.backgoundark}>
               <NavLink to="/activities">Xperience</NavLink>/

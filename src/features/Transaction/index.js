@@ -1,330 +1,118 @@
+import { Button } from "@material-ui/core";
+import Skeleton from "@material-ui/lab/Skeleton";
+import refundApi from "api/ApiReal/refundApi";
+import axios from "axios";
 import Navbar from "features/Payment/navbar";
-import React from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import Moment from "react-moment";
+import { toast } from "react-toastify";
+import { formatter } from "utils/formatter";
 import "./index.scss";
+import TransactionItem from "./TransactionItem";
 
+export const initDataTransaction = {
+  ActivityName: "",
+  ImageUrl: "",
+  Price: 0,
+  amountPeople: 0,
+  bookingTime: "",
+  gift: "",
+  handleEndTime: "",
+  handleStartTime: "",
+  idBooking: "",
+  reduce: "",
+  voucher: "",
+};
 export default function Transaction() {
+  const data = { user: "qtthien@gmail.com" };
+  const [dataTransaction, setDataTransaction] = useState([initDataTransaction]);
+  const [loadding, setLoadding] = useState(false);
+  const [visiable, setVisiable] = useState(false);
+
+  const today = new Date();
+  useEffect(() => {
+    //call apiexport const today = new Date();
+
+    (async function () {
+      //write your js code here
+      // const data = await transactionApi.post(dataTransaction);
+      // console.log(data);
+      setLoadding(true);
+      const res = await axios("http://localhost:3003/api/userbooking", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      });
+      //const res = VouchersApi.preOrder(dataVoucher);
+      //let { orderId } = res.data.data.orderId;
+
+      setLoadding(false);
+      setDataTransaction(res.data);
+    })();
+
+    //data trả về sẽ được set vào state mới
+    //in all ra màn hình
+  }, []);
+
+  const dateBookingState = dataTransaction[0].handleStartTime
+    .split("T")[0]
+    .split("-");
+
+  const totalYear = today.getFullYear() - Number(dateBookingState[0]);
+  const totalMonth = today.getMonth() + 1 - Number(dateBookingState[1]);
+  const totalDate = today.getDate() - Number(dateBookingState[2]);
+  const checkDate = totalYear * 325 + totalMonth * 30 + totalDate;
+  const handleCancalBooking = async (idBooking) => {
+    try {
+      let dataRefund = {
+        idPayment: idBooking,
+        status: "refund",
+      };
+      await refundApi.post(dataRefund);
+      toast.success("Bạn đã hủy tour thành công");
+    } catch (error) {
+      toast.error("Bạn đã hủy tour thất bại");
+    }
+  };
+
   return (
     <div>
       <Navbar />
-      <section>
-        <h1>Latest Transactions</h1>
-        <h2>Today</h2>
-        <details>
-          <summary>
-            <div>
-              <span style={{ "background-color": "#f2dcbb" }}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width={192}
-                  height={192}
-                  fill="currentColor"
-                  viewBox="0 0 256 256"
-                >
-                  <rect width={256} height={256} fill="none" />
-                  <path
-                    d="M192,120h27.05573a8,8,0,0,0,7.15542-4.42229l18.40439-36.80878a8,8,0,0,0-3.18631-10.52366L192,40"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={16}
-                  />
-                  <path
-                    d="M64,120H36.94427a8,8,0,0,1-7.15542-4.42229L11.38446,78.76893a8,8,0,0,1,3.18631-10.52366L64,40"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={16}
-                  />
-                  <path
-                    d="M160,40a32,32,0,0,1-64,0H64V208a8,8,0,0,0,8,8H184a8,8,0,0,0,8-8V40Z"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={16}
-                  />
-                </svg>
-              </span>
-              <h3>
-                <strong>American Eagle</strong>
-                <small>Clothes &amp; Fashion</small>
-              </h3>
-              <span>-39.99 USD</span>
-            </div>
-          </summary>
-          <div>
-            <dl>
-              <div>
-                <dt>Time</dt>
-                <dd>4.27pm</dd>
-              </div>
-              <div>
-                <dt>Card used</dt>
-                <dd>•••• 6890</dd>
-              </div>
-              <div>
-                <dt>Reference ID</dt>
-                <dd>3125-568911</dd>
-              </div>
-            </dl>
-          </div>
-        </details>
-        <details>
-          <summary>
-            <div>
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width={192}
-                  height={192}
-                  fill="currentColor"
-                  viewBox="0 0 256 256"
-                >
-                  <rect width={256} height={256} fill="none" />
-                  <rect
-                    x={32}
-                    y={80}
-                    width={192}
-                    height={48}
-                    rx="7.99999"
-                    strokeWidth={16}
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    fill="none"
-                  />
-                  <path
-                    d="M208,128v72a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8V128"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={16}
-                  />
-                  <line
-                    x1={128}
-                    y1={80}
-                    x2={128}
-                    y2={208}
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={16}
-                  />
-                  <path
-                    d="M173.25483,68.68629C161.94113,80,128,80,128,80s0-33.94113,11.31371-45.25483a24,24,0,0,1,33.94112,33.94112Z"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={16}
-                  />
-                  <path
-                    d="M82.74517,68.68629C94.05887,80,128,80,128,80s0-33.94113-11.31371-45.25483A24,24,0,0,0,82.74517,68.68629Z"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={16}
-                  />
-                </svg>
-              </span>
-              <h3>
-                <strong>From Håvard Brynjulfsen</strong>
-                <small>Gift</small>
-              </h3>
-              <span className="plus">+50.00 USD</span>
-            </div>
-          </summary>
-          <div>
-            <dl>
-              <div>
-                <dt>Time</dt>
-                <dd>8.14am</dd>
-              </div>
-              <div>
-                <dt>Reference ID</dt>
-                <dd>3125-568912</dd>
-              </div>
-            </dl>
-          </div>
-        </details>
-        <details>
-          <summary>
-            <div>
-              <span style={{ "background-color": "#e0ece4" }}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width={192}
-                  height={192}
-                  fill="#000000"
-                  viewBox="0 0 256 256"
-                >
-                  <rect width={256} height={256} fill="none" />
-                  <line
-                    x1={88}
-                    y1={24}
-                    x2={88}
-                    y2={56}
-                    fill="none"
-                    stroke="#000000"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={16}
-                  />
-                  <line
-                    x1={120}
-                    y1={24}
-                    x2={120}
-                    y2={56}
-                    fill="none"
-                    stroke="#000000"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={16}
-                  />
-                  <line
-                    x1={152}
-                    y1={24}
-                    x2={152}
-                    y2={56}
-                    fill="none"
-                    stroke="#000000"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={16}
-                  />
-                  <line
-                    x1={32}
-                    y1={216}
-                    x2={208}
-                    y2={216}
-                    fill="none"
-                    stroke="#000000"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={16}
-                  />
-                  <path
-                    d="M83.29651,216.0038A88.01441,88.01441,0,0,1,32,136V88H208v48a88.0144,88.0144,0,0,1-51.29712,80.00408"
-                    fill="none"
-                    stroke="#000000"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={16}
-                  />
-                  <path
-                    d="M208,88h0a32,32,0,0,1,32,32V128a32,32,0,0,1-32,32h-3.37846"
-                    fill="none"
-                    stroke="#000000"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={16}
-                  />
-                </svg>
-              </span>
-              <h3>
-                <strong>Starbucks</strong>
-                <small>Food &amp; Beverage</small>
-              </h3>
-              <span>-14.99 USD</span>
-            </div>
-          </summary>
-          <div>
-            <dl>
-              <div>
-                <dt>Time</dt>
-                <dd>7.49am</dd>
-              </div>
-              <div>
-                <dt>Card used</dt>
-                <dd>•••• 6890</dd>
-              </div>
-              <div>
-                <dt>Reference ID</dt>
-                <dd>3125-568913</dd>
-              </div>
-            </dl>
-          </div>
-        </details>
-        <details>
-          <summary>
-            <div>
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width={192}
-                  height={192}
-                  fill="#000000"
-                  viewBox="0 0 256 256"
-                >
-                  <rect width={256} height={256} fill="none" />
-                  <circle
-                    cx={128}
-                    cy={128}
-                    r={96}
-                    fill="none"
-                    stroke="#000000"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={16}
-                  />
-                  <g>
-                    <path
-                      d="M179.1333,108.32931a112.19069,112.19069,0,0,0-102.3584.04859"
-                      fill="none"
-                      stroke="#000000"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={16}
-                    />
-                    <path
-                      d="M164.29541,136.71457a79.94058,79.94058,0,0,0-72.68359.04736"
-                      fill="none"
-                      stroke="#000000"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={16}
-                    />
-                    <path
-                      d="M149.47217,165.07248a47.97816,47.97816,0,0,0-43.03662.04736"
-                      fill="none"
-                      stroke="#000000"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={16}
-                    />
-                  </g>
-                </svg>
-              </span>
-              <h3>
-                <strong>Spotify</strong>
-                <small>Music &amp; Entertainment</small>
-              </h3>
-              <span>-9.99 USD</span>
-            </div>
-          </summary>
-          <div>
-            <dl>
-              <div>
-                <dt>Time</dt>
-                <dd>1.00am</dd>
-              </div>
-              <div>
-                <dt>Card used</dt>
-                <dd>•••• 6890</dd>
-              </div>
-              <div>
-                <dt>Reference ID</dt>
-                <dd>3125-568915</dd>
-              </div>
-            </dl>
-          </div>
-        </details>
-      </section>
+      {loadding === true ? (
+        <section>
+          <h1>Latest Transactions</h1>
+          <Skeleton variant="text" />
+          <Skeleton variant="rect" width={800} height={118} /> <br></br>
+          <Skeleton
+            animation="wave"
+            variant="rect"
+            width={800}
+            height={118}
+          />{" "}
+          <br></br>
+          <Skeleton variant="rect" width={800} height={118} /> <br></br>
+          <Skeleton
+            animation="wave"
+            variant="rect"
+            width={800}
+            height={118}
+          />{" "}
+          <br></br>
+        </section>
+      ) : (
+        <section>
+          <h1>Latest Transactions</h1>
+          {}
+          <h2>Today</h2>
+          <TransactionItem
+            checkDate={checkDate}
+            dataTransaction={dataTransaction}
+            handleCancalBooking={handleCancalBooking}
+          />
+        </section>
+      )}
     </div>
   );
 }
