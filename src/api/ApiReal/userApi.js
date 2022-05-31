@@ -9,6 +9,10 @@ const userApi = {
     const url = "/customer";
     axiosClient.post(url, data);
   },
+  userbooking: (data) => {
+    const url = "/userbooking";
+    axiosClient.post(url, data);
+  },
 };
 
 export default userApi;

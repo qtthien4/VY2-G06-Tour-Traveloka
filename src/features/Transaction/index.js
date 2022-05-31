@@ -38,7 +38,7 @@ export default function Transaction() {
       // const data = await transactionApi.post(dataTransaction);
       // console.log(data);
       setLoadding(true);
-      const res = await axios("http://localhost:3003/api/userbooking", {
+      const res = await axios("http://95.111.203.185:3003/api/userbooking", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
