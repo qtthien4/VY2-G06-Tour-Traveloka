@@ -274,6 +274,17 @@ class ApiController {
     });
   }
 
+  async bookingId(req, res) {
+    var id = req.params.id;
+    try {
+      book
+        .findAll({ raw: true, where: { IdBooking: id } })
+        .then((arrActivity) => res.send(arrActivity));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async endbooking(req, res) {
     const { endbooking } = req.body;
     var amountBooking = endbooking.amountBooking;
@@ -312,32 +323,58 @@ class ApiController {
   //lay booking cuar user (post)
   async UserBooking(req, res) {
     var userLogin = req.body.user;
-    console.log(userLogin);
-    try {
-      var customer = await user.findOne({
+
+    var customer = await user.findOne({
+      raw: true,
+      where: { email: userLogin },
+      order: ["IdCustomer"],
+    });
+
+    if (customer == null) {
+      res.json({ status: 400, data: "user khong ton tai" });
+    } else {
+      var idCustomer = customer.IdCustomer;
+
+      var booking = await book.findAll({
         raw: true,
-        where: { email: userLogin },
-        order: ["IdCustomer"],
+        where: { IdCustomer: idCustomer },
       });
+      var idSchedule,
+        arrBookingUser = [];
 
-      if (customer == null) {
-        res.json({ status: 400, data: "user khong ton tai" });
-      } else {
-        var idCustomer = customer.IdCustomer;
-
-        var booking = await book.findAll({
+      for (var i = 0; i < booking.length; i++) {
+        idSchedule = booking[1].IdSchedule;
+        var objSchedule = await schedule.findOne({
           raw: true,
-          where: { IdCustomer: idCustomer },
+          where: { IdSchedule: idSchedule },
+          order: ["IdSchedule"],
         });
+        var objAcivity = await activity.findOne({
+          raw: true,
+          where: { IdActivity: objSchedule.IdActivity },
+          order: ["IdActivity"],
+        });
+        var objBookingUser = {};
+        objBookingUser.ActivityName = objAcivity.ActivityName;
+        objBookingUser.ImageUrl = objAcivity.ImageUrl;
+        objBookingUser.Price = objAcivity.Price;
+        objBookingUser.reduce = booking[i].Reduce;
+        objBookingUser.handleStartTime = objSchedule.StartTime;
+        objBookingUser.handleEndTime = objSchedule.EndTime;
+        objBookingUser.voucher = booking[i].IdVoucher;
+        objBookingUser.gift = booking[i].IdGift;
+        objBookingUser.bookingTime = booking[i].BookingTime;
+        objBookingUser.amountPeople = booking[i].AmountPeople;
+        objBookingUser.idBooking = booking[i].IdBooking;
 
-        if (booking == null) {
-          res.json({ status: 400, data: "khong co booking nao" });
-        } else {
-          res.send(booking);
-        }
+        arrBookingUser.push(objBookingUser);
       }
-    } catch (error) {
-      console.log("error", error);
+
+      if (booking == null) {
+        res.json({ status: 400, data: "khong co booking nao" });
+      } else {
+        res.send(arrBookingUser);
+      }
     }
   }
 
@@ -380,5 +417,4 @@ class ApiController {
     }
   }
 }
-
 module.exports = new ApiController();
