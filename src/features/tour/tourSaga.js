@@ -53,13 +53,13 @@ function* fetchApiListTypeTransport(nameType) {
   const listCityVN = yield call(fakeCityApi.getAll);
   const listTour = yield call(tourApi.getAll);
   const listSaigon = listTour.filter(
-    (list) => list.IdCity.trim() === "10009794" && list.idtype.trim() === "2"
+    (list) => list.IdCity === "10009794" && list.idtype === "2"
   );
   const listNhaTrang = listTour.filter(
-    (list) => list.IdCity.trim() === "10009841" && list.idtype.trim() === "2"
+    (list) => list.IdCity === "10009841" && list.idtype === "2"
   );
   const listHaNoi = listTour.filter(
-    (list) => list.IdCity.trim() === "10009843" && list.idtype.trim() === "2"
+    (list) => list.IdCity === "10009843" && list.idtype === "2"
   );
 
   const listCountry = yield call(countryApi.getAll);
@@ -79,13 +79,13 @@ function* fetchApiListTypeSport(nameType) {
   const listCityVN = yield call(fakeCityApi.getAll);
   const listTour = yield call(tourApi.getAll);
   const listSaigon = listTour.filter(
-    (list) => list.IdCity.trim() === "10009794" && list.idtype.trim() === "4"
+    (list) => list.IdCity === "10009794" && list.idtype === "4"
   );
   const listNhaTrang = listTour.filter(
-    (list) => list.IdCity.trim() === "10009841" && list.idtype.trim() === "4"
+    (list) => list.IdCity === "10009841" && list.idtype === "4"
   );
   const listHaNoi = listTour.filter(
-    (list) => list.IdCity.trim() === "10009843" && list.idtype.trim() === "4"
+    (list) => list.IdCity === "10009843" && list.idtype === "4"
   );
 
   const listCountry = yield call(countryApi.getAll);
@@ -104,13 +104,13 @@ function* fetchApiListTypePlayground(nameType) {
   const listCityVN = yield call(fakeCityApi.getAll);
   const listTour = yield call(tourApi.getAll);
   const listSaigon = listTour.filter(
-    (list) => list.IdCity.trim() === "10009794" && list.idtype.trim() === "3"
+    (list) => list.IdCity === "10009794" && list.idtype === "3"
   );
   const listNhaTrang = listTour.filter(
-    (list) => list.IdCity.trim() === "10009841" && list.idtype.trim() === "3"
+    (list) => list.IdCity === "10009841" && list.idtype === "3"
   );
   const listHaNoi = listTour.filter(
-    (list) => list.IdCity.trim() === "10009843" && list.idtype.trim() === "3"
+    (list) => list.IdCity === "10009843" && list.idtype === "3"
   );
 
   const listCountry = yield call(countryApi.getAll);
@@ -132,21 +132,21 @@ function* fetchApiListTypeAttraction(nameType) {
   const listType = yield call(fakeTypeApi.getAll);
   const listTour = yield call(tourApi.getAll);
   const listNhaTrang = listTour.filter(
-    (list) => list.IdCity.trim() === "10009841" && list.idtype.trim() === "5"
+    (list) => list.IdCity === "10009841" && list.idtype === "5"
   );
   const listHaNoi = listTour.filter(
-    (list) => list.IdCity.trim() === "10009843" && list.idtype.trim() === "5"
+    (list) => list.IdCity === "10009843" && list.idtype === "5"
   );
   const listNhatBan = listTour.filter(
-    (list) => list.IdCity.trim() === "20001756" && list.idtype.trim() === "5"
+    (list) => list.IdCity === "20001756" && list.idtype === "5"
   );
 
   const listSaigon = listTour.filter(
-    (list) => list.IdCity.trim() === "10009794" && list.idtype.trim() === "5"
+    (list) => list.IdCity === "10009794" && list.idtype === "5"
   );
 
   const listSingapore = listTour.filter(
-    (list) => list.IdCity.trim() === "10000001" && list.idtype.trim() === "5"
+    (list) => list.IdCity === "10000001" && list.idtype === "5"
   );
 
   const listArrType = listType.filter((list) => list.link === nameType)[0];
@@ -169,13 +169,11 @@ function* fetchDataTourList(nameType) {
         yield put(tourActions.fetchDataSucceess()),
       ]);
     } else if (nameType.payload === "transport") {
-
       yield all([
         call(fetchApiListTypeTransport, nameType.payload),
         yield put(tourActions.fetchDataSucceess()),
       ]);
     } else if (nameType.payload === "playground") {
-
       yield all([
         call(fetchApiListTypePlayground, nameType.payload),
         yield put(tourActions.fetchDataSucceess()),
@@ -186,7 +184,6 @@ function* fetchDataTourList(nameType) {
         yield put(tourActions.fetchDataSucceess()),
       ]);
     } else if (nameType.payload === "sport") {
-
       yield all([
         call(fetchApiListTypeSport, nameType.payload),
         yield put(tourActions.fetchDataSucceess()),

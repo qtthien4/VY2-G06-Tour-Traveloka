@@ -13,7 +13,7 @@ export default function RecentSearch({
     <Box className={classes.root}>
       <Box className={classes.boxRecentSearch}>
         <Typography variant="h4" className={classes.title}>
-          Recent Searches
+          Tìm kiếm gần đây
         </Typography>
         <Box>
           <List className={classes.rootList} disablePadding={false}>
@@ -27,7 +27,7 @@ export default function RecentSearch({
                   <Box textAlign="left" className="boxNameRecentSearch">
                     <span className="nameRecentSearch">{list.keyword}</span>{" "}
                     <br />
-                    <Typography variant="caption">Recent * Seach</Typography>
+                    <Typography variant="caption">Tìm kiếm gần đây</Typography>
                   </Box>
                 </Button>
               ))}
@@ -37,7 +37,7 @@ export default function RecentSearch({
       </Box>
 
       <Box className={classes.boxTrendingNow}>
-        <Typography className={classes.title}>Treading Now</Typography>
+        <Typography className={classes.title}>Đang là xu hướng</Typography>
         <Box className={classes.boxBtn} mt={2} mb={2}>
           {listCountry.map((list) => (
             <Button

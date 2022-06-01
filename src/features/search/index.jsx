@@ -60,6 +60,7 @@ export default function Search() {
         (list) => list.experienceId === String(id)
       );
       setNameCity(nameCity[0].name);
+      setNameCountry("");
 
       dispatch(searchActions.fetchTourList({ id, nameType }));
       dispatch(cityActions.fetchApiCity());
@@ -75,6 +76,7 @@ export default function Search() {
       let nameCountry = listCountry.filter((list) => {
         return list.IdCountry.trim() == id;
       });
+      setNameCity("");
       setNameCountry(nameCountry[0].CountryName);
     }
   }, [dispatch, location]);

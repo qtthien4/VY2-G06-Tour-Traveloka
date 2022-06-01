@@ -84,13 +84,13 @@ export const FAKE_API_TYPE_EXPERENCE = [
     },
 
     listSaigonType: {
-      title: "Danh lam thắng cảnh nổi tiếng của Việt Nam",
-      des: "Ghé thăm những địa điểm mang tính biểu tượng nhất trong thị trấn",
+      title: "Sài gòn: Một trạng thái nhiệt đới của tâm trí",
+      des: "Bạn sẽ tha hồ lựa chọn với các hoạt động giải trí hàng đầu của chúng tôi",
       listSaigon: [],
     },
     listNhaTrangType: {
-      title: "Điểm tham quan ở nước ngoài được bình chọn nhiều nhất",
-      des: "Có sẵn trong tầm tay của bạn",
+      title: "Tuyệt vời nhất Nha trang",
+      des: "Trải nghiệm tuyệt vời mà mọi người đang nói và say mê",
       listNhaTrang: [],
     },
     listHaNoiType: {
@@ -107,19 +107,19 @@ export const FAKE_API_TYPE_EXPERENCE = [
     imageType:
       "https://ik.imagekit.io/tvlk/image/imageResource/2019/12/04/1575430543164-435ea736b9a1b6ccaf1b2bd981b262b3.jpeg?tr=h-242,q-75",
     listCityType: {
-      title: "Các điểm tham quan yêu thích tại địa phương",
-      des: "Trải qua một ngày vui vẻ ở những thành phố này",
+      title: "Tìm kiếm cảm giác mạnh ở mọi nơi",
+      des: "Tìm trải nghiệm độc đáo và các hoạt động thể thao ở các điểm đến trên khắp Việt Nam",
       listCity: [],
     },
     listCountryType: {
-      title: "Vòng quanh thế giới",
-      des: "Ghé thăm những địa điểm này để biết những điểm thu hút khách du lịch hàng đầu",
+      title: "Tìm kiếm cảm giác mạnh ở mọi nơi",
+      des: "Tìm trải nghiệm độc đáo và các hoạt động thể thao ở các điểm đến trên khắp Việt Nam",
       listCountry: [],
     },
 
     listSaigonType: {
-      title: "Danh lam thắng cảnh nổi tiếng của Việt Nam",
-      des: "Ghé thăm những địa điểm mang tính biểu tượng nhất trong thị trấn",
+      title: "Bộ sưu tập thể thao",
+      des: "Khám phá các danh mục cho các bài tập và sức khỏe",
       listSaigon: [],
     },
     listNhaTrangType: {

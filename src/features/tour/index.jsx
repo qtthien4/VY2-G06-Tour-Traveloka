@@ -75,7 +75,6 @@ export default function Tours() {
     //dispatch(xprerienceActions.fetchApiXprerience(nameType));
   }, [dispatch, nameType]);
 
-
   const handleOnclickListTourVN = (idCity, idCountry) => {
     navigation(
       `/activities/search/daytour?idCountry=${idCountry}&idCity=${idCity}`
@@ -116,7 +115,7 @@ export default function Tours() {
                   id="hidden"
                   ref={imgBanner}
                   className={`${classes.heading_img}`}
-                  src={listType.imageType}
+                  src={state[0].imageType}
                 ></img>
 
                 <Box className={classes.boxSearchandRecentSearch}>
@@ -190,14 +189,14 @@ export default function Tours() {
                 ) : (
                   <Box className={classes.contentCity}>
                     <Typography className={classes.title}>
-                      {listType.length === undefined
+                      {state[0].length === undefined
                         ? list.current[0].listCityType.title
-                        : listType.listCityType.title}
+                        : state[0].listCityType.title}
                     </Typography>
                     <Typography className={classes.titleDescription}>
-                      {listType.length === undefined
+                      {state[0].length === undefined
                         ? list.current[0].listCityType.des
-                        : listType.listCityType.des}
+                        : state[0].listCityType.des}
                     </Typography>
                     <Box mt={4} className={classes.listTourCity}>
                       <Slide
@@ -223,7 +222,7 @@ export default function Tours() {
                       (nameType === "sport" && state[0].listCountryType.title)}
                   </Typography>
                   <Typography className={classes.titleDescription}>
-                    {/* {listType.length === undefined
+                    {/* {state[0].length === undefined
                       ? list.current[0].listCountryType.des
                       : listType.listCountryType.des} */}
                     {(nameType === "daytour" && state[0].listCountryType.des) ||
