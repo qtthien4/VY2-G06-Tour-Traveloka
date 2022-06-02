@@ -14,7 +14,7 @@ const {
 } = require("../configDb");
 
 class ApiController {
-  index(req, res) {}
+  index(req, res) { }
 
   RegisterUser(req, res) {
     var info = req.body;
@@ -147,6 +147,7 @@ class ApiController {
   async scheduleID(req, res) {
     var id = req.params.id;
     var arrSchedule = [];
+
     await schedule
       .findAll({ raw: true, where: { IdActivity: id } })
       .then((e) => {
@@ -158,7 +159,7 @@ class ApiController {
       var timestart = new Date(a);
       console.log(timestart <= new Date());
 
-      //check xem du so luong nguoi ch
+      //   //check xem du so luong nguoi ch
       if (arrSchedule[i].AmountBooking == arrSchedule[i].Amount) {
         await schedule.update(
           { Status: 0 },
@@ -169,13 +170,14 @@ class ApiController {
           { Status: 1 },
           { where: { IdSchedule: arrSchedule[i].IdSchedule } }
         );
-        //check xem qua time ch
-        if (timestart <= new Date()) {
-          await schedule.update(
-            { Status: 0 },
-            { where: { IdSchedule: arrSchedule[i].IdSchedule } }
-          );
-        }
+      }
+
+      //     //check xem qua time ch
+      if (timestart <= new Date()) {
+        await schedule.update(
+          { Status: 0 },
+          { where: { IdSchedule: arrSchedule[i].IdSchedule } }
+        );
       }
     }
 
