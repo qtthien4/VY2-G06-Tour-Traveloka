@@ -36,26 +36,29 @@ export default function Register() {
   });
 
   const onSubmit = async (data) => {
-    const { email, password, rePassword } = data;
-    if (password === rePassword) {
-      //login tiep tuc
-      setCheckpass(true);
-      //post api register in profile
-      const a = await userApi.register({
-        IdCustomer: shortid.generate(),
-        Name: "",
-        email: email,
-        password: password,
-        Phone: "",
-        gender: "",
-        point: "",
-      });
-      console.log(a);
-      toast.success("Bạn đã đăng kí tài khoản thành công");
-      navigate("/login");
-    } else {
-      //validation
-      setCheckpass(false);
+    const { Name, Phone, gender, email, password, rePassword } = data;
+    try {
+      if (password === rePassword) {
+        //login tiep tuc
+        setCheckpass(true);
+        //post api register in profile
+        await userApi.register({
+          IdCustomer: shortid.generate(),
+          Name: Name,
+          email: email,
+          password: password,
+          Phone: Phone,
+          gender: gender,
+          point: "",
+        });
+
+        toast.success("Bạn đã đăng kí tài khoản thành công");
+        navigate("/login");
+      } else {
+        setCheckpass(false);
+      }
+    } catch (error) {
+      toast.warning("Bạn đăng kí thất bại");
     }
   };
 
