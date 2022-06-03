@@ -7,8 +7,8 @@ class StatisticController {
     async index(req, res) {
         var userPartner = req.signedCookies.Cookie_User
         var arrActivity = await GetDb.fullactivity(userPartner)
-        // res.send(arrActivity)
-        res.render('statistic', { activity: arrActivity, user: userPartner });
+        res.send(arrActivity)
+        // res.render('statistic', { activity: arrActivity, user: userPartner });
     }
 
     async StatisticDetail(req, res) {
@@ -17,11 +17,11 @@ class StatisticController {
         var arrBoking = await GetDb.fullBookngOneActivity(id)
         //format tien 
         for (var i = 0; i < arrBoking.length; i++) {
-            var totalBooking = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(arrBoking[i].Total)
-            arrBoking[i].Total = totalBooking
+            var totalBooking = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(arrBoking[i].Reduce)
+            arrBoking[i].Reduce = totalBooking
         }
         res.render('statistcdetail', { booking: arrBoking, id: id, user: user });
-        // res.send(arrBoking)        
+        // res.send(arrBoking)
 
     }
 
@@ -54,8 +54,8 @@ class StatisticController {
                     arrBoking.splice(i, 1);
                 } else {
                     //format tien
-                    var totalBooking = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(arrBoking[i].Total)
-                    arrBoking[i].Total = totalBooking
+                    var totalBooking = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(arrBoking[i].Reduce)
+                    arrBoking[i].Reduce = totalBooking
                     i++
                 }
             }
@@ -78,8 +78,8 @@ class StatisticController {
 
             //format tien
             for (var i = 0; i < arrBoking.length; i++) {
-                var totalBooking = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(arrBoking[i].Total)
-                arrBoking[i].Total = totalBooking
+                var totalBooking = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(arrBoking[i].Reduce)
+                arrBoking[i].Reduce = totalBooking
             }
 
             res.render('statistcdetail', { booking: arrBoking, user: user });

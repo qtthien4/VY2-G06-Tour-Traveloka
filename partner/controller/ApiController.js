@@ -1,5 +1,7 @@
 const sql = require("mssql/msnodesqlv8");
 const shortid = require("shortid");
+const axios = require('axios')
+
 const {
   activity,
   country,
@@ -222,28 +224,17 @@ class ApiController {
       });
 
       var amountBookingSchedule = scheduleObj.AmountBooking;
-      amountPeople = parseInt(amountPeople) + parseInt(amountBookingSchedule);
-      amountPeople.toString();
+      var sumPeopel = parseInt(amountPeople) + parseInt(amountBookingSchedule);
+      sumPeopel.toString();
 
       //update giữ chổ
       await schedule.update(
         {
-          AmountBooking: amountPeople,
+          AmountBooking: sumPeopel,
         },
         { where: { IdSchedule: idSchedule } }
       );
 
-      var amountBookingSchedule = scheduleObj.AmountBooking;
-      amountPeople = parseInt(amountPeople) + parseInt(amountBookingSchedule);
-      amountPeople.toString();
-
-      //update giữ chổ
-      await schedule.update(
-        {
-          AmountBooking: amountPeople,
-        },
-        { where: { IdSchedule: idSchedule } }
-      );
 
       //inser db
       await book.create({
@@ -382,8 +373,9 @@ class ApiController {
 
   //api post payment
   async payment(req, res) {
-    //console.log(req.body)
-    var updateBooking = req.body;
+    // console.log(req.body)
+    var updateBooking = req.body.dataPayment;
+    console.log(updateBooking);
     if (updateBooking.sttBooking == "success") {
       var idbooking = updateBooking.idBooking;
       var bookingTime = updateBooking.bookingTime;
@@ -396,7 +388,7 @@ class ApiController {
       var point = updateBooking.score;
       //sstbooking
 
-      book.update(
+      await book.update(
         {
           IdVoucher: idVoucher,
           IdGift: idGift,
@@ -411,11 +403,44 @@ class ApiController {
       //update theem cai soo luong da them
       //update điểm
 
-      var userObj = user.findOne({ raw: true, where: { IdCustomer: idUser } });
+      var userObj = await user.findOne({ raw: true, where: { IdCustomer: idUser }, order: ['IdCustomer'] });
       if (userObj != null) {
         var addPoint = userObj.point + point;
-        user.update({ point: addPoint }, { where: { IdCustomer: idUser } });
+        await user.update({ point: addPoint }, { where: { IdCustomer: idUser } });
       }
+    }
+
+    res.json({ data: "ok" })
+  }
+
+  async refundBooking(req, res) {
+    var idbooking = req.body.idPayment;
+
+
+    const bookObj = await book.findOne({ raw: true, where: { IdBooking: idbooking }, order: ['IdBooking'] })
+    if (bookObj != null) {
+      var idPayment = bookObj.IdPayment.trim();
+
+      const refund = await axios(`https://api-m.sandbox.paypal.com/v2/payments/captures/${idPayment}/refund`, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        auth: {
+          username: process.env.PUCLIC_KEY_PAYPAL,
+          password: process.env.SERECT_KEY_PAYPAL
+        }
+      })
+
+      //doi trang thai
+      await book.update({
+        SttBooking: 'refund'
+      }, { where: { IdBooking: idbooking } })
+
+      //doi so luong dat
+
+
+      res.send(refund.data)
     }
   }
 }

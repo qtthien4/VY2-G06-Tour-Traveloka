@@ -148,6 +148,7 @@
                 <th scope="col">Số lượng người</th>
                 <th scope="col" style="width:20%">Ngày đặt</th>
                 <th scope="col">Sử dụng voucher</th>
+                <th scope="col">Sử dụng gift</th>
                 <th scope="col" style="width:10%">Tổng tiền</th>
                 <th scope="col">Trạng thái</th>
                 <th></th>
@@ -161,8 +162,9 @@
                 <td>{{this.AmountPeople}}</td>
                 <td>{{{this.BookingTime}}}</td>
                 <td>{{{this.Voucher}}}</td>
-                <td>{{{this.Total}}}</td>
-                <td>Đã thanh toán</td>
+                <td>{{{this.gift}}}</td>
+                <td>{{{this.Reduce}}}</td>
+                <td>{{{this.SttBooking}}}</td>
                 {{!-- <td>{{{this.SttBooking}}}</td> --}}
               </tr>
               {{/each}}

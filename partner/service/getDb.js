@@ -23,7 +23,10 @@ class GetDb {
 
             //tinh tong tien thu duoc
             for (var k = 0; k < arrActivity[i].booking.length; k++) {
-                totalBooking = totalBooking + parseInt(arrActivity[i].booking[k].Total)
+                if (arrActivity[i].booking[k].SttBooking == 'success') {
+                    totalBooking = totalBooking + parseInt(arrActivity[i].booking[k].Reduce)
+                }
+
             }
             totalBooking = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalBooking)
             arrActivity[i].totalBooking = totalBooking;
@@ -64,11 +67,20 @@ class GetDb {
 
             handleArrBooking[i].User = arrUser.Name
             handleArrBooking[i].count = i + 1
-            if (handleArrBooking[i].IdVoucher = '') {
-                handleArrBooking[i].Voucher = "Không"
-            } else {
+
+
+
+            if (handleArrBooking[i].IdVoucher != "                    ") {
                 handleArrBooking[i].Voucher = "Có"
+            } else {
+                handleArrBooking[i].Voucher = "Không"
             }
+            if (handleArrBooking[i].IdGift != "                    ") {
+                handleArrBooking[i].gift = "Có"
+            } else {
+                handleArrBooking[i].gift = "Không"
+            }
+
             //format gia tien
             // var totalBooking = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format( handleArrBooking[i].Total)
             // handleArrBooking[i].Total = totalBooking
