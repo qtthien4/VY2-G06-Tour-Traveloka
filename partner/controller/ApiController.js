@@ -1,4 +1,3 @@
-const sql = require("mssql/msnodesqlv8");
 const shortid = require("shortid");
 const axios = require('axios')
 
@@ -217,23 +216,7 @@ class ApiController {
       var emailCus = customerDetail.emailCus;
       var gender = customerDetail.gender;
 
-      var scheduleObj = await schedule.findOne({
-        raw: true,
-        where: { IdSchedule: idSchedule },
-        order: ["IdSchedule"],
-      });
 
-      var amountBookingSchedule = scheduleObj.AmountBooking;
-      var sumPeopel = parseInt(amountPeople) + parseInt(amountBookingSchedule);
-      sumPeopel.toString();
-
-      //update giữ chổ
-      await schedule.update(
-        {
-          AmountBooking: sumPeopel,
-        },
-        { where: { IdSchedule: idSchedule } }
-      );
 
 
       //inser db
@@ -278,22 +261,30 @@ class ApiController {
     }
   }
 
+  //het time dat
   async endbooking(req, res) {
-    const { endbooking } = req.body;
+    const endbooking = req.body.dataTimeoutPayment;
+
     var amountBooking = endbooking.amountBooking;
     var idBooking = endbooking.idBooking;
     var idSchedule = endbooking.idSchedule;
 
+    await customer.destroy({ where: { IdBooking: idBooking } })
     await book.destroy({ where: { IdBooking: idBooking } });
     var scheduleObj = await schedule.findOne({
       raw: true,
       where: { IdSchedule: idSchedule },
+      order: ['IdSchedule']
     });
+
     var subtractAmount = scheduleObj.AmountBooking - amountBooking;
     await schedule.update(
       { AmountBooking: subtractAmount },
       { where: { IdSchedule: idSchedule } }
     );
+
+    res.json({ data: 'oke' })
+
   }
 
   //lay thoong tin cua user (post)
@@ -312,6 +303,40 @@ class ApiController {
       res.send(infoUser);
     }
   }
+
+  //get giữ chổ
+  async GetReservation(req, res) {
+    const idSchedule = req.body.IdSchedul;
+
+    const getReservation = await schedule.findOne({ raw: true, where: { IdSchedule: idSchedule }, order: ['IdSchedule'] })
+    res.send(getReservation);
+  }
+
+  //update giữ chổ
+  async Reservation(req, res) {
+    const idSchedule = req.body.IdSchedule;
+    const amountPeople = req.body.amount;
+
+    var scheduleObj = await schedule.findOne({
+      raw: true,
+      where: { IdSchedule: idSchedule },
+      order: ["IdSchedule"],
+    });
+
+    var amountBookingSchedule = scheduleObj.AmountBooking;
+    var sumPeopel = parseInt(amountPeople) + parseInt(amountBookingSchedule);
+    sumPeopel.toString();
+
+
+    await schedule.update(
+      {
+        AmountBooking: sumPeopel,
+      },
+      { where: { IdSchedule: idSchedule } }
+    );
+    res.json({ data: 'ok' })
+  }
+
 
   //lay booking cuar user (post)
   async UserBooking(req, res) {
@@ -415,7 +440,7 @@ class ApiController {
 
   async refundBooking(req, res) {
     var idbooking = req.body.idPayment;
-
+    var idSchedule = req.body.idSchedule;
 
     const bookObj = await book.findOne({ raw: true, where: { IdBooking: idbooking }, order: ['IdBooking'] })
     if (bookObj != null) {
@@ -438,7 +463,9 @@ class ApiController {
       }, { where: { IdBooking: idbooking } })
 
       //doi so luong dat
-
+      await schedule.update({
+        AmountBooking: bookObj.AmountPeople
+      }, { where: { IdSchedule: idSchedule } })
 
       res.send(refund.data)
     }
