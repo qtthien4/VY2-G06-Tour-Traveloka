@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import VerticalTabs from "./tabPayment";
 import Navbar from "./navbar";
 import Info from "./Info";
 import "./css/container.css";
 import { Typography } from "@material-ui/core";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
@@ -17,8 +17,12 @@ export default function Paymemt() {
   const idBooking = location.pathname.split("/")[3];
   const tourCurrent = JSON.parse(localStorage.getItem("TourCurrent"));
   const schedule = JSON.parse(localStorage.getItem("schedule"));
-
-  console.log(tourCurrent, schedule);
+  const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (idBooking === undefined) {
+  //     navigate("/activities");
+  //   }
+  // }, []);
   return (
     <Elements stripe={stripePromis}>
       <div>

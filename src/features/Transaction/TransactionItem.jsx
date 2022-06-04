@@ -53,7 +53,7 @@ export default function TransactionItem({
                     disabled
                     color="secondary"
                     variant="contained"
-                    onClick={() => handleCancalBooking(list.idBooking)}
+                    onClick={() => handleCancalBooking(list.idBooking,list.idSchedule)}
                   >
                     Hủy
                   </Button>

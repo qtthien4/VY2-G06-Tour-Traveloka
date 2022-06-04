@@ -6,7 +6,7 @@ import bookingApi from "api/ApiReal/bookingApi";
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { toast } from "react-toastify";
 import * as yup from "yup";
@@ -24,13 +24,13 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-
+  const location = useLocation();
   //sô giây
-
+  console.log(location.pathname.split("/")[3]);
   //Handle chay nguoc
 
   //setTImeOut 1p30s delete  booking theo activity
-  const time = 399;
+  const time = 15;
   const timerTrans = useRef(null);
 
   useEffect(() => {
@@ -44,11 +44,11 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
 
     timerTrans.current = setTimeout(async () => {
       await reBookingApi.post({ dataTimeoutPayment });
-      toast.warning("Bạn đã qúa thời gian cho phép thanh toán !");
-      navigate("/activities");
+      if (location.pathname.split("/")[3] === idBooking) {
+        toast.warning("Bạn đã qúa thời gian cho phép thanh toán !");
+        navigate("/activities");
+      }
     }, time * 1000);
-
-    return () => clearTimeout(timerTrans.current);
   }, []);
 
   //getAll Booking theo idBooking => idSchedule => idTour

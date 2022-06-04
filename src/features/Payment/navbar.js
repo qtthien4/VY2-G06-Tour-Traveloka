@@ -1,14 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./css/navbar.css";
 
 function Navbar() {
   return (
     <div className="hearder-topbar">
       <div className="hearder-topbar-inline">
-        <img
-          src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/30bf6c528078ba28d34bc3e37d124bdb.svg"
-          alt=""
-        />
+        <Link to="/activities">
+          <img
+            src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/30bf6c528078ba28d34bc3e37d124bdb.svg"
+            alt=""
+          />
+        </Link>
+
         <div style={{ marginLeft: "230px" }}>
           <ul className="handleulpay">
             <li>

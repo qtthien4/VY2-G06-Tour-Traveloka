@@ -23,21 +23,26 @@ import { productActions, selectScheduleTour, selectTour } from "./productSlice";
 
 const shortid = require("shortid");
 function Product() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const idTour = location.pathname.split("/")[4];
   // window.scroll(0, 0);
+
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const tour = useSelector(selectTour);
   const schedule = useSelector(selectScheduleTour);
   const listImage = useSelector(selectListImage);
-  const location = useLocation();
-  const idTour = location.pathname.split("/")[4];
-  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(productActions.fetchProduct(idTour));
-    dispatch(imageActions.fetchApiImage(idTour));
-    dispatch(scheduleActions.fetchApiSchedule(idTour));
+    if (idTour === undefined) {
+      navigate("/activities");
+    } else {
+      dispatch(productActions.fetchProduct(idTour));
+      dispatch(imageActions.fetchApiImage(idTour));
+      dispatch(scheduleActions.fetchApiSchedule(idTour));
+    }
   }, [dispatch, idTour]);
 
   //handle model image

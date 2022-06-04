@@ -326,10 +326,7 @@ function VerticalTabs({ idBooking, tourCurrent, schedule }) {
           idBooking={idBooking}
           schedule={schedule}
           tourCurrent={tourCurrent}
-        />       
-        <button onClick={() => navigate(`/booking/refund/${idBooking}`)}>
-          Thanh toán Chuyển khoản ngân hàng
-        </button>
+        />
       </TabPanel>
     </Box>
   );

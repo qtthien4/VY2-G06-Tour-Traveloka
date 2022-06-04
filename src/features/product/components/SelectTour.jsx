@@ -24,6 +24,7 @@ import BookVisitCustomer from "./BookVisitCustomer";
 import { formatter } from "utils/formatter";
 import { toast } from "react-toastify";
 import axios from "axios";
+import reservationApi from "api/ApiReal/reservationApi";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -116,9 +117,12 @@ export default function SelectTour({ schedule, tour, idTour }) {
       );
       amountCheckTourNow = arr[0].Amount;
     });
+    //post reservattion
+
     //check số lượng
 
     if (counter <= amountCheckTourNow) {
+      //await reservationApi.post({ IdSchedule: selectedValue.trim() });
       dispatch(productActions.setSchedule(initialValue));
       localStorage.setItem("schedule", JSON.stringify(initialValue));
       navigate(`/booking/v2/${String(selectedValue).trim()}`);
@@ -153,18 +157,22 @@ export default function SelectTour({ schedule, tour, idTour }) {
       setDisableButtonIn(false);
     }
   }, [amountMax]);
-
+  console.log(amountMax, tour.Amount, listSchedule.AmountBooking);
   const increase = () => {
-    if (counter === amountMax - 1) {
-      setDisableButtonIn(true);
-      setDisableButton(false);
+    if (amountMax > 0) {
+      if (counter === amountMax - 1) {
+        setDisableButtonIn(true);
+        setDisableButton(false);
+      }
+      if (counter < amountMax - 1 && counter > 0) {
+        setDisableButtonIn(false);
+        setDisableButton(false);
+      }
+      setCounter((count) => count + 1);
+      setPriceTotal((counter + 1) * tour.Price);
+    } else {
+      console.log("loi");
     }
-    if (counter < amountMax - 1 && counter > 0) {
-      setDisableButtonIn(false);
-      setDisableButton(false);
-    }
-    setCounter((count) => count + 1);
-    setPriceTotal((counter + 1) * tour.Price);
   };
 
   //decrease counter
@@ -193,7 +201,6 @@ export default function SelectTour({ schedule, tour, idTour }) {
   const handleOnclickAmount = () => {
     setVisible(false);
     setDisabled(false);
-
     setColorDisable("main-bg-button-color-orange");
   };
   const handleChangeToggle = () => {

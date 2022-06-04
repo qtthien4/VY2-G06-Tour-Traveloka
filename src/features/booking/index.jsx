@@ -29,8 +29,6 @@ export default function Booking() {
   const user = useContext(AuthContext);
   const tour = useSelector(selectTour);
 
-  useEffect(() => {});
-
   const [idTourBooking, setTourBooking] = useState(
     localStorage.getItem("idTour")
   );
@@ -41,7 +39,6 @@ export default function Booking() {
     JSON.parse(localStorage.getItem("listTour"))
   );
   const location = useLocation();
-  console.log(scheduleTour);
   let idSchedule = String(location.pathname.split("/")[3]);
 
   const TourCurrent = listTour.filter(
@@ -49,6 +46,9 @@ export default function Booking() {
   )[0];
   const dispatch = useDispatch();
   useEffect(() => {
+    if (idSchedule === undefined) {
+      navigate("/activities");
+    }
     dispatch(bookingActions.fetchTour(JSON.parse(idTourBooking)));
   }, [dispatch]);
 

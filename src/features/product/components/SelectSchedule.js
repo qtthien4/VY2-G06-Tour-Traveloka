@@ -18,8 +18,6 @@ export default function SelectSchedule({
         String(element.EndTime).split("T")[0],
     });
   });
-  console.log("schedule", schedule);
-
   return (
     <div style={{ width: "90%", marginTop: "-42px" }}>
       <br />
