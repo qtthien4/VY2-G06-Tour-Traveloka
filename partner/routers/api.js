@@ -17,7 +17,6 @@ router.get("/keysearch", apiController.keysearch);
 router.get("/favaurite", apiController.getFavourite);
 router.get("/booking/:id", apiController.bookingId);
 //update và get reservation
-router.get("/getreservation", apiController.GetReservation);
 router.post("/reservation", apiController.Reservation);
 
 router.post("/registeruser", apiController.RegisterUser);

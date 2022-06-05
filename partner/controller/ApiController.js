@@ -283,6 +283,8 @@ class ApiController {
       { where: { IdSchedule: idSchedule } }
     );
 
+    console.log(endbooking);
+
     res.json({ data: 'oke' })
 
   }
@@ -304,17 +306,10 @@ class ApiController {
     }
   }
 
-  //get giữ chổ
-  async GetReservation(req, res) {
-    const idSchedule = req.body.IdSchedul;
-
-    const getReservation = await schedule.findOne({ raw: true, where: { IdSchedule: idSchedule }, order: ['IdSchedule'] })
-    res.send(getReservation);
-  }
-
   //update giữ chổ
   async Reservation(req, res) {
     const idSchedule = req.body.IdSchedule;
+
     const amountPeople = req.body.amount;
 
     var scheduleObj = await schedule.findOne({
@@ -331,6 +326,7 @@ class ApiController {
     await schedule.update(
       {
         AmountBooking: sumPeopel,
+        Status: 1
       },
       { where: { IdSchedule: idSchedule } }
     );
