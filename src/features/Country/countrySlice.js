@@ -10,12 +10,16 @@ const initialState = {
       imageUrl: "",
     },
   ],
+  name:"",
 };
 const countrySlice = createSlice({
   name: "country",
   initialState,
   reducers: {
     fetchApiCountry: (state) => {
+      state.loadding = true;
+    },
+    fetchApiCountrySearch: (state) => {
       state.loadding = true;
     },
 
@@ -30,6 +34,10 @@ const countrySlice = createSlice({
       state.loadding = true;
       state.list = action.payload;
     },
+    fetchApiCountryTourName: (state, action) => {
+      state.loadding = true;
+      state.name = action.payload;
+    },
     fetchApiCountryTourFailed: () => {
       console.log("failed");
     },
@@ -42,6 +50,8 @@ export const countryActions = countrySlice.actions;
 export const selectListCountryLoadding = (state) => state.country.loadding;
 
 export const selectListCountry = (state) => state.country.list;
+export const selectCountryName = (state) => state.country.name;
+
 
 export const selectListCountryFilter = (state) => state.country.listFilter;
 

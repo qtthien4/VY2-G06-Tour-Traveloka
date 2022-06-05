@@ -4,7 +4,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import VouchersApi from "api/ApiExternal/Vouchers/VouchersApi";
 import bookingApi from "api/ApiReal/bookingApi";
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import Select from "react-select";
@@ -14,10 +14,10 @@ import { formatter } from "../../../utils/formatter";
 import CountDown from "./CountDown";
 import reBookingApi from "api/ApiReal/reBookingApi";
 import PayPal from "PayPal";
+import { AuthContext } from "context/AuthProvider";
 
 export default function FormPayment({ schedule, idBooking, tourCurrent }) {
-  // const stripe = useStripe();
-  // const elements = useElements();
+  const user = useContext(AuthContext);
   const {
     control,
     handleSubmit,
@@ -32,7 +32,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   //setTImeOut 1p30s delete  booking theo activity
   const time = 15;
   const timerTrans = useRef(null);
-
+  const [message, setMessager] = useState("");
   useEffect(() => {
     const dataTimeoutPayment = {
       idBooking: idBooking,
@@ -44,10 +44,8 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
 
     timerTrans.current = setTimeout(async () => {
       await reBookingApi.post({ dataTimeoutPayment });
-      if (location.pathname.split("/")[3] === idBooking) {
-        toast.warning("Bạn đã qúa thời gian cho phép thanh toán !");
-        navigate("/activities");
-      }
+      toast.warning("Bạn đã qúa thời gian cho phép thanh toán !");
+      navigate("/activities");
     }, time * 1000);
   }, []);
 
@@ -159,8 +157,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     try {
       const order = await actions.order.capture();
-      let { id } = order;
-      console.log(order);
+      let id = order.purchase_units[0].payments.captures[0].id;
 
       const dataPayment = {
         idBooking: idBooking,
@@ -172,7 +169,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
         idPayment: id,
         idSchedule: schedule.idSchedule,
         amountBooking: schedule.Amount,
-        idCustomer: "1",
+        idCustomer: user.IdCustomer,
         score: 10,
       };
 

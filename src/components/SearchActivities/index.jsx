@@ -85,11 +85,12 @@ export default function SearchActivities({ style, layoutRef, scroll }) {
   const [searchText, setSearchText] = useState("");
   const listTour = useSelector(listRemainingSelectorTourSearch);
   const listKeySearch = useSelector(selectListKeysearch);
+
   const listCountry = useSelector(selectListCountry);
   const listCountryFilter = useSelector(selectListCountryFilter);
 
   const dispatch = useDispatch();
-
+  console.log(listCountry);
   const handleOpenModel = () => {
     window.scroll(0, scroll);
     recentSearchesRef.current.style.display = "block";
@@ -110,7 +111,7 @@ export default function SearchActivities({ style, layoutRef, scroll }) {
     dispatch(searchActivityActions.fetchSearchActivity(searchText));
     dispatch(searchActivityActions.setFilterSearchChangeInput(searchText));
     dispatch(keysearchActions.fetchApiKeysearch());
-    dispatch(countryActions.fetchApiCountry());
+    dispatch(countryActions.fetchApiCountrySearch());
     dispatch(countryActions.fetchApiCountryFilter(searchText));
   }, [dispatch, searchText]);
 

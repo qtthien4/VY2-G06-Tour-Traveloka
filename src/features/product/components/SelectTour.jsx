@@ -103,7 +103,8 @@ export default function SelectTour({ schedule, tour, idTour }) {
       Desr: "",
     };
 
-    var amountCheckTourNow;
+    var amountCheckTourNow, amountTour, arr;
+
     //call api schedule
 
     await axios(`http://95.111.203.185:3003/api/schedule/${idTour}`, {
@@ -112,23 +113,35 @@ export default function SelectTour({ schedule, tour, idTour }) {
         "Content-Type": "application/json",
       },
     }).then((res) => {
-      const arr = res.data.filter(
+      if (Array.prototype.keys(res.data) === 0) {
+        toast.warning(
+          `Số lượng tour không đủ ${counter} chỉ còn ${amountCheckTourNow} chỗ trống, vui lòng chọn lại !!!`
+        );
+      }
+      arr = res.data.filter(
         (list) => list.IdSchedule.trim() === selectedValue.trim()
       );
-      amountCheckTourNow = arr[0].Amount;
+      amountCheckTourNow = arr[0].AmountBooking;
+      amountTour = arr[0].Amount;
     });
     //post reservattion
 
     //check số lượng
-
-    if (counter <= amountCheckTourNow) {
-      //await reservationApi.post({ IdSchedule: selectedValue.trim() });
+    if (arr.length == 0) {
+      toast.warning(`Số lượng đặt đã hết, vui lòng chọn thời gian khác !!!`);
+    } else if (counter + amountCheckTourNow <= amountTour) {
+      await reservationApi.post({
+        IdSchedule: selectedValue.trim(),
+        amount: counter,
+      });
       dispatch(productActions.setSchedule(initialValue));
       localStorage.setItem("schedule", JSON.stringify(initialValue));
       navigate(`/booking/v2/${String(selectedValue).trim()}`);
     } else {
       toast.warning(
-        `Số lượng tour không đủ ${counter} chỉ còn ${amountCheckTourNow} chỗ trống, vui lòng chọn lại !!!`
+        `Số lượng tour chỉ còn ${
+          amountTour - amountCheckTourNow
+        } chỗ trống, vui lòng chọn lại !!!`
       );
     }
     //ok

@@ -3,10 +3,8 @@ import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./index.css";
 
-function Header() {
-  const user = useContext(AuthContext) || {};
-  console.log(user);
-
+function Header({ user1 }) {
+  const user = user1 || {};
   return (
     <div
       className="navLayout"

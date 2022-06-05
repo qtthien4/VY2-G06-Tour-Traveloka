@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useCallback } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useCallback,
+  useContext,
+  useState,
+} from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import Banner from "./Banner";
@@ -7,13 +13,22 @@ import Slide from "./Slide";
 import { listTour, listPromotion, listPlace } from "./Containers/ListHome.js";
 import Footer from "components/Footer";
 import Header from "components/Header";
+import { AuthContext } from "context/AuthProvider";
 
 export default function Xperience() {
+  //const user = useContext(AuthContext);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("userInfo"))
+  );
+
   //handleOnclickXperience
   const navigate = useNavigate();
-
+  useEffect(() => {
+    console.log("user1", user);
+    setUser(user);
+  }, [user]);
   // useEffect(()=>{
-
+  console.log("user1", user);
   // },[])
 
   const handleOnclickXperience = useCallback(
@@ -35,7 +50,7 @@ export default function Xperience() {
     // </div>
 
     <div className="background_change">
-      <Header />
+      <Header user1={user} />
       <Banner />
 
       <div style={{ marginLeft: "100px", marginTop: "50px" }}>

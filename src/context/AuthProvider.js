@@ -13,7 +13,7 @@ export const AuthContext = createContext();
 export default function AuthProvider({ children }) {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("userInfo"));
-  console.log(user);
+ 
   // const [user, setUser] = useState({});
   // useEffect(() => {
   //   const unregisterAuthObserver = () => {

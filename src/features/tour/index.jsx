@@ -9,7 +9,8 @@ import { FAKE_API_TYPE_EXPERENCE } from "api/Data/fakeDataTypeApi";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import Slide from "components/Slide";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { AuthContext } from "context/AuthProvider";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "swiper/css/bundle";
@@ -39,6 +40,7 @@ export default function Tours() {
     zIndex: 10,
     borderRadius: "5px",
   };
+  const user = useContext(AuthContext);
   const listCityTourVietName = useSelector(selectListCityTour);
   const ListCountry = useSelector(selectListCountryTour);
   const ListMalaysiaTour = useSelector(selectListMalaysiaTour);
@@ -91,7 +93,7 @@ export default function Tours() {
 
   return (
     <div id="tour_root">
-      <Header />
+      <Header user1={user} />
       <div id="box_container_tour" className="boxContainerTour">
         <Grid
           ref={layoutRef}

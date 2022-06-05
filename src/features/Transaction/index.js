@@ -41,7 +41,6 @@ export default function Transaction() {
     (async function () {
       if (user) {
         const data = { user: user.email };
-        console.log(user.email);
         //write your js code here
         // const data = await transactionApi.post(dataTransaction);
         // console.log(data);
@@ -64,8 +63,6 @@ export default function Transaction() {
     //data trả về sẽ được set vào state mới
     //in all ra màn hình
   }, []);
-
-  console.log("a", user);
 
   if (dataTransaction.length !== 0) {
     const dateBookingState = dataTransaction[0].handleStartTime

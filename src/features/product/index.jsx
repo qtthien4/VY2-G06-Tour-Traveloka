@@ -4,6 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Footer from "components/Footer";
 import Header from "components/Header";
+import { AuthContext } from "context/AuthProvider";
 
 import { imageActions, selectListImage } from "features/Images/imageSlice";
 import {
@@ -11,7 +12,7 @@ import {
   selectListSchedule,
 } from "features/schedule/ScheduleSlice";
 import ListTour from "features/tour/components/ListTour";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import TourDesDetail from "./components/DesTourDetail";
@@ -25,6 +26,7 @@ const shortid = require("shortid");
 function Product() {
   const navigate = useNavigate();
   const location = useLocation();
+  const user = useContext(AuthContext);
   const idTour = location.pathname.split("/")[4];
   // window.scroll(0, 0);
 
@@ -55,7 +57,7 @@ function Product() {
   return (
     <Box>
       <Box className={classes.navProduct}>
-        <Header />
+        <Header user1={user} />
       </Box>
 
       <Box className={classes.rootBoxBig}>

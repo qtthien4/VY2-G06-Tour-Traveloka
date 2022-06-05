@@ -1,10 +1,20 @@
 import { Box, Typography } from "@material-ui/core";
 import Footer from "components/Footer";
 import Header from "components/Header";
-import { cityActions } from "features/City/citySlice";
-import { countryActions } from "features/Country/countrySlice";
+import { AuthContext } from "context/AuthProvider";
+import { cityActions, selectNameCity } from "features/City/citySlice";
+import {
+  countryActions,
+  selectCountryName,
+} from "features/Country/countrySlice";
 import { favauriteActions } from "features/Favaurite/favauriteSlice";
-import React, { useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import SearchActivities from "../../components/SearchActivities";
@@ -34,50 +44,37 @@ const style = {
 export default function Search() {
   const scroll = 0;
   const navigate = useNavigate();
+  const user = useContext(AuthContext);
   const classes = useStyles();
-  const listCityofTour = useSelector(SelectListTourOfCity);
-  const SelectPriceSort = useSelector(SelectFilterPrice);
 
-  const selectTour1 = useSelector(selectTour);
+  const listCityofTour = useSelector(SelectListTourOfCity);
+
+  const nameCityOK = useSelector(selectNameCity);
+  const CountryCityOK = useSelector(selectCountryName);
+
+  const renderName = useCallback(() => {
+    if (location.search.split("&").length > 1) {
+      return <>{nameCityOK}</>;
+    } else {
+      return <>{CountryCityOK}</>;
+    }
+  }, [nameCityOK, CountryCityOK]);
   const dispatch = useDispatch();
   let location = useLocation();
-
-  const [listCity, setListCity] = useState(
-    JSON.parse(localStorage.getItem("city"))
-  );
-
-  const [listCountry, setListCountry] = useState(
-    JSON.parse(localStorage.getItem("country"))
-  );
-  const [namCity, setNameCity] = useState("");
-  const [namCountry, setNameCountry] = useState("");
 
   useEffect(() => {
     if (location.search.split("&").length > 1) {
       let id = Number(location.search.split("&")[1].split("=")[1]);
       let nameType = location.pathname.split("/")[3];
-      let nameCity = listCity.filter(
-        (list) => list.experienceId === String(id)
-      );
-      setNameCity(nameCity[0].name);
-      setNameCountry("");
-
       dispatch(searchActions.fetchTourList({ id, nameType }));
-      dispatch(cityActions.fetchApiCity());
+      dispatch(cityActions.fetchApiCity(id));
       dispatch(favauriteActions.fetchApiFavaurite());
     } else {
       let id = Number(location.search.split("=")[1]);
       let nameType = location.pathname.split("/")[3];
-
       dispatch(searchActions.fetchTourCountryList({ id, nameType }));
-      dispatch(countryActions.fetchApiCountry());
+      dispatch(countryActions.fetchApiCountry(id));
       dispatch(favauriteActions.fetchApiFavaurite());
-
-      let nameCountry = listCountry.filter((list) => {
-        return list.IdCountry.trim() == id;
-      });
-      setNameCity("");
-      setNameCountry(nameCountry[0].CountryName);
     }
   }, [dispatch, location]);
 
@@ -157,7 +154,7 @@ export default function Search() {
 
   return (
     <>
-      <Header />
+      <Header user1={user} />
       <Box className={classes.container}>
         <Box className={classes.header}>
           <Box className={classes.headerBoxSearch} mb={3}>
@@ -177,11 +174,9 @@ export default function Search() {
               <span className={classes.slash}>/</span>
               <Typography className={classes.linkCity}></Typography>
             </Box>
-            <Typography
-              className={classes.nameCity}
-              variant="h4"
-            >{`Tất cả kết quả cho  ${namCity} ${namCountry}
-            `}</Typography>
+            <Typography className={classes.nameCity} variant="h4">
+              {`Tất cả kết quả cho`} {renderName()}
+            </Typography>
           </Box>
           <Box className={classes.sidebar}>
             <Typography className={classes.resetFilter} color="primary">

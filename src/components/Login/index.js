@@ -126,7 +126,7 @@ export default function Login({ setToken, setUser }) {
             </div>
             <div className="text-center p-t-136">
               <Link to="/register" className="txt2">
-                Bạn đã có tài khoản?
+                Bạn chưa có tài khoản?
                 <i
                   className="fa fa-long-arrow-right m-l-5"
                   aria-hidden="true"

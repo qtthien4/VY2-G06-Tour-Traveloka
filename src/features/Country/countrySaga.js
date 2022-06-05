@@ -3,9 +3,19 @@ import { countryActions } from "./countrySlice";
 
 const { takeLatest, call, put, debounce } = require("redux-saga/effects");
 
-function* fetchCountryApi() {
+function* fetchCountryApi(id) {
+  if (id.payload == undefined) return;
   const res = yield call(countryApi.getAll);
   localStorage.setItem("country", JSON.stringify(res));
+  let nameCountry = res.filter((list) => {
+    return list.IdCountry.trim() == String(id.payload).trim();
+  });
+
+  yield put(countryActions.fetchApiCountryTourSuccess(res));
+  yield put(countryActions.fetchApiCountryTourName(nameCountry[0].CountryName));
+}
+function* fetchCountryApiSearch(id) {
+  const res = yield call(countryApi.getAll);
   yield put(countryActions.fetchApiCountryTourSuccess(res));
 }
 function* fetchApiCountryFilter(searchText) {
@@ -23,6 +33,7 @@ function* countrySaga() {
     countryActions.fetchApiCountryFilter.type,
     fetchApiCountryFilter
   );
+  yield takeLatest(countryActions.fetchApiCountrySearch.type, fetchCountryApiSearch);
 }
 
 export default countrySaga;

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import VerticalTabs from "./tabPayment";
 import Navbar from "./navbar";
 import Info from "./Info";
@@ -7,12 +7,14 @@ import { Typography } from "@material-ui/core";
 import { useLocation, useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { AuthContext } from "context/AuthProvider";
 
 const stripePromis = loadStripe(
   "pk_test_51KZccWHODmKkGzOlDYysHC38rGYXN1ELtnVickHvvus4n2CodkqZlX5urfvL5tSg6E8vBLyR2dgCoWR3nkRBstff006zPAY3Yd"
 );
 
 export default function Paymemt() {
+
   const location = useLocation();
   const idBooking = location.pathname.split("/")[3];
   const tourCurrent = JSON.parse(localStorage.getItem("TourCurrent"));
