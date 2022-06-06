@@ -30,7 +30,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   //Handle chay nguoc
 
   //setTImeOut 1p30s delete  booking theo activity
-  const time = 15;
+  const time = 300;
   const timerTrans = useRef(null);
   const [message, setMessager] = useState("");
   useEffect(() => {

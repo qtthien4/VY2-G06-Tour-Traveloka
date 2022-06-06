@@ -26,7 +26,7 @@ import { useStyles } from "./indexStyle";
 export default function Booking() {
   window.scroll(0, 0);
   Moment.globalFormat = "D MMM YYYY";
-  const user = useContext(AuthContext);
+  const user = JSON.parse(localStorage.getItem("userInfo"));
   const tour = useSelector(selectTour);
 
   const [idTourBooking, setTourBooking] = useState(

@@ -1,5 +1,6 @@
 import { unwrapResult } from "@reduxjs/toolkit";
 import { getMe } from "app/userSlice";
+import HeaderOnly from "components/layout/HeaderOnly";
 import Login from "components/Login";
 import Register from "components/Register";
 import SignIn from "features/Auth/pages/SignIn";
@@ -44,43 +45,113 @@ export default function App({ user }) {
   return (
     <div className="min-h-screen bg-white">
       <Routes>
-        <Route path="/activities" element={<Xperience />}></Route>
-        <Route path="/activities/category/daytour" element={<Tours />}></Route>
+        <Route
+          path="/activities"
+          element={
+            <HeaderOnly>
+              <Xperience />
+            </HeaderOnly>
+          }
+        ></Route>
+        <Route
+          path="/activities/category/daytour"
+          element={
+            <HeaderOnly>
+              <Tours />
+            </HeaderOnly>
+          }
+        ></Route>
         <Route
           path="/activities/category/transport"
-          element={<Tours />}
+          element={
+            <HeaderOnly>
+              <Tours />
+            </HeaderOnly>
+          }
         ></Route>
         <Route
           path="/activities/category/playground"
-          element={<Tours />}
+          element={
+            <HeaderOnly>
+              <Tours />
+            </HeaderOnly>
+          }
         ></Route>
         <Route
           path="/activities/category/attraction"
-          element={<Tours />}
+          element={
+            <HeaderOnly>
+              <Tours />
+            </HeaderOnly>
+          }
         ></Route>
-        <Route path="/activities/category/sport" element={<Tours />}></Route>
+        <Route
+          path="/activities/category/sport"
+          element={
+            <HeaderOnly>
+              <Tours />
+            </HeaderOnly>
+          }
+        ></Route>
 
-        <Route path="/activities/search/daytour" element={<Search />}>
-          {/* <Route path=":id" element={<Search />}></Route> */}
-        </Route>
-        <Route path="/activities/search/transport" element={<Search />}>
-          {/* <Route path=":id" element={<Search />}></Route> */}
-        </Route>
-        <Route path="/activities/search/sport" element={<Search />}>
-          {/* <Route path=":id" element={<Search />}></Route> */}
-        </Route>
-        <Route path="/activities/search/playground" element={<Search />}>
-          {/* <Route path=":id" element={<Search />}></Route> */}
-        </Route>
-        <Route path="/activities/search/attraction" element={<Search />}>
-          {/* <Route path=":id" element={<Search />}></Route> */}
-        </Route>
+        <Route
+          path="/activities/search/daytour"
+          element={
+            <HeaderOnly>
+              <Search />
+            </HeaderOnly>
+          }
+        ></Route>
+        <Route
+          path="/activities/search/transport"
+          element={
+            <HeaderOnly>
+              <Search />
+            </HeaderOnly>
+          }
+        ></Route>
+        <Route
+          path="/activities/search/sport"
+          element={
+            <HeaderOnly>
+              <Search />
+            </HeaderOnly>
+          }
+        ></Route>
+        <Route
+          path="/activities/search/playground"
+          element={
+            <HeaderOnly>
+              <Search />
+            </HeaderOnly>
+          }
+        ></Route>
+        <Route
+          path="/activities/search/attraction"
+          element={
+            <HeaderOnly>
+              <Search />
+            </HeaderOnly>
+          }
+        ></Route>
 
-        <Route path="/asd">
-          {/* <Route path=":id" element={<Search />}></Route> */}
-        </Route>
-        <Route path="/activities/vietnam/product" element={<Product />}>
-          <Route path=":id" element={<Product />}></Route>
+        <Route path="/asd"></Route>
+        <Route
+          path="/activities/vietnam/product"
+          element={
+            <HeaderOnly>
+              <Product />
+            </HeaderOnly>
+          }
+        >
+          <Route
+            path=":id"
+            element={
+              <HeaderOnly>
+                <Product />
+              </HeaderOnly>
+            }
+          ></Route>
         </Route>
         {/* <Route path="/sign-in" element={<SignIn />} /> */}
         <Route path="/login" element={<Login setToken={setToken} />} />

@@ -17,6 +17,7 @@ ReactDOM.render(
       <Provider store={store}>
         <GlobalStyles>
           <AuthProvider>
+            
             <App />
           </AuthProvider>
         </GlobalStyles>

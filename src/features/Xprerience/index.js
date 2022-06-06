@@ -16,19 +16,9 @@ import Header from "components/Header";
 import { AuthContext } from "context/AuthProvider";
 
 export default function Xperience() {
-  //const user = useContext(AuthContext);
-  const [user, setUser] = useState(
-    JSON.parse(localStorage.getItem("userInfo"))
-  );
-
-  //handleOnclickXperience
+  const user = useContext(AuthContext);
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log("user1", user);
-    setUser(user);
-  }, [user]);
-  // useEffect(()=>{
-  console.log("user1", user);
+
   // },[])
 
   const handleOnclickXperience = useCallback(
@@ -50,7 +40,6 @@ export default function Xperience() {
     // </div>
 
     <div className="background_change">
-      <Header user1={user} />
       <Banner />
 
       <div style={{ marginLeft: "100px", marginTop: "50px" }}>

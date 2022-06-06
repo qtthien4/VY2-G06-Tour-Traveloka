@@ -56,9 +56,7 @@ function Product() {
 
   return (
     <Box>
-      <Box className={classes.navProduct}>
-        <Header user1={user} />
-      </Box>
+      <Box className={classes.navProduct}></Box>
 
       <Box className={classes.rootBoxBig}>
         <Box className={classes.rootBox}>

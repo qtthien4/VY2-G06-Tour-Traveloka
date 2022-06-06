@@ -1,10 +1,27 @@
 import { AuthContext } from "context/AuthProvider";
-import React, { useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import HeadlessTippy from "@tippyjs/react/headless";
+import "tippy.js/dist/tippy.css"; // optional
 import "./index.css";
+import { Button } from "@material-ui/core";
+import { toast } from "react-toastify";
 
 function Header({ user1 }) {
   const user = user1 || {};
+  const navigate = useNavigate();
+  const [visible, setVisible] = useState(false);
+  const show = () => setVisible(true);
+  const hide = () => setVisible(false);
+
+  const handleTransaction = () => {
+    navigate("/booking/transaction");
+  };
+  const handleLogout = () => {
+    localStorage.removeItem("userInfo");
+    navigate("/login");
+    toast("Bạn đã đăng xuất thành công");
+  };
   return (
     <div
       className="navLayout"
@@ -130,49 +147,70 @@ function Header({ user1 }) {
             <div />
           </div>
           {Object.keys(user).length > 0 ? (
-            <div>
-              {" "}
-              <div className="header1-right-item4">
-                <div>
-                  <img
-                    alt="a"
-                    importance="low"
-                    loading="lazy"
-                    src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/f/f2ccb8732da6068a2f24a40aea2bdcdd.svg"
-                    decoding="async"
-                    width={23}
-                    height={23}
-                    className="r-tuq35u"
-                    style={{
-                      backgroundColor: "rgba(205,208,209,1.00)",
-                      borderTopLeftRadius: "9999px",
-                      borderTopRightRadius: "9999px",
-                      borderBottomRightRadius: "9999px",
-                      borderBottomLeftRadius: "9999px",
-                      objectFit: "fill",
-                      objectPosition: "50% 50%",
-                      marginRight: "4px",
-                    }}
-                  />
-                  <div
-                    style={{
-                      fontSize: "16px",
-                      color: "rgb(139, 137, 137)",
-                      fontWeight: 500,
-                    }}
-                  >
-                    <div>{user.Name}</div>
+            <HeadlessTippy
+              onClickOutside={() => setVisible(true)}
+              interactive={true}
+              visible={visible}
+              render={(attrs) => (
+                <div className="box" tabIndex="-1" {...attrs}>
+                  <div>
+                    <Button onClick={handleTransaction} variant="contained">
+                      Xem Lịch Sử Tour
+                    </Button>
+                    <Button onClick={handleLogout} variant="contained">
+                      Đăng xuất
+                    </Button>
                   </div>
-                  <img
-                    id="icon-right"
-                    src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/393c6a1dee81cd3dc84df59672d43edb.svg"
-                    style={{ marginLeft: "4px" }}
-                    alt=""
-                  />
                 </div>
-                <div />
+              )}
+            >
+              <div>
+                {" "}
+                <div
+                  className="header1-right-item4"
+                  onClick={visible ? hide : show}
+                >
+                  <div>
+                    <img
+                      alt="a"
+                      importance="low"
+                      loading="lazy"
+                      src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/f/f2ccb8732da6068a2f24a40aea2bdcdd.svg"
+                      decoding="async"
+                      width={23}
+                      height={23}
+                      className="r-tuq35u"
+                      style={{
+                        backgroundColor: "rgba(205,208,209,1.00)",
+                        borderTopLeftRadius: "9999px",
+                        borderTopRightRadius: "9999px",
+                        borderBottomRightRadius: "9999px",
+                        borderBottomLeftRadius: "9999px",
+                        objectFit: "fill",
+                        objectPosition: "50% 50%",
+                        marginRight: "4px",
+                      }}
+                    />
+                    <div
+                      style={{
+                        fontSize: "16px",
+                        color: "rgb(139, 137, 137)",
+                        fontWeight: 500,
+                      }}
+                    >
+                      <div>{user.Name}</div>
+                    </div>
+                    <img
+                      id="icon-right"
+                      src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/393c6a1dee81cd3dc84df59672d43edb.svg"
+                      style={{ marginLeft: "4px" }}
+                      alt=""
+                    />
+                  </div>
+                  <div />
+                </div>
               </div>
-            </div>
+            </HeadlessTippy>
           ) : (
             <>
               {" "}

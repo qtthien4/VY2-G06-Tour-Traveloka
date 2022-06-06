@@ -5,6 +5,11 @@
     position: fixed;
    
 }
+.box{
+    height: 100px;
+    width: 200px;
+    background-color: aliceblue;
+}
 
 .header1 {
    background: white;

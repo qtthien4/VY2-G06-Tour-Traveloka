@@ -74,3 +74,10 @@
 .main-text-transform{
     text-transform: none !important;
 }
+.tippy-box{
+    background-color: transparent !important;
+}
+
+.tippy-arrow:before{
+    border: none !important;
+}

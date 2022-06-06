@@ -11,9 +11,19 @@ import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
-  const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("userInfo"));
- 
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("userInfo"))
+  );
+
+  //handleOnclickXperience
+
+  useEffect(() => {
+    console.log("user1", user);
+    setUser(user);
+  }, [user]);
+  // useEffect(()=>{
+  console.log("user1", user);
+
   // const [user, setUser] = useState({});
   // useEffect(() => {
   //   const unregisterAuthObserver = () => {

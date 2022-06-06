@@ -154,7 +154,6 @@ export default function Search() {
 
   return (
     <>
-      <Header user1={user} />
       <Box className={classes.container}>
         <Box className={classes.header}>
           <Box className={classes.headerBoxSearch} mb={3}>

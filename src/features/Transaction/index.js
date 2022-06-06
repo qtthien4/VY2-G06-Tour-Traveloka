@@ -27,7 +27,7 @@ export const initDataTransaction = {
   voucher: "",
 };
 export default function Transaction() {
-  const user = useContext(AuthContext);
+  const user = JSON.parse(localStorage.getItem("userInfo"));
   const [dataTransaction, setDataTransaction] = useState([initDataTransaction]);
 
   const [loadding, setLoadding] = useState(false);

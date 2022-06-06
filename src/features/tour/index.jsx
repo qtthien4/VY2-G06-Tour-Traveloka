@@ -93,7 +93,7 @@ export default function Tours() {
 
   return (
     <div id="tour_root">
-      <Header user1={user} />
+      {/* <Header user1={user} /> */}
       <div id="box_container_tour" className="boxContainerTour">
         <Grid
           ref={layoutRef}
