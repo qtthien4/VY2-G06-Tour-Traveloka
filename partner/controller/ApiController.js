@@ -456,14 +456,14 @@ class ApiController {
       console.log(refund.data);
 
       //doi trang thai
-      // await book.update({
-      //   SttBooking: 'refund'
-      // }, { where: { IdBooking: idbooking } })
+      await book.update({
+        SttBooking: 'refund'
+      }, { where: { IdBooking: idbooking } })
 
-      // //doi so luong dat
-      // await schedule.update({
-      //   AmountBooking: bookObj.AmountPeople
-      // }, { where: { IdSchedule: idSchedule } })
+      //doi so luong dat
+      await schedule.update({
+        AmountBooking: bookObj.AmountPeople
+      }, { where: { IdSchedule: idSchedule } })
 
       res.json({ data: "succes", "code": 100 })
 
