@@ -7,8 +7,8 @@ class StatisticController {
     async index(req, res) {
         var userPartner = req.signedCookies.Cookie_User
         var arrActivity = await GetDb.fullactivity(userPartner)
-        res.send(arrActivity)
-        // res.render('statistic', { activity: arrActivity, user: userPartner });
+        // res.send(arrActivity)
+        res.render('statistic', { activity: arrActivity, user: userPartner });
     }
 
     async StatisticDetail(req, res) {

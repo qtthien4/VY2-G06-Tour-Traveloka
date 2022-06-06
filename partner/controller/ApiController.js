@@ -344,52 +344,47 @@ class ApiController {
       order: ["IdCustomer"],
     });
 
-    if (customer == null) {
-      res.json({ status: 400, data: "user khong ton tai" });
-    } else {
-      var idCustomer = customer.IdCustomer;
+    var idCustomer = customer.IdCustomer;
 
-      var booking = await book.findAll({
+    var booking = await book.findAll({
+      raw: true,
+      where: { IdCustomer: idCustomer },
+    });
+    var idSchedule,
+      arrBookingUser = [];
+
+    for (var i = 0; i < booking.length; i++) {
+      idSchedule = booking[1].IdSchedule;
+      var objSchedule = await schedule.findOne({
         raw: true,
-        where: { IdCustomer: idCustomer },
+        where: { IdSchedule: idSchedule },
+        order: ["IdSchedule"],
       });
-      var idSchedule,
-        arrBookingUser = [];
+      var objAcivity = await activity.findOne({
+        raw: true,
+        where: { IdActivity: objSchedule.IdActivity },
+        order: ["IdActivity"],
+      });
+      var objBookingUser = {};
+      objBookingUser.IdSchedule = objSchedule.IdSchedule;
+      objBookingUser.ActivityName = objAcivity.ActivityName;
+      objBookingUser.ImageUrl = objAcivity.ImageUrl;
+      objBookingUser.Price = objAcivity.Price;
+      objBookingUser.reduce = booking[i].Reduce;
+      objBookingUser.handleStartTime = objSchedule.StartTime;
+      objBookingUser.handleEndTime = objSchedule.EndTime;
+      objBookingUser.voucher = booking[i].IdVoucher;
+      objBookingUser.gift = booking[i].IdGift;
+      objBookingUser.bookingTime = booking[i].BookingTime;
+      objBookingUser.amountPeople = booking[i].AmountPeople;
+      objBookingUser.idBooking = booking[i].IdBooking;
 
-      for (var i = 0; i < booking.length; i++) {
-        idSchedule = booking[1].IdSchedule;
-        var objSchedule = await schedule.findOne({
-          raw: true,
-          where: { IdSchedule: idSchedule },
-          order: ["IdSchedule"],
-        });
-        var objAcivity = await activity.findOne({
-          raw: true,
-          where: { IdActivity: objSchedule.IdActivity },
-          order: ["IdActivity"],
-        });
-        var objBookingUser = {};
-        objBookingUser.ActivityName = objAcivity.ActivityName;
-        objBookingUser.ImageUrl = objAcivity.ImageUrl;
-        objBookingUser.Price = objAcivity.Price;
-        objBookingUser.reduce = booking[i].Reduce;
-        objBookingUser.handleStartTime = objSchedule.StartTime;
-        objBookingUser.handleEndTime = objSchedule.EndTime;
-        objBookingUser.voucher = booking[i].IdVoucher;
-        objBookingUser.gift = booking[i].IdGift;
-        objBookingUser.bookingTime = booking[i].BookingTime;
-        objBookingUser.amountPeople = booking[i].AmountPeople;
-        objBookingUser.idBooking = booking[i].IdBooking;
-
-        arrBookingUser.push(objBookingUser);
-      }
-
-      if (booking == null) {
-        res.json({ status: 400, data: "khong co booking nao" });
-      } else {
-        res.send(arrBookingUser);
-      }
+      arrBookingUser.push(objBookingUser);
     }
+
+    res.send(arrBookingUser);
+
+
   }
 
   //api post payment
@@ -434,12 +429,17 @@ class ApiController {
     res.json({ data: "ok" })
   }
 
+  //hoan tien lai
   async refundBooking(req, res) {
     var idbooking = req.body.idPayment;
     var idSchedule = req.body.idSchedule;
 
+    var time = new Date();
+    const scheduleObj = await schedule.findOne({ raw: true, where: { IdSchedule: idSchedule }, order: ['IdSchedule'] })
     const bookObj = await book.findOne({ raw: true, where: { IdBooking: idbooking }, order: ['IdBooking'] })
-    if (bookObj != null) {
+    var timestart = new Date(scheduleObj.StartTime);
+
+    if (timestart > time) {
       var idPayment = bookObj.IdPayment.trim();
 
       const refund = await axios(`https://api-m.sandbox.paypal.com/v2/payments/captures/${idPayment}/refund`, {
@@ -453,17 +453,22 @@ class ApiController {
         }
       })
 
+      console.log(refund.data);
+
       //doi trang thai
-      await book.update({
-        SttBooking: 'refund'
-      }, { where: { IdBooking: idbooking } })
+      // await book.update({
+      //   SttBooking: 'refund'
+      // }, { where: { IdBooking: idbooking } })
 
-      //doi so luong dat
-      await schedule.update({
-        AmountBooking: bookObj.AmountPeople
-      }, { where: { IdSchedule: idSchedule } })
+      // //doi so luong dat
+      // await schedule.update({
+      //   AmountBooking: bookObj.AmountPeople
+      // }, { where: { IdSchedule: idSchedule } })
 
-      res.send(refund.data)
+      res.json({ data: "succes", "code": 100 })
+
+    } else {
+      res.json({ data: "fail", "description": "Đã hết thời gian có thể hủy hoạt dồng", "code": 111 })
     }
   }
 }
