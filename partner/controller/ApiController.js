@@ -197,7 +197,7 @@ class ApiController {
       //booking
       var idBooking = booking.idBooking;
       var idSchedule = booking.idSchedule;
-      var idCustomer = booking.idCustomer;
+      var userLogin = booking.idCustomer;
       var idVoucher = booking.idVoucher;
       var idGift = booking.idGift;
       var paymentOption = booking.paymentOption;
@@ -216,8 +216,8 @@ class ApiController {
       var emailCus = customerDetail.emailCus;
       var gender = customerDetail.gender;
 
-
-
+      const customerObj = await customer.findOne({ raw: true, where: { IdCustomer: userLogin }, order: ['IdCustomer'] })
+      var idCustomer = customerObj.IdCustomer
 
       //inser db
       await book.create({
