@@ -465,14 +465,14 @@ class ApiController {
           AmountBooking: bookObj.AmountPeople
         }, { where: { IdSchedule: idSchedule } })
 
-        res.json({ data: "succes", "code": 100 })
+        res.json({ data: "succes", messenger: "thanh toán thành công", "code": 200 })
       } catch (error) {
 
-        res.json({ data: error, "code": 400 })
+        res.json({ data: error, messenger: "Lỗi hoàn tiền (đã hoàn)", "code": 400 })
       }
 
     } else {
-      res.json({ data: "fail", "description": "Đã hết thời gian có thể hủy hoạt dồng", "code": 111 })
+      res.json({ data: "fail", "messenger": "Đã hết thời gian có thể hủy hoạt dồng", "code": 401 })
     }
   }
 }
