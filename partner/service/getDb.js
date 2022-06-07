@@ -1,4 +1,4 @@
-var { activity, schedule, book, user, type, partner } = require('../configDb');
+var { activity, schedule, book, user, type, partner, customer } = require('../configDb');
 class GetDb {
 
     async fullactivity(userPartner) {
@@ -44,6 +44,7 @@ class GetDb {
     async fullBookngOneActivity(IdActivity) {
         var arrActivity;
         var arrSchedule = [], arrBooking = [], handleArrBooking = [], totalBooking = 0
+        var customerObj
 
         await activity.findAll({ raw: true, where: { IdActivity: IdActivity } }).then(e => arrActivity = e);
         //get booking
@@ -62,10 +63,9 @@ class GetDb {
 
         //get userbooking
         for (var i = 0; i < handleArrBooking.length; i++) {
-            var arrUser
-            await user.findOne({ raw: true, where: { IdCustomer: handleArrBooking[i].IdCustomer }, order: ['IdCustomer'] }).then(e => arrUser = e);
+            customerObj = await customer.findOne({ raw: true, where: { IdBooking: handleArrBooking[i].IdBooking }, order: ['IdBooking'] })
 
-            handleArrBooking[i].User = arrUser.Name
+            handleArrBooking[i].User = customerObj.CustomerName
             handleArrBooking[i].count = i + 1
 
 

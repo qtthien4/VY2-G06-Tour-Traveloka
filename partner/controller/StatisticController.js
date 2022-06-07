@@ -86,13 +86,16 @@ class StatisticController {
         }
     }
 
+    //bieu do
     async PostChart(req, res) {
 
         var id = req.params.id;
         var arrBoking = await GetDb.fullBookngOneActivity(id)
         var nam = req.body.nam;
+        var trangthai = req.body.trangthai;
         var date = [], data = []
-
+        // 
+        // console.log(trangthai);
         for (var i = 1; i <= 12; i++) {
             date = [...date, `${i}-${nam}`]
         }
@@ -100,7 +103,7 @@ class StatisticController {
         for (var i = 0; i < date.length; i++) {
             var sum = 0;
             for (var j = 0; j < arrBoking.length; j++) {
-                if (arrBoking[j].BookingTime.includes(date[i])) {
+                if (arrBoking[j].BookingTime.includes(date[i]) && arrBoking[j].SttBooking == trangthai) {
                     if (arrBoking[j].Total != undefined) {
                         var total = Number(arrBoking[j].Total)
                         sum = sum + total
@@ -108,6 +111,7 @@ class StatisticController {
                         console.log('asdasd')
                     }
                 }
+
             }
             data.push(sum)
         }
