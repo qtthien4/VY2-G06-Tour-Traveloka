@@ -1,5 +1,5 @@
 const shortid = require("shortid");
-const axios = require("axios");
+const axios = require('axios')
 
 const {
   activity,
@@ -15,7 +15,7 @@ const {
 } = require("../configDb");
 
 class ApiController {
-  index(req, res) {}
+  index(req, res) { }
 
   RegisterUser(req, res) {
     var info = req.body;
@@ -216,12 +216,8 @@ class ApiController {
       var emailCus = customerDetail.emailCus;
       var gender = customerDetail.gender;
 
-      const customerObj = await user.findOne({
-        raw: true,
-        where: { IdCustomer: userLogin },
-        order: ["IdCustomer"],
-      });
-      var idCustomer = customerObj.IdCustomer;
+      const customerObj = await user.findOne({ raw: true, where: { IdCustomer: userLogin }, order: ['IdCustomer'] })
+      var idCustomer = customerObj.IdCustomer
 
       //inser db
       await book.create({
@@ -267,19 +263,19 @@ class ApiController {
 
   //het time dat
   async endbooking(req, res) {
-    // const endbooking = req.body.dataTimeoutPayment;
-    const endbooking = req.body;
+    const endbooking = req.body.dataTimeoutPayment;
+    // const endbooking = req.body;
 
     var amountBooking = endbooking.amountBooking;
     var idBooking = endbooking.idBooking;
     var idSchedule = endbooking.idSchedule;
 
-    await customer.destroy({ where: { IdBooking: idBooking } });
+    await customer.destroy({ where: { IdBooking: idBooking } })
     await book.destroy({ where: { IdBooking: idBooking } });
     var scheduleObj = await schedule.findOne({
       raw: true,
       where: { IdSchedule: idSchedule },
-      order: ["IdSchedule"],
+      order: ['IdSchedule']
     });
 
     var subtractAmount = scheduleObj.AmountBooking - amountBooking;
@@ -290,7 +286,8 @@ class ApiController {
 
     console.log(endbooking);
 
-    res.json({ data: "oke" });
+    res.json({ data: 'oke' })
+
   }
 
   //lay thoong tin cua user (post)
@@ -326,15 +323,17 @@ class ApiController {
     var sumPeopel = parseInt(amountPeople) + parseInt(amountBookingSchedule);
     sumPeopel.toString();
 
+
     await schedule.update(
       {
         AmountBooking: sumPeopel,
-        Status: 1,
+        Status: 1
       },
       { where: { IdSchedule: idSchedule } }
     );
-    res.json({ data: "ok" });
+    res.json({ data: 'ok' })
   }
+
 
   //lay booking cuar user (post)
   async UserBooking(req, res) {
@@ -370,8 +369,6 @@ class ApiController {
       var objBookingUser = {};
       objBookingUser.IdSchedule = objSchedule.IdSchedule;
       objBookingUser.ActivityName = objAcivity.ActivityName;
-      objBookingUser.stt = booking[i].SttBooking;
-
       objBookingUser.ImageUrl = objAcivity.ImageUrl;
       objBookingUser.Price = objAcivity.Price;
       objBookingUser.reduce = booking[i].Reduce;
@@ -388,6 +385,8 @@ class ApiController {
     }
 
     res.send(arrBookingUser);
+
+
   }
 
   //api post payment
@@ -422,21 +421,14 @@ class ApiController {
       //update theem cai soo luong da them
       //update điểm
 
-      var userObj = await user.findOne({
-        raw: true,
-        where: { IdCustomer: idUser },
-        order: ["IdCustomer"],
-      });
+      var userObj = await user.findOne({ raw: true, where: { IdCustomer: idUser }, order: ['IdCustomer'] });
       if (userObj != null) {
         var addPoint = userObj.point + point;
-        await user.update(
-          { point: addPoint },
-          { where: { IdCustomer: idUser } }
-        );
+        await user.update({ point: addPoint }, { where: { IdCustomer: idUser } });
       }
     }
 
-    res.json({ data: "ok" });
+    res.json({ data: "ok" })
   }
 
   //hoan tien lai
@@ -445,65 +437,42 @@ class ApiController {
     var idSchedule = req.body.idSchedule;
 
     var time = new Date();
-    const scheduleObj = await schedule.findOne({
-      raw: true,
-      where: { IdSchedule: idSchedule },
-      order: ["IdSchedule"],
-    });
-    const bookObj = await book.findOne({
-      raw: true,
-      where: { IdBooking: idbooking },
-      order: ["IdBooking"],
-    });
+    const scheduleObj = await schedule.findOne({ raw: true, where: { IdSchedule: idSchedule }, order: ['IdSchedule'] })
+    const bookObj = await book.findOne({ raw: true, where: { IdBooking: idbooking }, order: ['IdBooking'] })
     var timestart = new Date(scheduleObj.StartTime);
 
     if (timestart > time) {
       var idPayment = bookObj.IdPayment.trim();
-
       try {
-        const refund = await axios(
-          `https://api-m.sandbox.paypal.com/v2/payments/captures/${idPayment}/refund`,
-          {
-            method: "post",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            auth: {
-              username: process.env.PUCLIC_KEY_PAYPAL,
-              password: process.env.SERECT_KEY_PAYPAL,
-            },
+        const refund = await axios(`https://api-m.sandbox.paypal.com/v2/payments/captures/${idPayment}/refund`, {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          auth: {
+            username: process.env.PUCLIC_KEY_PAYPAL,
+            password: process.env.SERECT_KEY_PAYPAL
           }
-        );
-        console.log("refund", refund.data);
+        })
+
+        //doi trang thai
+        await book.update({
+          SttBooking: 'refund'
+        }, { where: { IdBooking: idbooking } })
+
+        //doi so luong dat
+        await schedule.update({
+          AmountBooking: bookObj.AmountPeople
+        }, { where: { IdSchedule: idSchedule } })
+
+        res.json({ data: "succes", "code": 100 })
       } catch (error) {
-        console.log(error);
+
+        res.json({ data: error, "code": 400 })
       }
 
-      //console.log(refund.data);
-
-      //doi trang thai
-      await book.update(
-        {
-          SttBooking: "refund",
-        },
-        { where: { IdBooking: idbooking } }
-      );
-
-      //doi so luong dat
-      await schedule.update(
-        {
-          AmountBooking: bookObj.AmountPeople,
-        },
-        { where: { IdSchedule: idSchedule } }
-      );
-
-      res.json({ data: "succes", code: 100 });
     } else {
-      res.json({
-        data: "fail",
-        description: "Đã hết thời gian có thể hủy hoạt dồng",
-        code: 111,
-      });
+      res.json({ data: "fail", "description": "Đã hết thời gian có thể hủy hoạt dồng", "code": 111 })
     }
   }
 }

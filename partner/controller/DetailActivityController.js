@@ -1,6 +1,6 @@
 const sql = require("mssql/msnodesqlv8");
 const shortid = require("shortid");
-const {activity, image, schedule} = require('../configDb')
+const { activity, image, schedule } = require('../configDb')
 class DetailActivityController {
   async index(req, res) {
     var user = req.signedCookies.Cookie_User
@@ -8,47 +8,8 @@ class DetailActivityController {
     var objActivity, arrSchedule;
     var arrImage = []
     const idschedule = req.query.idschedule;
-    if (idschedule == undefined) {     
-        await activity.findOne({raw: true,where: {IdActivity : idActivity}, order:['IdActivity']}).then(e => {
-        objActivity = e
-        var objImage = {}
-        objImage.Link = e.ImageUrl
-        arrImage.push(objImage);
-      })      
-      var arrActivity = [];
-      arrActivity.push(objActivity);
-      await image.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {        
-        arrImage = e.concat(arrImage)
-        arrImage[0].active = "active";
-      })
-      await schedule.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
-        arrSchedule = e
-        for (var i = 0; i < arrSchedule.length; i++) {
-          arrSchedule[i].count = i + 1;
-          arrSchedule[i].IdActivity = arrSchedule[i].IdActivity.trim();
-        }
-      })
-      if (objActivity.Stt == true) {
-                res.render("detailactivity", {
-                  activity: arrActivity,
-                  image: arrImage,
-                  schedule: arrSchedule,
-                  stt: ["Dừng hoạt động"],
-                  user:user
-                });
-      } else {
-        res.render("detailactivity", {
-          activity: arrActivity,
-          image: arrImage,
-          schedule: arrSchedule,
-          stt: ["Bật hoạt động"],
-          user : user
-        });
-      }
-
-    } else { 
-      await schedule.destroy({where: {IdSchedule:idschedule}})
-      await activity.findOne({raw: true,where: {IdActivity : idActivity}, order:['IdActivity']}).then(e => {
+    if (idschedule == undefined) {
+      await activity.findOne({ raw: true, where: { IdActivity: idActivity }, order: ['IdActivity'] }).then(e => {
         objActivity = e
         var objImage = {}
         objImage.Link = e.ImageUrl
@@ -56,11 +17,11 @@ class DetailActivityController {
       })
       var arrActivity = [];
       arrActivity.push(objActivity);
-      await image.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
+      await image.findAll({ raw: true, where: { IdActivity: idActivity } }).then(e => {
         arrImage = e.concat(arrImage)
         arrImage[0].active = "active";
       })
-      await schedule.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
+      await schedule.findAll({ raw: true, where: { IdActivity: idActivity } }).then(e => {
         arrSchedule = e
         for (var i = 0; i < arrSchedule.length; i++) {
           arrSchedule[i].count = i + 1;
@@ -73,17 +34,56 @@ class DetailActivityController {
           image: arrImage,
           schedule: arrSchedule,
           stt: ["Dừng hoạt động"],
-          user:user
+          user: user
         });
-        } else {
+      } else {
         res.render("detailactivity", {
           activity: arrActivity,
           image: arrImage,
           schedule: arrSchedule,
           stt: ["Bật hoạt động"],
-          user : user
+          user: user
         });
+      }
+
+    } else {
+      await schedule.destroy({ where: { IdSchedule: idschedule } })
+      await activity.findOne({ raw: true, where: { IdActivity: idActivity }, order: ['IdActivity'] }).then(e => {
+        objActivity = e
+        var objImage = {}
+        objImage.Link = e.ImageUrl
+        arrImage.push(objImage);
+      })
+      var arrActivity = [];
+      arrActivity.push(objActivity);
+      await image.findAll({ raw: true, where: { IdActivity: idActivity } }).then(e => {
+        arrImage = e.concat(arrImage)
+        arrImage[0].active = "active";
+      })
+      await schedule.findAll({ raw: true, where: { IdActivity: idActivity } }).then(e => {
+        arrSchedule = e
+        for (var i = 0; i < arrSchedule.length; i++) {
+          arrSchedule[i].count = i + 1;
+          arrSchedule[i].IdActivity = arrSchedule[i].IdActivity.trim();
         }
+      })
+      if (objActivity.Stt == true) {
+        res.render("detailactivity", {
+          activity: arrActivity,
+          image: arrImage,
+          schedule: arrSchedule,
+          stt: ["Dừng hoạt động"],
+          user: user
+        });
+      } else {
+        res.render("detailactivity", {
+          activity: arrActivity,
+          image: arrImage,
+          schedule: arrSchedule,
+          stt: ["Bật hoạt động"],
+          user: user
+        });
+      }
     }
   }
   async postTime(req, res) {
@@ -95,20 +95,20 @@ class DetailActivityController {
     var arrImage = []
 
     // show thong tin acti
-    await activity.findOne({raw: true,where: {IdActivity : idActivity}, order:['IdActivity']}).then(e => {
+    await activity.findOne({ raw: true, where: { IdActivity: idActivity }, order: ['IdActivity'] }).then(e => {
       objActivity = e
       var objImage = {}
       objImage.Link = e.ImageUrl
       arrImage.push(objImage);
     })
-      var arrActivity = [];
-      arrActivity.push(objActivity);
+    var arrActivity = [];
+    arrActivity.push(objActivity);
 
     // show anh acti
-    await image.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
+    await image.findAll({ raw: true, where: { IdActivity: idActivity } }).then(e => {
       arrImage = e.concat(arrImage)
       arrImage[0].active = "active";
-      })
+    })
 
     if (starttime != undefined) {
       //check xem thoi gian bat dau cos laon hon tg ket thuc k 
@@ -118,77 +118,79 @@ class DetailActivityController {
           image: arrImage,
           schedule: arrSchedule,
           err: ["thời gian bắt đầu phải nhỏ hơn thời gian kết thúc"],
-          user:user
-        })}else{
-          await schedule.create({
-            IdSchedule: shortid.generate(),
-            IdActivity :idActivity,
-            StartTime: starttime,
-            EndTime: endtime,
-            Amount: objActivity.Amount,
-            AmountBooking: 0,
-            Status: 1
-          })
-          await schedule.findAll({raw:true, where: {IdActivity : idActivity}}).then(e => {
-            arrSchedule = e
-            for (var i = 0; i < arrSchedule.length; i++) {
-              arrSchedule[i].count = i + 1;
-              arrSchedule[i].IdActivity = arrSchedule[i].IdActivity.trim();
-            }
-          })
+          user: user
+        })
+      } else {
+        await schedule.create({
+          IdSchedule: shortid.generate(),
+          IdActivity: idActivity,
+          StartTime: starttime,
+          EndTime: endtime,
+          Amount: objActivity.Amount,
+          AmountBooking: 0,
+          Status: 1
+        })
 
-          // set hoạt động của activity
-          if (objActivity.Stt == true) {
-            res.render("detailactivity", {
-              activity: arrActivity,
-              image: arrImage,
-              schedule: arrSchedule,
-              stt: ["Bật hoạt động"],
-              user: user
-            });
-          }else {
-            res.render("detailactivity", {
-              activity: arrActivity,
-              image: arrImage,
-              schedule: arrSchedule,
-              stt: ["Dừng hoạt động"],
-              user: user
-            });
-            }
+        await schedule.findAll({ raw: true, where: { IdActivity: idActivity } }).then(e => {
+          arrSchedule = e
+          for (var i = 0; i < arrSchedule.length; i++) {
+            arrSchedule[i].count = i + 1;
+            arrSchedule[i].IdActivity = arrSchedule[i].IdActivity.trim();
           }
-    }
-    else{
-          var ActivityName = req.body.ActivityName;
-          var Location = req.body.Location;
-          var Amount = req.body.Amount;
-          var Price = req.body.Price;
-          var desc = req.body.desc;          
-          activity.update({
-            ActivityName: ActivityName,
-            Location: Location,
-            Amount: Amount,
-            Price:Price,
-            Desr : desc
-          },{where: {IdActivity : idActivity}})
+        })
 
-          if (objActivity.Stt == true) {
-            res.render("detailactivity", {
-              activity: arrActivity,
-              image: arrImage,
-              schedule: arrSchedule,
-              stt: ["Dừng hoạt động"],
-              user: user
-            });
-          } else {
-            res.render("detailactivity", {
-              activity: arrActivity,
-              image: arrImage,
-              schedule: arrSchedule,
-              stt: ["Bật hoạt động"],
-              user: user
-            });
-          }
+        // set hoạt động của activity
+        if (objActivity.Stt == true) {
+          res.render("detailactivity", {
+            activity: arrActivity,
+            image: arrImage,
+            schedule: arrSchedule,
+            stt: ["Dừng hoạt động"],
+            user: user
+          });
+        } else {
+          res.render("detailactivity", {
+            activity: arrActivity,
+            image: arrImage,
+            schedule: arrSchedule,
+            stt: ["Bật hoạt động"],
+            user: user
+          });
         }
+      }
     }
+    else {
+      var ActivityName = req.body.ActivityName;
+      var Location = req.body.Location;
+      var Amount = req.body.Amount;
+      var Price = req.body.Price;
+      var desc = req.body.desc;
+      activity.update({
+        ActivityName: ActivityName,
+        Location: Location,
+        Amount: Amount,
+        Price: Price,
+        Desr: desc
+      }, { where: { IdActivity: idActivity } })
+
+      if (objActivity.Stt == true) {
+        res.render("detailactivity", {
+          activity: arrActivity,
+          image: arrImage,
+          schedule: arrSchedule,
+          stt: ["Dừng hoạt động"],
+          user: user
+        });
+      } else {
+        res.render("detailactivity", {
+          activity: arrActivity,
+          image: arrImage,
+          schedule: arrSchedule,
+          stt: ["Bật hoạt động"],
+          user: user
+        });
+      }
+    }
+  }
 }
 module.exports = new DetailActivityController();
