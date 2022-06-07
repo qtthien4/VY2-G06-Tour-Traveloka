@@ -263,7 +263,8 @@ class ApiController {
 
   //het time dat
   async endbooking(req, res) {
-    const endbooking = req.body.dataTimeoutPayment;
+    // const endbooking = req.body.dataTimeoutPayment;
+    const endbooking = req.body;
 
     var amountBooking = endbooking.amountBooking;
     var idBooking = endbooking.idBooking;
@@ -354,7 +355,7 @@ class ApiController {
       arrBookingUser = [];
 
     for (var i = 0; i < booking.length; i++) {
-      idSchedule = booking[1].IdSchedule;
+      idSchedule = booking[i].IdSchedule;
       var objSchedule = await schedule.findOne({
         raw: true,
         where: { IdSchedule: idSchedule },
@@ -371,6 +372,7 @@ class ApiController {
       objBookingUser.ImageUrl = objAcivity.ImageUrl;
       objBookingUser.Price = objAcivity.Price;
       objBookingUser.reduce = booking[i].Reduce;
+      objBookingUser.trangthai = booking[i].SttBooking;
       objBookingUser.handleStartTime = objSchedule.StartTime;
       objBookingUser.handleEndTime = objSchedule.EndTime;
       objBookingUser.voucher = booking[i].IdVoucher;
