@@ -15,13 +15,15 @@ import { selectListCountry } from "features/Country/countrySlice";
 import Navbar from "features/Payment/navbar";
 import { selectTour } from "features/product/productSlice";
 import { selectListSchedule } from "features/schedule/ScheduleSlice";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import shortid from "shortid";
 import { bookingActions } from "./bookingSlice";
 import BookingForm from "./components/BookingForm";
 import { useStyles } from "./indexStyle";
+import reBookingApi from "api/ApiReal/reBookingApi";
+import { toast } from "react-toastify";
 
 export default function Booking() {
   window.scroll(0, 0);
@@ -44,12 +46,33 @@ export default function Booking() {
   const TourCurrent = listTour.filter(
     (tour) => tour.IdActivity.trim() === scheduleTour.idActivity
   )[0];
+
+  const idbooking = useRef(shortid.generate());
+  const time = 300;
+  const timerTrans = useRef(null);
+
+  const [message, setMessager] = useState("");
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (idSchedule === undefined) {
       navigate("/activities");
+    } else {
+      dispatch(bookingActions.fetchTour(JSON.parse(idTourBooking)));
+      const dataTimeoutPayment = {
+        idBooking: "",
+        idSchedule: scheduleTour.idSchedule,
+        amountBooking: scheduleTour.Amount,
+      };
+
+      //post delete booking affter long time
+      console.log(TourCurrent.IdActivity);
+      timerTrans.current = setTimeout(async () => {
+        await reBookingApi.post({ dataTimeoutPayment });
+        toast.warning("Bạn đã quá thời gian đặt chỗ vui lòng chọn lại!");
+        navigate(`/activities/vietnam/product/${TourCurrent.IdActivity}`);
+      }, time * 1000);
     }
-    dispatch(bookingActions.fetchTour(JSON.parse(idTourBooking)));
   }, [dispatch]);
 
   const fullWidth = true;
@@ -66,9 +89,9 @@ export default function Booking() {
     } = formValue;
 
     const booking = {
-      idBooking: shortid.generate(),
+      idBooking: idbooking.current,
       idSchedule: scheduleTour.idSchedule.trim(),
-      idCustomer: "1",
+      idCustomer: user.IdCustomer,
       idVoucher: "",
       idGift: "",
       paymentOption: radioVisitor,
@@ -80,8 +103,8 @@ export default function Booking() {
       IdPayment: "",
     };
     const customerDetail = {
-      idDetail: shortid.generate(),
-      idBooking: booking.idBooking,
+      idDetail: idbooking.current,
+      idBooking: booking.idBooking.current,
       customerName: nameBooking,
       cusPhoneNum: String(phoneBooking),
       emailCus: emailBooking,
@@ -98,7 +121,7 @@ export default function Booking() {
       { customerDetail: customerDetail },
       { booking: booking },
     ]);
-
+    clearTimeout(timerTrans.current);
     navigate(`/booking/payment/${booking.idBooking}`);
   };
 

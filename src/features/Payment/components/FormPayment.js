@@ -47,6 +47,8 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
       toast.warning("Bạn đã qúa thời gian cho phép thanh toán !");
       navigate("/activities");
     }, time * 1000);
+
+    return () => clearTimeout(timerTrans.current);
   }, []);
 
   //getAll Booking theo idBooking => idSchedule => idTour
@@ -137,8 +139,8 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
       purchase_units: [
         {
           amount: {
-            value: "10",
-            currency_code: "CAD",
+            value: String(Math.floor(priceTotal / 23000)),
+            currency_code: "USD",
           },
         },
       ],
@@ -184,7 +186,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
       };
       if (codeVoucher !== "") {
         const res = await axios(
-          "http://128.199.241.206:8080/api/v1/user/voucher/pre-order",
+          "https://api.votuan.xyz/api/v1/user/voucher/pre-order",
           {
             method: "POST",
             headers: {
@@ -202,7 +204,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
 
       //update status voucher
       if (codeVoucher !== "") {
-        await axios("http://128.199.241.206:8080/api/v1/user/voucher/state", {
+        await axios("https://api.votuan.xyz/api/v1/user/voucher/state", {
           method: "PUT",
           headers: {
             user_id: "456",
@@ -218,7 +220,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
 
       toast.success("Bạn đã thanh toán thành công !");
       clearTimeout(timerTrans.current);
-      navigate(`/booking/refund/${idBooking}`);
+      navigate(`/activities`);
       //post áp dụng voucher
       //toast messenger success
     } catch (error) {

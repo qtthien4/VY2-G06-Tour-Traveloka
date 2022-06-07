@@ -33,6 +33,7 @@ export default function Transaction() {
   const [loadding, setLoadding] = useState(false);
   const [visiable, setVisiable] = useState(false);
   const [checkDay, setSetCheckday] = useState(false);
+  const [idSchedule, setIdSchedule] = useState("");
 
   const today = new Date();
   useEffect(() => {
@@ -45,7 +46,7 @@ export default function Transaction() {
         // const data = await transactionApi.post(dataTransaction);
         // console.log(data);
         setLoadding(true);
-        const res = await axios("http://95.111.203.185:3003/api/userbooking", {
+        const res = await axios("http://localhost:3003/api/userbooking", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -54,7 +55,8 @@ export default function Transaction() {
         });
         //const res = VouchersApi.preOrder(dataVoucher);
         //let { orderId } = res.data.data.orderId;
-
+        console.log(res.data);
+        setIdSchedule(res.data[0].IdSchedule);
         setLoadding(false);
         setDataTransaction(res.data);
       }
@@ -62,7 +64,7 @@ export default function Transaction() {
 
     //data trả về sẽ được set vào state mới
     //in all ra màn hình
-  }, []);
+  }, [idSchedule]);
 
   if (dataTransaction.length !== 0) {
     const dateBookingState = dataTransaction[0].handleStartTime
@@ -76,13 +78,11 @@ export default function Transaction() {
   }
 
   const handleCancalBooking = async (idBooking) => {
-    const dataBooking = await bookingApi.get(idBooking);
-
     try {
       let dataRefund = {
         idPayment: idBooking,
         status: "refund",
-        idSchedule: dataBooking[0].IdSchedule,
+        idSchedule: idSchedule,
       };
 
       await refundApi.post(dataRefund);
