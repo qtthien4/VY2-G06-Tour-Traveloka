@@ -34,7 +34,6 @@ export default function Transaction() {
   const [loadding, setLoadding] = useState(false);
   const [visiable, setVisiable] = useState(false);
   const [checkDay, setSetCheckday] = useState(false);
-  const [idSchedule, setIdSchedule] = useState("");
 
   const today = new Date();
   useEffect(() => {
@@ -45,8 +44,8 @@ export default function Transaction() {
         const data = { user: user.email };
         setLoadding(true);
         const res = await transactionApi.post(data);
-        console.log(res);
-        setIdSchedule(res.IdSchedule);
+        console.log("res", res);
+
         setLoadding(false);
         setDataTransaction(res);
       }
@@ -68,12 +67,14 @@ export default function Transaction() {
     checkDate = totalYear * 325 + totalMonth * 30 + totalDate;
   }
 
-  const handleCancalBooking = async (idBooking) => {
+  const handleCancalBooking = async (props) => {
+    const { IdSchedule, idBooking } = props;
+
     try {
       let dataRefund = {
         idPayment: idBooking,
         status: "refund",
-        idSchedule: idSchedule,
+        idSchedule: IdSchedule,
       };
 
       const res = await refundApi.post(dataRefund);
