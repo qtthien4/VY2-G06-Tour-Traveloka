@@ -41,7 +41,7 @@ export default function BookingForm({
   user,
 }) {
   //const user = null;
-  console.log(user);
+  //console.log(user);
   const classes = useStyles();
   //const priceTotal = schedule.Amount * tour.Price;
   const priceTotal = useMemo(() => {

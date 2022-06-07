@@ -32,7 +32,9 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   //setTImeOut 1p30s delete  booking theo activity
   const time = 300;
   const timerTrans = useRef(null);
+
   const [message, setMessager] = useState("");
+
   useEffect(() => {
     const dataTimeoutPayment = {
       idBooking: idBooking,
@@ -146,7 +148,13 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
       ],
     });
   };
+  var ok;
   const onApprove = async (data, actions) => {
+    if (user != null) {
+      ok = user.IdCustomer;
+    } else {
+      ok = "1";
+    }
     //post api thanh toán sau khi đã chuyển tiền
     const today = new Date();
     let date =
@@ -171,7 +179,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
         idPayment: id,
         idSchedule: schedule.idSchedule,
         amountBooking: schedule.Amount,
-        idCustomer: user.IdCustomer,
+        idCustomer: ok,
         score: 10,
       };
 

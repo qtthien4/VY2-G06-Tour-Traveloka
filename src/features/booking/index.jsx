@@ -28,7 +28,7 @@ import { toast } from "react-toastify";
 export default function Booking() {
   window.scroll(0, 0);
   Moment.globalFormat = "D MMM YYYY";
-  const user = JSON.parse(localStorage.getItem("userInfo"));
+  var user = JSON.parse(localStorage.getItem("userInfo"));
   const tour = useSelector(selectTour);
 
   const [idTourBooking, setTourBooking] = useState(
@@ -78,6 +78,8 @@ export default function Booking() {
   const fullWidth = true;
   const classes = useStyles();
   const navigate = useNavigate();
+  console.log(user);
+  var ok;
   // handle form
   const handleBookingFormSubmit = async (formValue) => {
     const {
@@ -88,10 +90,16 @@ export default function Booking() {
       selectGender,
     } = formValue;
 
+    if (user != null) {
+      ok = user.IdCustomer;
+    } else {
+      ok = "1";
+    }
+
     const booking = {
       idBooking: idbooking.current,
       idSchedule: scheduleTour.idSchedule.trim(),
-      idCustomer: user.IdCustomer,
+      idCustomer: ok,
       idVoucher: "",
       idGift: "",
       paymentOption: radioVisitor,

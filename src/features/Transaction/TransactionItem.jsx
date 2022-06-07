@@ -43,17 +43,27 @@ export default function TransactionItem({
                 <dd>•••• 6890</dd>
               </div>
               <div>
+                <dt>Gift</dt>
+                <dd>•••• 6890</dd>
+              </div>
+              <div>
                 <dt>Booking ID</dt>
                 <dd>{list.idBooking}</dd>
               </div>
               <div>
+                <dt>Trạng thái</dt>
+                <dd>{list.trangthai}</dd>
+              </div>
+              <div>
                 <dt>Chức năng</dt>
-                {checkDate > 0 ? (
+                {list.trangthai == "refund" ? (
                   <Button
                     disabled
                     color="secondary"
                     variant="contained"
-                    onClick={() => handleCancalBooking(list.idBooking,list.idSchedule)}
+                    onClick={() =>
+                      handleCancalBooking(list.idBooking, list.idSchedule)
+                    }
                   >
                     Hủy
                   </Button>

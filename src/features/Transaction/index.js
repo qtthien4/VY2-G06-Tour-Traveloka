@@ -3,6 +3,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import bookingApi from "api/ApiReal/bookingApi";
 import refundApi from "api/ApiReal/refundApi";
 import scheduleApi from "api/ApiReal/scheduleApi";
+import transactionApi from "api/ApiReal/transactionApi";
 import axios from "axios";
 import { AuthContext } from "context/AuthProvider";
 import Navbar from "features/Payment/navbar";
@@ -42,39 +43,29 @@ export default function Transaction() {
     (async function () {
       if (user) {
         const data = { user: user.email };
-        //write your js code here
-        // const data = await transactionApi.post(dataTransaction);
-        // console.log(data);
         setLoadding(true);
-        const res = await axios("http://localhost:3003/api/userbooking", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: data,
-        });
-        //const res = VouchersApi.preOrder(dataVoucher);
-        //let { orderId } = res.data.data.orderId;
-        console.log(res.data);
-        setIdSchedule(res.data[0].IdSchedule);
+        const res = await transactionApi.post(data);
+        console.log(res);
+        setIdSchedule(res.IdSchedule);
         setLoadding(false);
-        setDataTransaction(res.data);
+        setDataTransaction(res);
       }
     })();
 
     //data trả về sẽ được set vào state mới
     //in all ra màn hình
-  }, [idSchedule]);
+  }, []);
 
+  var totalYear, totalMonth, totalDate, checkDate;
   if (dataTransaction.length !== 0) {
     const dateBookingState = dataTransaction[0].handleStartTime
       .split("T")[0]
       .split("-");
 
-    const totalYear = today.getFullYear() - Number(dateBookingState[0]);
-    const totalMonth = today.getMonth() + 1 - Number(dateBookingState[1]);
-    const totalDate = today.getDate() - Number(dateBookingState[2]);
-    const checkDate = totalYear * 325 + totalMonth * 30 + totalDate;
+    totalYear = today.getFullYear() - Number(dateBookingState[0]);
+    totalMonth = today.getMonth() + 1 - Number(dateBookingState[1]);
+    totalDate = today.getDate() - Number(dateBookingState[2]);
+    checkDate = totalYear * 325 + totalMonth * 30 + totalDate;
   }
 
   const handleCancalBooking = async (idBooking) => {
@@ -85,16 +76,25 @@ export default function Transaction() {
         idSchedule: idSchedule,
       };
 
-      await refundApi.post(dataRefund);
-      toast.success("Bạn đã hủy tour thành công");
+      const res = await refundApi.post(dataRefund);
+      console.log(res);
+      if (res.code == 400) {
+        toast.warning(res.messenger);
+      }
+      if (res.code == 200) {
+        toast.success(res.messenger);
+      }
+      if (res.code == 401) {
+        toast.warning(res.messenger);
+      }
     } catch (error) {
-      toast.error("Bạn đã hủy tour thất bại");
+      toast.error("Bạn đã hủy tour thất bại vì ngày hủy quá ngày bắt đầu !!!");
     }
   };
+  console.log(dataTransaction.length);
   return (
     <div>
       <Navbar />
-
       {loadding === true ? (
         <section>
           <h1>Latest Transactions</h1>
@@ -118,13 +118,12 @@ export default function Transaction() {
         </section>
       ) : (
         <section>
-          <h1>Latest Transactions</h1>
+          <h1>Lịch sử giao dịch</h1>
           {}
-          <h2>Today</h2>
-          {dataTransaction.length === 0 && <>Chưa có dữ liệu</>}
+          {dataTransaction.length == 0 && <>Chưa có dữ liệu</>}
           {user !== null && (
             <TransactionItem
-              // checkDate={checkDate}
+              checkDate={checkDate}
               dataTransaction={dataTransaction}
               handleCancalBooking={handleCancalBooking}
             />
