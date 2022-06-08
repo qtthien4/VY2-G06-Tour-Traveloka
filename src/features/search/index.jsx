@@ -80,7 +80,7 @@ export default function Search() {
 
   //onclick navigation product
   const handleOnclickTourSearch = (idTour) => {
-    navigate(`/activities/vietnam/product/${idTour}`);
+    navigate(`/activities/product/${idTour}`);
   };
   //handle filter header
   const handleChangeFilterHeader = (e) => {

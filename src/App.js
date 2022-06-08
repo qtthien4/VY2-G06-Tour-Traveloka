@@ -2,6 +2,8 @@ import { unwrapResult } from "@reduxjs/toolkit";
 import { getMe } from "app/userSlice";
 import HeaderOnly from "components/layout/HeaderOnly";
 import Login from "components/Login";
+import NotFound from "components/NotFount";
+import PageNotFount from "components/PageNotFount";
 import Register from "components/Register";
 import SignIn from "features/Auth/pages/SignIn";
 import Booking from "features/booking";
@@ -137,7 +139,7 @@ export default function App({ user }) {
 
         <Route path="/asd"></Route>
         <Route
-          path="/activities/vietnam/product"
+          path="/activities/product"
           element={
             <HeaderOnly>
               <Product />
@@ -170,6 +172,7 @@ export default function App({ user }) {
         <Route path="/booking/transaction" element={<Transaction />}>
           <Route path=":id" element={<Transaction />} />
         </Route>
+        <Route path="*" element={<PageNotFount />} />
       </Routes>
     </div>
   );

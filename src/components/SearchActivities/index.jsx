@@ -135,7 +135,7 @@ export default function SearchActivities({ style, layoutRef, scroll }) {
     searchApi.postTextSearch(searchText);
   };
   const handleTourInSearch = (idActivity) => {
-    navigate(`/activities/vietnam/product/${idActivity}`);
+    navigate(`/activities/product/${idActivity}`);
     document.querySelector("body").style.overflowY = "scroll";
   };
   const handleOnclickCountries = (idCountry, nameType) => {

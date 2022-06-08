@@ -36,15 +36,38 @@ function* fetchApiListTypeDaytour(nameType) {
   const listCityVN = yield call(fakeCityApi.getAll);
   const listCountry = yield call(countryApi.getAll);
   const listType = yield call(fakeTypeApi.getAll);
+  const listTour = yield call(tourApi.getAll);
+
   const listMalaysia = yield call(fakeTourApiMalaysia.getAll);
-  const listSingapore = yield call(fakeTourApiSingapore.getAll);
+  //const listSingapore = yield call(fakeTourApiSingapore.getAll);
   const listThailand = yield call(fakeTourApiThailand.getAll);
+
+  const listSingapore = listTour.filter(
+    (list) =>
+      list.IdCountry.trim() === "10000001" &&
+      list.idtype.trim() === "1" &&
+      list.Stt === true
+  );
+  const listThaiLan = listTour.filter(
+    (list) =>
+      list.IdCountry.trim() == "10000007" &&
+      list.idtype.trim() === "1" &&
+      list.Stt === true
+  );
+  const listmalaysia = listTour.filter(
+    (list) =>
+      list.IdCountry.trim() == "108416" &&
+      list.idtype.trim() === "1" &&
+      list.Stt === true
+  );
+
   const listArrType = listType.filter((list) => list.link === nameType)[0];
   listArrType.listCountryType.listCountry = listCountry;
   listArrType.listCityType.listCity = listCityVN;
-  listArrType.listMalaysiaType.listMalaysia = listMalaysia;
-  listArrType.listSingaporeType.listSingapore = listSingapore;
-  listArrType.listThailandType.listThailand = listThailand;
+
+  listArrType.listSaigonType.listSaigon = listSingapore;
+  listArrType.listNhaTrangType.listNhaTrang = listThaiLan;
+  listArrType.listHaNoiType.listHaNoi = listmalaysia;
 
   yield put(tourActions.setListType(listArrType));
 }
@@ -52,14 +75,20 @@ function* fetchApiListTypeDaytour(nameType) {
 function* fetchApiListTypeTransport(nameType) {
   const listCityVN = yield call(fakeCityApi.getAll);
   const listTour = yield call(tourApi.getAll);
-  const listSaigon = listTour.filter(
-    (list) => list.IdCity === "10009794" && list.idtype === "2"
-  );
+  const listSaigon = listTour.filter((list) => {
+    return list.IdCity.trim().trim() == "10009794" && list.idtype.trim() == "2";
+  });
   const listNhaTrang = listTour.filter(
-    (list) => list.IdCity === "10009841" && list.idtype === "2"
+    (list) =>
+      list.IdCity.trim() == "10009841" &&
+      list.idtype.trim() === "2" &&
+      list.Stt === true
   );
   const listHaNoi = listTour.filter(
-    (list) => list.IdCity === "10009843" && list.idtype === "2"
+    (list) =>
+      list.IdCity.trim() == "10009843" &&
+      list.idtype.trim() === "2" &&
+      list.Stt === true
   );
 
   const listCountry = yield call(countryApi.getAll);
@@ -67,11 +96,13 @@ function* fetchApiListTypeTransport(nameType) {
   const listArrType = listType.filter((list) => list.link === nameType)[0];
   listArrType.listCountryType.listCountry = listCountry;
   listArrType.listCityType.listCity = listCityVN;
-  listArrType.listSaigonType.listSaigon = listSaigon;
 
+  listArrType.listSaigonType.listSaigon = listSaigon;
   listArrType.listNhaTrangType.listNhaTrang = listNhaTrang;
   listArrType.listHaNoiType.listHaNoi = listHaNoi;
 
+  console.log("saigon", listSaigon);
+  console.log(listTour);
   yield put(tourActions.setListType(listArrType));
 }
 
@@ -79,13 +110,22 @@ function* fetchApiListTypeSport(nameType) {
   const listCityVN = yield call(fakeCityApi.getAll);
   const listTour = yield call(tourApi.getAll);
   const listSaigon = listTour.filter(
-    (list) => list.IdCity === "10009794" && list.idtype === "4"
+    (list) =>
+      list.IdCity.trim() === "10009794" &&
+      list.idtype.trim() === "4" &&
+      list.Stt === true
   );
   const listNhaTrang = listTour.filter(
-    (list) => list.IdCity === "10009841" && list.idtype === "4"
+    (list) =>
+      list.IdCity.trim() === "10009841" &&
+      list.idtype.trim() === "4" &&
+      list.Stt === true
   );
   const listHaNoi = listTour.filter(
-    (list) => list.IdCity === "10009843" && list.idtype === "4"
+    (list) =>
+      list.IdCity.trim() === "10009843" &&
+      list.idtype.trim() === "4" &&
+      list.Stt === true
   );
 
   const listCountry = yield call(countryApi.getAll);
@@ -104,13 +144,22 @@ function* fetchApiListTypePlayground(nameType) {
   const listCityVN = yield call(fakeCityApi.getAll);
   const listTour = yield call(tourApi.getAll);
   const listSaigon = listTour.filter(
-    (list) => list.IdCity === "10009794" && list.idtype === "3"
+    (list) =>
+      list.IdCity.trim() === "10009794" &&
+      list.idtype.trim() === "3" &&
+      list.Stt === true
   );
   const listNhaTrang = listTour.filter(
-    (list) => list.IdCity === "10009841" && list.idtype === "3"
+    (list) =>
+      list.IdCity.trim() === "10009841" &&
+      list.idtype.trim() === "3" &&
+      list.Stt === true
   );
   const listHaNoi = listTour.filter(
-    (list) => list.IdCity === "10009843" && list.idtype === "3"
+    (list) =>
+      list.IdCity.trim() === "10009843" &&
+      list.idtype.trim() === "3" &&
+      list.Stt === true
   );
 
   const listCountry = yield call(countryApi.getAll);
@@ -132,31 +181,45 @@ function* fetchApiListTypeAttraction(nameType) {
   const listType = yield call(fakeTypeApi.getAll);
   const listTour = yield call(tourApi.getAll);
   const listNhaTrang = listTour.filter(
-    (list) => list.IdCity === "10009841" && list.idtype === "5"
+    (list) =>
+      list.IdCity.trim() === "10009841" &&
+      list.idtype.trim() === "5" &&
+      list.Stt === true
   );
   const listHaNoi = listTour.filter(
-    (list) => list.IdCity === "10009843" && list.idtype === "5"
+    (list) =>
+      list.IdCity.trim() === "10009843" &&
+      list.idtype.trim() === "5" &&
+      list.Stt === true
   );
   const listNhatBan = listTour.filter(
-    (list) => list.IdCity === "20001756" && list.idtype === "5"
+    (list) =>
+      list.IdCity.trim() === "20001756" &&
+      list.idtype.trim() === "5" &&
+      list.Stt === true
   );
-
   const listSaigon = listTour.filter(
-    (list) => list.IdCity === "10009794" && list.idtype === "5"
+    (list) =>
+      list.IdCity.trim() === "10009794" &&
+      list.idtype.trim() === "5" &&
+      list.Stt === true
   );
-
   const listSingapore = listTour.filter(
-    (list) => list.IdCity === "10000001" && list.idtype === "5"
+    (list) =>
+      list.IdCity.trim() === "10000001" &&
+      list.idtype.trim() === "5" &&
+      list.Stt === true
   );
 
   const listArrType = listType.filter((list) => list.link === nameType)[0];
 
   listArrType.listCountryType.listCountry = listCountry;
   listArrType.listCityType.listCity = listCityVN;
+
   listArrType.listSaigonType.listSaigon = listSaigon;
 
-  listArrType.listNhaTrangType.listNhaTrang = listNhatBan;
-  listArrType.listHaNoiType.listHaNoi = listSingapore;
+  listArrType.listNhaTrangType.listNhaTrang = listNhaTrang;
+  listArrType.listHaNoiType.listHaNoi = listHaNoi;
 
   yield put(tourActions.setListType(listArrType));
 }

@@ -7,46 +7,29 @@ import {
 } from "@material-ui/icons";
 import { FAKE_API_TYPE_EXPERENCE } from "api/Data/fakeDataTypeApi";
 import Footer from "components/Footer";
-import Header from "components/Header";
 import Slide from "components/Slide";
-import { AuthContext } from "context/AuthProvider";
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "swiper/css/bundle";
 import SearchActivities from "../../components/SearchActivities";
 import ListTour from "./components/ListTour";
 import "./index.css";
-import {
-  selectListCityTour,
-  selectListCountryTour,
-  selectListMalaysiaTour,
-  selectListSingaporeTour,
-  selectListThailandTour,
-  selectListType,
-  tourActions,
-} from "./tourSlice";
+import { selectListType, tourActions } from "./tourSlice";
 import { useStyles } from "./useStylesTour";
+const style = {
+  marginTop: "10px",
+  position: "absolute",
+  top: "100%",
+  left: "0%",
+  width: "100%",
+  bgcolor: "background.paper",
+  boxShadow: "0px 8px 18px rgb(3 18 26 / 13%)",
+  zIndex: 10,
+  borderRadius: "5px",
+};
 
 export default function Tours() {
-  const style = {
-    marginTop: "10px",
-    position: "absolute",
-    top: "100%",
-    left: "0%",
-    width: "100%",
-    bgcolor: "background.paper",
-    boxShadow: "0px 8px 18px rgb(3 18 26 / 13%)",
-    zIndex: 10,
-    borderRadius: "5px",
-  };
-  const user = useContext(AuthContext);
-  const listCityTourVietName = useSelector(selectListCityTour);
-  const ListCountry = useSelector(selectListCountryTour);
-  const ListMalaysiaTour = useSelector(selectListMalaysiaTour);
-  const ListSingaporeTour = useSelector(selectListSingaporeTour);
-  const ListThailandTour = useSelector(selectListThailandTour);
-
   const imgBanner = useRef();
   const layoutRef = useRef(null);
   const scroll = 256;
@@ -61,6 +44,7 @@ export default function Tours() {
   const location = useLocation();
   const nameType = location.pathname.split("/")[3];
   const list = useRef();
+
   const [state, setState] = useState(() => {
     if (listType.length === undefined) {
       list.current = FAKE_API_TYPE_EXPERENCE.filter(
@@ -88,7 +72,7 @@ export default function Tours() {
   };
 
   function handleOnclickTourForeign(idTour) {
-    navigation(`/activities/vietnam/product/${idTour}`);
+    navigation(`/activities/product/${idTour}`);
   }
 
   return (
@@ -261,7 +245,7 @@ export default function Tours() {
                     style={{ marginTop: "100px" }}
                   >
                     {(nameType === "daytour" &&
-                      state[0].listSingaporeType.title) ||
+                      state[0].listSaigonType.title) ||
                       (nameType === "transport" &&
                         state[0].listSaigonType.title) ||
                       (nameType === "attraction" &&
@@ -274,8 +258,7 @@ export default function Tours() {
                     className={classes.titleDescription}
                     style={{ marginBottom: "-10px" }}
                   >
-                    {(nameType === "daytour" &&
-                      state[0].listSingaporeType.des) ||
+                    {(nameType === "daytour" && state[0].listSaigonType.des) ||
                       (nameType === "transport" &&
                         state[0].listSaigonType.des) ||
                       (nameType === "attraction" &&
@@ -288,7 +271,7 @@ export default function Tours() {
                     <ListTour
                       listTour={
                         (nameType === "daytour" &&
-                          state[0].listSingaporeType.listSingapore) ||
+                          state[0].listSaigonType.listSaigon) ||
                         (nameType === "transport" &&
                           state[0].listSaigonType.listSaigon) ||
                         (nameType === "attraction" &&
@@ -320,7 +303,7 @@ export default function Tours() {
                     style={{ marginTop: "-10px" }}
                   >
                     {(nameType === "daytour" &&
-                      state[0].listThailandType.title) ||
+                      state[0].listNhaTrangType.title) ||
                       (nameType === "transport" &&
                         state[0].listNhaTrangType.title) ||
                       (nameType === "attraction" &&
@@ -334,7 +317,7 @@ export default function Tours() {
                     style={{ marginBottom: "-10px" }}
                   >
                     {(nameType === "daytour" &&
-                      state[0].listThailandType.des) ||
+                      state[0].listNhaTrangType.des) ||
                       (nameType === "transport" &&
                         state[0].listNhaTrangType.des) ||
                       (nameType === "attraction" &&
@@ -347,7 +330,7 @@ export default function Tours() {
                     <ListTour
                       listTour={
                         (nameType === "daytour" &&
-                          state[0].listThailandType.listThailand) ||
+                          state[0].listNhaTrangType.listNhaTrang) ||
                         (nameType === "transport" &&
                           state[0].listNhaTrangType.listNhaTrang) ||
                         (nameType === "attraction" &&
@@ -374,8 +357,7 @@ export default function Tours() {
                     className={classes.title}
                     style={{ marginTop: "-10px" }}
                   >
-                    {(nameType === "daytour" &&
-                      state[0].listMalaysiaType.title) ||
+                    {(nameType === "daytour" && state[0].listHaNoiType.title) ||
                       (nameType === "transport" &&
                         state[0].listHaNoiType.title) ||
                       (nameType === "attraction" &&
@@ -388,8 +370,7 @@ export default function Tours() {
                     className={classes.titleDescription}
                     style={{ marginBottom: "-10px" }}
                   >
-                    {(nameType === "daytour" &&
-                      state[0].listMalaysiaType.des) ||
+                    {(nameType === "daytour" && state[0].listHaNoiType.des) ||
                       (nameType === "transport" &&
                         state[0].listHaNoiType.des) ||
                       (nameType === "attraction" &&
@@ -402,7 +383,7 @@ export default function Tours() {
                     <ListTour
                       listTour={
                         (nameType === "daytour" &&
-                          state[0].listMalaysiaType.listMalaysia) ||
+                          state[0].listHaNoiType.listHaNoi) ||
                         (nameType === "transport" &&
                           state[0].listHaNoiType.listHaNoi) ||
                         (nameType === "attraction" &&

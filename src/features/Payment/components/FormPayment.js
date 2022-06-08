@@ -30,7 +30,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   //Handle chay nguoc
 
   //setTImeOut 1p30s delete  booking theo activity
-  const time = 300;
+  const time = 3000;
   const timerTrans = useRef(null);
 
   const [message, setMessager] = useState("");
@@ -84,6 +84,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
   const [codeVoucher, setCodeVoucher] = useState("");
   const totalInitTour = tourCurrent.Price * schedule.Amount;
 
+  console.log(totalInitTour);
   const [priceTotal, setPriceTotal] = useState(totalInitTour);
   const [state, setState] = React.useState({
     checkedA: false,
@@ -149,6 +150,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
     });
   };
   var ok;
+
   const onApprove = async (data, actions) => {
     if (user != null) {
       ok = user.IdCustomer;
@@ -167,6 +169,7 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     try {
       const order = await actions.order.capture();
+      console.log(order);
       let id = order.purchase_units[0].payments.captures[0].id;
 
       const dataPayment = {

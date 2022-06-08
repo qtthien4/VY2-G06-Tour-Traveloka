@@ -15,20 +15,20 @@ export const FAKE_API_TYPE_EXPERENCE = [
       des: "Du lịch xa và rộng đến các quốc gia tốt nhất đang trên đà phát triển",
       listCountry: [],
     },
-    listSingaporeType: {
+    listSaigonType: {
       title: "Singapore đầy nắng",
       des: "Khám phá các tour du lịch phổ biến nhất mà Thành phố Sư tử cung cấp",
-      listSingapore: [],
+      listSaigon: [],
     },
-    listThailandType: {
+    listNhaTrangType: {
       title: "Another Day in Paradise: Thailand Edition",
-      des: "Khám phá các tour du lịch phổ biến nhất mà Thành phố Sư tử cung cấp",
-      listThailand: [],
+      des: "Hàng trăm trải nghiệm và cảnh quan thành phố tuyệt đẹp đang chờ bạn khám phá tại xứ sở ngàn nụ cười",
+      listNhaTrang: [],
     },
-    listMalaysiaType: {
+    listHaNoiType: {
       title: "Khám phá Malaysia",
       des: "Khám phá nơi truyền thống cũ và mới đầy màu sắc phát triển mạnh mẽ",
-      listMalaysia: [],
+      listHaNoi: [],
     },
   },
 
@@ -94,7 +94,7 @@ export const FAKE_API_TYPE_EXPERENCE = [
       listNhaTrang: [],
     },
     listHaNoiType: {
-      title: "Các điểm tham quan không bỏ lỡ",
+      title: "Hà nội - Các điểm tham quan không bỏ lỡ",
       des: "Khám phá niềm vui với những người thân yêu của bạn",
       listHaNoi: [],
     },
@@ -152,17 +152,17 @@ export const FAKE_API_TYPE_EXPERENCE = [
     },
 
     listSaigonType: {
-      title: "Danh lam thắng cảnh nổi tiếng của Việt Nam",
+      title: "HCM - Danh lam thắng cảnh nổi tiếng của Việt Nam",
       des: "Ghé thăm những địa điểm mang tính biểu tượng nhất trong thị trấn",
       listSaigon: [],
     },
     listNhaTrangType: {
-      title: "Điểm tham quan ở nước ngoài được bình chọn nhiều nhất",
+      title: "Khánh Hòa - Điểm tham quan được bình chọn nhiều nhất",
       des: "Có sẵn trong tầm tay của bạn",
       listNhaTrang: [],
     },
     listHaNoiType: {
-      title: "Các điểm tham quan không bỏ lỡ",
+      title: "Hà nội - Các điểm tham quan không bỏ lỡ",
       des: "Khám phá niềm vui với những người thân yêu của bạn",
       listHaNoi: [],
     },

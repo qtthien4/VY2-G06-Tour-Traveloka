@@ -27,7 +27,7 @@ function Product() {
   const navigate = useNavigate();
   const location = useLocation();
   const user = useContext(AuthContext);
-  const idTour = location.pathname.split("/")[4];
+  const idTour = location.pathname.split("/")[3];
   // window.scroll(0, 0);
 
   const classes = useStyles();
