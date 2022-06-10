@@ -63,8 +63,8 @@ export default function BookingForm({
                   R
                 </Avatar>
               }
-              title={`Đăng nhập là ${user.Name}`}
-              subheader={user.Name}
+              title={`Đăng nhập là ${user.name}`}
+              subheader={user.name}
             />
           </Card>
         ) : (
@@ -133,7 +133,7 @@ export default function BookingForm({
                 Họ và tên
               </Typography>
               <InputField
-                defaultValue={user != null ? user.Name : ""}
+                defaultValue={user != null ? user.name : ""}
                 name="nameVisitor"
                 control={control}
                 label="full"

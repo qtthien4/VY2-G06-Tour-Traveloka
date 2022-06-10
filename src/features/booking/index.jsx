@@ -93,7 +93,7 @@ export default function Booking() {
     } = formValue;
 
     if (user != null) {
-      ok = user.IdCustomer;
+      ok = user.sub;
     } else {
       ok = "1";
     }

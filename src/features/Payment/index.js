@@ -18,12 +18,11 @@ export default function Paymemt() {
   const location = useLocation();
   const idBooking = location.pathname.split("/")[3];
   const [tourCurrent, setTourCurrent] = useState({});
-  console.log("re-render-index");
   //const tourCurrent = JSON.parse(localStorage.getItem("TourCurrent"));
   const schedule = JSON.parse(localStorage.getItem("schedule"));
 
   var idTourok = JSON.parse(localStorage.getItem("schedule")).idActivity;
-  
+
   useEffect(() => {
     (async function () {
       let res = await tourApi.getId(idTourok);
@@ -33,7 +32,6 @@ export default function Paymemt() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(tourCurrent);
   const navigate = useNavigate();
 
   return (

@@ -22,6 +22,7 @@ import CountDown from "./CountDown";
 
 function FormPayment({ schedule, idBooking, tourCurrent }) {
   const user = useContext(AuthContext);
+  const partnerId = JSON.parse(localStorage.getItem("partnerInfoId"));
   const {
     control,
     handleSubmit,
@@ -73,10 +74,23 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
   const [listGift, setListGift] = useState([]);
 
   //handle voucher
+  var idUser;
+
+  if (user != null) {
+    idUser = user.sub;
+  } else {
+    idUser = "1";
+  }
+  const headersApi = {
+    user_id: idUser,
+    partner_id: partnerId,
+    "Content-Type": "application/json;application/x-www-form-urlencoded",
+  };
+
   useEffect(() => {
     (async function () {
-      const resVoucher = await VouchersApi.getAllListVoucher();
-      const resGift = await VouchersApi.getAllListGift();
+      const resVoucher = await VouchersApi.getAllListVoucher(headersApi);
+      const resGift = await VouchersApi.getAllListGift(headersApi);
 
       setListVoucher(
         resVoucher.data.data.vouchers.map((item) => {
@@ -148,9 +162,10 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
       typeVoucher: "XPERIENCE",
     };
     //api check condition
-    const res = await VouchersApi.checkConditionVoucher(
-      paramsCheckConditionVoucher
-    );
+    const res = await VouchersApi.checkConditionVoucher({
+      paramsCheckConditionVoucher: paramsCheckConditionVoucher,
+      headersApi: headersApi,
+    });
     if (res.status === 200) {
       toast.success(res.data.message);
       setCodeVoucher(code);
@@ -175,9 +190,11 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
     };
 
     //api check condition
-    const res = await VouchersApi.checkConditionGift(
-      paramsCheckConditionVoucher
-    );
+    const res = await VouchersApi.checkConditionGift({
+      paramsCheckConditionVoucher: paramsCheckConditionVoucher,
+      headersApi: headersApi,
+    });
+
     if (res.status === 200) {
       toast.success(res.data.message);
       setCodeGift(code);
@@ -251,15 +268,15 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
         {
           method: "POST",
           headers: {
-            user_id: "68100596-F731-4C31-8C1E-DC813C6CBAF7",
-            partner_id: "ACA423B3-F1C8-4484-A8D1-8A73ED6DAB60",
+            user_id: user.sub,
+            partner_id: partnerId,
             "Content-Type": "application/json;charset=utf-8",
           },
           body: JSON.stringify(dataVoucher),
         }
       );
       let result = await response.json();
-      console.log(result);
+
       orderIdVoucher.current = result.data.orderId;
     }
   };
@@ -279,15 +296,14 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
         {
           method: "POST",
           headers: {
-            user_id: "68100596-F731-4C31-8C1E-DC813C6CBAF7",
-            partner_id: "ACA423B3-F1C8-4484-A8D1-8A73ED6DAB60",
+            user_id: user.sub,
+            partner_id: partnerId,
             "Content-Type": "application/json;charset=utf-8",
           },
           body: JSON.stringify(dataVoucher),
         }
       );
       let result = await response.json();
-      console.log(result.data.orderId);
       orderIdGift.current = result.data.orderId;
       priceGiftAndVoucher.current = result.data.amountAfter;
     }
@@ -295,8 +311,6 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
 
   var idCustomerFinal;
   const onApprove = async (data, actions) => {
-    console.log("odder", orderIdGift.current, orderIdVoucher);
-
     if (user != null) {
       idCustomerFinal = user.IdCustomer;
     } else {
@@ -314,7 +328,11 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
     const time =
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-    if (voucherCode.current !== "" || giftCode.current !== "") {
+    if (
+      voucherCode.current !== "" ||
+      giftCode.current !== "" ||
+      idCustomerFinal == "1"
+    ) {
       const order = await actions.order.capture();
       let id = order.purchase_units[0].payments.captures[0].id;
       const dataPayment = {
@@ -327,7 +345,7 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
         idPayment: id,
         idSchedule: schedule.idSchedule,
         amountBooking: schedule.Amount,
-        idCustomer: idCustomerFinal,
+        idCustomer: idCustomerFinal || user.sub,
         score: 10,
       };
       await bookingApi.postBooking({ dataPayment });
@@ -335,8 +353,8 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
         await axios("https://api.votuan.xyz/api/v1/user/voucher/state", {
           method: "PUT",
           headers: {
-            user_id: "68100596-F731-4C31-8C1E-DC813C6CBAF7",
-            partner_id: "ACA423B3-F1C8-4484-A8D1-8A73ED6DAB60",
+            user_id: user.sub,
+            partner_id: partnerId,
             "Content-Type": "application/json;charset=utf-8",
           },
           data: {
@@ -350,8 +368,8 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
         await axios("https://api.votuan.xyz/api/v1/user/gift-card/state", {
           method: "PUT",
           headers: {
-            user_id: "68100596-F731-4C31-8C1E-DC813C6CBAF7",
-            partner_id: "ACA423B3-F1C8-4484-A8D1-8A73ED6DAB60",
+            user_id: user.sub,
+            partner_id: partnerId,
             "Content-Type": "application/json;charset=utf-8",
           },
           data: {
@@ -367,7 +385,7 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
     //post áp dụng voucher
     //toast messenger success
   };
-  console.log(checkPaypal);
+
   return (
     <>
       <form>

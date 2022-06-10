@@ -15,7 +15,7 @@ function* fetchApiListImage(idTour) {
 function* fetchApiListSchedule(idTour) {
   const res = yield call(scheduleApi.getId, idTour.payload);
   const listSchedule = res.filter((res) => {
-    return res.stt === true
+    return res.stt === true;
   });
   yield put(productActions.setScheduleSuccess(res));
 }
@@ -24,6 +24,9 @@ function* fetchDataProduct(idTour) {
   const product = responsive.filter((product) => {
     return String(product.IdActivity).trim() === String(idTour.payload);
   });
+
+  localStorage.setItem("partnerInfoId", JSON.stringify(product[0].Idpartner));
+
   yield put(productActions.fetchProductSuccess(product[0]));
 }
 
