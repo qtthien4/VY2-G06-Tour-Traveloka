@@ -15,7 +15,15 @@ export default function TransactionItem({
         <details key={list.idBooking}>
           <summary>
             <div>
-              <span style={{ "background-color": "#f2dcbb" }}></span>
+              <span style={{ "background-color": "#f2dcbb" }}>
+                <div style={{ width: "100%", height: "100%" }}>
+                  <img
+                    src={list.ImageUrl}
+                    alt=""
+                    style={{ width: "100%", height: "100%" }}
+                  />
+                </div>
+              </span>
               <h3>
                 <strong>{list.ActivityName}</strong>
                 <small>
@@ -40,11 +48,11 @@ export default function TransactionItem({
               </div>
               <div>
                 <dt>Voucher giảm</dt>
-                <dd>•••• 6890</dd>
+                <dd>{list.voucher}</dd>
               </div>
               <div>
                 <dt>Gift</dt>
-                <dd>•••• 6890</dd>
+                <dd>{list.gift}</dd>
               </div>
               <div>
                 <dt>Booking ID</dt>
@@ -53,6 +61,10 @@ export default function TransactionItem({
               <div>
                 <dt>Trạng thái</dt>
                 <dd>{list.trangthai}</dd>
+              </div>
+              <div>
+                <dt>Tổng tiền</dt>
+                <dd>{formatter.format(list.reduce)}</dd>
               </div>
               <div>
                 <dt>Chức năng</dt>

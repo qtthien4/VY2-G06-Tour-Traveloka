@@ -29,14 +29,14 @@ export default function PayPal({
         createOrder: async (data, actions, err) => {
           if (checkOption.current == "all") {
             console.log("check all ok");
-            await checkPreGift();
-            await checkPreVoucher();
+            await checkPreGift(checkOption.current);
+            await checkPreVoucher(checkOption.current);
             return createOrder(data, actions, err);
-          } else if (checkGift == true) {
+          } else if (checkOption.current == "gift") {
             console.log("checkOption.current == gift");
             await checkPreGift();
             return createOrder(data, actions, err);
-          } else if (checkGift == true) {
+          } else if (checkOption.current == "voucher") {
             console.log("checkOption.current == voucher");
             await checkPreVoucher();
             return createOrder(data, actions, err);

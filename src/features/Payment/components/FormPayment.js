@@ -156,9 +156,9 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
       setCodeVoucher(code);
       setAmountVoucher(res.data.data.amount);
       setCheckVoucher(true);
+      setCheckPaypal("voucher");
       if (checkGift == true) {
         setCheckPaypal("all");
-        console.log("all");
       }
     } else {
       toast.success(res.message);
@@ -183,7 +183,8 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
       setCodeGift(code);
       setAmountGift(res.data.data.amount);
       setCheckGift(true);
-      if (setCheckVoucher == true) {
+      setCheckPaypal("gift");
+      if (checkVoucher == true) {
         setCheckPaypal("all");
       }
     } else {
@@ -198,11 +199,14 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
   //handle submit
   // post len server thien vo sttbooking = true, discount: "", bookingTime, total moi nhat
 
-  var orderId = useRef("");
+  var orderIdVoucher = useRef("");
+  var orderIdGift = useRef("");
+
   var totalPrice = useRef();
   var voucherCode = useRef("");
   var giftCode = useRef("");
   var check = useRef("");
+  var priceGiftAndVoucher = useRef("");
 
   var amountInitPrice = useRef();
 
@@ -230,14 +234,16 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
   };
 
   //check preVoucher
-  const checkPreVoucher = async () => {
-    console.log(orderId);
+  const checkPreVoucher = async (checkAll) => {
     if (voucherCode.current !== "") {
       var dataVoucher = {
         code: voucherCode.current,
         typeVoucher: "XPERIENCE",
         transactionId: idBooking,
-        amount: amountInitPrice.current,
+        amount:
+          checkAll == "all"
+            ? priceGiftAndVoucher.current
+            : amountInitPrice.current,
       };
 
       let response = await fetch(
@@ -253,40 +259,44 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
         }
       );
       let result = await response.json();
-      orderId = result.data.orderId;
+      console.log(result);
+      orderIdVoucher.current = result.data.orderId;
     }
   };
 
   //check preGift
   const checkPreGift = async () => {
-    console.log(orderId);
-    // if (voucherCode.current !== "") {
-    //   var dataVoucher = {
-    //     code: voucherCode.current,
-    //     typeVoucher: "XPERIENCE",
-    //     transactionId: idBooking,
-    //     amount: amountInitPrice.current,
-    //   };
+    if (giftCode.current !== "") {
+      var dataVoucher = {
+        code: giftCode.current,
+        typeVoucher: "XPERIENCE",
+        transactionId: idBooking,
+        amount: amountInitPrice.current,
+      };
 
-    //   let response = await fetch(
-    //     "https://api.votuan.xyz/api/v1/user/voucher/pre-order",
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         user_id: "68100596-F731-4C31-8C1E-DC813C6CBAF7",
-    //         partner_id: "ACA423B3-F1C8-4484-A8D1-8A73ED6DAB60",
-    //         "Content-Type": "application/json;charset=utf-8",
-    //       },
-    //       body: JSON.stringify(dataVoucher),
-    //     }
-    //   );
-    //   let result = await response.json();
-    //   orderId = result.data.orderId;
-    // }
+      let response = await fetch(
+        "https://api.votuan.xyz/api/v1/user/gift-card/pre-order",
+        {
+          method: "POST",
+          headers: {
+            user_id: "68100596-F731-4C31-8C1E-DC813C6CBAF7",
+            partner_id: "ACA423B3-F1C8-4484-A8D1-8A73ED6DAB60",
+            "Content-Type": "application/json;charset=utf-8",
+          },
+          body: JSON.stringify(dataVoucher),
+        }
+      );
+      let result = await response.json();
+      console.log(result.data.orderId);
+      orderIdGift.current = result.data.orderId;
+      priceGiftAndVoucher.current = result.data.amountAfter;
+    }
   };
 
   var idCustomerFinal;
   const onApprove = async (data, actions) => {
+    console.log("odder", orderIdGift.current, orderIdVoucher);
+
     if (user != null) {
       idCustomerFinal = user.IdCustomer;
     } else {
@@ -304,7 +314,7 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
     const time =
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
-    if (voucherCode.current !== "") {
+    if (voucherCode.current !== "" || giftCode.current !== "") {
       const order = await actions.order.capture();
       let id = order.purchase_units[0].payments.captures[0].id;
       const dataPayment = {
@@ -320,29 +330,40 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
         idCustomer: idCustomerFinal,
         score: 10,
       };
-
       await bookingApi.postBooking({ dataPayment });
-    }
+      if (orderIdVoucher.current !== "") {
+        await axios("https://api.votuan.xyz/api/v1/user/voucher/state", {
+          method: "PUT",
+          headers: {
+            user_id: "68100596-F731-4C31-8C1E-DC813C6CBAF7",
+            partner_id: "ACA423B3-F1C8-4484-A8D1-8A73ED6DAB60",
+            "Content-Type": "application/json;charset=utf-8",
+          },
+          data: {
+            typeVoucher: "XPERIENCE",
+            orderId: orderIdVoucher.current,
+          },
+        });
+      }
 
-    //update status voucher
-    if (voucherCode.current !== "") {
-      await axios("https://api.votuan.xyz/api/v1/user/voucher/state", {
-        method: "PUT",
-        headers: {
-          user_id: "68100596-F731-4C31-8C1E-DC813C6CBAF7",
-          partner_id: "ACA423B3-F1C8-4484-A8D1-8A73ED6DAB60",
-          "Content-Type": "application/json;charset=utf-8",
-        },
-        data: {
-          typeVoucher: "XPERIENCE",
-          orderId,
-        },
-      });
+      if (orderIdGift.current !== "") {
+        await axios("https://api.votuan.xyz/api/v1/user/gift-card/state", {
+          method: "PUT",
+          headers: {
+            user_id: "68100596-F731-4C31-8C1E-DC813C6CBAF7",
+            partner_id: "ACA423B3-F1C8-4484-A8D1-8A73ED6DAB60",
+            "Content-Type": "application/json;charset=utf-8",
+          },
+          data: {
+            typeVoucher: "XPERIENCE",
+            orderId: orderIdGift.current,
+          },
+        });
+      }
     }
-
     toast.success("Bạn đã thanh toán thành công !");
     clearTimeout(timerTrans.current);
-    //navigate(`/activities`);
+    navigate(`/activities`);
     //post áp dụng voucher
     //toast messenger success
   };
@@ -503,6 +524,7 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
         </div>
       </form>
       <PayPal
+        checkPreGift={checkPreGift}
         checkGift={checkGift}
         checkVoucher={checkVoucher}
         check={check.current}
