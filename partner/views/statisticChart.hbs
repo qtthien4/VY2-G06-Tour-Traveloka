@@ -21,8 +21,7 @@
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="/css/homecustom.css">
     <link rel="stylesheet" href="/css/selectmultiple.css">
-    <link rel="import"
-        href="https://rawgit.com/sitepoint-editors/multiselect-web-component/master/src/multiselect.html">
+    <link rel="import" href="https://rawgit.com/sitepoint-editors/multiselect-web-component/master/src/multiselect.html">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
         .container {
@@ -53,8 +52,7 @@
                     <div class="navbar-holder d-flex align-items-center justify-content-between w-100">
                         <!-- Navbar Header-->
                         <div class="navbar-header">
-                            <img src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/30bf6c528078ba28d34bc3e37d124bdb.svg"
-                                alt="">
+                            <img src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/30bf6c528078ba28d34bc3e37d124bdb.svg" alt="">
 
                         </div>
                         <!-- Navbar Menu -->
@@ -62,8 +60,7 @@
 
                             <!-- Logout    -->
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="login" onclick="delcookie()"> <span
-                                        class="d-none d-sm-inline">Logout</span>
+                                <a class="nav-link text-white" href="login" onclick="delcookie()"> <span class="d-none d-sm-inline">Logout</span>
                                     <svg class="svg-icon svg-icon-xs svg-icon-heavy">
                                         <use xlink:href="#security-1"> </use>
                                     </svg></a>
@@ -89,42 +86,45 @@
                         <h1 class="h4 mb-2">{{{user}}}</h1>
                     </div>
                 </div>
-                <!-- Sidebar Navidation Menus--><span
-                    class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Main</span>
+                <!-- Sidebar Navidation Menus--><span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Main</span>
                 <ul class="list-unstyled py-4">
                     <li class="sidebar-item ">
                         <a class="sidebar-link" href="/home">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                                <use xlink:href="#real-estate-1"> </use>
-                            </svg>Home </a>
+                    <use xlink:href="#real-estate-1"> </use>
+                  </svg>Home </a>
                     </li>
                     <li class="sidebar-item ">
                         <a class="sidebar-link" href="/table">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                                <use xlink:href="#portfolio-grid-1"> </use>
-                            </svg>Tables </a>
+                    <use xlink:href="#portfolio-grid-1"> </use>
+                  </svg>Danh sách activity </a>
                     </li>
                     </li>
                     <li class="sidebar-item ">
                         <a class="sidebar-link" href="/form">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                                <use xlink:href="#survey-1"> </use>
-                            </svg>Forms </a>
+                    <use xlink:href="#survey-1"> </use>
+                  </svg>Tạo activity </a>
                     </li>
-                    <li class="sidebar-item  active">
+                    <li class="sidebar-item active">
                         <a class="sidebar-link" href="/statistic">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                                <use xlink:href="#portfolio-grid-1"> </use>
-                            </svg>Thống kê </a>
+                    <use xlink:href="#portfolio-grid-1"> </use>
+                  </svg>Thống kê </a>
                     </li>
+
                 </ul>
             </nav>
             <div class="content-inner w-100">
 
                 <!-- Breadcrumb-->
                 <div class="products-area-wrapper tableView">
-
+                    <label for="nam">Chọn Năm</label>
                     <select name="nam" id="nam"></select>
+                    <br>
+
+                    <label for="type">Chọn loại biểu đồ</label>
                     <select name="type" id="type">
                         <option value="line">Loại line</option>
                         <option value="bar">Loại bar</option>
@@ -132,11 +132,16 @@
                         <option value="pie">Loại pie</option>
                         <option value="polarArea">Loại polarArea</option>
                     </select>
+                    <br>
+
+                    <label for="trangthai">Chọn trạng thái</label>
                     <select name="trangthai" id="trangthai">
-                        <option value="success">Success</option>
-                        <option value="refund">Refund</option>
+                        <option value="success">Tổng tiền thu nhập</option>
+                        <option value="refund">Tổng tiền hoàn</option>
+                        <option value="nguoithanhcong">Số lượng người đặt thành công</option>
+                        <option value="nguoihoantien">Số lượng người hoàn tiền</option>
                     </select>
-                    <button onclick="getdata()">chọn</button>
+                    <button onclick="getdata()" class="btn btn-primary btn-sm ml-4">Search</button>
 
                 </div>
                 <div class="container">
@@ -179,8 +184,12 @@
             var label = null
             if (trangthai == "success") {
                 label = `Tổng Thu Nhập Năm ${nam}`
-            } else {
+            } else if (trangthai == "refund") {
                 label = `Tổng số tiền hoàn lại người dùng năm ${nam}`
+            } else if (trangthai == "nguoithanhcong") {
+                label = `Số lượng người tham gia năm ${nam}`
+            } else {
+                label = `Số lượng người hoàn tiền năm ${nam}`
             }
 
             var ctx = document.getElementById("myChart").getContext('2d');
@@ -189,28 +198,28 @@
                 data: {
                     labels: ['Tháng 1', 'Tháng 2 ', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12 '],
                     datasets: [{
-                        label: label,
-                        data: getdata,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(255, 205, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(201, 203, 207, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(255, 159, 64)',
-                            'rgb(255, 205, 86)',
-                            'rgb(75, 192, 192)',
-                            'rgb(54, 162, 235)',
-                            'rgb(153, 102, 255)',
-                            'rgb(201, 203, 207)'
-                        ],
-                        borderWidth: 1
-                    },
+                            label: label,
+                            data: getdata,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 205, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(201, 203, 207, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'
+                            ],
+                            borderWidth: 1
+                        },
                         /*{
                             label: 'Last week',
                             data: [1400000, 1200000, 1500000,2500000, 1800000, 1900000, 2200000],
@@ -241,7 +250,7 @@
             var ajax = new XMLHttpRequest();
             ajax.open("GET", path, true);
             ajax.send();
-            ajax.onload = function (e) {
+            ajax.onload = function(e) {
                 var div = document.createElement("div");
                 div.className = 'd-none';
                 div.innerHTML = ajax.responseText;
@@ -255,8 +264,7 @@
         injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
     </script>
     <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </body>
 
 </html>

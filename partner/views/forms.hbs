@@ -8,8 +8,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="robots" content="all,follow">
-    <link href="/css/multiselect.css" rel="stylesheet"/>
-	<script src="/js/multiselect.min.js"></script>
+    <link href="/css/multiselect.css" rel="stylesheet" />
+    <script src="/js/multiselect.min.js"></script>
 
 
     <!-- Google fonts - Poppins -->
@@ -21,11 +21,12 @@
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="/css/homecustom.css">
     <link rel="stylesheet" href="/css/selectmultiple.css">
-    <link rel="import" href="https://rawgit.com/sitepoint-editors/multiselect-web-component/master/src/multiselect.html">
+    <link rel="import"
+        href="https://rawgit.com/sitepoint-editors/multiselect-web-component/master/src/multiselect.html">
 
 
     <style>
-        .hideinput{
+        .hideinput {
             display: none;
         }
     </style>
@@ -39,10 +40,10 @@
                 <!-- Search Box-->
                 <div class="search-box shadow-sm">
                     <button class="dismiss d-flex align-items-center">
-              <svg class="svg-icon svg-icon-heavy">
-                <use xlink:href="#close-1"> </use>
-              </svg>
-            </button>
+                        <svg class="svg-icon svg-icon-heavy">
+                            <use xlink:href="#close-1"> </use>
+                        </svg>
+                    </button>
                     <form id="searchForm" action="#" role="search">
                         <input class="form-control shadow-0" type="text" placeholder="What are you looking for...">
                     </form>
@@ -51,21 +52,23 @@
                     <div class="navbar-holder d-flex align-items-center justify-content-between w-100">
                         <!-- Navbar Header-->
                         <div class="navbar-header">
-                            <img src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/30bf6c528078ba28d34bc3e37d124bdb.svg" alt="">
-                            
+                            <img src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/30bf6c528078ba28d34bc3e37d124bdb.svg"
+                                alt="">
+
                         </div>
                         <!-- Navbar Menu -->
                         <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                            
+
                             <!-- Logout    -->
                             <li class="nav-item">
-                                <a class="nav-link text-white" href="login" onclick="delcookie()"> <span class="d-none d-sm-inline">Logout</span>
+                                <a class="nav-link text-white" href="login" onclick="delcookie()"> <span
+                                        class="d-none d-sm-inline">Logout</span>
                                     <svg class="svg-icon svg-icon-xs svg-icon-heavy">
-                      <use xlink:href="#security-1"> </use>
-                    </svg></a>
+                                        <use xlink:href="#security-1"> </use>
+                                    </svg></a>
                             </li>
                             <script>
-                                function delcookie(){
+                                function delcookie() {
                                     console.log("asdasd")
                                     document.cookie = "Cookie_User=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                                 }
@@ -79,58 +82,52 @@
             <!-- Side Navbar -->
             <nav class="side-navbar z-index-40">
                 <!-- Sidebar Header-->
-                <div class="sidebar-header d-flex align-items-center py-4 px-3"><img class="avatar shadow-0 img-fluid rounded-circle" src="img/avatar-1.jpg" alt="...">
+                <div class="sidebar-header d-flex align-items-center py-4 px-3"><img
+                        class="avatar shadow-0 img-fluid rounded-circle" src="img/avatar-1.jpg" alt="...">
                     <div class="ms-3 title">
                         <h1 class="h4 mb-2">{{{user}}}</h1>
                     </div>
                 </div>
-                <!-- Sidebar Navidation Menus--><span class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Main</span>
-                <ul class="list-unstyled py-4">
+                <!-- Sidebar Navidation Menus--><span
+                    class="text-uppercase text-gray-400 text-xs letter-spacing-0 mx-3 px-2 heading">Main</span>
+                    <ul class="list-unstyled py-4">
                     <li class="sidebar-item ">
                         <a class="sidebar-link" href="/home">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                  <use xlink:href="#real-estate-1"> </use>
-                </svg>Home </a>
+                <use xlink:href="#real-estate-1"> </use>
+              </svg>Home </a>
                     </li>
-                    <li class="sidebar-item ">
+                    <li class="sidebar-item">
                         <a class="sidebar-link" href="/table">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                  <use xlink:href="#portfolio-grid-1"> </use>
-                </svg>Tables </a>
-                    </li>                    
+                <use xlink:href="#portfolio-grid-1"> </use>
+              </svg>Danh sách activity </a>
+                    </li>
                     </li>
                     <li class="sidebar-item active">
                         <a class="sidebar-link" href="/form">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                  <use xlink:href="#survey-1"> </use>
-                </svg>Forms </a>
+                <use xlink:href="#survey-1"> </use>
+              </svg>Tạo activity </a>
                     </li>
                     <li class="sidebar-item ">
                         <a class="sidebar-link" href="/statistic">
                             <svg class="svg-icon svg-icon-sm svg-icon-heavy me-xl-2">
-                  <use xlink:href="#portfolio-grid-1"> </use>
-                </svg>Thống kê </a>
-                    </li>                       
+                <use xlink:href="#portfolio-grid-1"> </use>
+              </svg>Thống kê </a>
+                    </li>
+
                 </ul>
             </nav>
             <div class="content-inner w-100">
                 <!-- Page Header-->
                 <header class="bg-white shadow-sm px-4 py-3 z-index-20">
                     <div class="container-fluid px-0">
-                        <h2 class="mb-0 p-1">Forms</h2>
+                        <h2 class="mb-0 p-1">Tạo Activity</h2>
                     </div>
                 </header>
                 <!-- Breadcrumb-->
-                <div class="bg-white">
-                    <div class="container-fluid">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb mb-0 py-3">
-                                <li class="breadcrumb-item"><a class="fw-light" href="index.html">Home</a></li>
-                                <li class="breadcrumb-item active fw-light" aria-current="page">Forms</li>
-                            </ol>
-                        </nav>
-                    </div>
-                </div>
+                
                 <!-- Forms Section-->
                 <section class="forms">
                     <div class="container-fluid">
@@ -141,203 +138,210 @@
                                     <div class="card-header">
                                         <div class="card-close">
                                             <div class="dropdown">
-                                                <div class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="closeCard1">
-                                                    <a class="dropdown-item py-1 px-3 remove" href="#"> <i class="fas fa-times"></i>Close</a>
-                                                    <a class="dropdown-item py-1 px-3 edit" href="#"> <i class="fas fa-cog"></i>Edit</a>
+                                                <div class="dropdown-menu dropdown-menu-end shadow-sm"
+                                                    aria-labelledby="closeCard1">
+                                                    <a class="dropdown-item py-1 px-3 remove" href="#"> <i
+                                                            class="fas fa-times"></i>Close</a>
+                                                    <a class="dropdown-item py-1 px-3 edit" href="#"> <i
+                                                            class="fas fa-cog"></i>Edit</a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <h3 class="h4 mb-0">Thiết lập tour</h3>
+                                        <h3 class="h4 mb-0">Thiết lập Activity</h3>
                                     </div>
                                     <div class="card-body">
                                         <form class="form-horizontal" method="post" action="">
-                                        <div class="row">
+                                            <div class="row">
                                                 <div class="col-sm-3">
                                                     <label class="col-sm-3 form-label">Loại</label>
                                                     <div class="col-sm-8">
-                                                        <select  name="type" >
-                                                                {{#each type}}
-                                                                <option value='{{{this.idtype}}}'>{{{this.type}}}</option>                                                           
-                                                                {{/each}}
-                                                            </select>
+                                                        <select name="type">
+                                                            {{#each type}}
+                                                            <option value='{{{this.idtype}}}'>{{{this.type}}}</option>
+                                                            {{/each}}
+                                                        </select>
                                                         <small class="form-text">Tour, Tham quan,.....</small>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-8">
                                                     <div class="col-sm-12">
-                                                     <label class="col-sm-3 form-label">Tên hoạt động</label>
-                                                     </div>
-                                                    <div class="col-sm-9">
-                                                    <input class="form-control" type="text" name="nameactivity">                                                
+                                                        <label class="col-sm-3 form-label">Tên hoạt động</label>
                                                     </div>
-                                                </div>                                                
-                                            </div>     
+                                                    <div class="col-sm-9">
+                                                        <input class="form-control" type="text" name="nameactivity" required>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="border-bottom my-5 border-gray-200"></div>
-                                            <div class="row">  
+                                            <div class="row">
                                                 <div class="col-sm-5" style="margin-left: 15px;">
-                                                    <input type="file" id="files" name="file[]" multiple="multiple">
-                                                </div>        
+                                                    <input type="file" id="files" name="file[]" multiple="multiple" required>
+                                                </div>
                                                 <div class="col-sm-2">
-                                                    <button  style="text-align: center; border: 1px solid black" onclick="upload()" type="button">Xác nhận</button>
-                                                    <div id="success" style="display: none; margin-top: 6px">Hoàn thành</div>    
-                                                </div>      
+                                                    <button style="text-align: center; border: 1px solid black"
+                                                        onclick="upload()" type="button">Xác nhận</button>
+                                                    <div id="success" style="display: none; margin-top: 6px">Hoàn thành
+                                                    </div>
+                                                </div>
                                                 <div style="display: none;" class="col-sm-2">
                                                     <select name="links[]" id="link" multiple>
-                                                
+
                                                     </select>
-                                                </div>                                                   
-                                            </div> 
+                                                </div>
+                                            </div>
                                             <div class="border-bottom my-5 border-gray-200"></div>
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <label class="col-sm-3 form-label">Nước</label>
                                                     <div class="col-sm-9">
-                                                        <select onchange="onChangeValue()" name="nuoc" id="nuoc">
-                                                            <option value=''>--None--</option>     
+                                                        <select onchange="onChangeValue()" name="nuoc" id="nuoc" required>
+                                                            <option value=''>--None--</option>
                                                             {{#each nuoc}}
-                                                            <option value='{{{this.IdCountry}}}'>{{{this.CountryName}}}</option>                                                           
-                                                             {{/each}}
+                                                            <option value='{{{this.IdCountry}}}'>{{{this.CountryName}}}
+                                                            </option>
+                                                            {{/each}}
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <label class="col-sm-2 form-label">Thành Phố</label>
                                                     <div class="col-sm-9">
-                                                        <select  name="thanhpho" id="thanhpho">
+                                                        <select name="thanhpho" id="thanhpho" required>
                                                             {{!-- {{#each thanhpho}}
-                                                            <option value='{{{this.IdCity}}}'>{{{this.CityName}}}</option>                                                           
-                                                             {{/each}} --}}
+                                                            <option value='{{{this.IdCity}}}'>{{{this.CityName}}}
+                                                            </option>
+                                                            {{/each}} --}}
                                                         </select>
                                                     </div>
-                                                </div>                                               
-                                            </div>                                 
+                                                </div>
+                                            </div>
                                             <div class="border-bottom my-5 border-gray-200"></div>
-                                                                                   
-                                            
+
+
                                             <div class="row">
                                                 <div class="row">
                                                     <div class="col-sm-9">
                                                         <label class="col-sm-3 form-label">Địa điểm</label>
-                                                    <div class="col-sm-9">
-                                                        <input class="form-control" type="text" name="place">
-                                                    </div>
+                                                        <div class="col-sm-9">
+                                                            <input class="form-control" type="text" name="place" required>
+                                                        </div>
                                                     </div>
                                                     <div class="col-sm-3">
                                                         <label class="col-sm-3 form-label">Giá</label>
-                                                    <div class="col-sm-9">
-                                                        <input class="form-control" type="number" name="price">
-                                                    </div>
+                                                        <div class="col-sm-9">
+                                                            <input class="form-control" type="number" name="price" required>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>    
+                                            </div>
                                             <div class="border-bottom my-5 border-gray-200"></div>
                                             <div class="row">
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <label class="col-sm-3 form-label">Số lượng</label>
                                                         <div class="col-sm-9">
-                                                            <input class="form-control" type="number" name="amount">
+                                                            <input class="form-control" type="number" name="amount" required>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label class="col-sm-3 form-label">Trạng Thái</label>
                                                         <div class="col-sm-9">
                                                             <select id='' name="stt">
-                                                                <option value='1'>Hoạt động</option>                                                            
-                                                                <option value='0'>Không hoạt động</option>                                                              
+                                                                <option value='1'>Hoạt động</option>
+                                                                <option value='0'>Không hoạt động</option>
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    
-                                                    </div>
-                                                </div>
-                                            </div>                                        
-                                            <div class="border-bottom my-5 border-gray-200"></div>
-                                            <div class="row" style="margin-left: 15px;">
-                                                <label class="col-sm-3 form-label">Mô tả</label>
-                                                <div class="col-sm-9">
-                                                    <textarea id="w3review" rows="6" cols="70" name="desc"></textarea>
+
                                                 </div>
                                             </div>
-                                            <div style="display: none;">
-                                                <input type="text" name="idactivity" id="idactivity" value="">
-                                                <input type="text" name="idschedule" id="idschedule" value="">
-                                                
-                                            </div>
-                                            <div class="border-bottom my-5 border-gray-200"></div>
-                                            <div class="row" style="margin-bottom: 20px;">
-                                                <div class="col-sm-9 ms-auto">
-                                                    <button class="btn btn-secondary" type="reset">Cancel</button>
-                                                    <button class="btn btn-primary" type="submit">Save changes</button>
-                                                </div>
-                                            </div>
-                                        </form>
                                     </div>
+                                    <div class="border-bottom my-5 border-gray-200"></div>
+                                    <div class="row" style="margin-left: 15px;">
+                                        <label class="col-sm-3 form-label">Mô tả</label>
+                                        <div class="col-sm-9">
+                                            <textarea id="w3review" rows="6" cols="70" name="desc"></textarea>
+                                        </div>
+                                    </div>
+                                    <div style="display: none;">
+                                        <input type="text" name="idactivity" id="idactivity" value="">
+                                        <input type="text" name="idschedule" id="idschedule" value="">
+
+                                    </div>
+                                    <div class="border-bottom my-5 border-gray-200"></div>
+                                    <div class="row" style="margin-bottom: 20px;">
+                                        <div class="col-sm-9 ms-auto">
+                                            <button class="btn btn-secondary" type="reset">Cancel</button>
+                                            <button class="btn btn-primary" type="submit">Save changes</button>
+                                        </div>
+                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-                <!-- Page Footer-->
-                
             </div>
+            </section>
+            <!-- Page Footer-->
+
         </div>
+    </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
-<script>
-    const firebaseConfig = {
-        apiKey: "AIzaSyAGKppLdSgv1k8izZY3Nnfdu7QkemOFIDE",
-        authDomain: "traveloka-66925.firebaseapp.com",
-        projectId: "traveloka-66925",
-        storageBucket: "traveloka-66925.appspot.com",
-        messagingSenderId: "1049582102513",
-        appId: "1:1049582102513:web:83b3ccbe4e4ca235330650",
-        measurementId: "G-29C4MB86WP"
-    };
-    firebase.initializeApp(firebaseConfig);
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAGKppLdSgv1k8izZY3Nnfdu7QkemOFIDE",
+            authDomain: "traveloka-66925.firebaseapp.com",
+            projectId: "traveloka-66925",
+            storageBucket: "traveloka-66925.appspot.com",
+            messagingSenderId: "1049582102513",
+            appId: "1:1049582102513:web:83b3ccbe4e4ca235330650",
+            measurementId: "G-29C4MB86WP"
+        };
+        firebase.initializeApp(firebaseConfig);
 
-         
-        
-        var a = async() => {
+
+
+        var a = async () => {
             var storage = firebase.storage();
             var ref = storage.ref();
 
             const files = document.querySelectorAll("#files");
-            
+
 
             for (let i = 0; i < files[0].files.length; i++) {
-            let file = files[0].files[i];
+                let file = files[0].files[i];
 
-            const metadata = {
-                contentType: file.type
-            }
-            const task = ref.child(file.name).put(file, metadata);
+                const metadata = {
+                    contentType: file.type
+                }
+                const task = ref.child(file.name).put(file, metadata);
 
-            await task.then(snapshot => snapshot.ref.getDownloadURL())
-                .then(url => {
-                    console.log(url);
-                    var select = document.querySelector('#link')
-                    var opt = document.createElement('option')
-                    opt.value = url
-                    opt.innerText = i
-                    select.appendChild(opt)
-                })
+                await task.then(snapshot => snapshot.ref.getDownloadURL())
+                    .then(url => {
+                        console.log(url);
+                        var select = document.querySelector('#link')
+                        var opt = document.createElement('option')
+                        opt.value = url
+                        opt.innerText = i
+                        select.appendChild(opt)
+                    })
             }
-            for(var i = 0; i<document.getElementById("link").options.length; i++){
-                document.getElementById("link").options[i].selected =true
-            }   
+            for (var i = 0; i < document.getElementById("link").options.length; i++) {
+                document.getElementById("link").options[i].selected = true
+            }
             document.querySelector('#success').style.display = "block"
         }
 
-     function upload() {   
-         a();
-        
-    }
-</script>
+        function upload() {
+            a();
 
-  <script src="https://unpkg.com/shortid-dist@1.0.5/dist/shortid-2.2.13.min.js"></script>
+        }
+    </script>
+
+    <script src="https://unpkg.com/shortid-dist@1.0.5/dist/shortid-2.2.13.min.js"></script>
     <!-- JavaScript files-->
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/Chart.min.js"></script>
@@ -346,45 +350,46 @@
     <!-- Main File-->
     <script src="js/front.js"></script>
     <script>
-        function onChangeValue(){
-        var idnuoc =  document.querySelector('#nuoc').value
-        var textopition = ''
-        {{#each thanhpho}}
-            if(idnuoc == {{{this.IdCountry}}}){
-                textopition = textopition + '<option value={{{this.IdCity}}}>{{{this.CityName}}}</option> \n'
-            }
+        function onChangeValue() {
+            var idnuoc = document.querySelector('#nuoc').value
+            var textopition = ''
+            {{#each thanhpho}}
+            if (idnuoc == {{{this.IdCountry}}}) {
+            textopition = textopition + '<option value={{{this.IdCity}}}>{{{this.CityName}}}</option> \n'
+        }
         {{/each}}
-        document.querySelector("#thanhpho").innerHTML = textopition
-            console.log(textopition);
-        }
-    
-   
-
-        document.querySelector('#idactivity').value = `${shortid()}`
-        document.querySelector('#idschedule').value = `${shortid()}`      
-
-        function injectSvgSprite(path) {
-
-            var ajax = new XMLHttpRequest();
-            ajax.open("GET", path, true);
-            ajax.send();
-            ajax.onload = function(e) {
-                var div = document.createElement("div");
-                div.className = 'd-none';
-                div.innerHTML = ajax.responseText;
-                document.body.insertBefore(div, document.body.childNodes[0]);
+                document.querySelector("#thanhpho").innerHTML = textopition
+                console.log(textopition);
             }
-        }
-       
 
-        // this is set to BootstrapTemple website as you cannot 
-        // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
-        // while using file:// protocol
-        // pls don't forget to change to your domain :
-        injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
+
+
+            document.querySelector('#idactivity').value = `${shortid()}`
+            document.querySelector('#idschedule').value = `${shortid()}`
+
+            function injectSvgSprite(path) {
+
+                var ajax = new XMLHttpRequest();
+                ajax.open("GET", path, true);
+                ajax.send();
+                ajax.onload = function (e) {
+                    var div = document.createElement("div");
+                    div.className = 'd-none';
+                    div.innerHTML = ajax.responseText;
+                    document.body.insertBefore(div, document.body.childNodes[0]);
+                }
+            }
+
+
+            // this is set to BootstrapTemple website as you cannot 
+            // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+            // while using file:// protocol
+            // pls don't forget to change to your domain :
+            injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');
     </script>
     <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </body>
 
 </html>

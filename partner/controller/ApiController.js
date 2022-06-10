@@ -1,5 +1,6 @@
 const shortid = require("shortid");
 const axios = require('axios')
+const jwt_decode = require('jwt-decode');
 
 const {
   activity,
@@ -17,7 +18,7 @@ const {
 class ApiController {
   index(req, res) { }
 
-  RegisterUser(req, res) {
+  async RegisterUser(req, res) {
     var info = req.body;
     var IdCustomer = info.IdCustomer;
     var Name = info.Name;
@@ -26,25 +27,48 @@ class ApiController {
     var gender = info.gender;
     var point = 0;
     var password = info.password;
+    console.log(info);
+    var date = new Date()
+    date.setFullYear(1991)
 
-    user
-      .create({
-        IdCustomer,
-        Name,
-        Phone,
-        email,
-        gender,
-        point,
-        password,
-      })
-      .then((user) => {
-        console.log(user.get({ plain: true }));
-      })
-      .catch((err) => console.log(err));
+    var dataRegister = {
+      "userId": "",
+      "email": req.body.email,
+      "username": req.body.taikhoan,
+      "name": req.body.Name,
+      "gender": true,
+      "dob": date,
+      "phone": req.body.Phone,
+      "address": req.body.address,
+      "type": "",
+      "reward": 0,
+      "services": [],
+      "companyName": "",
+      "access_token": "",
+      "password": req.body.password
+    }
 
-    res.json({
-      status: "ok",
-    });
+    try {
+      const register = await axios.post('https://profile.vinhphancommunity.xyz/api/auth/signup',
+        dataRegister
+      )
+
+      console.log(register)
+      await user.create({
+        IdCustomer, Name, Phone, email, gender, point, password,
+      })
+        .then((user) => {
+          console.log(user.get({ plain: true }));
+        })
+        .catch((err) => console.log(err));
+
+      res.json({
+        status: "ok",
+      });
+
+    } catch (error) {
+      res.json(error)
+    }
   }
 
   tour(req, res) {
@@ -292,19 +316,42 @@ class ApiController {
 
   //lay thoong tin cua user (post)
   async Login(req, res) {
-    var userLogin = req.body.user;
-    // console.log(user)
-    var infoUser = await user.findOne({
-      raw: true,
-      where: { email: userLogin },
-      order: ["IdCustomer"],
-    });
-
-    if (infoUser == null) {
-      res.json({ data: "user khong ton tai" });
-    } else {
-      res.send(infoUser);
+    var dataLogin = {
+      username: req.body.user,
+      password: req.body.matkhau
     }
+
+    try {
+      const login = await axios.post('https://profile.vinhphancommunity.xyz/api/auth/login', dataLogin)
+      if (login.data.success) {
+        var decoded = jwt_decode(login.data.data.access_token);
+
+        var idphone = await user.findOne({
+          raw: true,
+          where: {
+            email: decoded.email
+          },
+          order: ['email']
+        })
+        decoded.Phone = idphone.Phone
+        console.log(decoded);
+        // res.json(idphone)
+      }
+    } catch (error) {
+      res.json(error)
+    }
+    // console.log(user)
+    // var infoUser = await user.findOne({
+    //   raw: true,
+    //   where: { email: userLogin },
+    //   order: ["IdCustomer"],
+    // });
+
+    // if (infoUser == null) {
+    //   res.json({ data: "user khong ton tai" });
+    // } else {
+    //   res.send(infoUser);
+    // }
   }
 
   //update giữ chổ
@@ -322,7 +369,6 @@ class ApiController {
     var amountBookingSchedule = scheduleObj.AmountBooking;
     var sumPeopel = parseInt(amountPeople) + parseInt(amountBookingSchedule);
     sumPeopel.toString();
-
 
     await schedule.update(
       {
@@ -442,9 +488,6 @@ class ApiController {
     var timestart = new Date(scheduleObj.StartTime);
 
     time.setDate(time.getDate() + 1);
-
-    console.log(time);
-    console.log(timestart)
 
     if (timestart > time) {
       var idPayment = bookObj.IdPayment.trim();

@@ -1,7 +1,7 @@
 const Int = require('tedious/lib/data-types/int');
 const { Parser } = require('tedious/lib/token/token-stream-parser');
 var { activity, schedule, book, user, type, partner } = require('../configDb');
-var GetDb = require('../service/getDb')
+var GetDb = require('../services/getDb')
 
 class StatisticController {
     async index(req, res) {
@@ -100,21 +100,45 @@ class StatisticController {
             date = [...date, `${i}-${nam}`]
         }
 
-        for (var i = 0; i < date.length; i++) {
-            var sum = 0;
-            for (var j = 0; j < arrBoking.length; j++) {
-                if (arrBoking[j].BookingTime.includes(date[i]) && arrBoking[j].SttBooking == trangthai) {
-                    if (arrBoking[j].Total != undefined) {
-                        var total = Number(arrBoking[j].Total)
-                        sum = sum + total
-                    } else {
-                        console.log('asdasd')
+        if (trangthai == 'success' || trangthai == 'refund') {
+            for (var i = 0; i < date.length; i++) {
+                var sum = 0;
+                for (var j = 0; j < arrBoking.length; j++) {
+                    if (arrBoking[j].BookingTime.includes(date[i]) && arrBoking[j].SttBooking == trangthai) {
+                        if (arrBoking[j].Total != undefined) {
+                            var total = Number(arrBoking[j].Total)
+                            sum = sum + total
+                        } else {
+                            console.log('asdasd')
+                        }
+                    }
+
+                }
+                data.push(sum)
+            }
+        }
+        else if (trangthai == 'nguoithanhcong') {
+            for (var i = 0; i < date.length; i++) {
+                var sum = 0;
+                for (var j = 0; j < arrBoking.length; j++) {
+                    if (arrBoking[j].BookingTime.includes(date[i]) && arrBoking[j].SttBooking == "success") {
+                        sum = sum + arrBoking[j].AmountPeople
                     }
                 }
-
+                data.push(sum)
             }
-            data.push(sum)
+        } else {
+            for (var i = 0; i < date.length; i++) {
+                var sum = 0;
+                for (var j = 0; j < arrBoking.length; j++) {
+                    if (arrBoking[j].BookingTime.includes(date[i]) && arrBoking[j].SttBooking == "refund") {
+                        sum = sum + arrBoking[j].AmountPeople
+                    }
+                }
+                data.push(sum)
+            }
         }
+
         res.send(data)
     }
 
