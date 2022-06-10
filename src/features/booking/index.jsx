@@ -24,6 +24,7 @@ import BookingForm from "./components/BookingForm";
 import { useStyles } from "./indexStyle";
 import reBookingApi from "api/ApiReal/reBookingApi";
 import { toast } from "react-toastify";
+import tourApi from "api/ApiReal/tourApi";
 
 export default function Booking() {
   window.scroll(0, 0);
@@ -31,34 +32,23 @@ export default function Booking() {
   var user = JSON.parse(localStorage.getItem("userInfo"));
   const tour = useSelector(selectTour);
 
-  const [idTourBooking, setTourBooking] = useState(
-    localStorage.getItem("idTour")
-  );
-  const [scheduleTour, SetScheduleTour] = useState(
-    JSON.parse(localStorage.getItem("schedule"))
-  );
-  const [listTour, setListTour] = useState(
-    JSON.parse(localStorage.getItem("listTour"))
-  );
+  const scheduleTour = JSON.parse(localStorage.getItem("schedule"));
+  var idTourok = JSON.parse(localStorage.getItem("schedule")).idActivity;
+
+  const [tourCurrent, setTourCurrent] = useState({});
   const location = useLocation();
   let idSchedule = String(location.pathname.split("/")[3]);
-
-  const TourCurrent = listTour.filter(
-    (tour) => tour.IdActivity.trim() === scheduleTour.idActivity
-  )[0];
 
   const idbooking = useRef(shortid.generate());
   const time = 300;
   const timerTrans = useRef(null);
 
-  const [message, setMessager] = useState("");
-
-  const dispatch = useDispatch();
   useEffect(() => {
     if (idSchedule === undefined) {
       navigate("/activities");
     } else {
-      dispatch(bookingActions.fetchTour(JSON.parse(idTourBooking)));
+      //dispatch(bookingActions.fetchTour(JSON.parse(idTourBooking)));
+
       const dataTimeoutPayment = {
         idBooking: "",
         idSchedule: scheduleTour.idSchedule,
@@ -66,19 +56,31 @@ export default function Booking() {
       };
 
       //post delete booking affter long time
-      console.log(TourCurrent.IdActivity);
+
       timerTrans.current = setTimeout(async () => {
         await reBookingApi.post({ dataTimeoutPayment });
         toast.warning("Bạn đã quá thời gian đặt chỗ vui lòng chọn lại!");
-        navigate(`/activities/vietnam/product/${TourCurrent.IdActivity}`);
+        //navigate(`/activities/product/${TourCurrent.IdActivity}`);
       }, time * 1000);
     }
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idSchedule]);
+
+  useEffect(() => {
+    (async function () {
+      let res = await tourApi.getId(idTourok);
+      setTourCurrent(res[0]);
+      localStorage.setItem("TourCurrent", JSON.stringify(res[0]));
+    })();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idSchedule]);
+
+  console.log(tourCurrent);
 
   const fullWidth = true;
   const classes = useStyles();
   const navigate = useNavigate();
-  console.log(user);
   var ok;
   // handle form
   const handleBookingFormSubmit = async (formValue) => {
@@ -119,7 +121,7 @@ export default function Booking() {
       gender: selectGender,
     };
 
-    localStorage.setItem("TourCurrent", JSON.stringify(TourCurrent));
+    //localStorage.setItem("TourCurrent", JSON.stringify(TourCurrent));
     console.log("formValue123", [
       { customerDetail: customerDetail },
       { booking: booking },
@@ -151,7 +153,7 @@ export default function Booking() {
             schedule={scheduleTour}
             onSubmit={handleBookingFormSubmit}
             fullWidth={fullWidth}
-            tour={TourCurrent}
+            tour={tourCurrent}
           />
 
           <Box className={classes.right}>
@@ -167,7 +169,7 @@ export default function Booking() {
               </Box>
 
               <Typography className={classes.textTitleBox}>
-                {TourCurrent.ActivityName}
+                {tourCurrent.ActivityName}
               </Typography>
               <Box className={classes.rightImageBox} mt={2} mb={2}>
                 <img
@@ -178,11 +180,11 @@ export default function Booking() {
                     width: "200px",
                   }}
                   height="100"
-                  src={TourCurrent.ImageUrl}
+                  src={tourCurrent.ImageUrl}
                 ></img>
                 <Box style={{ display: "flex", flexDirection: "column" }}>
                   <span>
-                    Mở chuyến tham quan cho Max. {TourCurrent.Amount} người tham
+                    Mở chuyến tham quan cho Max. {tourCurrent.Amount} người tham
                     gia
                   </span>
                   <Button

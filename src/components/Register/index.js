@@ -36,7 +36,16 @@ export default function Register() {
   });
 
   const onSubmit = async (data) => {
-    const { Name, Phone, gender, email, password, rePassword } = data;
+    const {
+      Name,
+      diachi,
+      email,
+      Phone,
+      gender,
+      taikhoan,
+      password,
+      rePassword,
+    } = data;
     try {
       if (password === rePassword) {
         //login tiep tuc
@@ -46,6 +55,8 @@ export default function Register() {
           IdCustomer: shortid.generate(),
           Name: Name,
           email: email,
+          address: diachi,
+          taikhoan: taikhoan,
           password: password,
           Phone: Phone,
           gender: gender,
@@ -116,10 +127,44 @@ export default function Register() {
               data-validate="Valid email is required: ex@abc.xyz"
             >
               <input
-                {...register("email")}
+                {...register("taikhoan")}
                 className="input100"
                 type="text"
                 placeholder="Tài khoản"
+              />
+              <p>{errors.email?.message}</p>
+              <span className="focus-input100" />
+              <span className="symbol-input100">
+                <i className="fa fa-envelope" aria-hidden="true" />
+              </span>
+            </div>
+
+            <div
+              className="wrap-input100 validate-input"
+              data-validate="Valid email is required: ex@abc.xyz"
+            >
+              <input
+                {...register("diachi")}
+                className="input100"
+                type="text"
+                placeholder="Địa chỉ"
+              />
+              <p>{errors.email?.message}</p>
+              <span className="focus-input100" />
+              <span className="symbol-input100">
+                <i className="fa fa-envelope" aria-hidden="true" />
+              </span>
+            </div>
+
+            <div
+              className="wrap-input100 validate-input"
+              data-validate="Valid email is required: ex@abc.xyz"
+            >
+              <input
+                {...register("email")}
+                className="input100"
+                type="text"
+                placeholder="Mail"
               />
               <p>{errors.email?.message}</p>
               <span className="focus-input100" />

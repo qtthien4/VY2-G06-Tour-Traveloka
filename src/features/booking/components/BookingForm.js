@@ -380,7 +380,7 @@ export default function BookingForm({
             style={{ fontSize: "20px", lineHeight: "28px" }}
             className={`maim-font-weight main-text-color-orange`}
           >
-            {formatter.format(priceTotal)}
+            {formatter.format(tour.Price * schedule.Amount)}
           </Typography>
         </Box>
         <Box align="right" mt={5}>

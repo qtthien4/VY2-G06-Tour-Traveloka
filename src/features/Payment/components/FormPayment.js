@@ -1,39 +1,50 @@
 import Switch from "@material-ui/core/Switch";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import VouchersApi from "api/ApiExternal/Vouchers/VouchersApi";
 import bookingApi from "api/ApiReal/bookingApi";
+import reBookingApi from "api/ApiReal/reBookingApi";
 import axios from "axios";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import { AuthContext } from "context/AuthProvider";
+import PayPal from "PayPal";
+import React, {
+  memo,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { toast } from "react-toastify";
-import * as yup from "yup";
 import { formatter } from "../../../utils/formatter";
 import CountDown from "./CountDown";
-import reBookingApi from "api/ApiReal/reBookingApi";
-import PayPal from "PayPal";
-import { AuthContext } from "context/AuthProvider";
 
-export default function FormPayment({ schedule, idBooking, tourCurrent }) {
+function FormPayment({ schedule, idBooking, tourCurrent }) {
   const user = useContext(AuthContext);
   const {
     control,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const navigate = useNavigate();
   const location = useLocation();
   //sô giây
-  console.log(location.pathname.split("/")[3]);
   //Handle chay nguoc
 
   //setTImeOut 1p30s delete  booking theo activity
   const time = 3000;
   const timerTrans = useRef(null);
+  const [amountVoucher, setAmountVoucher] = useState(0);
+  const [codeVoucher, setCodeVoucher] = useState("");
 
+  const totalInitTour = tourCurrent.Price * schedule.Amount;
+  const [priceTotal, setPriceTotal] = useState(0);
   const [message, setMessager] = useState("");
+  const [checkPaypal, setCheckPaypal] = useState("");
+  const [checkGift, setCheckGift] = useState(false);
+  const [checkVoucher, setCheckVoucher] = useState(false);
 
   useEffect(() => {
     const dataTimeoutPayment = {
@@ -59,82 +70,150 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
 
   //handle voucher
   const [listVoucher, setListVoucher] = useState([]);
-
-  useEffect(() => {
-    VouchersApi.getAllList()
-      .then((response) => response.data)
-      .then((json) => {
-        setListVoucher(
-          json.data.vouchers.map((item) => {
-            return {
-              value: item.voucherCode,
-              label: `Voucher giảm ${item.Condition.discount} %`,
-            };
-          })
-        );
-      })
-      .catch(function (error) {
-        console.log(error.config);
-      });
-  }, []);
+  const [listGift, setListGift] = useState([]);
 
   //handle voucher
+  useEffect(() => {
+    (async function () {
+      const resVoucher = await VouchersApi.getAllListVoucher();
+      const resGift = await VouchersApi.getAllListGift();
 
-  const [amountVoucher, setAmountVoucher] = useState(0);
-  const [codeVoucher, setCodeVoucher] = useState("");
-  const totalInitTour = tourCurrent.Price * schedule.Amount;
+      setListVoucher(
+        resVoucher.data.data.vouchers.map((item) => {
+          return {
+            value: item.voucherCode,
+            label: item.title,
+          };
+        })
+      );
 
-  console.log(totalInitTour);
-  const [priceTotal, setPriceTotal] = useState(totalInitTour);
+      //gift
+      setListGift(
+        resGift.data.data.giftCards.map((item) => {
+          return {
+            value: item.giftCardCode,
+            label: item.title,
+          };
+        })
+      );
+    })();
+  }, []);
+
+  //voucher
   const [state, setState] = React.useState({
     checkedA: false,
     checkedB: false,
   });
 
-  const handleChangeCheckBoxVoucher = (event) => {
+  //handleChangeCheckBoxVoucher
+  const handleChangeCheckBoxVoucher = useCallback(async (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
     if (event.target.checked) {
       return;
     } else {
       setAmountVoucher(0);
       setCodeVoucher("");
+      setCheckPaypal("");
+      setCheckVoucher(false);
     }
-  };
+  }, []);
+
+  const [amountGift, setAmountGift] = useState(0);
+  const [codeGift, setCodeGift] = useState("");
+
+  //gift
+  const [gift, setGift] = React.useState({
+    checkedC: false,
+    checkedD: false,
+  });
+  //handleChangeCheckBoxGift
+  const handleChangeCheckBoxGift = useCallback(async (event) => {
+    setGift({ ...state, [event.target.name]: event.target.checked });
+    if (event.target.checked) {
+      return;
+    } else {
+      setAmountGift(0);
+      setCodeGift("");
+      setCheckPaypal("");
+      setCheckGift(false);
+    }
+  }, []);
+
+  //voucher
   const handleChangeVoucher = async (e) => {
     const code = e.value;
     const paramsCheckConditionVoucher = {
       amount: totalInitTour,
       code,
-      typeVoucher: "tour",
+      typeVoucher: "XPERIENCE",
+    };
+    //api check condition
+    const res = await VouchersApi.checkConditionVoucher(
+      paramsCheckConditionVoucher
+    );
+    if (res.status === 200) {
+      toast.success(res.data.message);
+      setCodeVoucher(code);
+      setAmountVoucher(res.data.data.amount);
+      setCheckVoucher(true);
+      if (checkGift == true) {
+        setCheckPaypal("all");
+        console.log("all");
+      }
+    } else {
+      toast.success(res.message);
+    }
+  };
+
+  //gift
+  const handleChangeGift = async (e) => {
+    const code = e.value;
+    const paramsCheckConditionVoucher = {
+      amount: totalInitTour,
+      code,
+      typeVoucher: "XPERIENCE",
     };
 
     //api check condition
-    await VouchersApi.checkCondition(paramsCheckConditionVoucher)
-      .then((res) => {
-        const { message, data } = res.data;
-        toast.success(message);
-
-        setCodeVoucher(code);
-        setAmountVoucher(data.amount);
-      })
-      .catch((err) => {
-        console.error(err.response.data.message);
-        setAmountVoucher(0);
-        setCodeVoucher("");
-        toast.error(err.response.data.message);
-      });
-
-    //lay gia goc tru di voucher
+    const res = await VouchersApi.checkConditionGift(
+      paramsCheckConditionVoucher
+    );
+    if (res.status === 200) {
+      toast.success(res.data.message);
+      setCodeGift(code);
+      setAmountGift(res.data.data.amount);
+      setCheckGift(true);
+      if (setCheckVoucher == true) {
+        setCheckPaypal("all");
+      }
+    } else {
+      toast.success(res.message);
+    }
   };
 
   useEffect(() => {
-    setPriceTotal(totalInitTour - amountVoucher);
-  }, [amountVoucher]);
+    setPriceTotal(totalInitTour - amountVoucher - amountGift);
+  }, [amountVoucher, totalInitTour, amountGift]);
 
   //handle submit
   // post len server thien vo sttbooking = true, discount: "", bookingTime, total moi nhat
 
-  var orderId = useRef();
+  var orderId = useRef("");
+  var totalPrice = useRef();
+  var voucherCode = useRef("");
+  var giftCode = useRef("");
+  var check = useRef("");
+
+  var amountInitPrice = useRef();
+
+  if (priceTotal === 0) {
+  } else {
+    totalPrice.current = priceTotal;
+    voucherCode.current = codeVoucher;
+    amountInitPrice.current = totalInitTour;
+    giftCode.current = codeGift;
+    check.current = checkPaypal;
+  }
 
   const createOrder = (data, actions, err) => {
     return actions.order.create({
@@ -142,21 +221,78 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
       purchase_units: [
         {
           amount: {
-            value: String(Math.floor(priceTotal / 23000)),
+            value: String(Math.floor(totalPrice.current / 23000)),
             currency_code: "USD",
           },
         },
       ],
     });
   };
-  var ok;
 
+  //check preVoucher
+  const checkPreVoucher = async () => {
+    console.log(orderId);
+    if (voucherCode.current !== "") {
+      var dataVoucher = {
+        code: voucherCode.current,
+        typeVoucher: "XPERIENCE",
+        transactionId: idBooking,
+        amount: amountInitPrice.current,
+      };
+
+      let response = await fetch(
+        "https://api.votuan.xyz/api/v1/user/voucher/pre-order",
+        {
+          method: "POST",
+          headers: {
+            user_id: "68100596-F731-4C31-8C1E-DC813C6CBAF7",
+            partner_id: "ACA423B3-F1C8-4484-A8D1-8A73ED6DAB60",
+            "Content-Type": "application/json;charset=utf-8",
+          },
+          body: JSON.stringify(dataVoucher),
+        }
+      );
+      let result = await response.json();
+      orderId = result.data.orderId;
+    }
+  };
+
+  //check preGift
+  const checkPreGift = async () => {
+    console.log(orderId);
+    // if (voucherCode.current !== "") {
+    //   var dataVoucher = {
+    //     code: voucherCode.current,
+    //     typeVoucher: "XPERIENCE",
+    //     transactionId: idBooking,
+    //     amount: amountInitPrice.current,
+    //   };
+
+    //   let response = await fetch(
+    //     "https://api.votuan.xyz/api/v1/user/voucher/pre-order",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         user_id: "68100596-F731-4C31-8C1E-DC813C6CBAF7",
+    //         partner_id: "ACA423B3-F1C8-4484-A8D1-8A73ED6DAB60",
+    //         "Content-Type": "application/json;charset=utf-8",
+    //       },
+    //       body: JSON.stringify(dataVoucher),
+    //     }
+    //   );
+    //   let result = await response.json();
+    //   orderId = result.data.orderId;
+    // }
+  };
+
+  var idCustomerFinal;
   const onApprove = async (data, actions) => {
     if (user != null) {
-      ok = user.IdCustomer;
+      idCustomerFinal = user.IdCustomer;
     } else {
-      ok = "1";
+      idCustomerFinal = "1";
     }
+
     //post api thanh toán sau khi đã chuyển tiền
     const today = new Date();
     let date =
@@ -167,79 +303,50 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
       today.getFullYear();
     const time =
       today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    try {
-      const order = await actions.order.capture();
-      console.log(order);
-      let id = order.purchase_units[0].payments.captures[0].id;
 
+    if (voucherCode.current !== "") {
+      const order = await actions.order.capture();
+      let id = order.purchase_units[0].payments.captures[0].id;
       const dataPayment = {
         idBooking: idBooking,
-        bookingTime: `${date} ${time}`,
+        bookingTime: `${time} ${date}`,
         sttBooking: "success",
-        idVoucher: codeVoucher,
-        idGift: "",
-        reduce: priceTotal,
+        idVoucher: voucherCode.current,
+        idGift: giftCode.current,
+        reduce: totalPrice.current,
         idPayment: id,
         idSchedule: schedule.idSchedule,
         amountBooking: schedule.Amount,
-        idCustomer: ok,
+        idCustomer: idCustomerFinal,
         score: 10,
       };
 
       await bookingApi.postBooking({ dataPayment });
-
-      //post áp dụng voucher
-      const dataVoucher = {
-        code: codeVoucher,
-        typeVoucher: "tour",
-        transactionId: idBooking,
-        amount: totalInitTour,
-      };
-      if (codeVoucher !== "") {
-        const res = await axios(
-          "https://api.votuan.xyz/api/v1/user/voucher/pre-order",
-          {
-            method: "POST",
-            headers: {
-              user_id: "456",
-              partner_id: "a67f1f4e-946a-483b-9993-ca5c344da8f5",
-              "Content-Type": "application/json",
-            },
-            data: dataVoucher,
-          }
-        );
-        //const res = VouchersApi.preOrder(dataVoucher);
-        //let { orderId } = res.data.data.orderId;
-        orderId = res.data.data.orderId;
-      }
-
-      //update status voucher
-      if (codeVoucher !== "") {
-        await axios("https://api.votuan.xyz/api/v1/user/voucher/state", {
-          method: "PUT",
-          headers: {
-            user_id: "456",
-            partner_id: "a67f1f4e-946a-483b-9993-ca5c344da8f5",
-            "Content-Type": "application/json",
-          },
-          data: {
-            typeVoucher: "tour",
-            orderId,
-          },
-        });
-      }
-
-      toast.success("Bạn đã thanh toán thành công !");
-      clearTimeout(timerTrans.current);
-      navigate(`/activities`);
-      //post áp dụng voucher
-      //toast messenger success
-    } catch (error) {
-      console.error(error);
-      alert("payment failed!");
     }
-  };
 
+    //update status voucher
+    if (voucherCode.current !== "") {
+      await axios("https://api.votuan.xyz/api/v1/user/voucher/state", {
+        method: "PUT",
+        headers: {
+          user_id: "68100596-F731-4C31-8C1E-DC813C6CBAF7",
+          partner_id: "ACA423B3-F1C8-4484-A8D1-8A73ED6DAB60",
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        data: {
+          typeVoucher: "XPERIENCE",
+          orderId,
+        },
+      });
+    }
+
+    toast.success("Bạn đã thanh toán thành công !");
+    clearTimeout(timerTrans.current);
+    //navigate(`/activities`);
+    //post áp dụng voucher
+    //toast messenger success
+  };
+  console.log(checkPaypal);
   return (
     <>
       <form>
@@ -272,7 +379,50 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
               />
             </div>
           </div>
-
+          {/* gift */}
+          <div>
+            <div>
+              <div
+                className=""
+                style={{ display: "flex", alignItems: "center" }}
+              >
+                <Switch
+                  checked={gift.checkedD}
+                  onChange={handleChangeCheckBoxGift}
+                  color="primary"
+                  name="checkedD"
+                  inputProps={{ "aria-label": "primary checkbox" }}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor="flexSwitchCheckDefault"
+                >
+                  Chọn mã giảm giá gift
+                </label>
+              </div>
+            </div>
+            <div>
+              {" "}
+              {gift.checkedD && (
+                <div className="main-d-flex">
+                  <Select
+                    theme={(theme) => ({
+                      ...theme,
+                      borderRadius: 0,
+                      colors: {
+                        ...theme.colors,
+                        primary25: "#ccc",
+                        primary: "black",
+                      },
+                    })}
+                    placeholder="Chọn mã"
+                    options={listGift} // set list of the data
+                    onChange={handleChangeGift} // assign onChange function
+                  />
+                </div>
+              )}
+            </div>
+          </div>
           <br />
           <div className="" style={{ display: "flex", alignItems: "center" }}>
             <Switch
@@ -321,11 +471,18 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
               </div>
             </div>
             <div style={{ overflow: "auto" }}>
+              <div style={{ float: "left" }}>Gift giảm tối đa</div>
+              <div style={{ float: "right" }}>
+                {formatter.format(amountGift)}
+              </div>
+            </div>
+            <div style={{ overflow: "auto" }}>
               <div style={{ float: "left" }}>Voucher giảm tối đa</div>
               <div style={{ float: "right" }}>
                 {formatter.format(amountVoucher)}
               </div>
             </div>
+
             <div>
               --------------------------------------------------------------------------
             </div>
@@ -345,7 +502,16 @@ export default function FormPayment({ schedule, idBooking, tourCurrent }) {
           </div>
         </div>
       </form>
-      <PayPal onApprove={onApprove} createOrder={createOrder} />
+      <PayPal
+        checkGift={checkGift}
+        checkVoucher={checkVoucher}
+        check={check.current}
+        onApprove={onApprove}
+        createOrder={createOrder}
+        checkPreVoucher={checkPreVoucher}
+      />
     </>
   );
 }
+
+export default memo(FormPayment);

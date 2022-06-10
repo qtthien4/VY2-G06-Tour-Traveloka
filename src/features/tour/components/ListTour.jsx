@@ -13,6 +13,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { formatter } from "utils/formatter";
 import "../assets/css/index.css";
 
 // install Virtual module
@@ -112,7 +113,7 @@ function ListTour({ listTour, slideNumber, handleOnclickTourForeign }) {
                 {list.experienceName || list.ActivityName}
               </Typography>
               <Typography color="secondary" className={classes.price}>
-                {list.discountedPrice || list.Price} VND
+                {formatter.format(list.Price)}
               </Typography>
             </Box>
           </SwiperSlide>
