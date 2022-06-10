@@ -334,8 +334,8 @@ class ApiController {
           order: ['email']
         })
         decoded.Phone = idphone.Phone
-        console.log(decoded);
-        // res.json(idphone)
+        // console.log(decoded);
+        res.json(decoded)
       }
     } catch (error) {
       res.json(error)
