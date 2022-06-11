@@ -20,14 +20,15 @@ class ApiController {
 
   async RegisterUser(req, res) {
     var info = req.body;
-    var IdCustomer = info.IdCustomer;
     var Name = info.Name;
     var Phone = info.Phone;
     var email = info.email;
     var gender = info.gender;
     var point = 0;
     var password = info.password;
+
     console.log(info);
+
     var date = new Date()
     date.setFullYear(1991)
 
@@ -48,14 +49,24 @@ class ApiController {
       "password": req.body.password
     }
 
+
+
+
     try {
       const register = await axios.post('https://profile.vinhphancommunity.xyz/api/auth/signup',
         dataRegister
       )
 
       console.log(register)
+
       await user.create({
-        IdCustomer, Name, Phone, email, gender, point, password,
+        IdCustomer: register.data.data.userId,
+        Name,
+        Phone,
+        email,
+        gender,
+        point,
+        password,
       })
         .then((user) => {
           console.log(user.get({ plain: true }));
@@ -67,8 +78,10 @@ class ApiController {
       });
 
     } catch (error) {
-      res.json(error)
+      res.json({ messenger: error.response.data.message })
     }
+
+
   }
 
   tour(req, res) {
@@ -337,8 +350,9 @@ class ApiController {
         // console.log(decoded);
         res.json(decoded)
       }
+      console.log(login.data);
     } catch (error) {
-      res.json(error)
+      res.json({ messenger: error.response.data.message })
     }
     // console.log(user)
     // var infoUser = await user.findOne({
