@@ -332,6 +332,7 @@ function FormPayment({ schedule, idBooking, tourCurrent }) {
       voucherCode.current !== "" ||
       giftCode.current !== "" ||
       idCustomerFinal == "1"
+      // user != null
     ) {
       const order = await actions.order.capture();
       let id = order.purchase_units[0].payments.captures[0].id;
