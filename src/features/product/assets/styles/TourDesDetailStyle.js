@@ -10,6 +10,7 @@ export const useStyles = makeStyles((theme) => ({
     width: "644px",
   },
   right: {
+    borderRadius: "10px",
     padding: "15px",
     boxShadow: "0px 1px 2px rgb(3 18 26 / 20%)",
     background: "white",
@@ -18,7 +19,18 @@ export const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
+    position: "sticky",
+    top: 120,
   },
+  //   #stickydDiv{
+  //     position : "sticky",
+  //   top : 0,
+  //    font-size: "30px",
+  //    color: "white",
+  //    background-color:  "#3991bd",
+  //    width: 150px,
+  //    height: 150px,
+  //  }
   rightTop: {
     height: "300px",
   },
@@ -33,6 +45,7 @@ export const useStyles = makeStyles((theme) => ({
     color: "black",
   },
   leftDes: {
+    borderRadius: "10px",
     boxShadow: "0px 1px 2px rgb(3 18 26 / 20%)",
     background: "white",
     padding: "15px",

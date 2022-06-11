@@ -148,18 +148,94 @@ function Header({ user1 }) {
           </div>
           {Object.keys(user).length > 0 ? (
             <HeadlessTippy
+              placement="bottom-end"
               onClickOutside={() => setVisible(true)}
               interactive={true}
               visible={visible}
               render={(attrs) => (
-                <div className="box" tabIndex="-1" {...attrs}>
-                  <div>
-                    <Button onClick={handleTransaction} variant="contained">
-                      Xem Lịch Sử Tour
-                    </Button>
-                    <Button onClick={handleLogout} variant="contained">
-                      Đăng xuất
-                    </Button>
+                <div
+                  tabIndex="-1"
+                  {...attrs}
+                  className="css-1dbjc4n r-1euycsn r-105ug2t r-u8s1d r-zchlnj r-j76wpu"
+                  style={{ "margin-top": "4px" }}
+                >
+                  <div
+                    className="css-1dbjc4n r-14lw9ot r-kdyh1x r-b4qz5r r-1udh08x r-4k2abt r-1ep47lj r-1clhhh9 r-1ftll1t r-13qz1uu"
+                    style={{
+                      "-webkit-transform": "scaleY(1)",
+                      "-ms-transform": "scaleY(1)",
+                      transform: "scaleY(1)",
+                    }}
+                  >
+                    <div
+                      className="css-1dbjc4n r-6dt33c r-4k2abt r-1ep47lj r-1clhhh9 r-1ftll1t"
+                      style={{
+                        "-webkit-transform": "translateY(0px)",
+                        "-ms-transform": "translateY(0px)",
+                        transform: "translateY(0px)",
+                      }}
+                    >
+                      <div
+                        className="css-1dbjc4n r-1f1sjgu"
+                        style={{ "min-width": "229px" }}
+                      >
+                        <h3
+                          aria-level={3}
+                          dir="auto"
+                          role="heading"
+                          className="css-4rbku5 css-901oao r-cwxd7f r-1sixt3s r-ubezar r-b88u0q r-rjixqe r-5oul0u r-ymttw5 r-fdjqy7"
+                        >
+                          Tài khoản
+                        </h3>
+
+                        <Link
+                          to="/booking/transaction"
+                          className="css-4rbku5 r-1awozwy r-6koalj r-ymttw5 r-5njf8e"
+                        >
+                          <img
+                            importance="low"
+                            loading="lazy"
+                            src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/d/db4d9fb6f6a0aa3c5e8827a8b0f1e28e.svg"
+                            decoding="async"
+                            className="r-88pszg"
+                            style={{
+                              "object-fit": "fill",
+                              "object-position": "50% 50%",
+                            }}
+                          />
+                          <div
+                            onClick={handleTransaction}
+                            dir="auto"
+                            className="css-901oao r-cwxd7f r-1sixt3s r-ubezar r-majxgm r-135wba7 r-fdjqy7"
+                          >
+                            Xem lịch sử đã đặt
+                          </div>
+                        </Link>
+                        <a
+                          href="#"
+                          className="css-4rbku5 r-1awozwy r-6koalj r-ymttw5 r-5njf8e"
+                        >
+                          <img
+                            importance="low"
+                            loading="lazy"
+                            src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/6/6464840154eb190d10525ea67e77648a.svg"
+                            decoding="async"
+                            className="r-88pszg"
+                            style={{
+                              "object-fit": "fill",
+                              "object-position": "50% 50%",
+                            }}
+                          />
+                          <div
+                            onClick={handleLogout}
+                            dir="auto"
+                            className="css-901oao r-cwxd7f r-1sixt3s r-ubezar r-majxgm r-135wba7 r-fdjqy7"
+                          >
+                            Đăng xuất
+                          </div>
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
@@ -170,7 +246,7 @@ function Header({ user1 }) {
                   className="header1-right-item4"
                   onClick={visible ? hide : show}
                 >
-                  <div>
+                  <div style={{ cursor: "pointer" }}>
                     <img
                       alt="a"
                       importance="low"

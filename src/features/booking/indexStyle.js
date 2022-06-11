@@ -44,6 +44,8 @@ export const useStyles = makeStyles((theme) => ({
     padding: "16px",
     backgroundColor: "white",
     boxShadow: "rgb(3 18 26 / 20%) 0px 1px 2px",
+    // position: "sticky",
+    // top: 100,
   },
   contactDetailBox: {
     borderRadius: "6px",

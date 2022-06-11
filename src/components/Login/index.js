@@ -14,6 +14,7 @@ import "../../assets/Login_v1/css/util.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { setUserId } from "firebase/analytics";
+import { toast } from "react-toastify";
 
 const schema = yup
   .object({
@@ -53,20 +54,17 @@ export default function Login({ setToken, setUser }) {
 
   const onSubmit = async (data) => {
     const { email, password } = data;
-    // const token = await loginUser({
-    //   appId: "tour-vy2",
-    //   taikhoan: email,
-    //   matkhau: password,
-    // });
     const user = await getUser({
       user: email,
       matkhau: password,
     });
 
-    localStorage.setItem("userInfo", JSON.stringify(user));
-    //setUser(user);
-    //setToken(token);
-    navigate("/activities");
+    if (user.messenger == "Unauthorized") {
+      toast.warning("Tài khoản hoặc mật khẩu bị sai vui lòng nhập lại");
+    } else {
+      localStorage.setItem("userInfo", JSON.stringify(user));
+      navigate("/activities");
+    }
   };
   return (
     <div className="limiter">

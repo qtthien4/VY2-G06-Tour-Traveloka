@@ -1,18 +1,20 @@
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { MenuItem, Select } from "@material-ui/core";
+import userApi from "api/ApiReal/userApi";
+import SelectFiled from "components/FormFields/SelectFiled";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import * as yup from "yup";
-import "../../assets/Login_v1/images/icons/favicon.ico";
-import "../../assets/Login_v1/vendor/bootstrap/css/bootstrap.min.css";
-import "../../assets/Login_v1/fonts/font-awesome-4.7.0/css/font-awesome.min.css";
-import "../../assets/Login_v1/vendor/animate/animate.css";
-import "../../assets/Login_v1/vendor/css-hamburgers/hamburgers.min.css";
-import "../../assets/Login_v1/vendor/select2/select2.min.css";
 import "../../assets/Login_v1/css/main.css";
 import "../../assets/Login_v1/css/util.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import userApi from "api/ApiReal/userApi";
-import { toast } from "react-toastify";
+import "../../assets/Login_v1/fonts/font-awesome-4.7.0/css/font-awesome.min.css";
+import "../../assets/Login_v1/images/icons/favicon.ico";
+import "../../assets/Login_v1/vendor/animate/animate.css";
+import "../../assets/Login_v1/vendor/bootstrap/css/bootstrap.min.css";
+import "../../assets/Login_v1/vendor/css-hamburgers/hamburgers.min.css";
+import "../../assets/Login_v1/vendor/select2/select2.min.css";
 const shortid = require("shortid");
 
 const schema = yup
@@ -28,6 +30,7 @@ export default function Register() {
 
   const navigate = useNavigate();
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
@@ -41,42 +44,49 @@ export default function Register() {
       diachi,
       email,
       Phone,
-      gender,
+      gender1,
       taikhoan,
       password,
       rePassword,
     } = data;
-    try {
-      if (password === rePassword) {
-        //login tiep tuc
-        setCheckpass(true);
-        //post api register in profile
-        await userApi.register({
-          IdCustomer: shortid.generate(),
-          Name: Name,
-          email: email,
-          address: diachi,
-          taikhoan: taikhoan,
-          password: password,
-          Phone: Phone,
-          gender: gender,
-          point: "",
-        });
 
-        toast.success("Bạn đã đăng kí tài khoản thành công");
-        navigate("/login");
-      } else {
-        setCheckpass(false);
-      }
-    } catch (error) {
-      toast.warning("Bạn đăng kí thất bại");
+    if (password === rePassword) {
+      //login tiep tuc
+      setCheckpass(true);
+      //post api register in profile
+      var resUser = await userApi.register({
+        IdCustomer: shortid.generate(),
+        Name: Name,
+        email: email,
+        address: diachi,
+        taikhoan: taikhoan,
+        password: password,
+        Phone: Phone,
+        gender: gender1,
+        point: "",
+      });
+      toast.success("Bạn đã đăng kí tài khoản thành công");
+      console.log(data, resUser);
+      navigate("/login");
+
+      // if (resUser.messenger == "USER_EXISTED") {
+      //   toast.error("USER_EXISTED");
+      // } else {
+      //   toast.success("Bạn đã đăng kí tài khoản thành công");
+      //   navigate("/login");
+      // }
+    } else {
+      setCheckpass(false);
     }
   };
 
   return (
     <div className="limiter">
       <div className="container-login100">
-        <div className="wrap-login100">
+        <div
+          className="wrap-login100"
+          style={{ paddingTop: "50px", paddingBottom: "-150px" }}
+        >
           <div className="login100-pic js-tilt" data-tilt>
             <img
               src={require("../../assets/Image/background_login.png")}
@@ -89,13 +99,29 @@ export default function Register() {
             className="login100-form validate-form"
           >
             <span className="login100-form-title">Member Register</span>
+            {/* <div
+              className="wrap-input100 validate-input"
+              data-validate="Valid email is required: ex@abc.xyz"
+            >
+              <input
+                {...register("email")}
+                className="input100 input1 input1"
+                type="text"
+                placeholder="Email"
+              />
+              <span className="focus-input100" />
+              <span className="symbol-input100">
+                <i className="fa fa-envelope" aria-hidden="true" />
+              </span>
+            </div> */}
+
             <div
               className="wrap-input100 validate-input"
               data-validate="Valid email is required: ex@abc.xyz"
             >
               <input
                 {...register("Name")}
-                className="input100"
+                className="input100 input1"
                 type="text"
                 placeholder="Tên người dùng"
               />
@@ -111,7 +137,7 @@ export default function Register() {
             >
               <input
                 {...register("Phone")}
-                className="input100"
+                className="input100 input1"
                 type="text"
                 placeholder="Số điện thoại"
               />
@@ -128,7 +154,7 @@ export default function Register() {
             >
               <input
                 {...register("taikhoan")}
-                className="input100"
+                className="input100 input1"
                 type="text"
                 placeholder="Tài khoản"
               />
@@ -145,7 +171,7 @@ export default function Register() {
             >
               <input
                 {...register("diachi")}
-                className="input100"
+                className="input100 input1"
                 type="text"
                 placeholder="Địa chỉ"
               />
@@ -162,7 +188,7 @@ export default function Register() {
             >
               <input
                 {...register("email")}
-                className="input100"
+                className="input100 input1"
                 type="text"
                 placeholder="Mail"
               />
@@ -177,12 +203,24 @@ export default function Register() {
               className="wrap-input100 validate-input"
               data-validate="Valid email is required: ex@abc.xyz"
             >
-              <input
+              <SelectFiled
+                style={{ width: "287px" }}
+                className="input100 input1"
+                name="gender1"
+                control={control}
+                label="phone"
+                options={[
+                  { label: "Nam", value: "1" },
+                  { label: "Nữ", value: "0" },
+                ]}
+              />
+
+              {/* <input
                 {...register("gender")}
-                className="input100"
+                className="input100 input1"
                 type="text"
                 placeholder="Nhập giới tính nam/ nữ"
-              />
+              /> */}
               <p>{errors.email?.message}</p>
               <span className="focus-input100" />
               <span className="symbol-input100">
@@ -195,7 +233,7 @@ export default function Register() {
             >
               <input
                 {...register("password")}
-                className="input100"
+                className="input100 input1"
                 type="password"
                 placeholder="Mật khẩu"
               />
@@ -213,7 +251,7 @@ export default function Register() {
             >
               <input
                 {...register("rePassword")}
-                className="input100"
+                className="input100 input1"
                 type="password"
                 placeholder="Nhập lại mật khẩu"
               />
@@ -227,11 +265,11 @@ export default function Register() {
             {checkpass === false && <p>Mật khẩu không khớp</p>}
 
             <div className="container-login100-form-btn">
-              <button type="submit" className="login100-form-btn">
+              <button type="submit" className="login100-form-btn input1">
                 Register
               </button>
             </div>
-            <div className="text-center p-t-136">
+            <div className="text-center">
               <Link to="/login" className="txt2">
                 Bạn đã có tài khoản?
                 <i

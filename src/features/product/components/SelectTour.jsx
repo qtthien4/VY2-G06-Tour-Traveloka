@@ -28,6 +28,7 @@ import reservationApi from "api/ApiReal/reservationApi";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    borderRadius: "10px",
     background: "white",
     boxShadow: "0px 1px 2px rgb(3 18 26 / 20%)",
     padding: "15px",

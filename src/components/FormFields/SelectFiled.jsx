@@ -17,6 +17,8 @@ export default function SelectFiled({
   name,
   control,
   disable,
+  className,
+  style,
   ...inputProps
 }) {
   const classes = useStyles();
@@ -35,8 +37,8 @@ export default function SelectFiled({
       error={invalid}
     >
       <Select
-        style={{ width: "75px" }}
-        className={`${classes.areaPhoneNumber}`}
+        style={style || { width: "75px" }}
+        className={className || `${classes.areaPhoneNumber}`}
         name={name}
         value={options.value}
         onChange={onChange}
