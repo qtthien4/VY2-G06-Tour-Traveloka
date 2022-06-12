@@ -38,7 +38,7 @@ class Login {
                 }
             }
         } catch (error) {
-            res.render('login', { err: [error.response.data.message] });
+            res.render(error);
         }
 
 

@@ -1,18 +1,27 @@
 const axios = require('axios');
 
-// axios("https://api-m.sandbox.paypal.com/v2/payments/captures/3HB493205W812352J/refund", {
-//     method: "post",
-//     headers: {
-//         "Content-Type" : "application/json"
-//     },
-//     auth: {
-//         username: 'ATINp8X4ScCQh55X9CZMRprGro2kG0wzUTp_NyqOL4d2-lw6RISvj-PdOOcBUIediRqoI1xqvrg7tGhH',
-//         password: 'EL1zQPQt5MwU6KE2l0ljJFeC-kQ5kKZMc5w-kqFn1vr1f6mabbaw-hZq9u5h4BHxzSgPCGTkNrYAL04u'
-//     }
-// })
-axios("https://localhost:3003/payment/refund", {
-    method: "post",
-    data: {
-        a: "asd"
+const call = async () => {
+    const data = {
+        "createdAt": "2022-06-11T14:53:17.277Z",
+        "total": 120000,
+        "reward": 10,
+        "details": [
+            {
+                "productName": "tour ngắm sông",
+                "quantity": 5,
+                "price": 120000,
+                "thumbnail": "songsaigon",
+                "link": "songsaigon",
+            }
+        ],
+        "partnerId": "0F5FC020-83BF-4FFA-AFBB-EBF5BF54703B",
+        "userId": "3E09A9F8-EE40-48ED-AF84-BA35E7569A4A"
     }
-})
+
+    const test = await axios.post('https://profile.vinhphancommunity.xyz/api/orders', data)
+
+    console.log(test);
+}
+
+call();
+

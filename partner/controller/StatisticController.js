@@ -27,17 +27,31 @@ class StatisticController {
 
     async SearchActivity(req, res) {
         var searchKey = req.body.search;
+        var activitySearch = req.body.activity;
         var userPartner = req.signedCookies.Cookie_User
         var arrActivity = await GetDb.fullactivity(userPartner)
 
-        for (var i = 0; i < arrActivity.length;) {
-            if (!arrActivity[i].ActivityName.includes(searchKey)) {
-                arrActivity.splice(i, 1);
-            } else {
-                i++
+        if (searchKey != undefined) {
+            for (var i = 0; i < arrActivity.length;) {
+                if (!arrActivity[i].ActivityName.toLowerCase().includes(searchKey)) {
+                    arrActivity.splice(i, 1);
+                } else {
+                    i++
+                }
             }
+            res.render('statistic', { activity: arrActivity, user: userPartner });
+        } else {
+            for (var i = 0; i < arrActivity.length;) {
+                if (!arrActivity[i].type.toLowerCase().trim().includes(activitySearch)) {
+                    arrActivity.splice(i, 1);
+                } else {
+                    i++
+                }
+            }
+            res.render('statistic', { activity: arrActivity, user: userPartner });
         }
-        res.render('statistic', { activity: arrActivity, user: userPartner });
+
+
     }
 
     async Seach(req, res) {
@@ -50,7 +64,7 @@ class StatisticController {
             var arrBoking = await GetDb.fullBookngOneActivity(id)
 
             for (var i = 0; i < arrBoking.length;) {
-                if (!arrBoking[i].User.includes(searchKey)) {
+                if (!arrBoking[i].User.toLowerCase().includes(searchKey)) {
                     arrBoking.splice(i, 1);
                 } else {
                     //format tien

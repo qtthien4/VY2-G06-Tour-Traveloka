@@ -117,10 +117,24 @@
                 </header>
                 <!-- Breadcrumb-->
                 <div class="products-area-wrapper tableView">
-                    <form method="post">
-                        <input type="text" name="search" placeholder="Search">
-                        <button type="submit" class="btn btn-primary mb-2">Search</button>
-                    </form>
+                    <div style="display: flex">
+
+                        <form method="post" style="margin-right: 10px">
+                            <input type="text" name="search" placeholder="Search">
+                            <button type="submit" class="btn btn-primary mb-2">Search</button>
+                        </form>
+
+                        <form method="post">
+                            <select name="activity">
+                            <option value="tour">Tour</option>
+                            <option value="di chuyen">Di chuyển</option>
+                            <option value="san choi">Sân chơi</option>
+                            <option value="the thao">Thể thao</option>
+                            <option value="diem tham quan">Điểm tham quan</option>
+                        </select>
+                            <button type="submit" class="btn btn-primary mb-2">Search</button>
+                        </form>
+                    </div>
 
                     <table class="table">
                         <thead class="thead-dark">
@@ -128,7 +142,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Tên Activity</th>
                                 <th scope="col">Loại Activity</th>
-                                <th scope="col">Số Lượng người</th>
+                                <th scope="col">Số Lượng người đặt</th>
                                 <th scope="col">Vị trị</th>
                                 <th scope="col">Tổng tiền thu được</th>
                                 <th></th>
@@ -140,7 +154,7 @@
                                 <th scope="row">{{{this.count}}}</th>
                                 <td>{{{this.ActivityName}}}</td>
                                 <td>{{{this.type}}}</td>
-                                <td>{{{this.Amount}}}</td>
+                                <td>{{{this.soluongdat}}}</td>
                                 <td>{{{this.Location}}}</td>
                                 <td>{{{this.totalBooking}}}</td>
                                 <td><a href="statistic/Detail/{{{this.IdActivity}}}">Chi tiết</a></td>

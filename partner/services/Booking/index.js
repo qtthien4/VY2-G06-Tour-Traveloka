@@ -38,7 +38,7 @@ class BookingService {
         const allBooking = await this.getAllBookingFromSchudule();
         let sum = 0
         allBooking.map(a => {
-            if (a.SttBooking != 'success') {
+            if (a.SttBooking == 'success') {
                 sum += Number(a.Reduce)
             }
         }

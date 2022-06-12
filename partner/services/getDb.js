@@ -37,6 +37,9 @@ class GetDb {
 
             //count
             arrActivity[i].count = i + 1;
+
+            //count booking
+            arrActivity[i].soluongdat = arrActivity[i].booking.length
         }
         return arrActivity;
     }

@@ -13,7 +13,8 @@ class HomeController {
         const bookingSuccess = await booking.bookingActivitySuccess()
         const total = await booking.earningActivity()
 
-        // res.send(allACtivity)
+        // res.send(total)
+        // console.log(total);
 
         res.render('home', { user: user, allACtivity: allACtivity.length, allbooking: allBooking.length, bookingsuccess: bookingSuccess.length, total: total });
     }
