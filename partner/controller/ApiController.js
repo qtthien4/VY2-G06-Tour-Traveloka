@@ -474,8 +474,9 @@ class ApiController {
       //?
       var idUser = updateBooking.idCustomer;
       var point = updateBooking.score;
-      //sstbooking
 
+
+      //sstbooking
       await book.update(
         {
           IdVoucher: idVoucher,
@@ -488,14 +489,67 @@ class ApiController {
         { where: { IdBooking: idbooking } }
       );
 
-      //update theem cai soo luong da them
-      //update điểm
 
+      //update điểm
       var userObj = await user.findOne({ raw: true, where: { IdCustomer: idUser }, order: ['IdCustomer'] });
       if (userObj != null) {
         var addPoint = userObj.point + point;
         await user.update({ point: addPoint }, { where: { IdCustomer: idUser } });
       }
+
+
+      //send cho vy3
+      //get bookig
+      var bookObj = await book.findOne({
+        raw: true,
+        where: { IdBooking: idbooking },
+        order: ['IdBooking']
+      })
+      //get schedule
+      var scheduleObjFromBooking = await schedule.findOne({
+        raw: true,
+        where: { IdSchedule: bookObj.IdSchedule },
+        order: ['IdSchedule']
+      })
+      //get activity
+      var activityObjFromSchedule = await activity.findOne({
+        raw: true,
+        where: { IdActivity: scheduleObjFromBooking.IdActivity },
+        order: ['IdActivity']
+      })
+
+      var voucher
+      if (bookObj.IdVoucher == "                    ") {
+        voucher = null
+      } else {
+        voucher = bookObj.IdVoucher.trim()
+      }
+
+      const dataSend = {
+        "reward": 10,
+        "details": [
+          {
+            "productName": activityObjFromSchedule.ActivityName,
+            "quantity": bookObj.AmountPeople,
+            "price": activityObjFromSchedule.Price,
+            "thumbnail": activityObjFromSchedule.ImageUrl,
+            "link": `http://95.111.203.185:3001/activities/product/${activityObjFromSchedule.IdActivity.trim()}`,
+          }
+        ],
+        "voucherCode": voucher,
+        "partnerId": activityObjFromSchedule.Idpartner,
+        "userId": bookObj.IdCustomer
+      }
+
+      await axios({
+        method: 'post',
+        headers: {
+          'service_code': 'XPERIENCE',
+          'Content-Type': 'application/json'
+        },
+        url: 'http://139.59.104.129:3010/api/orders',
+        data: dataSend,
+      })
     }
 
     res.json({ data: "ok" })
@@ -539,10 +593,8 @@ class ApiController {
 
         res.json({ data: "success", messenger: "Hoàn thành công", "code": 200 })
       } catch (error) {
-
         res.json({ data: error, messenger: "Tour này đã được hoàn", "code": 400 })
       }
-
     } else {
       res.json({ data: "fail", "messenger": "Đã hết thời gian có thể hoàn tiền", "code": 401 })
     }
