@@ -43,9 +43,15 @@ class StatisticController {
         var userPartner = req.signedCookies.Cookie_User
         var arrActivity = await GetDb.fullactivity(userPartner)
 
+        function removeAccents(str) {
+            return str.normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd').replace(/Đ/g, 'D');
+        }
+
         if (searchKey != undefined) {
             for (var i = 0; i < arrActivity.length;) {
-                if (!arrActivity[i].ActivityName.toLowerCase().includes(searchKey)) {
+                if (!removeAccents(arrActivity[i].ActivityName).toLowerCase().includes(removeAccents(searchKey))) {
                     arrActivity.splice(i, 1);
                 } else {
                     i++
@@ -62,13 +68,17 @@ class StatisticController {
             }
             res.render('statistic', { activity: arrActivity, user: userPartner });
         }
-
-
     }
 
     async Seach(req, res) {
         var user = req.signedCookies.Cookie_User
         var id = req.params.id;
+
+        function removeAccents(str) {
+            return str.normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd').replace(/Đ/g, 'D');
+        }
 
         //phan search
         if (req.body.search != undefined) {
@@ -76,7 +86,7 @@ class StatisticController {
             var arrBoking = await GetDb.fullBookngOneActivity(id)
 
             for (var i = 0; i < arrBoking.length;) {
-                if (!arrBoking[i].User.toLowerCase().includes(searchKey)) {
+                if (!removeAccents(arrBoking[i].User).toLowerCase().includes(removeAccents(searchKey))) {
                     arrBoking.splice(i, 1);
                 } else {
                     //format tien

@@ -119,6 +119,16 @@
                     </div>
                 </header>
                 <!-- Breadcrumb-->
+                <form method="post">
+                    <select name="activity">
+                    <option value="tour">Tour</option>
+                    <option value="di chuyen">Di chuyển</option>
+                    <option value="san choi">Sân chơi</option>
+                    <option value="the thao">Thể thao</option>
+                    <option value="diem tham quan">Điểm tham quan</option>
+                </select>
+                    <button type="submit" class="btn btn-primary mb-2">Search</button>
+                </form>
                 <div class="products-area-wrapper tableView">
                     <div class="products-header">
                         <div class="product-cell image">
@@ -131,12 +141,13 @@
               </button>
                         </div>
                         <div class="product-cell category">
-                            <Strong>Vị trí</Strong><button class="sort-button">
+                            <Strong>Loại</Strong><button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
                   <path fill="currentColor"
                     d="M496.1 138.3L375.7 17.9c-7.9-7.9-20.6-7.9-28.5 0L226.9 138.3c-7.9 7.9-7.9 20.6 0 28.5 7.9 7.9 20.6 7.9 28.5 0l85.7-85.7v352.8c0 11.3 9.1 20.4 20.4 20.4 11.3 0 20.4-9.1 20.4-20.4V81.1l85.7 85.7c7.9 7.9 20.6 7.9 28.5 0 7.9-7.8 7.9-20.6 0-28.5zM287.1 347.2c-7.9-7.9-20.6-7.9-28.5 0l-85.7 85.7V80.1c0-11.3-9.1-20.4-20.4-20.4-11.3 0-20.4 9.1-20.4 20.4v352.8l-85.7-85.7c-7.9-7.9-20.6-7.9-28.5 0-7.9 7.9-7.9 20.6 0 28.5l120.4 120.4c7.9 7.9 20.6 7.9 28.5 0l120.4-120.4c7.8-7.9 7.8-20.7-.1-28.5z" />
                 </svg>
               </button></div>
+
                         <div class="product-cell status-cell"><strong>Trạng thái</strong><button class="sort-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512">
                   <path fill="currentColor"
@@ -165,7 +176,7 @@
                         <div class="product-cell image">
                             <span>{{{this.ActivityName}}}</span>
                         </div>
-                        <div class="product-cell category">{{{this.Location}}}</div>
+                        <div class="product-cell category">{{{this.type}}}</div>
                         <div class="product-cell status-cell">
 
                             <span class="status active">{{{this.Stt}}}</span>
