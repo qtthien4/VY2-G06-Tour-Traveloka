@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/styles";
 import NotFound from "components/NotFount";
 import RecentSearch from "components/RecentSearch";
 import ResultSearch from "components/ResultSearch";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -22,6 +22,7 @@ import {
   keysearchActions,
   selectListKeysearch,
 } from "features/Keysearch/keysearchSlice";
+import { AuthContext } from "context/AuthProvider";
 
 const useStyles = makeStyles((theme) => ({
   contained: {
@@ -77,20 +78,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchActivities({ style, layoutRef, scroll }) {
   const classes = useStyles();
-
+  const user = useContext(AuthContext);
+  console.log("user", user);
   const inputRef = useRef();
   const searchOverlay = useRef();
   const recentSearchesRef = useRef();
   const recentSearchesRef1 = useRef();
   const [searchText, setSearchText] = useState("");
   const listTour = useSelector(listRemainingSelectorTourSearch);
+
   const listKeySearch = useSelector(selectListKeysearch);
 
   const listCountry = useSelector(selectListCountry);
   const listCountryFilter = useSelector(selectListCountryFilter);
 
   const dispatch = useDispatch();
-  console.log(listCountry);
+
   const handleOpenModel = () => {
     window.scroll(0, scroll);
     recentSearchesRef.current.style.display = "block";
@@ -110,7 +113,7 @@ export default function SearchActivities({ style, layoutRef, scroll }) {
   useEffect(() => {
     dispatch(searchActivityActions.fetchSearchActivity(searchText));
     dispatch(searchActivityActions.setFilterSearchChangeInput(searchText));
-    dispatch(keysearchActions.fetchApiKeysearch());
+    dispatch(keysearchActions.fetchApiKeysearch(user ? user.sub : "1"));
     dispatch(countryActions.fetchApiCountrySearch());
     dispatch(countryActions.fetchApiCountryFilter(searchText));
   }, [dispatch, searchText]);
@@ -131,8 +134,12 @@ export default function SearchActivities({ style, layoutRef, scroll }) {
   const navigate = useNavigate();
 
   const handleOnButtonSearch = () => {
+    const params = {
+      idCustomer: user ? user.sub : "1",
+      q: searchText,
+    };
+    searchApi.postTextSearch(params);
     setSearchText("");
-    searchApi.postTextSearch(searchText);
   };
   const handleTourInSearch = (idActivity) => {
     navigate(`/activities/product/${idActivity}`);

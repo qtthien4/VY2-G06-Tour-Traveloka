@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { MenuItem, Select } from "@material-ui/core";
 import userApi from "api/ApiReal/userApi";
+import axios from "axios";
 import SelectFiled from "components/FormFields/SelectFiled";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -53,28 +54,26 @@ export default function Register() {
     if (password === rePassword) {
       //login tiep tuc
       setCheckpass(true);
-      //post api register in profile
-      var resUser = await userApi.register({
-        IdCustomer: shortid.generate(),
-        Name: Name,
-        email: email,
-        address: diachi,
-        taikhoan: taikhoan,
-        password: password,
-        Phone: Phone,
-        gender: gender1,
-        point: "",
-      });
-      toast.success("Bạn đã đăng kí tài khoản thành công");
-      console.log(data, resUser);
-      navigate("/login");
-
-      // if (resUser.messenger == "USER_EXISTED") {
-      //   toast.error("USER_EXISTED");
-      // } else {
-      //   toast.success("Bạn đã đăng kí tài khoản thành công");
-      //   navigate("/login");
-      // }
+      axios
+        .post("http://95.111.203.185:3003/api/registeruser", {
+          IdCustomer: shortid.generate(),
+          Name: Name,
+          email: email,
+          address: diachi,
+          taikhoan: taikhoan,
+          password: password,
+          Phone: Phone,
+          gender: gender1,
+          point: "",
+        })
+        .then((res) => {
+          if (res.data.messenger !== undefined) {
+            toast.error("USER_EXISTED");
+          } else {
+            toast.success("Bạn đã đăng kí tài khoản thành công");
+            navigate("/login");
+          }
+        });
     } else {
       setCheckpass(false);
     }
@@ -99,21 +98,6 @@ export default function Register() {
             className="login100-form validate-form"
           >
             <span className="login100-form-title">Member Register</span>
-            {/* <div
-              className="wrap-input100 validate-input"
-              data-validate="Valid email is required: ex@abc.xyz"
-            >
-              <input
-                {...register("email")}
-                className="input100 input1 input1"
-                type="text"
-                placeholder="Email"
-              />
-              <span className="focus-input100" />
-              <span className="symbol-input100">
-                <i className="fa fa-envelope" aria-hidden="true" />
-              </span>
-            </div> */}
 
             <div
               className="wrap-input100 validate-input"
@@ -208,10 +192,10 @@ export default function Register() {
                 className="input100 input1"
                 name="gender1"
                 control={control}
-                label="phone"
+                label="gender"
                 options={[
-                  { label: "Nam", value: "1" },
-                  { label: "Nữ", value: "0" },
+                  { label: "Nam", value: true },
+                  { label: "Nữ", value: false },
                 ]}
               />
 

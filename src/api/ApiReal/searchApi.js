@@ -1,9 +1,11 @@
 const { default: axiosClient } = require("../axiosClient");
 
 const searchApi = {
-  postTextSearch: (textSearch) => {
-    const url = `/test?q=${textSearch}`;
-    return axiosClient.post(url);
+  postTextSearch: (params) => {
+    const url = `/test`;
+    return axiosClient.post(url, {
+      params,
+    });
   },
   //   get: (id) => {
   //     const url = `/country/${id}`;

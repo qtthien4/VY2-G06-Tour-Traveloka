@@ -55,12 +55,12 @@ export const FAKE_API_TYPE_EXPERENCE = [
       listSaigon: [],
     },
     listNhaTrangType: {
-      title: "Nha Trang - Da Lat Transfer",
+      title: "Nha Trang Transfer",
       des: "Khám phá nơi truyền thống cũ và mới đầy màu sắc phát triển mạnh mẽ",
       listNhaTrang: [],
     },
     listHaNoiType: {
-      title: "Hanoi - Sapa Transfer",
+      title: "Hanoi Transfer",
       des: "Khám phá nơi truyền thống cũ và mới đầy màu sắc phát triển mạnh mẽ",
       listHaNoi: [],
     },
@@ -118,17 +118,17 @@ export const FAKE_API_TYPE_EXPERENCE = [
     },
 
     listSaigonType: {
-      title: "Bộ sưu tập thể thao",
+      title: "Bộ sưu tập thể thao ở Sài Gòn",
       des: "Khám phá các danh mục cho các bài tập và sức khỏe",
       listSaigon: [],
     },
     listNhaTrangType: {
-      title: "Điểm tham quan ở nước ngoài được bình chọn nhiều nhất",
+      title: "Điểm thể thao được bình chọn nhiều nhất ở Nha Trang",
       des: "Có sẵn trong tầm tay của bạn",
       listNhaTrang: [],
     },
     listHaNoiType: {
-      title: "Các điểm tham quan không bỏ lỡ",
+      title: "Các điểm thể thao không bỏ lỡ ở thủ đô Hà Nội",
       des: "Khám phá niềm vui với những người thân yêu của bạn",
       listHaNoi: [],
     },

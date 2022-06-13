@@ -36,6 +36,7 @@ export default function Transaction() {
   const [checkDay, setSetCheckday] = useState(false);
 
   const today = new Date();
+
   useEffect(() => {
     //call apiexport const today = new Date();
 
@@ -44,7 +45,6 @@ export default function Transaction() {
         const data = { user: user.email };
         setLoadding(true);
         const res = await transactionApi.post(data);
-        console.log("res", res);
 
         setLoadding(false);
         setDataTransaction(res);
@@ -78,7 +78,7 @@ export default function Transaction() {
       };
 
       const res = await refundApi.post(dataRefund);
-      console.log(res);
+
       if (res.code == 400) {
         toast.warning(res.messenger);
       }
@@ -92,7 +92,7 @@ export default function Transaction() {
       toast.error("Bạn đã hủy tour thất bại vì ngày hủy quá ngày bắt đầu !!!");
     }
   };
-  console.log(dataTransaction.length);
+
   return (
     <div>
       <Navbar />

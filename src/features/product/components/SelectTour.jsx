@@ -171,7 +171,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
       setDisableButtonIn(false);
     }
   }, [amountMax]);
-  console.log(amountMax, tour.Amount, listSchedule.AmountBooking);
+  console.log(amountMax);
   const increase = () => {
     if (amountMax > 0) {
       if (counter === amountMax - 1) {

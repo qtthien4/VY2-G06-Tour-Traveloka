@@ -16,7 +16,7 @@ import React, {
   useState,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import SearchActivities from "../../components/SearchActivities";
 import {
   searchActions,
@@ -45,8 +45,9 @@ export default function Search() {
   const scroll = 0;
   const navigate = useNavigate();
   const user = useContext(AuthContext);
+  let location = useLocation();
   const classes = useStyles();
-
+  let Type = location.pathname.split("/")[3];
   const listCityofTour = useSelector(SelectListTourOfCity);
 
   const nameCityOK = useSelector(selectNameCity);
@@ -60,7 +61,6 @@ export default function Search() {
     }
   }, [nameCityOK, CountryCityOK]);
   const dispatch = useDispatch();
-  let location = useLocation();
 
   useEffect(() => {
     if (location.search.split("&").length > 1) {
@@ -76,7 +76,7 @@ export default function Search() {
       dispatch(countryActions.fetchApiCountry(id));
       dispatch(favauriteActions.fetchApiFavaurite());
     }
-  }, [dispatch, location]);
+  }, [dispatch, location, Type]);
 
   //onclick navigation product
   const handleOnclickTourSearch = (idTour) => {
@@ -171,7 +171,13 @@ export default function Search() {
                 Xperience
               </NavLink>
               <span className={classes.slash}>/</span>
-              <Typography className={classes.linkCity}></Typography>
+              <NavLink
+                className={classes.linkActivities}
+                to={`/activities/category/${Type}`}
+                //className={classes.linkCity}
+              >
+                {Type}
+              </NavLink>
             </Box>
             <Typography className={classes.nameCity} variant="h4">
               {`Tất cả kết quả cho`} {renderName()}

@@ -89,9 +89,9 @@ export default function Tours() {
           <Grid className={classes.root}>
             <div className={classes.backgoundark}>
               <NavLink to="/activities">Xperience</NavLink>/
-              <NavLink to="/activities/category/daytour">
+              {/* <NavLink to={`/activities/category/${nameType}`}>
                 {state[0].nameType}
-              </NavLink>
+              </NavLink> */}
               <Typography variant="h3" className={classes.titleTour}>
                 {state[0].nameType}
               </Typography>

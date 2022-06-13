@@ -35,12 +35,12 @@ function Header({ user1 }) {
               alt="menu"
             />
           </div>
-          <a href="https://www.traveloka.com/vi-vn/activities">
+          <Link to="/activities">
             <img
               src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/30bf6c528078ba28d34bc3e37d124bdb.svg"
               alt="logo"
             />
-          </a>
+          </Link>
         </div>
         <div className="header1-right">
           <div className="header1-right-item1">

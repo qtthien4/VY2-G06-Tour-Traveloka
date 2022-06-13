@@ -5,9 +5,13 @@ const keysearchApi = {
     const url = `/keysearch`;
     return axiosClient.post(url, data);
   },
-  getAll: () => {
+  getAll: (idCustomer) => {
     const url = `/keysearch`;
-    return axiosClient.get(url);
+    return axiosClient.get(url, {
+      params: {
+        idCustomer,
+      },
+    });
   },
   delete: (data) => {
     const url = `/keysearch/${data}`;

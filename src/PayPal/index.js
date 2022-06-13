@@ -14,8 +14,6 @@ export default function PayPal({
 }) {
   const paypalRef = useRef();
   const dispatch = useDispatch();
-  console.log("checkGift", checkGift);
-  console.log("checkVoucher", checkVoucher);
 
   const checkOption = useRef();
 

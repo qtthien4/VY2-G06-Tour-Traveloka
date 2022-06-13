@@ -48,9 +48,7 @@ axiosClient.interceptors.request.use(async (config) => {
   //     config.headers.Authorization = `Bearer ${token}`
   // }
   const token = await getFirebaseToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
+
   return config;
 });
 axiosClient.interceptors.response.use(

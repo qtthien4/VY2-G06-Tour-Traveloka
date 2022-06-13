@@ -20,7 +20,11 @@ export default function TransactionItem({
                   <img
                     src={list.ImageUrl}
                     alt=""
-                    style={{ width: "100%", height: "100%" }}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "10px",
+                    }}
                   />
                 </div>
               </span>

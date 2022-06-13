@@ -18,11 +18,11 @@ export default function AuthProvider({ children }) {
   //handleOnclickXperience
 
   useEffect(() => {
-    console.log("user1", user);
+
     setUser(user);
   }, [user]);
   // useEffect(()=>{
-  console.log("user1", user);
+  
 
   // const [user, setUser] = useState({});
   // useEffect(() => {

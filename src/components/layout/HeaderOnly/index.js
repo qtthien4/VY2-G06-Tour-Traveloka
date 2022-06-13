@@ -10,11 +10,9 @@ export default function HeaderOnly({ children }) {
   //handleOnclickXperience
 
   useEffect(() => {
-    console.log("user1", user);
     setUser(user);
   }, [user]);
   // useEffect(()=>{
-  console.log("user1", user);
 
   return (
     <div>

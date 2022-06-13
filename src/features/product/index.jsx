@@ -66,13 +66,12 @@ function Product() {
                 Xperience
               </NavLink>
               /
-              <NavLink
+              {/* <NavLink
                 className={`main-text-link`}
                 to="/activities/category/daytour"
               >
                 tour
-              </NavLink>{" "}
-              /
+              </NavLink>{" "} */}
             </Box>
             <Box>
               <Button

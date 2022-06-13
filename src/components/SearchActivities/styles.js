@@ -25,4 +25,6 @@ export const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
   },
 }));
-{/* <SearchForm handleOpenModel={handleOpenModel} handleInputSearchChange={handleInputSearchChange} initialValue={initialValue} onSubmit = {handleSearchFormSubmit}/> */}
+{
+  /* <SearchForm handleOpenModel={handleOpenModel} handleInputSearchChange={handleInputSearchChange} initialValue={initialValue} onSubmit = {handleSearchFormSubmit}/> */
+}
