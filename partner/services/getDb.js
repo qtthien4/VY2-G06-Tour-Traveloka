@@ -28,6 +28,16 @@ class GetDb {
                 }
 
             }
+            // tim booking khac fail
+            for (var k = 0; k < arrActivity[i].booking.length;) {
+                if (arrActivity[i].booking[k].SttBooking == 'fail') {
+                    arrActivity[i].booking.splice(k, 1)
+                } else {
+                    k++
+                }
+
+            }
+
             totalBooking = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalBooking)
             arrActivity[i].totalBooking = totalBooking;
 
@@ -38,8 +48,8 @@ class GetDb {
             //count
             arrActivity[i].count = i + 1;
 
-            //count booking
             arrActivity[i].soluongdat = arrActivity[i].booking.length
+
         }
         return arrActivity;
     }
@@ -55,9 +65,11 @@ class GetDb {
             var arrSchedule = [], arrBooking = [], handleArrBooking, totalBooking = 0
             await schedule.findAll({ raw: true, where: { IdActivity: arrActivity[i].IdActivity } }).then(e => arrSchedule = e)
             arrActivity[i].schedule = arrSchedule;
+
             for (var j = 0; j < arrActivity[i].schedule.length; j++) {
                 await book.findAll({ raw: true, where: { IdSchedule: arrActivity[i].schedule[j].IdSchedule } }).then(e => handleArrBooking = [...handleArrBooking, ...e])
             }
+
             arrActivity[i].booking = handleArrBooking;
             for (var k = 0; k < arrActivity[i].booking.length; k++) {
                 totalBooking = totalBooking + parseInt(arrActivity[i].booking[k].Total)

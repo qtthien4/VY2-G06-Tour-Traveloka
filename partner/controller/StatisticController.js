@@ -20,6 +20,18 @@ class StatisticController {
             var totalBooking = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(arrBoking[i].Reduce)
             arrBoking[i].Reduce = totalBooking
         }
+        //loc booking fail
+        for (var i = 0; i < arrBoking.length;) {
+            if (arrBoking[i].SttBooking == 'fail') {
+                arrBoking.splice(i, 1)
+            } else {
+                i++
+            }
+        }
+        //dem lai
+        for (var i = 0; i < arrBoking.length; i++) {
+            arrBoking[i].count = i + 1
+        }
         res.render('statistcdetail', { booking: arrBoking, id: id, user: user });
         // res.send(arrBoking)
 

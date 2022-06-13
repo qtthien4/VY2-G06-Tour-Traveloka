@@ -145,21 +145,25 @@ class ApiController {
   }
 
   keysearch(req, res) {
+    var idCus = req.query.idCustomer
+
     keysearch
-      .findAll({ raw: true })
+      .findAll({ raw: true, where: { IdCustomer: idCus } })
       .then((arrKeySearch) => res.send(arrKeySearch));
   }
 
   async getkeysearch(req, res) {
-    var key = req.query.q;
-    await keysearch.create({
-      IdSearch: shortid.generate(),
-      IdCustomer: "1",
-      keyword: key,
-    });
-    res.json({
-      status: "ok",
-    });
+    var key = req.body.params;
+    if (/\S/.test(key.q)) {
+      await keysearch.create({
+        IdSearch: shortid.generate(),
+        IdCustomer: key.idCustomer,
+        keyword: key.q,
+      });
+      res.json({
+        status: "ok",
+      });
+    }
   }
 
   image(req, res) {
@@ -414,6 +418,14 @@ class ApiController {
     var idSchedule,
       arrBookingUser = [];
 
+    for (var i = 0; i < booking.length;) {
+      if (booking[i].SttBooking == 'fail') {
+        booking.splice(i, 1)
+      } else {
+        i++;
+      }
+    }
+
     for (var i = 0; i < booking.length; i++) {
       idSchedule = booking[i].IdSchedule;
       var objSchedule = await schedule.findOne({
@@ -445,8 +457,6 @@ class ApiController {
     }
 
     res.send(arrBookingUser);
-
-
   }
 
   //api post payment
