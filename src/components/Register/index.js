@@ -55,7 +55,7 @@ export default function Register() {
       //login tiep tuc
       setCheckpass(true);
       axios
-        .post("http://95.111.203.185:3003/api/registeruser", {
+        .post("http://localhost:3003/api/registeruser", {
           IdCustomer: shortid.generate(),
           Name: Name,
           email: email,

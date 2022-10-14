@@ -108,7 +108,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
 
     //call api schedule
 
-    await axios(`http://95.111.203.185:3003/api/schedule/${idTour}`, {
+    await axios(`http://localhost:3003/api/schedule/${idTour}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
