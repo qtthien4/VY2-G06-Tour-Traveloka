@@ -13,10 +13,15 @@ const CustomerModel = require("./models/customer.model");
 const UserModel = require("./models/user.model");
 
 const db = new Sequelize({
+  // database: "traveloka",
+  // server: `DESKTOP-V3484TO\\MAYAO`,
+  // port: 1433,
+  // driver: "msnodesqlv8",
+
   database: "traveloka",
   username: "sa",
-  password: "Qq123456789",
-  host: "95.111.203.185",
+  password: "Vovanhoangtuan1",
+  host: "198.52.123.236",
   port: "1433",
   dialect: "mssql",
   dialectOptions: {
