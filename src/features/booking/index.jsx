@@ -30,6 +30,7 @@ export default function Booking() {
   window.scroll(0, 0);
   Moment.globalFormat = "D MMM YYYY";
   var user = JSON.parse(localStorage.getItem("userInfo"));
+  console.log("user", user);
   const tour = useSelector(selectTour);
 
   const scheduleTour = JSON.parse(localStorage.getItem("schedule"));
@@ -93,7 +94,7 @@ export default function Booking() {
     } = formValue;
 
     if (user != null) {
-      ok = user.sub;
+      ok = user.IdCustomer.trim();
     } else {
       ok = "1";
     }
@@ -113,8 +114,8 @@ export default function Booking() {
       IdPayment: "",
     };
     const customerDetail = {
-      idDetail: idbooking.current,
-      idBooking: booking.idBooking.current,
+      idDetail: shortid.generate(),
+      idBooking: idbooking.current,
       customerName: nameBooking,
       cusPhoneNum: String(phoneBooking),
       emailCus: emailBooking,
@@ -122,10 +123,7 @@ export default function Booking() {
     };
 
     //localStorage.setItem("TourCurrent", JSON.stringify(TourCurrent));
-    console.log("formValue123", [
-      { customerDetail: customerDetail },
-      { booking: booking },
-    ]);
+    console.log("formValue123", [{ booking: booking }]);
 
     await bookingApi.post([
       { customerDetail: customerDetail },

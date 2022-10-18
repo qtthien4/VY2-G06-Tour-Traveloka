@@ -41,6 +41,7 @@ export default function Transaction() {
     //call apiexport const today = new Date();
 
     (async function () {
+      console.log("user", user);
       if (user) {
         const data = { user: user.email };
         setLoadding(true);

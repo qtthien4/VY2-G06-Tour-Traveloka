@@ -63,8 +63,8 @@ export default function BookingForm({
                   R
                 </Avatar>
               }
-              title={`Đăng nhập là ${user.name}`}
-              subheader={user.name}
+              title={`Đăng nhập là ${user.Name}`}
+              subheader={user.Name}
             />
           </Card>
         ) : (

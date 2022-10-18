@@ -274,7 +274,7 @@ function Header({ user1 }) {
                         fontWeight: 500,
                       }}
                     >
-                      <div>{user.name}</div>
+                      <div>{user.Name}</div>
                     </div>
                     <img
                       id="icon-right"

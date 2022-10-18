@@ -59,7 +59,7 @@ export default function Login({ setToken, setUser }) {
       matkhau: password,
     });
 
-    if (user.messenger == "Unauthorized") {
+    if (user.data == "user khong ton tai") {
       toast.warning("Tài khoản hoặc mật khẩu bị sai vui lòng nhập lại");
     } else {
       localStorage.setItem("userInfo", JSON.stringify(user));
