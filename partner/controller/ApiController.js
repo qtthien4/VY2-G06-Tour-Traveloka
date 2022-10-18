@@ -1,6 +1,6 @@
 const shortid = require("shortid");
-const axios = require('axios')
-const jwt_decode = require('jwt-decode');
+const axios = require("axios");
+const jwt_decode = require("jwt-decode");
 
 const {
   activity,
@@ -16,7 +16,7 @@ const {
 } = require("../configDb");
 
 class ApiController {
-  index(req, res) { }
+  index(req, res) {}
 
   async RegisterUser(req, res) {
     var info = req.body;
@@ -29,45 +29,44 @@ class ApiController {
 
     console.log(info);
 
-    var date = new Date()
-    date.setFullYear(1991)
+    var date = new Date();
+    date.setFullYear(1991);
 
     var dataRegister = {
-      "userId": "",
-      "email": req.body.email,
-      "username": req.body.taikhoan,
-      "name": req.body.Name,
-      "gender": true,
-      "dob": date,
-      "phone": req.body.Phone,
-      "address": req.body.address,
-      "type": "",
-      "reward": 0,
-      "services": [],
-      "companyName": "",
-      "access_token": "",
-      "password": req.body.password
-    }
-
-
-
+      userId: "",
+      email: req.body.email,
+      username: req.body.taikhoan,
+      name: req.body.Name,
+      gender: true,
+      dob: date,
+      phone: req.body.Phone,
+      address: req.body.address,
+      type: "",
+      reward: 0,
+      services: [],
+      companyName: "",
+      access_token: "",
+      password: req.body.password,
+    };
 
     try {
-      const register = await axios.post('https://profile.vinhphancommunity.xyz/api/auth/signup',
+      const register = await axios.post(
+        "https://profile.vinhphancommunity.xyz/api/auth/signup",
         dataRegister
-      )
+      );
 
-      console.log(register)
+      console.log(register);
 
-      await user.create({
-        IdCustomer: register.data.data.userId,
-        Name,
-        Phone,
-        email,
-        gender,
-        point,
-        password,
-      })
+      await user
+        .create({
+          IdCustomer: register.data.data.userId,
+          Name,
+          Phone,
+          email,
+          gender,
+          point,
+          password,
+        })
         .then((user) => {
           console.log(user.get({ plain: true }));
         })
@@ -76,12 +75,9 @@ class ApiController {
       res.json({
         status: "ok",
       });
-
     } catch (error) {
-      res.json({ messenger: error.response.data.message })
+      res.json({ messenger: error.response.data.message });
     }
-
-
   }
 
   tour(req, res) {
@@ -145,7 +141,7 @@ class ApiController {
   }
 
   keysearch(req, res) {
-    var idCus = req.query.idCustomer
+    var idCus = req.query.idCustomer;
 
     keysearch
       .findAll({ raw: true, where: { IdCustomer: idCus } })
@@ -236,6 +232,7 @@ class ApiController {
       const { customerDetail } = req.body[0];
       const { booking } = req.body[1];
       //booking
+      console.log("req.body", req.body);
       var idBooking = booking.idBooking;
       var idSchedule = booking.idSchedule;
       var userLogin = booking.idCustomer;
@@ -257,38 +254,47 @@ class ApiController {
       var emailCus = customerDetail.emailCus;
       var gender = customerDetail.gender;
 
-      const customerObj = await user.findOne({ raw: true, where: { IdCustomer: userLogin }, order: ['IdCustomer'] })
-      var idCustomer = customerObj.IdCustomer
-
       //inser db
-      await book.create({
-        IdBooking: idBooking,
-        IdSchedule: idSchedule,
-        IdCustomer: idCustomer,
-        IdVoucher: idVoucher,
-        IdGift: idGift,
-        PaymentOption: paymentOption,
-        BookingTime: bookingTime,
-        Total: total,
-        Reduce: reduce,
-        SttBooking: sttBooking,
-        AmountPeople: amountPeople,
-        IdPayment: idPayment,
+      const customerObj = await user.findOne({
+        raw: true,
+        where: { IdCustomer: userLogin },
+        order: ["IdCustomer"],
       });
+      var idCustomer = customerObj.IdCustomer;
 
-      await customer.create({
-        IdDetail: idDetail,
-        IdBooking: idBooking,
-        CustomerName: customerName,
-        CusPhoneNum: cusPhoneNum,
-        EmailCus: emailCus,
-        Gender: gender,
-      });
+      try {
+        await book.create({
+          IdBooking: idBooking,
+          IdSchedule: idSchedule,
+          IdCustomer: idCustomer,
+          IdVoucher: idVoucher,
+          IdGift: idGift,
+          PaymentOption: paymentOption,
+          BookingTime: bookingTime,
+          Total: total,
+          Reduce: reduce,
+          SttBooking: sttBooking,
+          AmountPeople: amountPeople,
+          IdPayment: idPayment,
+        });
+
+        await customer.create({
+          IdDetail: idDetail,
+          IdBooking: idBooking,
+          CustomerName: customerName,
+          CusPhoneNum: cusPhoneNum,
+          EmailCus: emailCus,
+          Gender: gender,
+        });
+        res.json({
+          status: "ok",
+        });
+      } catch (e) {
+        res.json({
+          status: "loi",
+        });
+      }
     }
-
-    res.json({
-      status: "ok",
-    });
   }
 
   async bookingId(req, res) {
@@ -311,12 +317,12 @@ class ApiController {
     var idBooking = endbooking.idBooking;
     var idSchedule = endbooking.idSchedule;
 
-    await customer.destroy({ where: { IdBooking: idBooking } })
+    await customer.destroy({ where: { IdBooking: idBooking } });
     await book.destroy({ where: { IdBooking: idBooking } });
     var scheduleObj = await schedule.findOne({
       raw: true,
       where: { IdSchedule: idSchedule },
-      order: ['IdSchedule']
+      order: ["IdSchedule"],
     });
 
     var subtractAmount = scheduleObj.AmountBooking - amountBooking;
@@ -327,49 +333,51 @@ class ApiController {
 
     console.log(endbooking);
 
-    res.json({ data: 'oke' })
-
+    res.json({ data: "oke" });
   }
 
   //lay thoong tin cua user (post)
   async Login(req, res) {
     var dataLogin = {
       username: req.body.user,
-      password: req.body.matkhau
-    }
+      password: req.body.matkhau,
+    };
 
     try {
-      const login = await axios.post('https://profile.vinhphancommunity.xyz/api/auth/login', dataLogin)
-      if (login.data.success) {
-        var decoded = jwt_decode(login.data.data.access_token);
+      //   const login = await axios.post('https://profile.vinhphancommunity.xyz/api/auth/login', dataLogin)
+      //   if (login.data.success) {
+      //     var decoded = jwt_decode(login.data.data.access_token);
 
-        var idphone = await user.findOne({
-          raw: true,
-          where: {
-            email: decoded.email
-          },
-          order: ['email']
-        })
-        decoded.Phone = idphone.Phone
-        // console.log(decoded);
-        res.json(decoded)
+      //     var idphone = await user.findOne({
+      //       raw: true,
+      //       where: {
+      //         email: decoded.email
+      //       },
+      //       order: ['email']
+      //     })
+      //     decoded.Phone = idphone.Phone
+      //     // console.log(decoded);
+      //     res.json(decoded)
+      //   }
+      //   console.log(login.data);
+      // } catch (error) {
+      //   res.json({ messenger: error.response.data.message })
+      // }
+      console.log(user);
+      var infoUser = await user.findOne({
+        raw: true,
+        where: { email: dataLogin.username },
+        order: ["IdCustomer"],
+      });
+
+      if (infoUser == null) {
+        res.json({ data: "user khong ton tai" });
+      } else {
+        res.send(infoUser);
       }
-      console.log(login.data);
-    } catch (error) {
-      res.json({ messenger: error.response.data.message })
+    } catch (e) {
+      console.log(e);
     }
-    // console.log(user)
-    // var infoUser = await user.findOne({
-    //   raw: true,
-    //   where: { email: userLogin },
-    //   order: ["IdCustomer"],
-    // });
-
-    // if (infoUser == null) {
-    //   res.json({ data: "user khong ton tai" });
-    // } else {
-    //   res.send(infoUser);
-    // }
   }
 
   //update giữ chổ
@@ -391,13 +399,12 @@ class ApiController {
     await schedule.update(
       {
         AmountBooking: sumPeopel,
-        Status: 1
+        Status: 1,
       },
       { where: { IdSchedule: idSchedule } }
     );
-    res.json({ data: 'ok' })
+    res.json({ data: "ok" });
   }
-
 
   //lay booking cuar user (post)
   async UserBooking(req, res) {
@@ -418,9 +425,9 @@ class ApiController {
     var idSchedule,
       arrBookingUser = [];
 
-    for (var i = 0; i < booking.length;) {
-      if (booking[i].SttBooking == 'fail') {
-        booking.splice(i, 1)
+    for (var i = 0; i < booking.length; ) {
+      if (booking[i].SttBooking == "fail") {
+        booking.splice(i, 1);
       } else {
         i++;
       }
@@ -475,7 +482,6 @@ class ApiController {
       var idUser = updateBooking.idCustomer;
       var point = updateBooking.score;
 
-
       //sstbooking
       await book.update(
         {
@@ -489,70 +495,75 @@ class ApiController {
         { where: { IdBooking: idbooking } }
       );
 
-
       //update điểm
-      var userObj = await user.findOne({ raw: true, where: { IdCustomer: idUser }, order: ['IdCustomer'] });
+      var userObj = await user.findOne({
+        raw: true,
+        where: { IdCustomer: idUser },
+        order: ["IdCustomer"],
+      });
       if (userObj != null) {
         var addPoint = userObj.point + point;
-        await user.update({ point: addPoint }, { where: { IdCustomer: idUser } });
+        await user.update(
+          { point: addPoint },
+          { where: { IdCustomer: idUser } }
+        );
       }
-
 
       //send cho vy3
       //get bookig
-      var bookObj = await book.findOne({
-        raw: true,
-        where: { IdBooking: idbooking },
-        order: ['IdBooking']
-      })
-      //get schedule
-      var scheduleObjFromBooking = await schedule.findOne({
-        raw: true,
-        where: { IdSchedule: bookObj.IdSchedule },
-        order: ['IdSchedule']
-      })
-      //get activity
-      var activityObjFromSchedule = await activity.findOne({
-        raw: true,
-        where: { IdActivity: scheduleObjFromBooking.IdActivity },
-        order: ['IdActivity']
-      })
+      // var bookObj = await book.findOne({
+      //   raw: true,
+      //   where: { IdBooking: idbooking },
+      //   order: ["IdBooking"],
+      // });
+      // //get schedule
+      // var scheduleObjFromBooking = await schedule.findOne({
+      //   raw: true,
+      //   where: { IdSchedule: bookObj.IdSchedule },
+      //   order: ["IdSchedule"],
+      // });
+      // //get activity
+      // var activityObjFromSchedule = await activity.findOne({
+      //   raw: true,
+      //   where: { IdActivity: scheduleObjFromBooking.IdActivity },
+      //   order: ["IdActivity"],
+      // });
 
-      var voucher
-      if (bookObj.IdVoucher == "                    ") {
-        voucher = null
-      } else {
-        voucher = bookObj.IdVoucher.trim()
-      }
+      // var voucher;
+      // if (bookObj.IdVoucher == "                    ") {
+      //   voucher = null;
+      // } else {
+      //   voucher = bookObj.IdVoucher.trim();
+      // }
 
-      const dataSend = {
-        "reward": 10,
-        "details": [
-          {
-            "productName": activityObjFromSchedule.ActivityName,
-            "quantity": bookObj.AmountPeople,
-            "price": activityObjFromSchedule.Price,
-            "thumbnail": activityObjFromSchedule.ImageUrl,
-            "link": `http://95.111.203.185:3001/activities/product/${activityObjFromSchedule.IdActivity.trim()}`,
-          }
-        ],
-        "voucherCode": voucher,
-        "partnerId": activityObjFromSchedule.Idpartner,
-        "userId": bookObj.IdCustomer
-      }
+      // const dataSend = {
+      //   reward: 10,
+      //   details: [
+      //     {
+      //       productName: activityObjFromSchedule.ActivityName,
+      //       quantity: bookObj.AmountPeople,
+      //       price: activityObjFromSchedule.Price,
+      //       thumbnail: activityObjFromSchedule.ImageUrl,
+      //       link: `http://95.111.203.185:3001/activities/product/${activityObjFromSchedule.IdActivity.trim()}`,
+      //     },
+      //   ],
+      //   voucherCode: voucher,
+      //   partnerId: activityObjFromSchedule.Idpartner,
+      //   userId: bookObj.IdCustomer,
+      // };
 
-      await axios({
-        method: 'post',
-        headers: {
-          'service_code': 'XPERIENCE',
-          'Content-Type': 'application/json'
-        },
-        url: 'http://139.59.104.129:3010/api/orders',
-        data: dataSend,
-      })
+      // await axios({
+      //   method: "post",
+      //   headers: {
+      //     service_code: "XPERIENCE",
+      //     "Content-Type": "application/json",
+      //   },
+      //   url: "http://139.59.104.129:3010/api/orders",
+      //   data: dataSend,
+      // });
     }
 
-    res.json({ data: "ok" })
+    res.json({ data: "ok" });
   }
 
   //hoan tien lai
@@ -561,8 +572,16 @@ class ApiController {
     var idSchedule = req.body.idSchedule;
 
     var time = new Date();
-    const scheduleObj = await schedule.findOne({ raw: true, where: { IdSchedule: idSchedule }, order: ['IdSchedule'] })
-    const bookObj = await book.findOne({ raw: true, where: { IdBooking: idbooking }, order: ['IdBooking'] })
+    const scheduleObj = await schedule.findOne({
+      raw: true,
+      where: { IdSchedule: idSchedule },
+      order: ["IdSchedule"],
+    });
+    const bookObj = await book.findOne({
+      raw: true,
+      where: { IdBooking: idbooking },
+      order: ["IdBooking"],
+    });
     var timestart = new Date(scheduleObj.StartTime);
 
     time.setDate(time.getDate() + 1);
@@ -570,33 +589,50 @@ class ApiController {
     if (timestart > time) {
       var idPayment = bookObj.IdPayment.trim();
       try {
-        const refund = await axios(`https://api-m.sandbox.paypal.com/v2/payments/captures/${idPayment}/refund`, {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          auth: {
-            username: process.env.PUCLIC_KEY_PAYPAL,
-            password: process.env.SERECT_KEY_PAYPAL
+        const refund = await axios(
+          `https://api-m.sandbox.paypal.com/v2/payments/captures/${idPayment}/refund`,
+          {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            auth: {
+              username: process.env.PUCLIC_KEY_PAYPAL,
+              password: process.env.SERECT_KEY_PAYPAL,
+            },
           }
-        })
+        );
 
         //doi trang thai
-        await book.update({
-          SttBooking: 'refund'
-        }, { where: { IdBooking: idbooking } })
+        await book.update(
+          {
+            SttBooking: "refund",
+          },
+          { where: { IdBooking: idbooking } }
+        );
 
         //doi so luong dat
-        await schedule.update({
-          AmountBooking: bookObj.AmountPeople
-        }, { where: { IdSchedule: idSchedule } })
+        await schedule.update(
+          {
+            AmountBooking: bookObj.AmountPeople,
+          },
+          { where: { IdSchedule: idSchedule } }
+        );
 
-        res.json({ data: "success", messenger: "Hoàn thành công", "code": 200 })
+        res.json({ data: "success", messenger: "Hoàn thành công", code: 200 });
       } catch (error) {
-        res.json({ data: error, messenger: "Tour này đã được hoàn", "code": 400 })
+        res.json({
+          data: error,
+          messenger: "Tour này đã được hoàn",
+          code: 400,
+        });
       }
     } else {
-      res.json({ data: "fail", "messenger": "Đã hết thời gian có thể hoàn tiền", "code": 401 })
+      res.json({
+        data: "fail",
+        messenger: "Đã hết thời gian có thể hoàn tiền",
+        code: 401,
+      });
     }
   }
 }
