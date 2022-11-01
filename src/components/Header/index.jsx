@@ -29,21 +29,22 @@ function Header({ user1 }) {
     >
       <div className="header1">
         <div className="header1-left">
-          <div id="icon-menu-header">
+          {/* <div id="icon-menu-header">
             <img
               src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/8/8c5c07f3e6c8c7806ef853f5e943e27b.svg"
               alt="menu"
             />
-          </div>
-          <Link to="/activities">
+          </div> */}
+          <p style={{ fontSize: "30px", paddingTop: "15§px" }}>TOUR DU LỊCH</p>
+          {/* <Link to="/activities">
             <img
               src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/30bf6c528078ba28d34bc3e37d124bdb.svg"
               alt="logo"
             />
-          </Link>
+          </Link> */}
         </div>
         <div className="header1-right">
-          <div className="header1-right-item1">
+          {/* <div className="header1-right-item1">
             <svg
               id="icon-right"
               width={16}
@@ -74,8 +75,8 @@ function Header({ user1 }) {
               style={{ marginLeft: "4px" }}
               alt=""
             />
-          </div>
-          <div className="header1-right-item2">
+          </div> */}
+          {/* <div className="header1-right-item2">
             <a href="/#">
               <div>
                 <img
@@ -106,8 +107,8 @@ function Header({ user1 }) {
               </div>
               <div id="font-header">Đặt chỗ của tôi</div>
             </a>
-          </div>
-          <div className="header1-right-item3">
+          </div> */}
+          {/* <div className="header1-right-item3">
             <div>
               <img
                 alt="a"
@@ -144,8 +145,8 @@ function Header({ user1 }) {
                 alt=""
               />
             </div>
-            <div />
-          </div>
+           
+          </div> */}
           {Object.keys(user).length > 0 ? (
             <HeadlessTippy
               placement="bottom-end"
@@ -349,7 +350,7 @@ function Header({ user1 }) {
           )}
         </div>
       </div>
-      <div className="header2">
+      {/* <div className="header2">
         <div className="header2-item1">
           <div>Vận chuyển</div>
           <img
@@ -378,7 +379,7 @@ function Header({ user1 }) {
             alt=""
           />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

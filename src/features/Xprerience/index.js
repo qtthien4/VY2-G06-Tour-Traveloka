@@ -48,11 +48,11 @@ export default function Xperience() {
       </div>
       <Slide handleOnclickXperience={handleOnclickXperience} list={listTour} />
 
-      <div style={{ marginLeft: "100px", marginTop: "50px" }}>
+      {/* <div style={{ marginLeft: "100px", marginTop: "50px" }}>
         <h3>Khuyến mãi Xperience hiện hành</h3>
         <p>Tiết kiệm lớn với những ưu đãi đặc biệt giới hạn của chúng tôi</p>
       </div>
-      <Slide list={listPromotion} />
+      <Slide list={listPromotion} /> */}
 
       <div style={{ marginLeft: "100px", marginTop: "50px" }}>
         <h3>Bí kíp du lịch an toàn hậu Covid</h3>

@@ -6,7 +6,7 @@ function Footer() {
     <div className="footer">
       <div>
         <div style={{ display: "flex" }}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          {/* <div style={{ display: "flex", flexDirection: "column" }}>
             <img
               src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/8/86afd0785f5505dd6d584971576dea27.svg"
               style={{ width: "200px", height: "90px" }}
@@ -182,11 +182,11 @@ function Footer() {
                 </div>
               </div>
             </div>
-          </div>
-          <div style={{ display: "flex", marginLeft: "170px" }}>
-            <div style={{ marginRight: "70px" }}>
+          </div> */}
+          <div style={{ display: "flex", margin: "auto" }}>
+            <div style={{ marginRight: "70px", color: "white" }}>
               <div>
-                <h4>Về Traveloka</h4>
+                <h2>Về Traveloka</h2>
                 <ul className="handleul">
                   <li>Cách đặt chỗ</li>
                   <li>Liên hệ chúng tôi</li>
@@ -196,7 +196,7 @@ function Footer() {
                 </ul>
               </div>
               <div>
-                <h4 style={{ marginTop: "50px" }}>Theo dõi chúng tôi trên </h4>
+                <h2 style={{ marginTop: "50px" }}>Theo dõi chúng tôi trên </h2>
                 <ul className="handleul">
                   <li>
                     <i className="bi bi-twitter" /> Twitter
@@ -216,7 +216,7 @@ function Footer() {
               </div>
             </div>
             <div style={{ marginRight: "70px" }}>
-              <h4>Sản Phẩm</h4>
+              <h2>Sản Phẩm</h2>
               <ul className="handleul">
                 <li>Vé máy bay</li>
                 <li>Khách sạn</li>
@@ -231,7 +231,7 @@ function Footer() {
             </div>
             <div>
               <div>
-                <h4>Khác</h4>
+                <h2>Khác</h2>
                 <ul className="handleul">
                   <li>Traveloka Affiliate</li>
                   <li>Traveloka Blog</li>
@@ -244,7 +244,7 @@ function Footer() {
                 </ul>
               </div>
               <div>
-                <h4 style={{ marginTop: "50px" }}>Tải ứng dụng Traveloka</h4>
+                <h2 style={{ marginTop: "50px" }}>Tải ứng dụng Traveloka</h2>
                 <img
                   src="https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/c/c90225c14bd4b3b9dc24f1eef7ce6260.svg"
                   alt=""

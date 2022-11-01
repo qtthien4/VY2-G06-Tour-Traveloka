@@ -40,16 +40,7 @@ export default function Register() {
   });
 
   const onSubmit = async (data) => {
-    const {
-      Name,
-      diachi,
-      email,
-      Phone,
-      gender1,
-      taikhoan,
-      password,
-      rePassword,
-    } = data;
+    const { Name, email, Phone, gender1, password, rePassword } = data;
 
     if (password === rePassword) {
       //login tiep tuc
@@ -59,8 +50,6 @@ export default function Register() {
           IdCustomer: shortid.generate(),
           Name: Name,
           email: email,
-          address: diachi,
-          taikhoan: taikhoan,
           password: password,
           Phone: Phone,
           gender: gender1,
@@ -124,40 +113,6 @@ export default function Register() {
                 className="input100 input1"
                 type="text"
                 placeholder="Số điện thoại"
-              />
-              <p>{errors.email?.message}</p>
-              <span className="focus-input100" />
-              <span className="symbol-input100">
-                <i className="fa fa-envelope" aria-hidden="true" />
-              </span>
-            </div>
-
-            <div
-              className="wrap-input100 validate-input"
-              data-validate="Valid email is required: ex@abc.xyz"
-            >
-              <input
-                {...register("taikhoan")}
-                className="input100 input1"
-                type="text"
-                placeholder="Tài khoản"
-              />
-              <p>{errors.email?.message}</p>
-              <span className="focus-input100" />
-              <span className="symbol-input100">
-                <i className="fa fa-envelope" aria-hidden="true" />
-              </span>
-            </div>
-
-            <div
-              className="wrap-input100 validate-input"
-              data-validate="Valid email is required: ex@abc.xyz"
-            >
-              <input
-                {...register("diachi")}
-                className="input100 input1"
-                type="text"
-                placeholder="Địa chỉ"
               />
               <p>{errors.email?.message}</p>
               <span className="focus-input100" />

@@ -51,6 +51,7 @@
         "shortid": "^2.2.16",
         "slick-carousel": "^1.8.1",
         "sort-ids": "^2.1.0",
+        "styled-components": "^5.3.6",
         "swiper": "^8.0.7",
         "url": "^0.11.0",
         "uselocalstorage-react-hook": "^1.0.5",
