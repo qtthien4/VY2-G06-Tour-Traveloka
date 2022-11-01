@@ -21,8 +21,8 @@ const db = new Sequelize({
   database: "traveloka",
   username: "sa",
   password: "Vovanhoangtuan1",
-  host: "198.52.123.236",
-  port: "1433",
+  host: "194.233.92.2",
+  port: "30011",
   dialect: "mssql",
   dialectOptions: {
     ssl: false,

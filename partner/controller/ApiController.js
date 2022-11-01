@@ -32,34 +32,34 @@ class ApiController {
     var date = new Date();
     date.setFullYear(1991);
 
-    var dataRegister = {
-      userId: "",
-      email: req.body.email,
-      username: req.body.taikhoan,
-      name: req.body.Name,
-      gender: true,
-      dob: date,
-      phone: req.body.Phone,
-      address: req.body.address,
-      type: "",
-      reward: 0,
-      services: [],
-      companyName: "",
-      access_token: "",
-      password: req.body.password,
-    };
+    // var dataRegister = {
+    //   userId: "",
+    //   email: req.body.email,
+    //   username: req.body.taikhoan,
+    //   name: req.body.Name,
+    //   gender: true,
+    //   dob: date,
+    //   phone: req.body.Phone,
+    //   address: req.body.address,
+    //   type: "",
+    //   reward: 0,
+    //   services: [],
+    //   companyName: "",
+    //   access_token: "",
+    //   password: req.body.password,
+    // };
 
     try {
-      const register = await axios.post(
-        "https://profile.vinhphancommunity.xyz/api/auth/signup",
-        dataRegister
-      );
+      // const register = await axios.post(
+      //   "https://profile.vinhphancommunity.xyz/api/auth/signup",
+      //   dataRegister
+      // );
 
-      console.log(register);
+      // console.log(register);
 
       await user
         .create({
-          IdCustomer: register.data.data.userId,
+          IdCustomer: shortid.generate(),
           Name,
           Phone,
           email,

@@ -27,7 +27,7 @@ class Login {
         const checkAccount = await partner.findOne({
           raw: true,
           where: {
-            UserPartner: user,
+            UserPartner: dataLogin.username,
           },
           order: ["UserPartner"],
         });
