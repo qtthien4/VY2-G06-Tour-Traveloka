@@ -12,17 +12,14 @@ const BookingModel = require("./models/booking.model");
 const CustomerModel = require("./models/customer.model");
 const UserModel = require("./models/user.model");
 
-const db = new Sequelize({
-  // database: "traveloka",
-  // server: `DESKTOP-V3484TO\\MAYAO`,
-  // port: 1433,
-  // driver: "msnodesqlv8",
+require("dotenv").config();
 
-  database: "traveloka",
-  username: "sa",
-  password: "Vovanhoangtuan1",
-  host: "194.233.92.2",
-  port: "30011",
+const db = new Sequelize({
+  database: process.env.NAME_DATABASE,
+  username: process.env.USERNAME_DB,
+  password: process.env.PASSWORD_DB,
+  host: process.env.SERVER_DB,
+  port: process.env.PORT_DB,
   dialect: "mssql",
   dialectOptions: {
     ssl: false,

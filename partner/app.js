@@ -5,6 +5,8 @@ var cookieParser = require("cookie-parser");
 const app = express();
 const cors = require("cors");
 
+require("dotenv").config();
+
 app.use(cors());
 app.use(express.static(__dirname + "/public"));
 
@@ -30,6 +32,6 @@ app.get("/xperience", (req, res) => {
   res.render("xperience");
 });
 
-app.listen(3003, () => {
+app.listen(process.env.PORT_BACKEND, () => {
   console.log("Node server running @ http://localhost:3003");
 });
