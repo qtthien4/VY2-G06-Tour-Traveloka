@@ -46,7 +46,7 @@ export default function Register() {
       //login tiep tuc
       setCheckpass(true);
       axios
-        .post("http://localhost:3003/api/registeruser", {
+        .post(`${process.env.REACT_APP_API_URL}/registeruser`, {
           IdCustomer: shortid.generate(),
           Name: Name,
           email: email,

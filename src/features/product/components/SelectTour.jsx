@@ -108,7 +108,7 @@ export default function SelectTour({ schedule, tour, idTour }) {
 
     //call api schedule
 
-    await axios(`http://localhost:3003/api/schedule/${idTour}`, {
+    await axios(`${process.env.REACT_APP_API_URL}/schedule/${idTour}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

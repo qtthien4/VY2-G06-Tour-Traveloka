@@ -23,18 +23,8 @@ const schema = yup
   })
   .required();
 
-async function loginUser(credentials) {
-  return fetch("http://localhost:3005/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
-}
-
 async function getUser(user) {
-  return fetch("http://localhost:3003/api/login", {
+  return fetch(`${process.env.REACT_APP_API_URL}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
