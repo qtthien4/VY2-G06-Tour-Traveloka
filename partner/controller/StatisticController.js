@@ -1,4 +1,3 @@
-const Int = require('tedious/lib/data-types/int');
 const { Parser } = require('tedious/lib/token/token-stream-parser');
 var { activity, schedule, book, user, type, partner } = require('../configDb');
 var GetDb = require('../services/getDb')

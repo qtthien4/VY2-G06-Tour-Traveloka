@@ -32,6 +32,6 @@ app.get("/xperience", (req, res) => {
   res.render("xperience");
 });
 
-app.listen(process.env.PORT_BACKEND, () => {
+app.listen(process.env.PORT, () => {
   console.log("Node server running @ http://localhost:3003");
 });

@@ -14,20 +14,22 @@ const UserModel = require("./models/user.model");
 
 require("dotenv").config();
 
-const db = new Sequelize({
-  database: process.env.NAME_DATABASE,
-  username: process.env.USERNAME_DB,
-  password: process.env.PASSWORD_DB,
-  host: process.env.SERVER_DB,
-  port: process.env.PORT_DB,
-  dialect: "mssql",
-  dialectOptions: {
-    ssl: false,
-  },
-  define: {
-    freezeTableName: true,
-  },
-});
+// const db = new Sequelize({
+//   database: process.env.NAME_DATABASE,
+//   username: process.env.USERNAME_DB,
+//   password: process.env.PASSWORD_DB,
+//   host: process.env.SERVER_DB,
+//   port: process.env.PORT_DB,
+//   dialect: "mssql",
+//   dialectOptions: {
+//     ssl: false,
+//   },
+//   define: {
+//     freezeTableName: true,
+//   },
+// });
+
+const db = new Sequelize(process.env.DB_URI);
 
 const activity = ActivityModel(db);
 const partner = PartnerModel(db);

@@ -1,4 +1,4 @@
-const sql = require('mssql/msnodesqlv8')
+
 
 const { activity, favourite, schedule, type, partner } = require("../configDb")
 class TableController {
